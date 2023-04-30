@@ -653,7 +653,7 @@ section {
 /*--------------------------------------------------------------
 # Services
 --------------------------------------------------------------*/
-.services .icon-box {
+/*.services .icon-box {
   text-align: center;
   border: 1px solid #ebebeb;
   padding: 80px 20px;
@@ -705,8 +705,126 @@ section {
   border-color: #fff;
   box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);
   transform: translateY(-10px);
+}*/
+#services {
 }
 
+#services .services-top {
+padding: 70px 0 50px;
+}
+
+#services .services-list {
+padding-top: 50px;
+}
+
+.services-list .service-block {
+margin-bottom: 25px;
+}
+
+.services-list .service-block .ico {
+font-size: 38px;
+float: left;
+}
+
+.services-list .service-block .text-block {
+margin-left: 58px;
+}
+
+.services-list .service-block .text-block .name {
+font-size: 20px;
+font-weight: 900;
+margin-bottom: 5px;
+}
+
+.services-list .service-block .text-block .info {
+font-size: 16px;
+font-weight: 300;
+margin-bottom: 10px;
+}
+
+.services-list .service-block .text-block .text {
+font-size: 12px;
+line-height: normal;
+font-weight: 300;
+}
+
+.highlight {
+    color: #ffc451;
+    font-weight: bold;
+}
+/*--------------------------------------------------------------
+# Alt Services Section
+--------------------------------------------------------------*/
+.alt-services .img-bg {
+    background-size: cover;
+    background-position: center center;
+    min-height: 400px;
+}
+
+.alt-services h3 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-secondary);
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+    .alt-services h3:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 50px;
+        height: 3px;
+        background: var(--color-primary);
+        left: 0;
+        bottom: 0;
+    }
+
+.alt-services .icon-box {
+    margin-top: 50px;
+}
+
+    .alt-services .icon-box i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-primary);
+        margin-right: 25px;
+        font-size: 28px;
+        width: 56px;
+        height: 56px;
+        border-radius: 4px;
+        line-height: 0;
+       
+        transition: 0.3s;
+    }
+
+    .alt-services .icon-box:hover i {
+        background-color: var(--color-primary);
+        color: #fff;
+    }
+
+    .alt-services .icon-box h4 {
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+        .alt-services .icon-box h4 a {
+            color: #000;
+            transition: 0.3s;
+        }
+
+            .alt-services .icon-box h4 a:hover {
+                color: var(--color-primary);
+            }
+
+    .alt-services .icon-box p {
+        line-height: 24px;
+        font-size: 14px;
+        margin-bottom: 0;
+    }
 /*--------------------------------------------------------------
 # Cta
 --------------------------------------------------------------*/
