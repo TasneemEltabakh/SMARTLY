@@ -272,6 +272,7 @@
       clickable: true
     }
   });
+    //
 
   /**
    * Animation on scroll
