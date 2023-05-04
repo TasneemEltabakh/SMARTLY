@@ -2848,7 +2848,7 @@ Search
 
 .header-search {
     
-    }
+ }
 .header-search form {
     padding-top: 50px;
     padding-right: 30px;
@@ -2869,11 +2869,10 @@ border-radius: 40px 0px 0px 40px;
     background: #ffc451;
     color: #FFF;
     font-weight: 700;
-    border: none;
-       
+    border: none;       
     float: right;
     height: 40px;
-    margin: auto;
+  
     border-radius: 0px 40px 40px 0px;
 }
 
