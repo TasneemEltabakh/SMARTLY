@@ -2,6 +2,16 @@
 @model SMARTLY.Pages.Bundle_ItemModel
 @{
 }
+<style>
+    header {
+        background-image: url('assets/img/homeView.jpg');
+    }
+</style>
+    <br />
+    <br />
+    <br />
+    <br />
+
 
 
     <!-- ======= Breadcrumbs ======= -->
@@ -9,62 +19,125 @@
         <div class="container">
 
             <div class="d-flex justify-content-between align-items-center">
-                <h2>Portfolio Details</h2>
+                <h2>Bundle Details</h2>
                 <ol>
-                    <li><a href="index.html">Home</a></li>
-                    <li>Portfolio Details</li>
+                    <li><a href="Index">Home</a></li>
+                    <li>Bundle Details</li>
                 </ol>
             </div>
 
         </div>
     </section><!-- End Breadcrumbs -->
-    <!-- ======= Portfolio Details Section ======= -->
-    <section id="portfolio-details" class="portfolio-details">
-        <div class="container">
 
-            <div class="row gy-4">
+    <br />
+    <br />
 
-                <div class="col-lg-8">
-                    <div class="portfolio-details-slider swiper">
-                        <div class="swiper-wrapper align-items-center">
+<!-- advertisement section -->
+<div class="abt-section mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="abt-bg">
+                    <img src="assets/img/image_6483441.jpg" class="img-fluid" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="abt-text">
+                    <p class="top-sub">First Stage</p>
+                    <h2>This is <span class="orange-text">Basic</span></h2>
+                    <p>Total Price: 30000</p>
+                    <p>Number of Products: 6</p>
+                    <p>Show the information of this Bundle Here.</p>
+                    <a href="Bundle_Out" class="boxed-btn mt-4">See Other Bundles</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end advertisement section -->
+<br />
+<br />
+<br />
+<br />
 
-                            <div class="swiper-slide">
-                                <img src="assets/img/portfolio/portfolio-1.jpg" alt="">
-                            </div>
+<!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
 
-                            <div class="swiper-slide">
-                                <img src="assets/img/portfolio/portfolio-2.jpg" alt="">
-                            </div>
+        <div class="section-title">
+          <span>Products</span>
+          <h2>Products of this Bundle</h2>
+          <p>Here You Could Find The Products Of This Bundle</p>
+        </div>
 
-                            <div class="swiper-slide">
-                                <img src="assets/img/portfolio/portfolio-3.jpg" alt="">
-                            </div>
+        <div class="row" data-aos="fade-up">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+            </ul>
+          </div>
+        </div>
 
+        <br />
+        <br />
+        <br />
+
+
+            <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="150">
+
+
+
+                  <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                    <img src="assets/img/R1.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                          <h4>Product Name</h4>
+                          <p>Information about this product</p>
+                          <a href="assets/img/R1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
+                          <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                         </div>
-                        <div class="swiper-pagination"></div>
+                  </div>
+
+
+
+                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                    <img src="assets/img/R2.jpg" class="img-fluid" alt="">
+                    <div class="portfolio-info">
+                        <h4>Product Name</h4>
+                        <p>Information about this product</p>
+                        <a href="assets/img/R2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
+                        <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                     </div>
                 </div>
 
-                <div class="col-lg-4">
-                    <div class="portfolio-info">
-                        <h3>Project information</h3>
-                        <ul>
-                            <li><strong>Category</strong>: Web design</li>
-                            <li><strong>Client</strong>: ASU Company</li>
-                            <li><strong>Project date</strong>: 01 March, 2020</li>
-                            <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
-                        </ul>
-                    </div>
-                    <div class="portfolio-description">
-                        <h2>This is an example of portfolio detail</h2>
-                        <p>
-                            Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-                        </p>
-                    </div>
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                <img src="assets/img/R3.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                    <h4>Product Name</h4>
+                    <p>Information about this product</p>
+                    <a href="assets/img/R3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
+                    <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
+            </div>
+
+
+
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                <img src="assets/img/R4.jpg" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                    <h4>Product Name</h4>
+                    <p>Information about this product</p>
+                    <a href="assets/img/R4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
+                    <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+            </div>
 
             </div>
 
-        </div>
-    </section><!-- End Portfolio Details Section -->
+      </div>
+    </section>
 
+    <br />
+    <br />
+
+<!-- End Portfolio Section -->
