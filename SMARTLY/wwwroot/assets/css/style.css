@@ -4129,7 +4129,6 @@ textarea.input {
         .portfolio-details .portfolio-description p {
             padding: 0;
         }
-
 /*--------------------------------------------------------------
 # Part In Bundle  Rghda
 --------------------------------------------------------------*/
@@ -4156,9 +4155,11 @@ textarea.input {
         background-color: #051922;
         opacity: 0.3;
     }
-    .pricing .box .btn-buy:hover {
-        background: #ffc451;
-    }
+
+.pricing .box .btn-buy:hover {
+    background: #ffc451;
+}
+
 .track-line {
     height: 2px !important;
     background-color: #488978;
@@ -4198,26 +4199,33 @@ textarea.input {
 # Button Admin  Rghda
 --------------------------------------------------------------*/
 .Admin_Button {
-    display: inline-block;
-    padding: 15px 25px;
-    font-size: 24px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
+display: inline-block;
+padding: 15px 25px;
+font-size: 24px;
+cursor: pointer;
+text-align: center;
+text-decoration: none;
+outline: none;
+color: #fff;
+background-color: #4CAF50;
+border: none;
+border-radius: 15px;
+box-shadow: 0 9px #999;
 }
 
-    .Admin_Button:hover {
-        background-color: #3e8e41
-    }
+.Admin_Button:hover {
+    background-color: #3e8e41
+}
 
-    .Admin_Button:active {
-        background-color: #3e8e41;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-    }
+.Admin_Button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+.horizontal-timeline .items .items-list {
+    padding-top: 15px;
+}
+.center_Table{
+    margin-left: auto;
+    margin-right: auto;
+}
