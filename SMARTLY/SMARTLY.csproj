@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\AdminView\" />
     <Folder Include="Pages\ClientView\" />
     <Folder Include="Pages\AgencyView\" />
-    <Folder Include="Pages\AdminView\" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SMARTLY.Pages.AdminView
+namespace SMARTLY.Pages
 {
-    public class Products_MainModel : PageModel
+    public class SignUpModel : PageModel
     {
         public void OnGet()
         {
