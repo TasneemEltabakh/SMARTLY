@@ -4139,8 +4139,8 @@ textarea.input {
     width: 100%;
     background-size: cover;
     background-position: center;
-    border-top-right-radius: 300px;
-    border-bottom-left-radius: 300px;
+    border-top-right-radius: 200px;
+    border-bottom-left-radius: 50px;
     position: relative;
     z-index: 1;
     overflow: hidden;

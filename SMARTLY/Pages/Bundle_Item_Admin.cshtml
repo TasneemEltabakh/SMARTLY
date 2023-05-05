@@ -1,7 +1,8 @@
 ﻿@page
-@model SMARTLY.Pages.Bundle_ItemModel
+@model SMARTLY.Pages.Bundle_Item_AdminModel
 @{
 }
+
 <style>
     header {
         background-image: url('assets/img/homeView.jpg');
@@ -48,6 +49,7 @@
                     <p>Total Price: 30000</p>
                     <p>Number of Products: 6</p>
                     <p>Show the information of this Bundle Here.</p>
+                    <button class="Admin_Button">Edit</button><br /><br />
                     <a href="Bundle_Out" class="boxed-btn mt-4">See Other Bundles</a>
                 </div>
             </div>
@@ -92,8 +94,8 @@
                         <div class="portfolio-info">
                           <h4>Product Name</h4>
                           <p>Information about this product</p>
-                          <a href="assets/img/R1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                          <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                          <a href="assets/img/R1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Edit"><i class="bx bx-plus"></i></a>
+                    <a href="/Product_internal" class="details-link" title="Delete This"><i class="fa fa-times"></i></a>
                         </div>
                   </div>
 
@@ -104,8 +106,8 @@
                     <div class="portfolio-info">
                         <h4>Product Name</h4>
                         <p>Information about this product</p>
-                        <a href="assets/img/R2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                        <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        <a href="assets/img/R2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Edit"><i class="bx bx-plus"></i></a>
+                    <a href="/Product_internal" class="details-link" title="Delete This"><i class="fa fa-times"></i></a>
                     </div>
                 </div>
 
@@ -115,8 +117,8 @@
                 <div class="portfolio-info">
                     <h4>Product Name</h4>
                     <p>Information about this product</p>
-                    <a href="assets/img/R3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    <a href="assets/img/R3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Edit"><i class="bx bx-plus"></i></a>
+                    <a href="/Product_internal" class="details-link" title="Delete This"><i class="fa fa-times"></i></a>
                 </div>
             </div>
 
@@ -127,8 +129,8 @@
                 <div class="portfolio-info">
                     <h4>Product Name</h4>
                     <p>Information about this product</p>
-                    <a href="assets/img/R4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                    <a href="assets/img/R4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Edit"><i class="bx bx-plus"></i></a>
+                    <a href="/Product_internal" class="details-link" title="Delete This"><i class="fa fa-times"></i></a>
                 </div>
             </div>
 
@@ -136,6 +138,7 @@
 
       </div>
     </section>
+<button class="Admin_Button" style="display:block; margin: 0 auto;">Add</button>
 
     <br />
     <br />
