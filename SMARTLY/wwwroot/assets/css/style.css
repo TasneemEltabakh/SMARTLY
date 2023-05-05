@@ -4068,105 +4068,41 @@ textarea.input {
 /*--------------------------------------------------------------
 # Portfolio Details  Rghda
 --------------------------------------------------------------*/
-.portfolio-details {
-    padding-top: 40px;
+.abt-bg {
+    background-image: url(../img/R1.jpg);
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    border-top-right-radius: 200px;
+    border-bottom-left-radius: 50px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
 }
 
-    .portfolio-details .portfolio-details-slider img {
+    .abt-bg:after {
+        position: absolute;
+        left: 0;
+        top: 0;
         width: 100%;
+        height: 100%;
+        content: "";
+        background-color: #051922;
+        opacity: 0.3;
     }
 
-    .portfolio-details .portfolio-details-slider .swiper-pagination {
-        margin-top: 20px;
-        position: relative;
-    }
-
-        .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
-            width: 12px;
-            height: 12px;
-            background-color: #fff;
-            opacity: 1;
-            border: 1px solid #cc1616;
-        }
-
-        .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-            background-color: #cc1616;
-        }
-
-    .portfolio-details .portfolio-info {
-        padding: 30px;
-        box-shadow: 0px 0 30px rgba(25, 25, 25, 0.08);
-    }
-
-        .portfolio-details .portfolio-info h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .portfolio-details .portfolio-info ul {
-            list-style: none;
-            padding: 0;
-            font-size: 15px;
-        }
-
-            .portfolio-details .portfolio-info ul li + li {
-                margin-top: 10px;
-            }
-
-    .portfolio-details .portfolio-description {
-        padding-top: 30px;
-    }
-
-        .portfolio-details .portfolio-description h2 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .portfolio-details .portfolio-description p {
-            padding: 0;
-        }
-
-/*--------------------------------------------------------------
-# Part In Bundle  Rghda
---------------------------------------------------------------*/
-@media (min-width: 1025px) {
-    .h-custom {
-        height: 100vh !important;
-    }
+.pricing .box .btn-buy:hover {
+    background: #ffc451;
 }
 
-.horizontal-timeline .items {
-    border-top: 2px solid #ddd;
-}
-
-    .horizontal-timeline .items .items-list {
-        position: relative;
-        margin-right: 0;
-    }
-
-        .horizontal-timeline .items .items-list:before {
-            content: "";
-            position: absolute;
-            height: 8px;
-            width: 8px;
-            border-radius: 50%;
-            background-color: #ddd;
-            top: 0;
-            margin-top: -5px;
-        }
-
-
-.card-stepper {
-    z-index: 0
-}
-/*--------------------------------------------------------------
+.track-line {
+    height: 2px !important;
+    back…
+    /*--------------------------------------------------------------
 # Button Admin  Rghda
 --------------------------------------------------------------*/
-.Admin_Button {
+    .Admin_Button {
     display: inline-block;
     padding: 15px 25px;
     font-size: 24px;
