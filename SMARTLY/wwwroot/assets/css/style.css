@@ -469,14 +469,6 @@ background-size: cover;
 position: relative;
 }
 
-#hero2 {
-    width: 100%;
-    height: 100vh;
-    background: url("..//img/HOME.jpg") top center;
-    background-size: cover;
-    position: relative;
-}
-
 #hero:before {
 content: "";
 background: rgba(0, 0, 0, 0.6);
@@ -3719,3 +3711,30 @@ textarea.input {
         margin-right: 0.3125rem;
         margin-left: 0;
     }
+.login-wrap {
+    position: relative;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+    .login-wrap h3 {
+        font-weight: 300;
+        color: #fff;
+    }
+
+    .login-wrap .social {
+        width: 100%;
+    }
+
+        .login-wrap .social a {
+            width: 100%;
+            display: block;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #000;
+            background: #fff;
+        }
+
+            .login-wrap .social a:hover {
+                background: #000;
+                color: #fff;
+                border-color: #000;
+            }
