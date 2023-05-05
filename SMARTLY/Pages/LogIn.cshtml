@@ -1,0 +1,62 @@
+﻿@page
+@model SMARTLY.Pages.LogInModel
+@{
+}
+<section id="hero" class="d-flex align-items-center ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center mb-5">
+				<a href="/Index" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
+				<h3 class="heading-section">Login</h3>
+			
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-lg-4">
+				<div class="login-wrap p-0">
+
+					<form action="#" class="signin-form">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Username" required>
+						</div>
+						<div class="form-group">
+							<input id="password-field" type="password" class="form-control" placeholder="Password" required>
+			
+						</div>
+						<div class="form-group">
+							<button type="submit" class="form-control btn primary-btn1">Sign In</button>
+						</div>
+						<div class="form-group d-md-flex">
+							<div class="w-50">
+								<label class="checkbox-wrap checkbox-primary">
+									Remember Me
+									<input type="checkbox" checked>
+									<span class="checkmark"></span>
+								</label>
+							</div>
+							<div class="w-50 text-md-right">
+								<a href="#" style="color: #fff">Forgot Password</a>
+							</div>
+
+						</div>
+						<div >
+							<label class="checkbox-wrap checkbox-primary" style="color: #fff">
+								I agree all statements in <a href="#!"> Terms of service</a>
+								<input type="checkbox" checked>
+								<span class="checkmark"></span>
+							</label>
+						</div>
+						<div>
+							<br/>
+							<label class="checkbox-wrap checkbox-primary">
+								<p style="color: #fff"> Don't Have account? </p><a href="/SignUp"> Sign Up</a>
+							</label>
+						</div>
+						
+					</form>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
