@@ -4133,64 +4133,33 @@ textarea.input {
 /*--------------------------------------------------------------
 # Part In Bundle  Rghda
 --------------------------------------------------------------*/
-.abt-bg {
-    background-image: url(../img/R1.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    border-top-right-radius: 200px;
-    border-bottom-left-radius: 50px;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-}
-
-    .abt-bg:after {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        content: "";
-        background-color: #051922;
-        opacity: 0.3;
+@media (min-width: 1025px) {
+    .h-custom {
+        height: 100vh !important;
     }
-    .pricing .box .btn-buy:hover {
-        background: #ffc451;
-    }
-.track-line {
-    height: 2px !important;
-    background-color: #488978;
-    opacity: 1;
 }
 
-.dot {
-    height: 10px;
-    width: 10px;
-    margin-left: 3px;
-    margin-right: 3px;
-    margin-top: 0px;
-    background-color: #488978;
-    border-radius: 50%;
-    display: inline-block
+.horizontal-timeline .items {
+    border-top: 2px solid #ddd;
 }
 
-.big-dot {
-    height: 25px;
-    width: 25px;
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-top: 0px;
-    background-color: #488978;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-    .big-dot i {
-        font-size: 12px;
+    .horizontal-timeline .items .items-list {
+        position: relative;
+        margin-right: 0;
     }
 
-.card-stepper {
-    z-index: 0
-}
+        .horizontal-timeline .items .items-list:before {
+            content: "";
+            position: absolute;
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            background-color: #ddd;
+            top: 0;
+            margin-top: -5px;
+        }
+
+
+    .horizontal-timeline .items .items-list {
+        padding-top: 15px;
+    }}
