@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SMARTLY.Pages.AdminView
+namespace SMARTLY.Pages.Shared
 {
-    public class Products_MainModel : PageModel
+    public class _Cart_LayoutModel : PageModel
     {
         public void OnGet()
         {
