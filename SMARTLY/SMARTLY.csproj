@@ -8,8 +8,14 @@
 
   <ItemGroup>
     <Folder Include="Pages\AdminView\" />
-    <Folder Include="Pages\ClientView\" />
     <Folder Include="Pages\AgencyView\" />
+    <Folder Include="Pages\ClientView\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Pages\Cart.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
