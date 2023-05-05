@@ -4053,8 +4053,8 @@ textarea.input {
     width: 100%;
     background-size: cover;
     background-position: center;
-    border-top-right-radius: 300px;
-    border-bottom-left-radius: 300px;
+    border-top-right-radius: 200px;
+    border-bottom-left-radius: 50px;
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -4072,4 +4072,32 @@ textarea.input {
     }
     .pricing .box .btn-buy:hover {
         background: #ffc451;
+    }
+
+/*--------------------------------------------------------------
+# Admin Button  Rghda
+--------------------------------------------------------------*/
+.Admin_Button {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+    .Admin_Button:hover {
+        background-color: #3e8e41
+    }
+
+    .Admin_Button:active {
+        background-color: #3e8e41;
+        box-shadow: 0 2px #666;
+        transform: translateY(4px);
     }
