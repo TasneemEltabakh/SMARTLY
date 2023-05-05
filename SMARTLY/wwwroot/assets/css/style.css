@@ -1522,6 +1522,80 @@ width: 80%;
     }
 }
 
+/*=========================================================
+	09 -> CHECKOUT PAGE
+===========================================================*/
+
+.billing-details {
+    margin-bottom: 30px;
+}
+
+.shiping-details {
+    margin-bottom: 30px;
+}
+
+.order-details {
+    position: relative;
+    padding: 0px 30px 30px;
+    border-right: 1px solid #E4E7ED;
+    border-left: 1px solid #E4E7ED;
+    border-bottom: 1px solid #E4E7ED;
+}
+
+    .order-details:before {
+        content: "";
+        position: absolute;
+        left: -1px;
+        right: -1px;
+        top: -15px;
+        height: 30px;
+        border-top: 1px solid #E4E7ED;
+        border-left: 1px solid #E4E7ED;
+        border-right: 1px solid #E4E7ED;
+    }
+
+.order-summary {
+    margin: 15px 0px;
+}
+
+    .order-summary .order-col {
+        display: table;
+        width: 100%;
+    }
+
+        .order-summary .order-col:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .order-summary .order-col > div {
+            display: table-cell;
+            padding: 10px 0px;
+        }
+
+            .order-summary .order-col > div:first-child {
+                width: calc(100% - 150px);
+            }
+
+            .order-summary .order-col > div:last-child {
+                width: 150px;
+                text-align: right;
+            }
+
+        .order-summary .order-col .order-total {
+            font-size: 24px;
+            color: #ffc451;
+        }
+
+.order-details .payment-method {
+    margin: 30px 0px;
+}
+
+.order-details .order-submit {
+    display: block;
+    margin-top: 30px;
+}
 
 
 /*--------------------------------------------------------------
@@ -2013,7 +2087,7 @@ font-size: 12px;
 }
 
 .checkbox-filter .input-radio label small, .checkbox-filter .input-checkbox label small {
-color: #8D99AE;
+    color: #ffc451;
 }
 
 /*-- Price Filter --*/
@@ -2808,8 +2882,8 @@ textarea.input {
     }
 
     .input-radio input[type="radio"]:checked + label span, .input-checkbox input[type="checkbox"]:checked + label span {
-        background-color: #D10024;
-        border-color: #D10024;
+        background-color: #ffc451;
+        border-color: #ffc451;
     }
 
         .input-radio input[type="radio"]:checked + label span:after {
@@ -4059,39 +4133,42 @@ textarea.input {
 /*--------------------------------------------------------------
 # Part In Bundle  Rghda
 --------------------------------------------------------------*/
-.abt-bg {
-    background-image: url(../img/R1.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    border-top-right-radius: 200px;
-    border-bottom-left-radius: 50px;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
+@media (min-width: 1025px) {
+    .h-custom {
+        height: 100vh !important;
+    }
 }
 
-    .abt-bg:after {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        content: "";
-        background-color: #051922;
-        opacity: 0.3;
-    }
-    .pricing .box .btn-buy:hover {
-        background: #ffc451;
+.horizontal-timeline .items {
+    border-top: 2px solid #ddd;
+}
+
+    .horizontal-timeline .items .items-list {
+        position: relative;
+        margin-right: 0;
     }
 
+        .horizontal-timeline .items .items-list:before {
+            content: "";
+            position: absolute;
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            background-color: #ddd;
+            top: 0;
+            margin-top: -5px;
+        }
+
+
+.card-stepper {
+    z-index: 0
+}
 /*--------------------------------------------------------------
-# Admin Button  Rghda
+# Button Admin  Rghda
 --------------------------------------------------------------*/
 .Admin_Button {
     display: inline-block;
-    padding: 10px 15px;
+    padding: 15px 25px;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -4110,6 +4187,9 @@ textarea.input {
 
     .Admin_Button:active {
         background-color: #3e8e41;
-        box-shadow: 0 2px #666;
+        box-shadow: 0 5px #666;
         transform: translateY(4px);
     }
+    .horizontal-timeline .items .items-list {
+        padding-top: 15px;
+    }}
