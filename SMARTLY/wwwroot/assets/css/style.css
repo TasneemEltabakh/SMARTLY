@@ -210,6 +210,25 @@ background: #ffbb38;
 color: #343a40;
 }
 
+.primary-btn1 {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #ffbb38;
+    border: none;
+    border-radius: 40px;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+.primary-btn1:hover, .primary-btn:focus {
+    opacity: 0.9;
+    color: #FFF;
+}
+
 @media (max-width: 992px) {
 .get-started-btn {
 padding: 7px 20px 8px 20px;
@@ -1381,6 +1400,117 @@ width: 80%;
 }
 }
 
+
+
+
+.testimonials1 {
+    padding: 80px 0;
+    background: url("../img/testimonials-bg.jpg") no-repeat;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+}
+
+    .testimonials1::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: white;
+    }
+
+    .testimonials1 .section-header {
+        margin-bottom: 40px;
+    }
+
+    .testimonials1 .testimonials-carousel,
+    .testimonials1 .testimonials-slider {
+        overflow: hidden;
+    }
+
+    .testimonials1 .testimonial-item {
+        text-align: center;
+        color: #fff;
+    }
+
+        .testimonials1 .testimonial-item .testimonial-img {
+            width: 100px;
+            border-radius: 50%;
+            border: 6px white;
+            margin: 0 auto;
+        }
+
+        .testimonials1 .testimonial-item h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0 5px 0;
+            color: #fff;
+        }
+
+        .testimonials1 .testimonial-item h4 {
+            font-size: 14px;
+            color: #ddd;
+            margin: 0 0 15px 0;
+        }
+
+        .testimonials1 .testimonial-item .quote-icon-left,
+        .testimonials1 .testimonial-item .quote-icon-right {
+            color: white;
+            font-size: 26px;
+        }
+
+        .testimonials1 .testimonial-item .quote-icon-left {
+            display: inline-block;
+            left: -5px;
+            position: relative;
+        }
+
+        .testimonials1 .testimonial-item .quote-icon-right {
+            display: inline-block;
+            right: -5px;
+            position: relative;
+            top: 10px;
+        }
+
+        .testimonials1 .testimonial-item p {
+            font-style: italic;
+            margin: 0 auto 15px auto;
+            color: #eee;
+        }
+
+    .testimonials1 .swiper-pagination {
+        margin-top: 20px;
+        position: relative;
+    }
+
+        .testimonials1 .swiper-pagination .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            opacity: 0.5;
+        }
+
+        .testimonials1 .swiper-pagination .swiper-pagination-bullet-active {
+            background-color: #ffc451;
+            opacity: 1;
+        }
+
+@media (min-width: 1024px) {
+    .testimonials1 {
+        background-attachment: fixed;
+    }
+}
+
+@media (min-width: 992px) {
+    .testimonials1 .testimonial-item p {
+        width: 80%;
+    }
+}
+
+
+
 /*--------------------------------------------------------------
 # Team
 --------------------------------------------------------------*/
@@ -2437,7 +2567,12 @@ display: block;
 /*-- Review Form --*/
 
 .review-form .input {
-margin-bottom: 15px;
+    margin-bottom: 15px;
+    height: 40px;
+    padding: 0px 15px;
+    border: 1px solid #E4E7ED;
+    background-color: #FFF;
+    width: 100%;
 }
 
 .review-form .input-rating {
@@ -2488,7 +2623,7 @@ Search
     padding-top: 50px;
     padding-right: 30px;
     padding-bottom: 50px;
-    padding-left: 600px;
+    padding-left: 30px;
     display: inline-block;
 }
 
@@ -3293,7 +3428,9 @@ textarea.input {
         border: 1px solid #E4E7ED;
         background-color: #FFF;
         border-radius: 50%;
-        z-index: 22;
+        z-index: 100;
+        display:inline-block;
+
       
     }
 
@@ -3324,7 +3461,7 @@ textarea.input {
     }
 
     .slick-next {
-        right: -20px;
+        
     }
 
     /*----------------------------*\
@@ -3462,3 +3599,51 @@ textarea.input {
 
 
 
+/*----------------------------*\
+	Breadcrumb
+\*----------------------------*/
+
+#breadcrumb {
+    padding: 30px 0px;
+    background: #FBFBFC;
+    border-bottom: 1px solid #E4E7ED;
+    margin-bottom: 30px;
+}
+
+    #breadcrumb .breadcrumb-header {
+        display: inline-block;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-right: 15px;
+        text-transform: uppercase;
+    }
+
+    #breadcrumb1 .breadcrumb-tree {
+        display: inline-block;
+    }
+
+        #breadcrumb1 .breadcrumb-tree li {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+            #breadcrumb1 .breadcrumb-tree li + li {
+                margin-left: 10px;
+            }
+
+                #breadcrumb1 .breadcrumb-tree li + li:before {
+                    content: '/';
+                    display: inline-block;
+                    color: #8D99AE;
+                    margin-right: 10px;
+                }
+
+            #breadcrumb1 .breadcrumb-tree li a {
+                color: #8D99AE;
+            }
+
+                #breadcrumb1 .breadcrumb-tree li a:hover {
+                    color: #D10024;
+                }
