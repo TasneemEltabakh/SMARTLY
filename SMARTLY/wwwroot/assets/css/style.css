@@ -4068,18 +4068,18 @@ textarea.input {
 /*--------------------------------------------------------------
 # Portfolio Details  Rghda
 --------------------------------------------------------------*/
-.portfolio-details {
-    padding-top: 40px;
+.abt-bg {
+    background-image: url(../img/R1.jpg);
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    border-top-right-radius: 200px;
+    border-bottom-left-radius: 50px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
 }
-
-    .portfolio-details .portfolio-details-slider img {
-        width: 100%;
-    }
-
-    .portfolio-details .portfolio-details-slider .swiper-pagination {
-        margin-top: 20px;
-        position: relative;
-    }
 
         .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
             width: 12px;
@@ -4194,8 +4194,14 @@ textarea.input {
 
 .card-stepper {
     z-index: 0
+.pricing .box .btn-buy:hover {
+    background: #ffc451;
 }
-/*--------------------------------------------------------------
+
+.track-line {
+    height: 2px !important;
+    back…
+    /*--------------------------------------------------------------
 # Button Admin  Rghda
 --------------------------------------------------------------*/
 .Admin_Button {
