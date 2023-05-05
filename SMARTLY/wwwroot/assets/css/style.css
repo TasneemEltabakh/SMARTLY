@@ -32,6 +32,16 @@ h5,
 h6 {
 font-family: "Raleway", sans-serif;
 }
+.single-logo-item img {
+    max-width: 180px;
+    margin: 0 auto;
+}
+
+.logo-carousel-section {
+    background-color: #f5f5f5;
+    padding: 50px 0;
+    display:inline;
+}
 
 /*--------------------------------------------------------------
 # Back to top button
@@ -1296,7 +1306,7 @@ max-width: 100%;
 # Testimonials
 --------------------------------------------------------------*/
 .testimonials {
-padding: 80px 0;
+padding: 100px 0;
 background: url("../img/testimonials-bg.jpg") no-repeat;
 background-position: center center;
 background-size: cover;
@@ -1328,9 +1338,9 @@ color: #fff;
 }
 
 .testimonials .testimonial-item .testimonial-img {
-width: 100px;
-border-radius: 50%;
-border: 6px solid rgba(255, 255, 255, 0.15);
+width: 700px;
+border-radius: 100%;
+border: 700px solid rgba(255, 255, 255, 0.15);
 margin: 0 auto;
 }
 
@@ -1489,7 +1499,7 @@ width: 80%;
         .testimonials1 .swiper-pagination .swiper-pagination-bullet {
             width: 12px;
             height: 12px;
-            background-color: white;
+            background-color: black;
             opacity: 0.5;
         }
 
@@ -1501,12 +1511,14 @@ width: 80%;
 @media (min-width: 1024px) {
     .testimonials1 {
         background-attachment: fixed;
+       
     }
 }
 
 @media (min-width: 992px) {
     .testimonials1 .testimonial-item p {
         width: 80%;
+        animation-duration: 0.5s;
     }
 }
 
