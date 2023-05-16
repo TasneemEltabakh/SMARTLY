@@ -3,18 +3,66 @@
 @{
     ViewData["Title"] = "Home page";
 }
-<style>
-    header {
-        fixed-top;
-    }
-</style>
+<header id="header" class="fixed-top">
+	<div class="container d-flex align-items-center justify-content-lg-between">
+
+
+		<a href="/Index" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
+
+
+		<nav id="navbar" class="navbar order-last order-lg-0">
+
+
+			<ul>
+				<li><a class="nav-link scrollto active" href="/Index">Home</a></li>
+				<li><a class="nav-link scrollto" asp-page="/Products_Main">Product</a></li>
+				<li class="dropdown">
+					<a asp-page="/Bundle_Out"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
+					<ul>
+						<li><a href="/Bundle_Item">Basic</a></li>
+						<li><a href="/Bundle_Out_Admin">Intermediate</a></li>
+						<li><a href="/Products_Main_Admin">Premium</a></li>
+					</ul>
+				</li>
+				<li><a class="nav-link scrollto" href="/Contact_Us">Contact</a></li>
+
+				<li>
+					<a class="shopping-cart" asp-page="/Cart"><i class="fa fa-shopping-cart"></i></a>
+				</li>
+				<li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>
+
+			</ul>
+
+			<i class="bi bi-list mobile-nav-toggle"></i>
+
+		</nav><!-- .navbar -->
+         @if (Model.type != 1 && Model.type != 2 && Model.type != 3)
+        {
+           <a href="/LogIn" class="get-started-btn scrollto">Sign in</a>
+        }
+        else
+        {
+           <a href="/LogIn" class="get-started-btn scrollto">Log Out</a>
+        }
+		
+	</div>
+</header><!-- End Header -->
+<!-- ======= Hero Section ======= -->
+
 <section id="hero" class="d-flex align-items-center">
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
         <h2>SMARTLY</h2>
       
       <h2> Your home, only smarter</h2> 
       <br>
-        <a href="/SignUp" class="get-started-btn">Get Started</a>
+        @if (Model.type != 1 && Model.type != 2 && Model.type != 3)
+        {
+            <a href="/SignUp" class="get-started-btn">Get Started</a>
+        }
+        else
+        {
+            <h1 style="color:#ffc451"> Welcome  @Model.UserName </h1>
+        }
     </div>
 </section>
 <br/>
@@ -160,13 +208,6 @@
                         <img src="assets/img/home assitance.png" width="300" height="300" alt="">
                     </div>
                 </div><!-- End testimonial item -->
-
-                <div class="swiper-slide">
-                    <div class="testimonial-item">
-                        <img src="assets/img/zewailcity (1).jpg" width="300" height="300" alt="">
-                    </div>
-                </div><!-- End testimonial item -->
-                
             </div>
             <div class="swiper-pagination"></div>
         </div>

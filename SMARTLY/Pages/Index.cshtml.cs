@@ -6,6 +6,12 @@ namespace SMARTLY.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        [BindProperty(SupportsGet = true)]
+        public string UserName { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int type { get; set; }
+       
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -16,5 +22,6 @@ namespace SMARTLY.Pages
         {
 
         }
+
     }
 }

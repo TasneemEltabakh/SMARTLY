@@ -10,6 +10,45 @@
     }
 </style>
 <!--<p style="background-image: url('assets/img/homeView.jpg');"> Hello</p>-->
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-lg-between">
+
+
+        <a href="/Index" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
+
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+
+
+            <ul>
+                <li><a class="nav-link scrollto active" href="/Index">Home</a></li>
+                <li><a class="nav-link scrollto" asp-page="/Products_Main">Product</a></li>
+                <li class="dropdown">
+                    <a asp-page="/Bundle_Out"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="/Bundle_Item">Basic</a></li>
+                        <li><a href="/Bundle_Out_Admin">Intermediate</a></li>
+                        <li><a href="/Products_Main_Admin">Premium</a></li>
+                    </ul>
+                </li>
+                <li><a class="nav-link scrollto" href="/Contact_Us">Contact</a></li>
+
+                <li>
+                    <a class="shopping-cart" asp-page="/Cart"><i class="fa fa-shopping-cart"></i></a>
+                </li>
+                <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>
+
+            </ul>
+
+            <i class="bi bi-list mobile-nav-toggle"></i>
+
+        </nav><!-- .navbar -->
+        <a href="/LogIn" class="get-started-btn scrollto">Sign in</a>
+    </div>
+</header><!-- End Header -->
+<!-- ======= Hero Section ======= -->
+
+<main id="main">
 
 <!-- ======= Team Section ======= -->
 <section id="team" class="team">
@@ -52,7 +91,7 @@
                 <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right">
                     <h1>Who We are?</h1> <br />
                   <h3>
-                   we are a startup company in the field of Smart home technologies, we are providing you by a system that connects with your appliances to automate specific tasks and is typically remotely controlled.
+                   we are a startup company based in London, Launching now in Egypt, in the field of Smart home technologies, we are providing you a system that connects with your appliances to automate specific tasks and  typically remotely controlled.
                    </h3>
 
                 </div>
@@ -65,79 +104,6 @@
     </div>
 </section>
 <!-- End Team Section -->
-
-<section id="team2" class="team2">
-    <div class="container">
-        <br />
-        <br />
-        <br />
-        <br />
-
-        <div class="section-title">
-            <h2>Know more</h2>
-            <p>Our Agencies</p>
-        </div>
-           <br/>
-            <br/>
-            <br />
-        
-
-        <div class="row">
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in">
-                <div class="member">
-                    
-                    <h4>Agency 1</h4>
-                    <span>About </span>
-                    <p>
-                      This Agency is responsible for Down town location
-                    </p>
-                    <div class="social">
-                        <a href=""><i class="bi bi-twitter"></i></a>
-                        <a href=""><i class="bi bi-facebook"></i></a>
-                        <a href=""><i class="bi bi-instagram"></i></a>
-                        <a href=""><i class="bi bi-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in">
-                <div class="member">
-
-                    <h4>Agency 2</h4>
-                    <span>About </span>
-                    <p>
-                        This Agency is responsible for Nasr City location
-                    </p>
-                    <div class="social">
-                        <a href=""><i class="bi bi-twitter"></i></a>
-                        <a href=""><i class="bi bi-facebook"></i></a>
-                        <a href=""><i class="bi bi-instagram"></i></a>
-                        <a href=""><i class="bi bi-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in">
-                <div class="member">
-                    
-                    <h4>Agency 3</h4>
-                    <span>About </span>
-                    <p>
-                        This Agency is responsible for 6th October location
-                    </p>
-                    <div class="social">
-                        <a href=""><i class="bi bi-twitter"></i></a>
-                        <a href=""><i class="bi bi-facebook"></i></a>
-                        <a href=""><i class="bi bi-instagram"></i></a>
-                        <a href=""><i class="bi bi-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</section>
 
 
 <!-- End Testimonials Section -->

@@ -5,26 +5,64 @@
 }
 
 
+  <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center justify-content-lg-between">
 
-<style>
-    header {
+           
+            <a href="/Index" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
 
-        background-image: url('assets/img/homeView.jpg');
-        position:fixed;
-        
-    }
-</style>
-<br/>
-<br />
 
-<section class="h-100 h-custom" style="background-color: #ffc451;">
-    <br />
+            <nav id="navbar" class="navbar order-last order-lg-0">
+          
+            
+                <ul>
+                    <li><a class="nav-link scrollto active" href="/Index">Home</a></li>
+                    <li><a class="nav-link scrollto" asp-page="/Products_Main">Product</a></li>
+                    <li class="dropdown">
+                        <a asp-page="/Bundle_Out"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="/Bundle_Item">Basic</a></li>
+                            <li><a href="/Bundle_Out_Admin">Intermediate</a></li>
+                            <li><a href="/Products_Main_Admin">Premium</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="/Contact_Us">Contact</a></li>
+
+                    <li>
+                        <a class="shopping-cart" asp-page="/Cart"><i class="fa fa-shopping-cart"></i></a>
+                    </li>
+                    <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>
+                    
+                </ul>
+
+                <i class="bi bi-list mobile-nav-toggle"></i>
+              
+            </nav><!-- .navbar -->
+            <a href="/LogIn" class="get-started-btn scrollto">Sign in</a>
+        </div>
+    </header><!-- End Header -->
+   
+    <!-- ======= Hero Section ======= -->
+
+    <main id="main">
+
+<section id="hero" class="d-flex align-items-center ftco-section">
    @* <link rel="_Cart_Layout" href="/_Cart_Layout.html">*@
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
+           
+        
             <div class="col-12">
+
+                <br />
+                <br />
+                <br />
+
+                <br />
+              
                 <div class="card card-registration card-registration-2" style="border-radius: 15px;">
                     <div class="card-body p-0">
+
                         <div class="row g-0">
                             <div class="col-lg-8">
                                 <div class="p-5">

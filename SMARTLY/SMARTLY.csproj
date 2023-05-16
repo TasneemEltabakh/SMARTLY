@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\AdminView\" />
-    <Folder Include="Pages\AgencyView\" />
-    <Folder Include="Pages\ClientView\" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
   <ItemGroup>

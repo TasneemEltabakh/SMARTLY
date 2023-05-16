@@ -2,7 +2,46 @@
 @model SMARTLY.Pages.LogInModel
 @{
 }
+  <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center justify-content-lg-between">
 
+           
+            <a href="/Index" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
+
+
+            <nav id="navbar" class="navbar order-last order-lg-0">
+          
+            
+                <ul>
+                    <li><a class="nav-link scrollto active" href="/Index">Home</a></li>
+                    <li><a class="nav-link scrollto" asp-page="/Products_Main">Product</a></li>
+                    <li class="dropdown">
+                        <a asp-page="/Bundle_Out"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="/Bundle_Item">Basic</a></li>
+                            <li><a href="/Bundle_Out_Admin">Intermediate</a></li>
+                            <li><a href="/Products_Main_Admin">Premium</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="/Contact_Us">Contact</a></li>
+
+                    <li>
+                        <a class="shopping-cart" asp-page="/Cart"><i class="fa fa-shopping-cart"></i></a>
+                    </li>
+                    <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>
+                    
+                </ul>
+
+                <i class="bi bi-list mobile-nav-toggle"></i>
+              
+            </nav><!-- .navbar -->
+            <a href="/LogIn" class="get-started-btn scrollto">Sign in</a>
+        </div>
+    </header><!-- End Header -->
+   
+    <!-- ======= Hero Section ======= -->
+
+    <main id="main">
 <section id="hero" class="d-flex align-items-center ftco-section">
 	<div class="container">
 		<div class="row justify-content-center">
@@ -18,16 +57,21 @@
 			<div class="col-md-6 col-lg-4">
 				<div class="login-wrap p-0">
 
-					<form action="#" class="signin-form">
+					<form method="post" class="signin-form">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Username" required>
+							<input  asp-for="@Model.user.UserName" type="text" class="form-control" placeholder="Username" required>
 						</div>
 						<div class="form-group">
-							<input id="password-field" type="password" class="form-control" placeholder="Password" required>
+							<input asp-for="@Model.user.password" id="password-field" type="password" class="form-control" placeholder="Password" required>
 						</div>
+						 @if (Model.message != "free")
+                        {
+                            <p style="color: red"> @Model.message</p>
+                        }
 						<div class="form-group">
 							<button type="submit" class="form-control btn primary-btn1">Sign In</button>
 						</div>
+						
 						<div class="form-group d-md-flex">
 							<div class="w-50">
 								<label class="checkbox-wrap checkbox-primary">
