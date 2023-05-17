@@ -1,0 +1,70 @@
+﻿@page
+@model SMARTLY.Pages.EditModel
+@{
+}
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-lg-between">
+
+
+        <a href="/Index" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
+
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+
+
+            <ul>
+                <li><a class="nav-link scrollto active" href="/Index">Home</a></li>
+                <li><a class="nav-link scrollto" asp-page="/Products_Main">Product</a></li>
+                <li class="dropdown">
+                    <a asp-page="/Bundle_Out"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="/Bundle_Item">Basic</a></li>
+                        <li><a href="/Bundle_Out_Admin">Intermediate</a></li>
+                        <li><a href="/Products_Main_Admin">Premium</a></li>
+                    </ul>
+                </li>
+
+                <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>
+
+            </ul>
+
+            <i class="bi bi-list mobile-nav-toggle"></i>
+
+        </nav><!-- .navbar -->
+
+    </div>
+</header><!-- End Header -->
+<!-- ======= Hero Section ======= -->
+
+<main id="main">
+    <section id="hero2" class="d-flex align-items-center">
+        <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+
+            <h1>Add new agency</h1>
+
+        </div>
+    </section>
+    <section>
+        </br>
+        </br>
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+ <form method="post" class="signin-form">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Name">  
+       
+    </div>
+    <div class="form-group">
+       <input type="email" class="form-control"  placeholder="Email">
+      
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Location">
+       
+    </div>
+
+</form>
