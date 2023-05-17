@@ -23,11 +23,7 @@
                         <li><a href="/Products_Main_Admin">Premium</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" href="/Contact_Us">Contact</a></li>
-
-                <li>
-                    <a class="shopping-cart" asp-page="/Cart"><i class="fa fa-shopping-cart"></i></a>
-                </li>
+     
                 <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>
 
             </ul>
@@ -35,7 +31,7 @@
             <i class="bi bi-list mobile-nav-toggle"></i>
 
         </nav><!-- .navbar -->
-        <a href="/LogIn" class="get-started-btn scrollto">Sign in</a>
+      
     </div>
 </header><!-- End Header -->
 <!-- ======= Hero Section ======= -->
@@ -57,30 +53,43 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Agency name</th>
-  
             <th scope="col">Email</th>
               <th scope="col">location</th>
            
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Tech</td>
-            <td>Tech@yahoo</td>
-            <td>Down town</td>
+       
+        @for(int i =0; i<Model.dt.Rows.Count; i++)
+        {
+             <tr>
+                <th scope="row">@(i+1)</th>
+                @for(int j = 0; j<Model.dt.Columns.Count;j++)
+                {
+                         <td>@Model.dt.Rows[i][j]</td>
+                           
+                }
+                        <td>
+                            <a asp-page="/Admin/Delete" .asp-route-id="@Model.dt.Rows[i][0]" /> Delete |
+                            <a asp-page="/Admin/Update" asp-route-id="@Model.dt.Rows[i][0]" /> Update
+                        </td>
+              </tr>
+          
+        }
            
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Electro</td>
-                <td>Electro@gmail/td>
-                <td>Nasr City</td>
-            <td></td>
-        </tr>
+       
       
     </tbody>
 </table>
+<br/>
+<br/>
+        <button formmethod="post" type="button" class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;"
+                data-mdb-ripple-color="dark">
+            <a href="/Add_Agency">
+                Add new Agency
+            </a>
+        </button>
+
 </div>
 </br>
 </br>

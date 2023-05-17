@@ -48,25 +48,36 @@
 			  <h2>SMARTLY</h2>
 			</div>
 		</div>
+
 		<div class="row justify-content-center">
 			<div class="col-md-6 col-lg-4">
 				<div class="login-wrap p-0">
 
 					<form method="post" class="signin-form">
+
 						<div class="form-group">
 							<input asp-for="@Model.user.UserName" type="text" class="form-control" placeholder="Username" required>
+							<span asp-validation-for="@Model.user.UserName"></span>
 						</div>
+
 						<div class="form-group">
 							<input asp-for="@Model.client.email" type="email" class="form-control" placeholder="EmaiL" required>
+								<span asp-validation-for="@Model.client.email"></span>
 						</div>
+
 						<div class="form-group">
 							<input asp-for="@Model.client.phonenumber" type="text" class="form-control" placeholder="Phone number" required>
+								<span asp-validation-for="@Model.client.phonenumber"></span>
 						</div>
+
 						<div class="form-group">
 							<input  asp-for="@Model.user.password" id="password-field" type="password" class="form-control" placeholder="Password" required>
+								<span asp-validation-for="@Model.user.password"></span>
 						</div>
+
 						<div class="form-group">
 							<input asp-for="@Model.passwordcheck"  id="passwordcheck-field" type="password" class="form-control" placeholder="Re-Enter Password" required>
+								<span asp-validation-for="@Model.passwordcheck"></span>
 						</div>
 						  @if (Model.msg != "free")
                         {

@@ -27,19 +27,23 @@ namespace SMARTLY.Pages
         }
         public IActionResult OnPost()
         {
-            if (String.Equals(passwordcheck, user.password))
+            if (ModelState.IsValid)
             {
-                msg = "free";
-                user.usertype = 3;
-                database.SignUpNewMember(user, client);
-                return RedirectToPage("/Index", new { UserName = user.UserName, type = 3 });
+                if (String.Equals(passwordcheck, user.password))
+                {
+                    msg = "free";
+                    user.usertype = 3;
+                    database.SignUpNewMember(user, client);
+                    return RedirectToPage("/Index", new { UserName = user.UserName, type = 3 });
+                }
+                else
+
+                {
+                    msg = "Passwords don't match";
+                    return Page();
+                }
             }
-            else
-               
-            {
-                msg = "Passwords don't match";
-                return Page();
-            }
+            else return Page();
         }
     }
 }

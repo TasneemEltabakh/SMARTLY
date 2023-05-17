@@ -1,0 +1,94 @@
+﻿@page
+@model SMARTLY.Pages.Add_AgencyModel
+@{
+}
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-lg-between">
+
+
+        <a href="/Index" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
+
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+
+
+            <ul>
+                <li><a class="nav-link scrollto active" href="/Index">Home</a></li>
+                <li><a class="nav-link scrollto" asp-page="/Products_Main">Product</a></li>
+                <li class="dropdown">
+                    <a asp-page="/Bundle_Out"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="/Bundle_Item">Basic</a></li>
+                        <li><a href="/Bundle_Out_Admin">Intermediate</a></li>
+                        <li><a href="/Products_Main_Admin">Premium</a></li>
+                    </ul>
+                </li>
+
+                <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>
+
+            </ul>
+
+            <i class="bi bi-list mobile-nav-toggle"></i>
+
+        </nav><!-- .navbar -->
+
+    </div>
+</header><!-- End Header -->
+<!-- ======= Hero Section ======= -->
+
+<main id="main">
+    <section id="hero2" class="d-flex align-items-center">
+        <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+           
+            <h1>Add new agency</h1>
+
+        </div>
+</section>
+<section>
+    </br>
+    </br>
+<div class="container">
+            <!-- row -->
+<div class="row">
+            <div class="col-md-2">
+                </div>
+ <div class="col-md-8">
+ <form method="post" class="signin-form">
+            <!-- Billing Details -->
+          
+                   
+        <div class="form-group">
+            <input asp-for="@Model.Agency.Name" class="form-control" type="text" placeholder="Agency name">
+            <span asp-validation-for="@Model.Agency.Name"></span>
+        </div>
+
+        <div class="form-group">
+            <input asp-for="@Model.user.UserName" class="form-control" type="text"  placeholder="User name">
+          <span asp-validation-for="@Model.user.UserName"></span>
+        </div>
+
+        <div class="form-group">
+            <input asp-for="@Model.Agency.email"  class="form-control" type="email"  placeholder="Email">
+          <span asp-validation-for="@Model.Agency.email"></span>
+        </div>
+
+        <div class="form-group">
+            <input asp-for="@Model.Agency.location" class="form-control" type="text"  placeholder="Location">
+              <span asp-validation-for="@Model.Agency.location"></span>
+        </div>
+
+        <div class="form-group">
+            <input asp-for="@Model.user.password"  class="form-control" type="password"  placeholder="Password">
+            <span asp-validation-for="@Model.user.password"></span>
+        </div>
+
+       
+            <div class="form-group">
+                <button type="submit" class="form-control btn primary-btn1">Add new Agency</button>
+            </div>
+
+            </form>
+        </div>
+      </div>
+      </div>
+ </section>

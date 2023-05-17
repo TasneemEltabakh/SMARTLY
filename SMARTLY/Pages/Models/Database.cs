@@ -14,28 +14,30 @@ namespace SMARTLY.Pages.Models
         public SqlConnection Connection { get; set; }
         public int getUserType { get; set; }
         public string getuserPassword { get; set; }
+        public Object table { get; set; }
         public Database()
         {
             Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
-            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE);";
-            string query2 = "insert into Client values (@USERNAME,@email,@phonenumber);";
+            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE); insert into Client values (@USERNAME,@email,@phonenumber);";
             SqlCommand cmd = new SqlCommand(query, Connection);
             cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
             cmd.Parameters.AddWithValue("@PASSWORD", U.password);
             cmd.Parameters.AddWithValue("@TYPE", 3);
 
-            SqlCommand cmd2 = new SqlCommand(query2, Connection);
-            cmd2.Parameters.AddWithValue("@USERNAME", U.UserName);
-            cmd2.Parameters.AddWithValue("@email", C.email);
-            cmd2.Parameters.AddWithValue("@phonenumber", C.phonenumber);
+      
+            cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
+            cmd.Parameters.AddWithValue("@email", C.email);
+            cmd.Parameters.AddWithValue("@phonenumber", C.phonenumber);
 
             try
             {
                 Connection.Open();
                 cmd.ExecuteNonQuery();
+               
+
             }
             catch
             {
@@ -124,6 +126,76 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public DataTable loadTableofAgencies()
+        {
+            DataTable dt = new DataTable();
+            string queury = "select Agencyname,email,Location from Agency";
+            SqlCommand cmd= new SqlCommand(queury, Connection);
+            try
+            {
+                Connection.Open();
+               dt.Load( cmd.ExecuteReader());
+                return dt;
+            }
+            catch
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
 
+        }
+        public DataTable loadTableofOrder()
+        {
+            DataTable dt = new DataTable();
+            string queury = "select OrderCode,Username,OrderDate,AmountToPay from anorder";
+            SqlCommand cmd = new SqlCommand(queury, Connection);
+            try
+            {
+                Connection.Open();
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        public void AddNewAgency(User U, Agency A)
+        {
+          
+            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE); insert into Agency values (@usernameA,@email,@Agencyname,@Location);";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
+            cmd.Parameters.AddWithValue("@PASSWORD", U.password);
+            cmd.Parameters.AddWithValue("@TYPE", 2);        
+            cmd.Parameters.AddWithValue("@usernameA", U.UserName);
+            cmd.Parameters.AddWithValue("@email", A.email);
+            cmd.Parameters.AddWithValue("@Agencyname", A.Name);
+            cmd.Parameters.AddWithValue("@Location", A.location);
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+               
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
     }
 }
