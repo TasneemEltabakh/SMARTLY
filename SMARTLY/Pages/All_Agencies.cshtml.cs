@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.DataProtection.XmlEncryption;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SMARTLY.Pages.Models;
 using System.Data;
+using System.Reflection.Metadata;
 
 namespace SMARTLY.Pages
 {
@@ -13,14 +15,14 @@ namespace SMARTLY.Pages
         public All_AgenciesModel(Database database)
         {
             this.database = database;
-            dt = database.loadTableofAgencies();
 
         }
 
         public void OnGet()
         {
-
+            dt =database.loadTableofAgencies();
         }
+        
 
     }
 }

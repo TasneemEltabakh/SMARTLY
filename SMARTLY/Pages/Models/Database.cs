@@ -14,10 +14,12 @@ namespace SMARTLY.Pages.Models
         public SqlConnection Connection { get; set; }
         public int getUserType { get; set; }
         public string getuserPassword { get; set; }
+        public string getUsername { get; set; }
+        
         public Object table { get; set; }
         public Database()
         {
-            //Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
+            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -134,7 +136,7 @@ namespace SMARTLY.Pages.Models
             try
             {
                 Connection.Open();
-               dt.Load( cmd.ExecuteReader());
+                 dt.Load( cmd.ExecuteReader());
                 return dt;
             }
             catch
@@ -198,15 +200,16 @@ namespace SMARTLY.Pages.Models
 
         }
 
-        public void UpdateAllAgencies(Agency agency, User user)
+        public void UpdateAllAgencies(Agency agency, string username)
         {
-
-            string query= "update agency set Agencyname=@name , email=@email, Location= @location where username = @username;";
+          
+            string query= "update Agency set Agencyname = @name , email = @email , Location = @location where username = @username ";
             SqlCommand cmd= new SqlCommand(query, Connection);
             cmd.Parameters.AddWithValue("@name", agency.Name);
             cmd.Parameters.AddWithValue("@email", agency.email);
             cmd.Parameters.AddWithValue("@location", agency.location);
-            cmd.Parameters.AddWithValue("@username", user.UserName);
+            cmd.Parameters.AddWithValue("@username", username);
+
             try
             {
                 Connection.Open();
@@ -222,12 +225,13 @@ namespace SMARTLY.Pages.Models
             }
         }
 
-        public DataTable return_info(string email)
+        public object return_info(string username)
         {
-            string query = "SELECT Agencyname, email,Location FROM AGENCY WHERE EMAIL= @email";
+            string query = "SELECT Agencyname, email ,Location FROM AGENCY WHERE username= @username";
             SqlCommand cmd = new SqlCommand(query, Connection);
-            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@username", username);
             DataTable dt = new DataTable();
+
             try
             {
                 Connection.Open();
@@ -243,6 +247,50 @@ namespace SMARTLY.Pages.Models
             {
                 Connection.Close();
             }
+        }
+        public void Deletedrecord(string email)
+        {
+            string Query = "delete * from Agency where email = @email ;";
+            SqlCommand cmd= new SqlCommand(Query, Connection);
+            cmd.Parameters.AddWithValue("@email", email);
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public string returnUsername(string email)
+        {
+            string q = "select username from Agency where email = @email";
+            SqlCommand cmd= new SqlCommand(q, Connection);
+            
+            cmd.Parameters.AddWithValue("@email", email);
+
+            try
+            {
+                Connection.Open();
+                
+                getUsername = (string)cmd.ExecuteScalar();
+
+                return getUsername;
+            }
+            catch
+            {
+                return " ";
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
         }
     }
 }
