@@ -250,11 +250,11 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        public void Deletedrecord(string email)
+        public void Deletedrecord(string username)
         {
-            string Query = "delete * from Agency where email = @email ;";
+            string Query = "delete from _User where username = @username ; delete  from Agency where username = @username ;";
             SqlCommand cmd= new SqlCommand(Query, Connection);
-            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@username", username);
             try
             {
                 Connection.Open();

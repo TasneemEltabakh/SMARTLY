@@ -14,8 +14,13 @@ namespace SMARTLY.Pages
         [BindProperty]
         public Agency agency { get; set; }
 
-
+        [BindProperty]
         public string Email { get; set; }
+
+        [BindProperty]
+
+        public string username { get; set; }
+
         public DeleteAgencyModel(Database database)
         {
             db = database;
@@ -23,12 +28,13 @@ namespace SMARTLY.Pages
         public void OnGet(string email)
         {
 
-            dt =(DataTable) db.return_info(email);
+            username = db.returnUsername(email);
 
         }
-        public void OnPost()
+        public IActionResult OnPost()
         {
-
+            db.Deletedrecord(username);
+           return RedirectToPage("/All_Agencies");
         }
 
     }

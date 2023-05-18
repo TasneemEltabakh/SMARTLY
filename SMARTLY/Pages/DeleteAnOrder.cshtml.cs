@@ -17,18 +17,17 @@ namespace SMARTLY.Pages
         }
         public void OnGet(int id)
         {
-			//OrderCode = database.ReturnOrderCode(id) ;
 			
 
 		}
 
 	
 
-		public IActionResult OnPost()
+		public void OnPost()
 		{
 			database.DeleteOrder(OrderCode);
 
-			return RedirectToPage("/All_Orders");
+			
 		}
 	}
 
