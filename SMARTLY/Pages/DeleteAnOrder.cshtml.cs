@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SMARTLY.Pages.Models;
+using System.Data;
 
 namespace SMARTLY.Pages
 {
@@ -9,27 +10,30 @@ namespace SMARTLY.Pages
 
     {
 		private readonly Database database;
-		
-		public int OrderCode { get; set; }
+
+
+        [BindProperty]
+
+        public int ordercode { get; set; }
+
         public DeleteAnOrderModel(Database db)
         {
-			database = db; 
+            database = db;
         }
-        public void OnGet(int id)
+
+        public void OnGet(int ordercode)
         {
-			
 
-		}
+            this.ordercode = ordercode;
 
-	
+        }
+        public IActionResult OnPost()
+        {
+            database.DeleteOrder(ordercode);
+            return RedirectToPage("/All_Orders");
+        }
 
-		public void OnPost()
-		{
-			database.DeleteOrder(OrderCode);
+    }
 
-			
-		}
-	}
 
-	
 }

@@ -18,13 +18,11 @@ namespace SMARTLY.Pages
         public void OnGet()
         {
             dt = database.loadTableofOrder();
-            //int OC = OrderCode;
-            //database.DeleteOrder(OC);
 
         }
-        public IActionResult OnPost()
+        public void OnPost()
         {
-            return Page(); 
+            
         }
     }
 }

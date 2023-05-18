@@ -48,49 +48,16 @@
 </br>
 <div class="Container">
 
-@*    <table class="table table-striped center_Table" style="width:70%">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Order Code</th>
-                <th scope="col">Adress</th>
-                <th scope="col">Date of Order</th>
-                <th scope="col">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>#2123u293u</td>
-                <td>Azhar street</td>
-                <td>2 Sep 2020</td>
-                <td> Delivered</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>#2372343513u</td>
-                <td>Ali street</td>
-                <td>2 Dec 2020</td>
-                <td> Ordered</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>#r312636283</td>
-                <td>Ragab street</td>
-                <td>15 April 2020</td>
-                <td> Deliverd</td>
-            </tr>
-        </tbody>
-    </table>*@
 
         <table class="table table-striped center_Table" style="width:70%">
             <thead>
                 <tr>
-                    <th scope="col">Username</th>
+                   
                     <th scope="col">OrderCode</th>
+                    <th scope="col">Username</th>
                     <th scope="col">Amaount To Pay </th>
                     <th scope="col">Order Date</th>
-                    <th scope="col">operations</th>
+               
                 </tr>
             </thead>
             <tbody>
@@ -104,9 +71,8 @@
 
                         }
                         <td>
-                            <a asp-page="/DeleteAnOrder" asp-route-id="@Model.dt.Rows[i][0]" /> Delete |    
-
-                            <a asp-page="/adminPages/Update" asp-route-id="@Model.dt.Rows[i][0]" /> Update
+                            <a asp-page="/DeleteAnOrder" asp-route-ordercode="@Model.dt.Rows[i][0]" /> Delete |    
+                            <a asp-page="/Update" asp-route-ordercode="@Model.dt.Rows[i][0]" /> Update
 
                         </td>
                     </tr>
