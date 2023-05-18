@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
 using System;
-using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
 
 namespace SMARTLY.Pages.Models
 {
@@ -17,7 +17,7 @@ namespace SMARTLY.Pages.Models
         public Object table { get; set; }
         public Database()
         {
-            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
+            //Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -198,6 +198,51 @@ namespace SMARTLY.Pages.Models
 
         }
 
-        
+        public void UpdateAllAgencies(Agency agency, User user)
+        {
+
+            string query= "update agency set Agencyname=@name , email=@email, Location= @location where username = @username;";
+            SqlCommand cmd= new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@name", agency.Name);
+            cmd.Parameters.AddWithValue("@email", agency.email);
+            cmd.Parameters.AddWithValue("@location", agency.location);
+            cmd.Parameters.AddWithValue("@username", user.UserName);
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public DataTable return_info(string email)
+        {
+            string query = "SELECT Agencyname, email,Location FROM AGENCY WHERE EMAIL= @email";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@email", email);
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+
+            }
+            catch
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
     }
 }

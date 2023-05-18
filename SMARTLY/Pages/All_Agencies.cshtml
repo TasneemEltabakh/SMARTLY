@@ -70,8 +70,10 @@
                            
                 }
                         <td>
-                            <a asp-page="/Delete" asp-route-id="@Model.dt.Rows[i][1]" /> Delete |
-                            <a asp-page="/Edit" asp-route-id="@Model.dt.Rows[i][1]" /> Update
+                            <form method="post">
+                                <button >Delete</button>  |
+                            <button>Update</button>
+                            </form>
                         </td>
               </tr>
           
