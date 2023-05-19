@@ -1,11 +1,14 @@
-
-
 using SMARTLY.Pages.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+// Enable session support
+builder.Services.AddSession();
 
 builder.Services.AddSingleton<Database>();
 
@@ -26,7 +29,9 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Add session middleware
+app.UseSession();
+
 app.MapRazorPages();
 
 app.Run();
-

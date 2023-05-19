@@ -4,7 +4,7 @@ using SMARTLY.Pages.Models;
 
 namespace SMARTLY.Pages
 {
-    public class Add_AgencyModel : PageModel
+    public class Add_AgencyModel : UserPageModel
     {
       
         [BindProperty]

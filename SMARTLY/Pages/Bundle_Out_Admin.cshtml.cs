@@ -5,7 +5,7 @@ using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class Bundle_Out_AdminModel : PageModel
+    public class Bundle_Out_AdminModel : UserPageModel
     {
         public DataTable dt { get; set; }   
         private readonly Database database;

@@ -7,7 +7,7 @@ using System.Reflection.Metadata;
 
 namespace SMARTLY.Pages
 {
-    public class All_AgenciesModel : PageModel
+    public class All_AgenciesModel : UserPageModel
     {
         private readonly Database database;
         public DataTable dt { get; set; }

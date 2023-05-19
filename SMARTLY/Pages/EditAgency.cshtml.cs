@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace SMARTLY.Pages
 {
-    public class EditAgencyModel : PageModel
+    public class EditAgencyModel : UserPageModel
     {
         private readonly Database db;
        
