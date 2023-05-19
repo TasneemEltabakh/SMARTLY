@@ -234,3 +234,24 @@ GO
 ALTER TABLE [dbo].[OrderFor]  WITH CHECK ADD FOREIGN KEY([PId])
 REFERENCES [dbo].[Product] ([PId])
 GO
+
+
+Create Table Categories
+(
+id int primary key,
+title varchar not null,
+);
+
+
+
+ALTER TABLE Product
+DROP CONSTRAINT DF__Product__categor__45F365D3;
+
+Alter table Product
+alter column category int 
+
+Alter table Product
+add constraint fk
+foreign key (category)
+references  Categories
+

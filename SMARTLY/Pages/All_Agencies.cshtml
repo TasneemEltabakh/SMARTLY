@@ -67,11 +67,13 @@
                 @for(int j = 0; j<Model.dt.Columns.Count;j++)
                 {
                          <td>@Model.dt.Rows[i][j]</td>
-                           
+                         
                 }
                         <td>
-                            <a asp-page="/Delete" asp-route-id="@Model.dt.Rows[i][1]" /> Delete |
-                            <a asp-page="/Edit" asp-route-id="@Model.dt.Rows[i][1]" /> Update
+                           
+                            <a asp-page="/EditAgency" asp-route-email="@Model.dt.Rows[i][1]" /> Update |
+                            <a  asp-page="/DeleteAgency" asp-route-email="@Model.dt.Rows[i][1]" /> Delete
+                          
                         </td>
               </tr>
           

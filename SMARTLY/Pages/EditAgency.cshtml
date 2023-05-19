@@ -1,5 +1,5 @@
 ﻿@page
-@model SMARTLY.Pages.EditModel
+@model SMARTLY.Pages.EditAgencyModel
 @{
 }
 <header id="header" class="fixed-top">
@@ -40,7 +40,7 @@
     <section id="hero2" class="d-flex align-items-center">
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
 
-            <h1>Add new agency</h1>
+            <h1>@Model.dt.Rows[0][0]</h1>
 
         </div>
     </section>
@@ -53,18 +53,35 @@
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-8">
+                  
  <form method="post" class="signin-form">
     <div class="form-group">
-        <input type="text" class="form-control" placeholder="Name">  
-       
+        <input asp-for="@Model.agency.Name" type="text" class="form-control" placeholder="Name" value="@Model.dt.Rows[0][0]">  
+        <span asp-validation-for="@Model.agency.Name"></span>
+
     </div>
     <div class="form-group">
-       <input type="email" class="form-control"  placeholder="Email">
-      
-    </div>
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Location">
-       
+        <input asp-for="@Model.agency.email" type="email" class="form-control" placeholder="Email" value="@Model.dt.Rows[0][1]">
+        <span asp-validation-for="@Model.agency.email"></span>
     </div>
 
+    <div class="form-group">
+        <input asp-for="@Model.agency.location" type="text" class="form-control" placeholder="Location" value="@Model.dt.Rows[0][2]">
+         <span asp-validation-for="@Model.agency.location"></span>
+    </div>
+    <div class="form-group">
+                            <input type="text" asp-for="@Model.username" hidden />
+    </div>
+   
+                        <div class="form-group">
+    <button  class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;">
+                         
+            Update
+                    
+    </button>
+    </div>
+   
+   
 </form>
+                    </br>
+                    </br>

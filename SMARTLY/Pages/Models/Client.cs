@@ -11,7 +11,7 @@ namespace SMARTLY.Pages.Models
 
         [Required(ErrorMessage = "this field is required")]
         [Phone(ErrorMessage ="not a valid phone number")]
-
+       
         
         public string phonenumber { get; set; }
     }

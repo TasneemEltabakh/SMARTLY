@@ -15,10 +15,15 @@ namespace SMARTLY.Pages.Models
         public SqlConnection Connection { get; set; }
         public int getUserType { get; set; }
         public string getuserPassword { get; set; }
+        public string getUsername { get; set; }
+        
         public Object table { get; set; }
         public Database()
         {
             Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
+            //Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
+           
+            //Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -57,6 +62,7 @@ namespace SMARTLY.Pages.Models
             int x = (int)cmd.ExecuteScalar();
             return x;
         }
+
         public bool CheckPassword(string password, string username)
         {
             string queury = "Select userPassword from _User where username= @username;";
@@ -135,7 +141,7 @@ namespace SMARTLY.Pages.Models
             try
             {
                 Connection.Open();
-               dt.Load( cmd.ExecuteReader());
+                 dt.Load( cmd.ExecuteReader());
                 return dt;
             }
             catch
@@ -199,6 +205,121 @@ namespace SMARTLY.Pages.Models
 
         }
 
-        
+        public void UpdateAllAgencies(Agency agency, string username)
+        {
+          
+            string query= "update Agency set Agencyname = @name , email = @email , Location = @location where username = @username ";
+            SqlCommand cmd= new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@name", agency.Name);
+            cmd.Parameters.AddWithValue("@email", agency.email);
+            cmd.Parameters.AddWithValue("@location", agency.location);
+            cmd.Parameters.AddWithValue("@username", username);
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public object return_info(string username)
+        {
+            string query = "SELECT Agencyname, email ,Location FROM AGENCY WHERE username= @username";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+            DataTable dt = new DataTable();
+
+            try
+            {
+                Connection.Open();
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+
+            }
+            catch
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public void Deletedrecord(string username)
+        {
+            string Query = "delete from _User where username = @username ; delete  from Agency where username = @username ;";
+            SqlCommand cmd= new SqlCommand(Query, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        // nada added for all orders 
+        public void DeleteOrder(int OrderCode)
+        {
+            string q = "DELETE FROM AnOrder WHERE OrderCode= @OrderCode";
+
+            SqlCommand cmd = new SqlCommand(q, Connection);
+            cmd.Parameters.AddWithValue("@OrderCode" , OrderCode);
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close(); 
+            }
+        }
+        public string returnUsername(string email)
+        {
+            string q = "select username from Agency where email = @email";
+            SqlCommand cmd= new SqlCommand(q, Connection);
+            
+            cmd.Parameters.AddWithValue("@email", email);
+
+            try
+            {
+                Connection.Open();
+                
+                getUsername = (string)cmd.ExecuteScalar();
+
+                return getUsername;
+            }
+            catch
+            {
+                return " ";
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
     }
 }

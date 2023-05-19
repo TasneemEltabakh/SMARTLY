@@ -295,3 +295,30 @@
 })()
 
 
+// Open the pop-up window
+function openPopup() {
+    $('#popupModal').modal('show');
+}
+
+// Handle confirm button action
+// Handle confirm button action
+function confirmAction() {
+    // Perform AJAX request to delete the record
+    $.ajax({
+        url: '/DeleteRecord',  // Replace with your actual URL endpoint for deleting a record
+        type: 'POST',
+        data: { recordId: '123' },  // Replace with the appropriate data for deleting the record
+        success: function (result) {
+            // Handle the success response, if needed
+            console.log('Record deleted successfully');
+        },
+        error: function (xhr, status, error) {
+            // Handle the error response, if needed
+            console.error('Error deleting record:', error);
+        },
+        complete: function () {
+            // Close the pop-up window
+            $('#popupModal').modal('hide');
+        }
+    });
+}

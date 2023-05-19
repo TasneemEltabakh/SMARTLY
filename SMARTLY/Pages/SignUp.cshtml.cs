@@ -10,6 +10,7 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public User user { get; set; }
+
         [BindProperty]
         public Client client { get; set; }
 
