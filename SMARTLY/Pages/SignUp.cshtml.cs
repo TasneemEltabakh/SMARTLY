@@ -16,7 +16,7 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public string passwordcheck { get; set; }
-        
+
         public string msg { get; set; }
         public SignUpModel(Database db)
         {
@@ -25,6 +25,8 @@ namespace SMARTLY.Pages
         public void OnGet()
         {
             msg = "free";
+            user.usertype = 0;
+
         }
         public IActionResult OnPost()
         {
@@ -35,7 +37,7 @@ namespace SMARTLY.Pages
                     msg = "free";
                     user.usertype = 3;
                     database.SignUpNewMember(user, client);
-                    return RedirectToPage("/Index", new { UserName = user.UserName, type = 3 });
+                    return RedirectToPage("/IndexClient", new { UserName = user.UserName, type = 3 });
                 }
                 else
 

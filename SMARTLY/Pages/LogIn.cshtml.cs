@@ -20,6 +20,7 @@ namespace SMARTLY.Pages
         public void OnGet()
         {
             message = "free";
+            Type = 0;
         }
         public IActionResult OnPost()
         {
@@ -47,7 +48,14 @@ namespace SMARTLY.Pages
                     {
                         message = "free";
                         Type = database.returnType(user.UserName);
-                        return RedirectToPage("/Index", new { UserName = user.UserName, type = Type });
+                        if(Type==1)
+                        return RedirectToPage("/IndexAdmin", new { UserName = user.UserName});
+                        if (Type == 2)
+                            return RedirectToPage("/IndexAgency", new { UserName = user.UserName });
+                        if (Type == 3)
+                            return RedirectToPage("/IndexClient", new { UserName = user.UserName });
+                        else
+                            return RedirectToPage("/Index");
                     }
 
 
