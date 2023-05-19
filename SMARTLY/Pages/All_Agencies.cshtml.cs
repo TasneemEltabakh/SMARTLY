@@ -20,9 +20,9 @@ namespace SMARTLY.Pages
 
         public void OnGet()
         {
-            dt =database.loadTableofAgencies();
+            dt = database.loadTableofAgencies();
         }
-        
+
 
     }
 }

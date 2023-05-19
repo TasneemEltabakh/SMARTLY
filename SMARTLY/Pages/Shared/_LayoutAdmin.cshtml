@@ -1,7 +1,6 @@
-﻿
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
 
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +25,6 @@
     <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <!-- Bootstrap -->
-   
     <!-- Slick -->
     <link type="text/css" rel="stylesheet" href="~/assests/css/slick.css" />
     <link type="text/css" rel="stylesheet" href="~/assests/css/slick-theme.css" />
@@ -51,99 +49,104 @@
 
     <!-- CSS File -->
     <link href="~/assets/css/style.css" rel="stylesheet">
-
-
 </head>
-
 <body>
-    <header id="header" class="fixed-top">
-        <div class="container d-flex align-items-center justify-content-lg-between">
+  
+        <header id="header" class="fixed-top">
+            <div class="container d-flex align-items-center justify-content-lg-between">
 
 
-            <a href="/Index" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
+                <a href="/IndexAdmin" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
 
 
-            <nav id="navbar" class="navbar order-last order-lg-0">
+                <nav id="navbar" class="navbar order-last order-lg-0">
 
 
-                <ul>
-                    <li><a class="nav-link scrollto active" href="/Index">Home</a></li>
-                    <li><a class="nav-link scrollto" asp-page="/Products_Main">Product</a></li>
-                    <li class="dropdown">
-                        <a asp-page="/Bundle_Out"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a class="nav-link scrollto active" href="/IndexAdmin">Home</a></li>
+                        <li><a class="nav-link scrollto" asp-page="/Products_Main_Admin">Products</a></li>
+                        <li class="dropdown">
+                            <a asp-page="/Bundle_Out_Admin"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
+                            <ul>
+                                <li><a href="/Bundle_Item_Admin">Basic</a></li>
+                            <li><a href="/Bundle_Item_Admin">Intermediate</a></li>
+                            <li><a href="/Bundle_Item_Admin">Premium</a></li>
+                            </ul>
+                        </li>
+                    
+                    <li><a class="nav-link scrollto" asp-page="/All_Agencies">Agencies</a></li>
+                    <li><a class="nav-link scrollto" asp-page="/All_Orders">Orders</a></li>
+                    <li><a class="nav-link scrollto" asp-page="/All_Comments">Comments</a></li>
+                    <li><a class="nav-link scrollto" asp-page="/Statistics">Statistics</a></li>
+
+                     <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>
+                     <li class="dropdown">
+                        <a href="#"><span>settings</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a href="/Bundle_Item">Basic</a></li>
-                            <li><a href="/Bundle_Out_Admin">Intermediate</a></li>
-                            <li><a href="/Products_Main_Admin">Premium</a></li>
+                            <li><a href="/Profile">Profile</a></li>
+                            
+                            <li><a href="/LogIn"> Log Out</a></li>
                         </ul>
                     </li>
-                    <li><a class="nav-link scrollto" href="/Contact_Us">Contact</a></li>
 
-                    <li>
-                        <a class="shopping-cart" asp-page="/Cart"><i class="fa fa-shopping-cart"></i></a>
-                    </li>
-                    <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>
+                    </ul>
 
-                </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
 
-                <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav><!-- .navbar -->
 
-            </nav><!-- .navbar -->
-            
-                <a href="/LogIn" class="get-started-btn scrollto">Sign in</a>
-          
-
-        </div>
-    </header><!-- End Header -->
-    <main>
+            </div>
+        </header><!-- End Header -->
+        <!-- ======= Hero Section ======= -->
+        <main>
         @RenderBody()
-    </main>
-    <!-- ======= Footer ======= -->
+        </main>
+   
     <footer id="footer">
         <div class="footer-top">
-          
-           
+
+
             <div class="container">
                 <div class="row">
-                   
+
                     <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
 
-                       
+
                         <div class="footer-info">
-                           
+
                             <p>
                                 <a href="#">SMARTLY</a> <br><br>
                                 <strong>Egypt</strong>  <br>
                                 <strong>Phone:</strong> +20 0158 9554 885 <br>
                                 <strong>Email:</strong><a href="mailto:Smartly@gmail.com"> Smartly@gmail.com<br></a>
                             </p>
-                           
+
                         </div>
                     </div>
 
-               
+
 
                     <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 footer-newsletter">
-                           <h4>Policies</h4>
-                            <ul>
-                                <li><i class="bx bx-chevron-right"></i> <a href="/Policies">Terms of service</a></li>
+                        <h4>Policies</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="/Policies">Terms of service</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="/Policies">Refund Policy</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="/Policies">Privacy policy</a></li>
-                            </ul>
-                     
+                        </ul>
+
 
                     </div>
-                   
+
                     <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                         <a href="/All_Comments">Follow Us</a> <br /><br />
-                    <div class="social-links ">
+                        <div class="social-links ">
                             <!--<h4>Follow Us</h4>-->
-                       
-                        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a> <br /> <br />
-                   
-                        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                    </div>
+
+                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a> <br /> <br />
+
+                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        </div>
                     </div>
                     <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 footer-newsletter">
                         <h4>Subscribe</h4>
@@ -160,7 +163,7 @@
             <div class="copyright">
                 &copy; Copyright<a href="/Index"> <strong><span>SMARTLY</span></strong></a> All Rights Reserved
             </div>
-         
+
         </div>
     </footer><!-- End Footer -->
 
