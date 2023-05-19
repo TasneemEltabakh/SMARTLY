@@ -20,8 +20,8 @@ namespace SMARTLY.Pages.Models
         public Database()
         {
             //Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
-           
-            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
+            Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");  //Rghda
+            //Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -344,7 +344,7 @@ namespace SMARTLY.Pages.Models
         }
         public DataTable LoadBundlesInfo()
         {
-            string query = "select _Name, price, BundleDescription, img  from  Bundle";
+            string query = "select *  from  Bundle";
             SqlCommand cmd = new SqlCommand(query, Connection);
            
             DataTable dt = new DataTable();
@@ -364,6 +364,27 @@ namespace SMARTLY.Pages.Models
             {
                 Connection.Close();
             }
+        }
+
+        public DataTable ReadBundleRow(int Id)   //***
+        {
+            string Q = "select * from Bundle where BundleId= " + @Id;
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return dt;
         }
     }
 }

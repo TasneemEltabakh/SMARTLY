@@ -245,7 +245,7 @@ title varchar not null,
 
 
 ALTER TABLE Product
-DROP CONSTRAINT DF__Product__categor__45F365D3;
+DROP CONSTRAINT DF__Product__categor__4D94879B;
 
 Alter table Product
 alter column category int 

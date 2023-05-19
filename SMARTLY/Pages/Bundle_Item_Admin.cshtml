@@ -83,12 +83,12 @@
             <div class="col-lg-6 col-md-12">
                 <div class="abt-text">
                     <p class="top-sub">First Stage</p>
-                    <h2>This is <span class="orange-text">Basic</span></h2>
-                    <p>Total Price: 30000</p>
+                    <h2>This is <span class="orange-text">@Model.dt.Rows[0][4]</span></h2>
+                    <p>Total Price: @Model.dt.Rows[0][1]</p>
                     <p>Number of Products: 6</p>
                     <p>Show the information of this Bundle Here.</p>
                     <button class="Admin_Button">Edit</button><br /><br />
-                    <a href="Bundle_Out" class="boxed-btn mt-4">See Other Bundles</a>
+                    <a href="Bundle_Out_Admin" class="boxed-btn mt-4">See Other Bundles</a>
                 </div>
             </div>
         </div>
