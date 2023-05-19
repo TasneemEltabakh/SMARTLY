@@ -26,5 +26,6 @@ namespace SMARTLY.Pages
             dt = data.ReadProductRow(id);
             
         }
+  
     }
 }

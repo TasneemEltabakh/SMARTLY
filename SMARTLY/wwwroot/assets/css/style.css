@@ -3834,42 +3834,31 @@ textarea.input {
     }
 }
 
-.card-registration .select-input.form-control[readonly]:not([disabled]) {
-    font-size: 1rem;
-    line-height: 2.15;
-    padding-left: .75em;
-    padding-right: .75em;
+
+/* Adjust the height of the card-registration container */
+.card-registration {
+    height: calc(100vh - 200px); /* Subtract the height of the header and footer */
 }
 
-.card-registration .select-arrow {
-    top: 13px;
-}
+    /* Set a maximum height for the product container */
+    .card-registration .product-container {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    .card-registration .card-body {
+        flex-grow: 1;
+        overflow-y: auto;
+    }
 
 .bg-grey {
     background-color: #eae8e8;
 }
 
-@media (min-width: 992px) {
-    .card-registration-2 .bg-grey {
-        border-top-right-radius: 16px;
-        border-bottom-right-radius: 16px;
-    }
-}
-
-@media (max-width: 991px) {
-    .card-registration-2 .bg-grey {
-        border-bottom-left-radius: 16px;
-        border-bottom-right-radius: 16px;
-    }
-}
 
 /* nada for bundle */
-
 /*--------------------------------------------------------------
 # Pricing
 --------------------------------------------------------------*/
-
-
 .pricing .box {
     padding: 20px;
     background: #f9f9f9;
