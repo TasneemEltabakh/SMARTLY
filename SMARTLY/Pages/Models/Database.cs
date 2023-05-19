@@ -529,7 +529,7 @@ namespace SMARTLY.Pages.Models
         }
         
 
-        }
+        
         public int countProductsinBundle(int id)   //***
         {
             string Q = "select count(*) from Bundle_Product where Bundle_Product.Bundle_ID= " + id;
