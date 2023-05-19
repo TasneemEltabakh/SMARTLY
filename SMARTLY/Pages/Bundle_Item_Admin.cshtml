@@ -40,7 +40,8 @@
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <div class="abt-bg">
-                    <img src="assets/img/Basissics.jpg" class="img-fluid" alt="">
+
+                    <img src="@Model.dt.Rows[0][5]" class="img-fluid" alt="">
                 </div>
             </div>
             <div class="col-lg-6 col-md-12">
@@ -48,8 +49,9 @@
                     <p class="top-sub">First Stage</p>
                     <h2>This is <span class="orange-text">@Model.dt.Rows[0][4]</span></h2>
                     <p>Total Price: @Model.dt.Rows[0][1]</p>
-                    <p>Number of Products: 6</p>
-                    <p>Show the information of this Bundle Here.</p>
+                    <p>Number of Products: @Model.productnum </p>
+                    <p>@Model.dt.Rows[0][3]</p>
+
                     <button class="Admin_Button">Edit</button><br /><br />
                     <a href="Bundle_Out_Admin" class="boxed-btn mt-4">See Other Bundles</a>
                 </div>
@@ -89,51 +91,17 @@
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="150">
 
 
-
-                  <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <img src="assets/img/R1.jpg" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                          <h4>Product Name</h4>
-                          <p>Information about this product</p>
-                          <a href="assets/img/R1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Edit"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="Delete This"><i class="fa fa-times"></i></a>
-                        </div>
-                  </div>
-
-
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <img src="assets/img/R2.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Product Name</h4>
-                        <p>Information about this product</p>
-                        <a href="assets/img/R2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Edit"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="Delete This"><i class="fa fa-times"></i></a>
-                    </div>
-                </div>
-
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                <img src="assets/img/R3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product Name</h4>
-                    <p>Information about this product</p>
-                    <a href="assets/img/R3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Edit"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="Delete This"><i class="fa fa-times"></i></a>
-                </div>
-            </div>
-
-
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                <img src="assets/img/R4.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product Name</h4>
-                    <p>Information about this product</p>
-                    <a href="assets/img/R4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Edit"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="Delete This"><i class="fa fa-times"></i></a>
-                </div>
-            </div>
+                    @for(int i=0; i<Model.products.Rows.Count;i++){
+                            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                                <img src="@Model.products.Rows[i][1]" class="img-fluid" alt="" width="500" Hight="500">
+                            <div class="portfolio-info">
+                              <h4>@Model.products.Rows[i][0]</h4>
+                              <p>Information about this product</p>
+                              <a href="assets/img/R1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Edit"><i class="bx bx-plus"></i></a>
+                                  <a href="/Product_internal" class="details-link" title="Delete This"><i class="fa fa-times"></i></a>
+                            </div>
+                      </div>
+                    }
 
     </div>
 
@@ -141,7 +109,18 @@
 </section>
 
 
-<button class="Admin_Button" style="display:block; margin: 0 auto;">Add</button>
+<form method="post">
+<select class="form-select" aria-label="Default select example" width="2">
+      <option >Choose Your Product</option>
+    @for (int i=0;i<Model.dt22.Rows.Count;i++)
+    {
+        <option value="@Model.dt22.Rows[i][1]">@Model.dt22.Rows[i][0]</option>
+    }
+</select>
+        <div class="text-center">
+      <a type="submit" class="Admin_Button" asp-page="/Bundle_Out_Admin" >Add Here</a>
+        </div>
+</form>
 
     <br />
     <br />
