@@ -23,9 +23,10 @@ namespace SMARTLY.Pages.Models
         public Database()
         {
             //Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
-            //Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
-           
-            Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+            // Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
+            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+
+           // Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -415,11 +416,12 @@ namespace SMARTLY.Pages.Models
         public DataTable ReadProduct()  
         {
             string Q = "Select * from Product";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
             DataTable dt = new DataTable();
             try
             {
                 Connection.Open();
-                SqlCommand cmd = new SqlCommand(Q, Connection);
+                
                 dt.Load(cmd.ExecuteReader());
                 return dt;
             }
@@ -627,18 +629,25 @@ namespace SMARTLY.Pages.Models
 		{
 			string Q = "select PName,PId from product";
 			DataTable dt = new DataTable();
-			try
-			{
-				Connection.Open();
-				SqlCommand cmd = new SqlCommand(Q, Connection);
-				dt.Load(cmd.ExecuteReader());
-			}
-			catch (SqlException ex)
-			{
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
 
+                dt.Load(cmd.ExecuteReader());
+                return dt;  
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
         }
 
-		public void DeleteProduct(int PId)
+		public void DeleteProduct(string PId)
 		{
 			string q = "DELETE FROM Product WHERE PId = @PId";
 
@@ -682,13 +691,9 @@ namespace SMARTLY.Pages.Models
             {
                 Connection.Close();
             }
-        }
-			}
-			finally
-			{
-				Connection.Close();
-			}
-			return dt;
+        
+		
+		
 		}
         public void AddProductToBundle(int idProduct, int idbundle)
         {

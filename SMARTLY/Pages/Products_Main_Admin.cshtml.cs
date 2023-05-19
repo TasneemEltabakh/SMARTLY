@@ -27,6 +27,7 @@ namespace SMARTLY.Pages
             CategoriesTable = Db.ReadCategories();
 			ProductsTable = Db.ReadProduct();
 		}
+
 		public string returnCategory(int id)
 		{
 			string title = Db.getTitleCategory(id);

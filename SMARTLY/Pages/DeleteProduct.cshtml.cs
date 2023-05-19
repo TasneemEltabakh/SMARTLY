@@ -5,21 +5,21 @@ using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class DeleteProductModel : PageModel
+    public class DeleteProductModel : UserPageModel
     {
 		private readonly Database database;
 
 
 		[BindProperty]
 
-		public int PId { get; set; }
+		public string PId { get; set; }
 
         public DeleteProductModel(Database db)
         {
 			database = db;
 		}
 
-        public void OnGet(int PId)
+        public void OnGet(string PId)
         {
 			this.PId = PId;
 		}
