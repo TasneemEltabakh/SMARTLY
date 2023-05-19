@@ -501,6 +501,32 @@ namespace SMARTLY.Pages.Models
             }
 
         }
+        public void AddProductToCart(string username, string id)   //***
+        {
+            string Q = "insert into cart values(@username, @id)";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@id", id);
+
+         
+            try
+            {
+                Connection.Open();
+
+             cmd.ExecuteNonQuery();
+            
+            }
+            catch (SqlException ex)
+            {
+              
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        
 
 
     }
