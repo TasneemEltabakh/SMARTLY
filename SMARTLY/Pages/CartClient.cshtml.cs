@@ -65,14 +65,14 @@ namespace SMARTLY.Pages
             shipping = 0;
             return shipping;
        }
-       
+
         public void update(int id, int quantity)
         {
-           
+            idproduct = id;
+            Quantity = quantity;
             data.UpdateCart(idproduct, Quantity);
-           
+            carttable = data.ReadCart(UserName);
         }
-       
 
     }
 

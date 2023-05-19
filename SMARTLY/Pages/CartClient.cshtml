@@ -210,12 +210,6 @@
 
                 totalQuantity += quantity;
                 totalPrice += productPrice * quantity;
-
-                // Get the ID for the current quantity input
-                var id = input.getAttribute('data-id');
-
-                // Call the update function with the ID and quantity
-                updateBackend(id, quantity);
             }
 
             // Update the summary and total price
@@ -227,41 +221,6 @@
 
             summaryTotal.textContent = 'EGB ' + totalPriceWithShipping.toFixed(2);
         }
-
-        function updateBackend(id, quantity) {
-            // Perform the necessary actions to update the database
-            // Replace the code below with your actual database update logic
-
-            // Make an AJAX request to your server
-            // Send the ID and quantity as parameters or in the request body
-            // Update the corresponding entry in your database
-
-            fetch('/update-cart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id: id, quantity: quantity }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Cart updated:', data);
-                    // If the update was successful, you can perform additional actions here
-                })
-                .catch(error => {
-                    console.error('Error updating cart:', error);
-                    // Handle the error appropriately
-                });
-        }
-
-        // Call the updateBackend function when the quantity changes
-        document.querySelectorAll('input[name="quantity"]').forEach(function (input) {
-            input.addEventListener('input', function () {
-                var id = input.getAttribute('data-id');
-                var quantity = parseInt(input.value);
-                updateBackend(id, quantity);
-            });
-        });
     </script>
-
+    
     </section>
