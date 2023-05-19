@@ -20,7 +20,7 @@ namespace SMARTLY.Pages
 
         public void OnGet()
         {
-
+            
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using static System.Net.Mime.MediaTypeNames;
+using System.Data.Common;
 
 namespace SMARTLY.Pages.Models
 {
@@ -388,6 +389,69 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
             return dt;
+        }
+        public DataTable ReadCategories()   //***
+        {
+            string Q = "Select * from Categories";
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            
+        }
+        public DataTable ReadProduct()  
+        {
+            string Q = "Select * from Product";
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        public string getTitleCategory(int id)
+        {
+            string q = "select title  from categories where id = @id;";
+            SqlCommand cmd = new SqlCommand(q, Connection);
+            cmd.Parameters.AddWithValue("@id", id);
+            try
+            {
+                Connection.Open();
+                string max = (string)cmd.ExecuteScalar();
+
+                return max;
+            }
+            catch
+            {
+                return " ";
+            }
+            finally
+            {
+                Connection.Close();
+            }
         }
 
     }

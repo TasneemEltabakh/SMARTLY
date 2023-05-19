@@ -245,7 +245,7 @@ title varchar not null,
 
 
 ALTER TABLE Product
-DROP CONSTRAINT DF__Product__categor__4D94879B;
+DROP CONSTRAINT DF__Product__categor__45F365D3;
 
 Alter table Product
 alter column category int 
@@ -276,18 +276,17 @@ Create table Bundle_Product
 (
 product_id varchar (15) not null,
 Bundle_ID Varchar(15) not null,
-
 primary key (Product_id, Bundle_Id),
 foreign key (product_id ) references Product,
 foreign key (Bundle_id ) references Bundle
 
 );
 
+
 Create Table Guest 
 (
   id int primary key,
 );
-
 
 alter table Categories
 alter column title varchar(20) not null
@@ -299,4 +298,32 @@ values(2,'Switches');
 insert into Categories
 values(3,'Lighting');
 
+ALTER TABLE Product
+DROP COLUMN Pimage; 
+
+Alter table product 
+add Pimage varchar(200) ;
+
+
+alter table Product
+alter column PName varchar(150) not null
+
+insert into Product
+values(1,'Echo Dot 5th Gen',28000,260,'Deep Sea Blue',0,1,'Its for Alexa','assets\img\product1.jpeg');
+insert into Product
+values(2,'WiFi Mini DIY Smart Switch',15000,50,'Black',0,2,'Its for Switch','assets\img\product2.jpeg');
+insert into Product
+values(3,'Wifi Smart Door Lock Indoor',30000,100,'silver',0,2,'Its for Switches','assets\img\product3.jpeg');
+
+insert into  Bundle_Product
+values(1,1);
+insert into  Bundle_Product
+values(2,2);
+insert into  Bundle_Product
+values(3,3);
+insert into  Bundle_Product
+values(1,3);
+
+insert into Product
+values(4,'Wifi Smart Door Lock outdoor',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp');
 
