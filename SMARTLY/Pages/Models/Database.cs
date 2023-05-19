@@ -318,5 +318,52 @@ namespace SMARTLY.Pages.Models
             }
 
         }
+        public int GetMax(string table_name, string column)
+        {
+            string q = "select max(@id) from @table ";
+            SqlCommand cmd = new SqlCommand(q, Connection);
+
+            cmd.Parameters.AddWithValue("@table", table_name);
+            cmd.Parameters.AddWithValue("@id", column);
+
+            try
+            {
+                Connection.Open();
+                int max = (int)cmd.ExecuteScalar();
+
+                return max;
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public DataTable LoadBundlesInfo()
+        {
+            string query = "select _Name, price, BundleDescription, img  from  Bundle";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+           
+            DataTable dt = new DataTable();
+
+            try
+            {
+                Connection.Open();
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+
+            }
+            catch
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
     }
 }
