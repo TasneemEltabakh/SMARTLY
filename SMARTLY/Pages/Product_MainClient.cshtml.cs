@@ -1,12 +1,46 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SMARTLY.Pages.Models;
+using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class Product_MainClientModel : PageModel
+    public class Product_MainClientModel : UserPageModel
     {
+        private readonly Database Db;
+
+        [BindProperty]
+        public DataTable CategoriesTable { get; set; }
+
+
+        [BindProperty]
+        public DataTable ProductsTable { get; set; }
+
+
+        public Product_MainClientModel(Database db)
+        {
+            Db = db;
+        }
         public void OnGet()
         {
+
+            CategoriesTable = Db.ReadCategories();
+            ProductsTable = Db.ReadProduct();
+        }
+        public string returnCategory(int id)
+        {
+            string title = Db.getTitleCategory(id);
+            return title;
+        }
+        public double returnSale(double sale)
+        {
+            double Sale = sale;
+            return Sale;
+        }
+        public double price_after_sale(double price, double sale)
+        {
+            double Price = price - ((sale / 100) * price);
+            return Price;
         }
     }
 }

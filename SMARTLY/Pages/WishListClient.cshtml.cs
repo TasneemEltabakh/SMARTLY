@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SMARTLY.Pages
 {
-    public class ProfileModel : UserPageModel
+    public class WishListClientModel : PageModel
     {
         public void OnGet()
         {

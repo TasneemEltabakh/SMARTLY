@@ -245,7 +245,7 @@ title varchar not null,
 
 
 ALTER TABLE Product
-DROP CONSTRAINT DF__Product__categor__4D94879B;
+DROP CONSTRAINT DF__Product__categor__45F365D3;
 
 Alter table Product
 alter column category int 
@@ -267,7 +267,6 @@ alter column  img varchar(200) not null
 
 insert into Bundle values (1,20000,1,'Experience the power of smart lighting with our cutting-edge home automation system. Take control of your lighting at your fingertips with our intuitive mobile app. Effortlessly adjust brightness, set customized lighting scenes, and schedule lighting automation to suit your lifestyle. Enjoy the convenience of voice control integration with popular virtual assistants. Enhance your ambiance and energy efficiency while unlocking a new level of comfort and convenience. Transform your space with smart lighting technology that brings simplicity, style, and savings into every room Transform your home into a connected haven of personalized lighting and climate control. Elevate your living experience with our intermediate bundle, combining convenience, comfort, and energy efficiency in one seamless solution.','Basic','assets\img\basic_white_fiexedsize (1).jpg');
 
-
 insert into Bundle values (2,40000,2,'Discover the ultimate smart home experience with our intermediate bundle that seamlessly controls both lighting and temperature. Enjoy complete command over your  ambiance and comfort through a single intuitive platform.','Intermediate','assets\img\intermidate_white_fixed (1).jpg')
 
 insert into Bundle values (3,70000,3,'Experience the pinnacle of smart home innovation with our premium bundle, empowering you to effortlessly control every aspect of your entire home. Seamlessly integrate and manage lighting, temperature, security, entertainment, and more, all from a single, powerful platform. Unlock the true potential of your home with our premium smart home bundle. Experience unparalleled control, convenience, and luxury as you transform your living environment into a sophisticated and fully connected oasis.','Premium','assets\img\adavnced_white_fixed (1).jpg');
@@ -276,18 +275,17 @@ Create table Bundle_Product
 (
 product_id varchar (15) not null,
 Bundle_ID Varchar(15) not null,
-
 primary key (Product_id, Bundle_Id),
 foreign key (product_id ) references Product,
 foreign key (Bundle_id ) references Bundle
 
 );
 
+
 Create Table Guest 
 (
   id int primary key,
 );
-
 
 alter table Categories
 alter column title varchar(20) not null
@@ -305,6 +303,46 @@ DROP COLUMN Pimage;
 
 Alter table product 
 add Pimage varchar(200) ;
+
+ALTER TABLE Product
+DROP COLUMN Pimage; 
+
+Alter table product 
+add Pimage varchar(200) ;
+
+
+alter table Product
+alter column PName varchar(150) not null
+
+insert into Product
+values(1,'Echo Dot 5th Gen',28000,260,'Deep Sea Blue',0,1,'Its for Alexa','assets\img\product1.jpeg');
+insert into Product
+values(2,'WiFi Mini DIY Smart Switch',15000,50,'Black',0,2,'Its for Switch','assets\img\product2.jpeg');
+insert into Product
+values(3,'Wifi Smart Door Lock Indoor',30000,100,'silver',0,2,'Its for Switches','assets\img\product3.jpeg');
+
+insert into  Bundle_Product
+values(1,1);
+insert into  Bundle_Product
+values(2,2);
+insert into  Bundle_Product
+values(3,3);
+insert into  Bundle_Product
+values(1,3);
+
+
+insert into Product
+values(4,'Wifi Smart Door Lock outdoor',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp');
+
+Create table Cart (
+username varchar(10) foreign key references _user,
+productid varchar(15) foreign key references product,
+primary key (username,productid)
+)
+
+ALTER TABLE product
+ADD price_aftersale AS (price - (SalePercentage / 100 * price)) PERSISTED;
+
 
 
 alter table Product

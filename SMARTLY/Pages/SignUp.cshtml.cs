@@ -7,6 +7,8 @@ namespace SMARTLY.Pages
     public class SignUpModel : PageModel
     {
         private readonly Database database;
+        private readonly IHttpContextAccessor httpContextAccessor;
+
 
         [BindProperty]
         public User user { get; set; }
@@ -18,9 +20,10 @@ namespace SMARTLY.Pages
         public string passwordcheck { get; set; }
 
         public string msg { get; set; }
-        public SignUpModel(Database db)
+        public SignUpModel(Database db, IHttpContextAccessor httpContextAccessor)
         {
             this.database = db;
+            this.httpContextAccessor = httpContextAccessor;
         }
         public void OnGet()
         {
@@ -35,9 +38,10 @@ namespace SMARTLY.Pages
                 if (String.Equals(passwordcheck, user.password))
                 {
                     msg = "free";
+                    HttpContext.Session.SetString("UserName", user.UserName);
                     user.usertype = 3;
                     database.SignUpNewMember(user, client);
-                    return RedirectToPage("/IndexClient", new { UserName = user.UserName, type = 3 });
+                    return RedirectToPage("/IndexClient");
                 }
                 else
 

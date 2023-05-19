@@ -5,7 +5,7 @@ using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class DeleteAnOrderModel : PageModel
+    public class DeleteAnOrderModel : UserPageModel
 
 
     {

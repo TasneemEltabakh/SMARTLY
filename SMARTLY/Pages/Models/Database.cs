@@ -8,6 +8,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using static System.Net.Mime.MediaTypeNames;
 using System.Reflection;
+using System.Data.Common;
 
 namespace SMARTLY.Pages.Models
 {
@@ -21,10 +22,10 @@ namespace SMARTLY.Pages.Models
         public Object table { get; set; }
         public Database()
         {
-            Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
+            //Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
             //Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
-            Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");  //Rghda
-            //Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
+           
+            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -389,6 +390,145 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
             return dt;
+        }
+        public DataTable ReadCategories()   //***
+        {
+            string Q = "Select * from Categories";
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            
+        }
+        public DataTable ReadProduct()  
+        {
+            string Q = "Select * from Product";
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        public string getTitleCategory(int id)
+        {
+            string q = "select title  from categories where id = @id;";
+            SqlCommand cmd = new SqlCommand(q, Connection);
+            cmd.Parameters.AddWithValue("@id", id);
+            try
+            {
+                Connection.Open();
+                string max = (string)cmd.ExecuteScalar();
+
+                return max;
+            }
+            catch
+            {
+                return " ";
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public DataTable ReadProductRow(int Id)   //***
+        {
+            string Q = "Select * from Product where PId= @id;";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@id", Id);
+
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+                
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            
+        }
+        public DataTable ReadCart(string username)   //***
+        {
+            string Q = "select * from cart where username= @username";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        public void AddProductToCart(string username, string id)   //***
+        {
+            string Q = "insert into cart values(@username, @id)";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@id", id);
+
+         
+            try
+            {
+                Connection.Open();
+
+             cmd.ExecuteNonQuery();
+            
+            }
+            catch (SqlException ex)
+            {
+              
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        
+
         }
         public int countProductsinBundle(int id)   //***
         {

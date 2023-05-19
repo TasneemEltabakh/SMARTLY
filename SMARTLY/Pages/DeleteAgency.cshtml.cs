@@ -5,7 +5,7 @@ using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class DeleteAgencyModel : PageModel
+    public class DeleteAgencyModel : UserPageModel
     {
         private readonly Database db;
 
