@@ -298,5 +298,43 @@ insert into Categories
 values(2,'Switches');
 insert into Categories
 values(3,'Lighting');
+---->
+--->
+ALTER TABLE Product
+DROP COLUMN Pimage; 
+
+Alter table product 
+add Pimage varchar(200) ;
 
 
+alter table Product
+alter column PName varchar(150) not null
+
+
+insert into Product
+values(1,'Echo Dot 5th Gen',28000,260,'Deep Sea Blue',0,1,'Its for Alexa','assets\img\product1.jpg');
+insert into Product
+values(2,'WiFi Mini DIY Smart Switch',15000,50,'Black',0,2,'Its for Switch','assets\img\product2.jpg');
+insert into Product
+values(3,'Wifi Smart Door Lock Indoor',30000,100,'silver',0,2,'Its for Switches','assets\img\product3.jpg');
+
+insert into  Bundle_Product
+values(1,1);
+insert into  Bundle_Product
+values(2,2);
+insert into  Bundle_Product
+values(3,3);
+insert into  Bundle_Product
+values(1,3);
+--->
+insert into Product
+values(4,'Wifi Smart Door Lock outdoor',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp');
+
+Create table Cart (
+username varchar(10) foreign key references _user,
+productid varchar(15) foreign key references product,
+primary key (username,productid)
+)
+
+ALTER TABLE product
+ADD price_aftersale AS (price - (SalePercentage / 100 * price)) PERSISTED;
