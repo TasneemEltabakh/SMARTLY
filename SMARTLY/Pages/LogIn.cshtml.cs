@@ -7,15 +7,17 @@ namespace SMARTLY.Pages
     public class LogInModel : PageModel
     {
         private readonly Database database;
+        private readonly ILogger<IndexModel> _logger;
 
         [BindProperty]
         public User user { get; set; }
         public string message { get; set; }
 
         public int Type { get; set; }
-        public LogInModel(Database db)
+        public LogInModel(Database db, ILogger<IndexModel> logger)
         {
             this.database = db;
+            _logger = logger;
         }
         public void OnGet()
         {
@@ -46,6 +48,7 @@ namespace SMARTLY.Pages
                     }
                     else
                     {
+                       
                         message = "free";
                         Type = database.returnType(user.UserName);
                         if(Type==1)

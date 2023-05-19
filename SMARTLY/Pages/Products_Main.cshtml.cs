@@ -17,6 +17,7 @@ namespace SMARTLY.Pages
         public DataTable ProductsTable { get; set; }
 
 
+
         public Products_MainModel(Database db)
         {
             Db = db;
@@ -42,26 +43,7 @@ namespace SMARTLY.Pages
             double Price = price - ((sale/100) * price) ;
             return Price;
         }
-        public void OnPostSearch()
-        {
-
-          
-        }
-        public void OnPostWishlist()
-        {
-
-
-        }
-        public void OnPostAddtocart()
-        {
-
-
-        }
-        public void OnPostView()
-        {
-
-
-        }
+      
 
     }
 }

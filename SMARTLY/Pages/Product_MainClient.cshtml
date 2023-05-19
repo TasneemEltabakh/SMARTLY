@@ -10,7 +10,7 @@
 		<div class="header-search">
 			<form method="post" id="SearchForm">
 				<input class="input-select" id="SearchQuery" name="searchQuery" placeholder="   Search for Products "></input>
-				<button class="search-btn">Search</button>
+				<button asp-page-handler="search" class="search-btn">Search</button>
 			</form>
 		</div>
 </section>
@@ -90,19 +90,23 @@
 										<i class="fa fa-star"></i>
 										<i class="fa fa-star"></i>
 									</div>
-									<form method="post">
+								
+								
 										<div class="product-btns">
-											<button asp-page-handler="wishlist" class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button asp-page-handler="view" class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">view</span></button>
+
+											<a asp-page="/WishList" class="add-to-wishlist" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-heart-o"></i><span class="tooltipp"></span></a>
+											<a asp-page="/Products_internalClient" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-eye"></i><span class="tooltipp"></span></a>
+
 										</div>
-									</form>
+								
 
 								</div>
-								<form method="post">
-									<div class="add-to-cart">
-										<button asp-page-handler="addtocart" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</form>
+
+								<div class="add-to-cart">
+									<a asp-page="/CartClient" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a>
+
+								</div>
+
 							</div>
 							<br />
 							<br />

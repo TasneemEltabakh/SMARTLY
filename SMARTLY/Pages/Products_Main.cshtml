@@ -93,19 +93,22 @@
 										<i class="fa fa-star"></i>
 										<i class="fa fa-star"></i>
 									</div>
-									<form method="post">
+									
 								  	<div class="product-btns">
-										<button asp-page-handler="wishlist" class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-										<button asp-page-handler="view" class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">view</span></button>
+									
+											
+											<a asp-page="/Products_internal" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-eye"></i><span class="tooltipp"></span></a>
+											
 									</div>
-								</form>
+								
 							
 								</div>
-								<form method="post">
+								
 								<div class="add-to-cart">
-									<button asp-page-handler="addtocart" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<a asp-page="/Cart" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a> 
+									 
 								</div>
-							</form>
+							
 							</div>
 							<br />
 							<br />
