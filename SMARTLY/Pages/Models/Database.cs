@@ -6,6 +6,7 @@ using Microsoft.VisualBasic;
 using System.Collections.Generic;
 using System;
 using System.Security.Cryptography.X509Certificates;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SMARTLY.Pages.Models
 {
@@ -17,7 +18,7 @@ namespace SMARTLY.Pages.Models
         public Object table { get; set; }
         public Database()
         {
-            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
+            Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
