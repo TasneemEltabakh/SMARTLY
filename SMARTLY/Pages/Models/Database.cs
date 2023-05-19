@@ -347,7 +347,7 @@ namespace SMARTLY.Pages.Models
         }
         public DataTable LoadBundlesInfo()
         {
-            string query = "select _Name, price, BundleDescription, img  from  Bundle";
+            string query = "select *  from  Bundle";
             SqlCommand cmd = new SqlCommand(query, Connection);
            
             DataTable dt = new DataTable();
@@ -368,5 +368,27 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+
+        public DataTable ReadBundleRow(int Id)   //***
+        {
+            string Q = "select * from Bundle where BundleId= " + @Id;
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return dt;
+        }
+
     }
 }

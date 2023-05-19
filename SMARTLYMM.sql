@@ -245,7 +245,7 @@ title varchar not null,
 
 
 ALTER TABLE Product
-DROP CONSTRAINT DF__Product__categor__45F365D3;
+DROP CONSTRAINT DF__Product__categor__4D94879B;
 
 Alter table Product
 alter column category int 
@@ -287,3 +287,16 @@ Create Table Guest
 (
   id int primary key,
 );
+
+
+alter table Categories
+alter column title varchar(20) not null
+
+insert into Categories
+values(1,'Alexa Hub');
+insert into Categories
+values(2,'Switches');
+insert into Categories
+values(3,'Lighting');
+
+
