@@ -258,11 +258,6 @@ references  Categories
 Alter table Bundle 
 Add  _Name varchar(50) not null
 
-Alter table Bundle 
-Add  img varchar not null
-
-Alter table Bundle 
-alter column  img varchar(200) not null
 
 
 insert into Bundle values (1,20000,1,'Experience the power of smart lighting with our cutting-edge home automation system. Take control of your lighting at your fingertips with our intuitive mobile app. Effortlessly adjust brightness, set customized lighting scenes, and schedule lighting automation to suit your lifestyle. Enjoy the convenience of voice control integration with popular virtual assistants. Enhance your ambiance and energy efficiency while unlocking a new level of comfort and convenience. Transform your space with smart lighting technology that brings simplicity, style, and savings into every room Transform your home into a connected haven of personalized lighting and climate control. Elevate your living experience with our intermediate bundle, combining convenience, comfort, and energy efficiency in one seamless solution.','Basic','assets\img\basic_white_fiexedsize (1).jpg');
@@ -335,6 +330,14 @@ primary key (username,productid)
 
 ALTER TABLE product
 ADD price_aftersale AS (price - (SalePercentage / 100 * price)) PERSISTED;
+
+
+ALTER TABLE Cart
+ADD Quantity int default 1
+
+update cart set Quantity =1
+
+
 
 
 

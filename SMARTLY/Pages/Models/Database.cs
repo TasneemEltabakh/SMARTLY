@@ -458,7 +458,6 @@ namespace SMARTLY.Pages.Models
             string Q = "Select * from Product where PId= @id;";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@id", Id);
-
             DataTable dt = new DataTable();
             try
             {
@@ -477,7 +476,7 @@ namespace SMARTLY.Pages.Models
             }
             
         }
-        public DataTable ReadCart(string username)   //***
+        public DataTable ReadCart(string username)   
         {
             string Q = "select * from cart where username= @username";
             SqlCommand cmd = new SqlCommand(Q, Connection);
@@ -501,14 +500,15 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        public void AddProductToCart(string username, string id)   //***
+        public void AddProductToCart(string username, string id, int Qu)   //***
         {
-            string Q = "insert into cart values(@username, @id)";
+            string Q = "insert into cart values(@username, @id,@q)";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@q", Qu);
 
-         
+
             try
             {
                 Connection.Open();
@@ -526,7 +526,34 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        
+        public void UpdateCart(int id,int Qu)   //***
+        {
+            string Q = "update cart set quantity = @q where productid = @id";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            
+            cmd.Parameters.AddWithValue("@q", Qu);
+            cmd.Parameters.AddWithValue("@id", id);
+
+
+            try
+            {
+                Connection.Open();
+
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+
+
 
 
     }

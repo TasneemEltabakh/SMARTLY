@@ -18,7 +18,7 @@
 
                 <br />
 
-                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                <div class="card card-registration card-registration-2" ">
                     <div class="card-body p-0">
 
                         <div class="row g-0">
@@ -30,40 +30,45 @@
                                         <br />
 
                                         <h1 class="fw-bold mb-0 text-black">My Cart</h1>
-                                        <h6 class="mb-0 text-muted">3 items</h6>
+                                        <h6 class="mb-0 text-muted">items @Model.carttable.Rows.Count</h6>
                                     </div>
-
-                                    @for(int i =0; i< Model.carttable.Rows.Count; i++)
+                                    <div class="product-container">
+                                    @for(int i =0 ; i < Model.carttable.Rows.Count; i++)
                                     {
-                                    
-                                        <hr class="my-4">
+                                        Model.dt = Model.returnrecordofproduct(Convert.ToInt32(Model.carttable.Rows[i][1]));
+                                         <hr class="my-4">
                                       
                                     <div class="row mb-4 d-flex justify-content-between align-items-center">
                                         <div class="col-md-2 col-lg-2 col-xl-2">
-                                            <img src="~/assets/img/OIP (1).jpg" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                                <img src="@Model.dt.Rows[0][8]" class="img-fluid rounded-3" alt="Cotton T-shirt">
                                         </div>
+
                                          
                                         <div class="col-md-3 col-lg-3 col-xl-3">
-                                                <h6 class="text-muted"> @Model.returnCategory((int)Model.dt.Rows[i][6])</h6>
+                                                <h6 class="text-muted"> @Model.returnCategory((int)Model.dt.Rows[0][6])</h6>
                                                 <h6 class="text-black mb-0">@Model.dt.Rows[0][1]</h6>
                                         </div>
+
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
 
-                                            <input id="form1" min="0" name="quantity" value="1" type="number"
-                                                   class="form-control form-control-sm" />
+                                                <button class="btn btn-link px-2" onclick="decreaseQuantity(this)" >
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                          
+                                             <input hidden asp-for="@Model.idproduct" value="@Model.carttable.Rows[i][1]" />
 
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
+                                                <input asp-for="@Model.Quantity" data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="1" type="number" class="form-control form-control-sm" oninput="update()" />
+
+                                                <button class="btn btn-link px-2" onclick="increaseQuantity(this)">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            
                                         </div>
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h6 class="mb-0">$@Model.dt.Rows[0][9]</h6>
-                                        </div>
+                                                <h6 class="mb-0">EGB @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.Quantity)</h6>
+
+                                                @{Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.Quantity);}
+                                            </div>
                                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                             <a href="#!" class="text-muted"><i class="fa fa-times"></i></a>
                                         </div>
@@ -71,12 +76,12 @@
 
 
                                     }
-
+                                    </div>
                                     <hr class="my-4">
 
                                     <div class="pt-5">
                                         <h6 class="mb-0">
-                                            <a href="/Products_Main" class="text-body">
+                                            <a href="/Product_MainClient" class="text-body">
                                                 <i class="fa fa-arrow-left"> </i>  Back to shop
                                             </a>
                                         </h6>
@@ -89,24 +94,28 @@
                                     <hr class="my-4">
 
                                     <div class="d-flex justify-content-between mb-4">
-                                        <h5 class="text-uppercase">items 3</h5>
-                                        <h5>€ 132.00</h5>
+                                        <h5 class="text-uppercase">items @Model.carttable.Rows.Count</h5>
+
+                                        <h5>EGB @Model.summary </h5>
                                     </div>
 
                                     <h5 class="text-uppercase mb-3">Shipping</h5>
 
-
+               
 
                                     <div class="mb-4 pb-2">
-                                        <select class="input-select1">
-                                            <option value="1">Standard-Delivery - $5.00</option>
-                                            <option value="2"> International - $15.00</option>
-                                            <option value="3">Overnight - $30.00</option>
-                                            <option value="4">
-                                                Priority Mail - $50
-                                            </option>
-                                        </select>
+                                        <form>
+                                            <select asp-asp-for="@Model.shipping" id="shippingOption" class="input-select1" name="selectedValu">
+                                                <option value="1" data-cost="5">Standard-Delivery - EGB 5.00</option>
+                                                <option value="2" data-cost="15">International - EGB 15.00</option>
+                                                <option value="3" data-cost="30">Overnight - EGB 30.00</option>
+                                                <option value="4" data-cost="50">Priority Mail - EGB 50</option>
+                                            </select>
+                                      
+                                   
+                                    </form>
                                     </div>
+
 
                                     <h5 class="text-uppercase mb-3">Promo code</h5>
 
@@ -116,14 +125,22 @@
 
                                         </div>
                                     </div>
-
+             
                                     <hr class="my-4">
 
                                     <div class="d-flex justify-content-between mb-5">
                                         <h5 class="text-uppercase">Total price</h5>
-                                        <h5>€ 137.00</h5>
-                                    </div>
+                                     
+                                        <h5>
+                                            EGB <input hidden id="shippingCosts" asp-for="shipping"> <span id="summaryTotal">
+                            @(
+                                Model.summary + Model.shipping
+                                )</span>
+                                            </input>
+                                        </h5>
+                </div>
 
+            
                                     <button type="button" class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;"
                                             data-mdb-ripple-color="dark">
                                         <a href="/CheckOut">
@@ -139,3 +156,112 @@
             </div>
         </div>
     </div>
+    <script>
+        // Get the select element and the shipping cost element
+        const selectShipping = document.getElementById('shippingOption');
+        const shippingCost = document.getElementById('shippingCosts');
+        const summaryElement = document.getElementById('summaryTotal');
+
+        // Define the shipping cost for each option
+        const shippingCosts = {
+            1: 5,
+            2: 15,
+            3: 30,
+            4: 50
+        };
+
+        // Initialize the shipping cost to 5
+        let currentShippingCost = 5;
+        shippingCost.textContent = `EGB ${currentShippingCost.toFixed(2)}`;
+
+        // Set the default selected option to the first one
+        selectShipping.selectedIndex = 0;
+
+        // Add event listeners for the change events
+        selectShipping.addEventListener('change', update);
+        document.querySelectorAll('input[name="quantity"]').forEach(function (input) {
+            input.addEventListener('input', update);
+        });
+
+        function decreaseQuantity(button) {
+            var input = button.parentNode.querySelector('input[type=number]');
+            if (input.value > 1) {
+                input.value = parseInt(input.value) - 1;
+                update();
+            }
+        }
+
+        function increaseQuantity(button) {
+            var input = button.parentNode.querySelector('input[type=number]');
+            input.value = parseInt(input.value) + 1;
+            update();
+        }
+
+        function update() {
+            // Get the updated quantity and calculate the total price
+            var quantityInputs = document.querySelectorAll('input[name="quantity"]');
+            var totalQuantity = 0;
+            var totalPrice = 0;
+
+            for (var i = 0; i < quantityInputs.length; i++) {
+                var input = quantityInputs[i];
+                var productPrice = parseFloat(input.getAttribute('data-price'));
+                var quantity = parseInt(input.value);
+
+                totalQuantity += quantity;
+                totalPrice += productPrice * quantity;
+
+                // Get the ID for the current quantity input
+                var id = input.getAttribute('data-id');
+
+                // Call the update function with the ID and quantity
+                updateBackend(id, quantity);
+            }
+
+            // Update the summary and total price
+            var summaryTotal = document.getElementById('summaryTotal');
+            var selectShipping = document.getElementById('shippingOption');
+            var selectedShippingOption = selectShipping.options[selectShipping.selectedIndex];
+            var selectedShippingCost = parseFloat(selectedShippingOption.getAttribute('data-cost'));
+            var totalPriceWithShipping = totalPrice + selectedShippingCost;
+
+            summaryTotal.textContent = 'EGB ' + totalPriceWithShipping.toFixed(2);
+        }
+
+        function updateBackend(id, quantity) {
+            // Perform the necessary actions to update the database
+            // Replace the code below with your actual database update logic
+
+            // Make an AJAX request to your server
+            // Send the ID and quantity as parameters or in the request body
+            // Update the corresponding entry in your database
+
+            fetch('/update-cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: id, quantity: quantity }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Cart updated:', data);
+                    // If the update was successful, you can perform additional actions here
+                })
+                .catch(error => {
+                    console.error('Error updating cart:', error);
+                    // Handle the error appropriately
+                });
+        }
+
+        // Call the updateBackend function when the quantity changes
+        document.querySelectorAll('input[name="quantity"]').forEach(function (input) {
+            input.addEventListener('input', function () {
+                var id = input.getAttribute('data-id');
+                var quantity = parseInt(input.value);
+                updateBackend(id, quantity);
+            });
+        });
+    </script>
+
+    </section>
