@@ -324,6 +324,7 @@ values(3,3);
 insert into  Bundle_Product
 values(1,3);
 
+
 insert into Product
 values(4,'Wifi Smart Door Lock outdoor',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp');
 
