@@ -24,7 +24,7 @@ namespace SMARTLY.Pages.Models
             //Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
             //Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
            
-            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True ;TrustServerCertificate=True");
+            Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -526,7 +526,52 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        
+
+		public void DeleteProduct(int PId)
+		{
+			string q = "DELETE FROM Product WHERE PId = @PId";
+
+			SqlCommand cmd = new SqlCommand(q, Connection);
+			cmd.Parameters.AddWithValue("@PId", PId);
+
+			try
+			{
+				Connection.Open();
+				cmd.ExecuteNonQuery();
+
+			}
+			catch
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+        public DataTable LoadProductInfo()
+        {
+            string query = "select *  from  Product";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                Connection.Open();
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+
+            }
+            catch
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
 
 
     }

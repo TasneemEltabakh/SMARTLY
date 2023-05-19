@@ -1,12 +1,16 @@
-﻿@page
-@model SMARTLY.Pages.Products_Main_AdminModel
+﻿
+
+
+
+
+
+
+@page
+@model SMARTLY.Pages.Products_Main_AgencyModel
 @{
-	Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+	Layout = "/Pages/Shared/_LayoutAgency.cshtml";
 }
-
-
-						
-
+//
 
 <section id="hero2" class="d-flex align-items-center">
 	<div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
@@ -33,9 +37,9 @@
 				<div class="product-filters">
 					<ul>
 						<li data-filter="*" class="active">All</li>
-						@for (int i = 0; i< Model.CategoriesTable.Rows.Count; i++)
+						@for (int i = 0; i< Model.CategoriesTablex.Rows.Count; i++)
 						{
-							<li data-filter=".berry">@Model.CategoriesTable.Rows[i][1]</li>
+							<li data-filter=".berry">@Model.CategoriesTablex.Rows[i][1]</li>
 						}
 					</ul>
 				</div>
@@ -51,38 +55,38 @@
 				<!-- store products -->
 				<div class="row">
 					<!-- product -->
-					@for (int i = 0; i< Model.ProductsTable.Rows.Count; i++)
+					@for (int i = 0; i< Model.ProductsTablex.Rows.Count; i++)
 					{
 						<div class="col-md-4 col-xs-6">
 							<div class="product">
 								<div class="product-img">
-									<img class="circle" src="@Model.ProductsTable.Rows[i][8]" alt="Basic Bundle" width="200" Hight=" 200">
+									<img class="circle" src="@Model.ProductsTablex.Rows[i][8]" alt="Basic Bundle" width="200" Hight=" 200">
 
 									<div class="product-label">
 
-										@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
+										@if (Model.returnSale((double)Model.ProductsTablex.Rows[i][5]) != 0)
 										{
-											<span class="sale">@Model.ProductsTable.Rows[i][5] %</span>
+											<span class="sale">@Model.ProductsTablex.Rows[i][5] %</span>
 										}
 
 									</div>
 								</div>
 								<div class="product-body">
-									<p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
-									<h3 class="product-name"><a href="/Product_internal">@Model.ProductsTable.Rows[i][1]</a></h3>
+									<p class="product-category">@Model.returnCategory((int)Model.ProductsTablex.Rows[i][6])</p>
+									<h3 class="product-name"><a href="/Product_internal">@Model.ProductsTablex.Rows[i][1]</a></h3>
 
 
-									@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
+									@if (Model.returnSale((double)Model.ProductsTablex.Rows[i][5]) != 0)
 									{
 										<h4 class="product-price">
-											EGB @Model.price_after_sale((double)Model.ProductsTable.Rows[i][2], (double)Model.ProductsTable.Rows[i][5])
-											<del class="product-old-price"> EGB @Model.ProductsTable.Rows[i][2]  </del>
+											EGB @Model.price_after_sale((double)Model.ProductsTablex.Rows[i][2], (double)Model.ProductsTablex.Rows[i][5])
+											<del class="product-old-price"> EGB @Model.ProductsTablex.Rows[i][2]  </del>
 										</h4>
 									}
-									@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
+									@if (Model.returnSale((double)Model.ProductsTablex.Rows[i][5]) == 0)
 									{
 										<h4 class="product-price">
-											EGB @Model.ProductsTable.Rows[i][2]
+											EGB @Model.ProductsTablex.Rows[i][2]
 										</h4>
 									}
 
@@ -98,7 +102,7 @@
 									<div class="product-btns">
 
 
-										<a asp-page="/Products_internal" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-eye"></i><span class="tooltipp"></span></a>
+										<a asp-page="/Products_internal" class="quick-view" asp-route-id="@Model.ProductsTablex.Rows[i][0]"><i class="fa fa-eye"></i><span class="tooltipp"></span></a>
 
 									</div>
 
@@ -106,10 +110,8 @@
 								</div>
 
 								<div class="add-to-cart">
-									<a href="/Product_internal_Admin" class="Admin_Button">Edit On It</a>
-									<a href="/DeleteProduct" class="Admin_Button_Delete" >Delete</a>
-
 									
+									<a href="/Products_Internal_Agency" class="Admin_Button">View</a>
 
 								</div>
 

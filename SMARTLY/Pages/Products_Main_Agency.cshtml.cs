@@ -5,28 +5,27 @@ using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class Products_Main_AdminModel : UserPageModel
+    public class Products_Main_AgencyModel : PageModel
     {
 		private readonly Database Db;
-        public DataTable dt { get; set; }
 
-        [BindProperty]
-		public DataTable CategoriesTable { get; set; }
+		[BindProperty]
+		public DataTable CategoriesTablex { get; set; }
 
 
 		[BindProperty]
-		public DataTable ProductsTable { get; set; }
+		public DataTable ProductsTablex { get; set; }
 
-		public Products_Main_AdminModel(Database db)
+		public Products_Main_AgencyModel(Database db)
 		{
 			Db = db;
 		}
 		public void OnGet()
         {
-            //dt = Db.LoadBundlesInfo();
-            CategoriesTable = Db.ReadCategories();
-			ProductsTable = Db.ReadProduct();
-		}
+			CategoriesTablex = Db.ReadCategories();
+            ProductsTablex = Db.ReadProduct();
+        }
+
 		public string returnCategory(int id)
 		{
 			string title = Db.getTitleCategory(id);
@@ -42,6 +41,5 @@ namespace SMARTLY.Pages
 			double Price = price - ((sale/100) * price);
 			return Price;
 		}
-
 	}
 }
