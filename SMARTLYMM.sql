@@ -255,3 +255,22 @@ add constraint fk
 foreign key (category)
 references  Categories
 
+Alter table Bundle 
+Add  _Name varchar(50) not null
+
+Alter table Bundle 
+Add  img varchar not null
+
+Alter table Bundle 
+alter column  img varchar(200) not null
+
+
+insert into Bundle values (1,20000,1,'Experience the power of smart lighting with our cutting-edge home automation system. Take control of your lighting at your fingertips with our intuitive mobile app. Effortlessly adjust brightness, set customized lighting scenes, and schedule lighting automation to suit your lifestyle. Enjoy the convenience of voice control integration with popular virtual assistants. Enhance your ambiance and energy efficiency while unlocking a new level of comfort and convenience. Transform your space with smart lighting technology that brings simplicity, style, and savings into every room Transform your home into a connected haven of personalized lighting and climate control. Elevate your living experience with our intermediate bundle, combining convenience, comfort, and energy efficiency in one seamless solution.','Basic','assets\img\basic_white_fiexedsize (1).jpg');
+
+
+insert into Bundle values (2,40000,2,'Discover the ultimate smart home experience with our intermediate bundle that seamlessly controls both lighting and temperature. Enjoy complete command over your  ambiance and comfort through a single intuitive platform.','Intermediate','assets\img\intermidate_white_fixed (1).jpg')
+
+insert into Bundle values (3,70000,3,'Experience the pinnacle of smart home innovation with our premium bundle, empowering you to effortlessly control every aspect of your entire home. Seamlessly integrate and manage lighting, temperature, security, entertainment, and more, all from a single, powerful platform. Unlock the true potential of your home with our premium smart home bundle. Experience unparalleled control, convenience, and luxury as you transform your living environment into a sophisticated and fully connected oasis.','Premium','assets\img\adavnced_white_fixed (1).jpg');
+
+
+
