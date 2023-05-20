@@ -103,7 +103,7 @@
 								</div>
 
 								<div class="add-to-cart">
-									<a asp-page="/CartClient" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a>
+									<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]" >Add to cart</a>
 
 								</div>
 

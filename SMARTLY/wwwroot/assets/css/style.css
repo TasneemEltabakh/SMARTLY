@@ -3834,7 +3834,9 @@ textarea.input {
     }
 }
 
-
+.borderless {
+    border: none;
+}
 /* Adjust the height of the card-registration container */
 .card-registration {
     height: calc(100vh - 200px); /* Subtract the height of the header and footer */
