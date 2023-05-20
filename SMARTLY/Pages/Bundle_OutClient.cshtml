@@ -3,3 +3,45 @@
 @{
 	Layout = "/Pages/Shared/_LayoutClient.cshtml";
 }
+<section id="hero2" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+        <h1>OUR BUNDLES</h1>
+
+    </div>
+</section>
+
+<section id="pricing" class="pricing">
+    <div class="container">
+
+        <div class="section-title">
+
+            <br />
+            <br />
+
+
+
+            <div class="row">
+
+                @for (int i = 0; i < Model.dt.Rows.Count; i++)
+                {
+                    <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="150">
+                        <div class="box">
+                            <h3>@Model.dt.Rows[i][4]</h3>
+
+                            <img class="circle" src="@Model.dt.Rows[i][5]" alt="Basic Bundle" width="200" Hight=" 200">
+
+                            <h4><sup>EGB</sup>@Model.dt.Rows[i][1]</h4>
+                            <ul>
+                            </ul>
+                            <div class="btn-wrap">
+                                <a asp-page="/Bundle_Item" class="btn-buy" asp-route-id="@Model.dt.Rows[i][0]"> Buy Now </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+</section><!-- End Pricing Section -->

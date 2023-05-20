@@ -1,12 +1,40 @@
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SMARTLY.Pages.Models;
+using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class Bundle_OutModel : PageModel
-    {
-        public void OnGet()
-        {
-        }
-    }
+	public class Bundle_OutModel : UserPageModel
+	{
+		private readonly Database Db;
+
+		
+
+		[BindProperty]
+		public DataTable dt { get; set; }
+
+
+		public Bundle_OutModel(Database db)
+		{
+			Db = db;
+		}
+		public void OnGet()
+		{
+
+			dt = Db.ReadBundle();
+		}
+		
+		public double returnSale(double sale)
+		{
+			double Sale = sale;
+			return Sale;
+		}
+		public double price_after_sale(double price, double sale)
+		{
+			double Price = price - ((sale / 100) * price);
+			return Price;
+		}
+	}
 }
