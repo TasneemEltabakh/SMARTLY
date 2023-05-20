@@ -8,14 +8,13 @@ namespace SMARTLY.Pages
     public class CartClientModel : UserPageModel
     {
         [BindProperty]
-        static public int itemsCount { get; set; } = 0;
+        public int itemsCount { get; set; } = 0;
 
         [BindProperty]
         public string id { get; set; }
 
-
         [BindProperty]
-        public string deletedid { get; set; }
+        public string? DeletedId { get; set; } = null;
 
 
         private readonly Database data;
@@ -28,7 +27,6 @@ namespace SMARTLY.Pages
         public double summary { get; set; }
 
         [BindProperty]
-
         public int Quantity { get; set; } = 1;
 
         [BindProperty]
@@ -36,58 +34,52 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public double productprice { get; set; }
+
         public double shipping { get; set; }
 
         public CartClientModel(Database database)
         {
             this.data = database;
-
             Quantity = 1;
         }
-       
-        public IActionResult OnGetDelete(string id)
-        {
-            // Call the Deletefromcart method to delete the product from the cart
-            data.Deletefromcart(id);
 
-            // Refresh the cart data
-            carttable = data.ReadCart(UserName);
-            shipping = 5;
-
-            // Redirect back to the same page
-            return RedirectToPage();
-        }
         public void OnGet()
         {
-
+            DeletedId = null;
             carttable = data.ReadCart(UserName);
             shipping = 5;
+           
         }
+
+
         public void OnGetAdd(string id)
         {
+        
             this.id = id;
             data.AddProductToCart(UserName, id, Quantity);
             carttable = data.ReadCart(UserName);
             shipping = 5;
+            
+
         }
+
         public DataTable returnrecordofproduct(int id)
         {
-
-            dt= data.ReadProductRow(id);
-           
+            dt = data.ReadProductRow(id);
             return dt;
         }
+
         public string returnCategory(int id)
         {
             string title = data.getTitleCategory(id);
             return title;
         }
-           
-       public double setshipping()
+
+        public double setshipping()
         {
             shipping = 0;
             return shipping;
-       }
+        }
 
         public void update(int id, int quantity)
         {
@@ -96,8 +88,8 @@ namespace SMARTLY.Pages
             data.UpdateCart(idproduct, Quantity);
             carttable = data.ReadCart(UserName);
         }
-        
-
     }
-
 }
+
+
+

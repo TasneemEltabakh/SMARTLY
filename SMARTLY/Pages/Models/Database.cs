@@ -716,7 +716,7 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        public void Deletefromcart(string id)
+        public void Deletefromcart(int id)
         {
             string Q = "delete from cart where Productid = @id";
       
@@ -725,9 +725,7 @@ namespace SMARTLY.Pages.Models
             try
             {
                 Connection.Open();
-               
-               
-               
+      
                 cmd.ExecuteNonQuery();
             }
             catch (SqlException ex)
@@ -739,7 +737,30 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-       
+        public void insertSubscribe(string email)
+        {
+            string Q = "insert into Subscribed values(@email)";
+
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@email", email);
+            try
+            {
+                Connection.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        
+
+
 
     }
 }

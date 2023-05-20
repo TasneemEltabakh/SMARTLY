@@ -342,40 +342,22 @@ ADD price_aftersale AS (price - (SalePercentage / 100 * price)) PERSISTED;
 ALTER TABLE Cart
 ADD Quantity int default 1
 
-update cart set Quantity =1
+Create table Subscribed 
+(
+Email  varchar(30) primary key
+);
 
 
+insert into Subscribed values('tas')
+select * from Subscribed
 
 
-
-alter table Product
-alter column PName varchar(150) not null
-
-
-insert into Product
-values(1,'Echo Dot 5th Gen',28000,260,'Deep Sea Blue',0,1,'Its for Alexa','assets\img\product1.jpg');
-insert into Product
-values(2,'WiFi Mini DIY Smart Switch',15000,50,'Black',0,2,'Its for Switch','assets\img\product2.jpg');
-insert into Product
-values(3,'Wifi Smart Door Lock Indoor',30000,100,'silver',0,2,'Its for Switches','assets\img\product3.jpg');
-
-insert into  Bundle_Product
-values(1,1);
-insert into  Bundle_Product
-values(2,2);
-insert into  Bundle_Product
-values(3,3);
-insert into  Bundle_Product
-values(1,3);
---->
-insert into Product
-values(4,'Wifi Smart Door Lock outdoor',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp');
-
-Create table Cart (
-username varchar(10) foreign key references _user,
-productid varchar(15) foreign key references product,
-primary key (username,productid)
+create table Contact(
+_Name varchar (20) Not null ,
+Email varchar (40)  , 
+_Subject  varchar (100)  not null ,  
+_Message varchar (1000) not null,
+primary key(Email,_Message)
 )
 
-ALTER TABLE product
-ADD price_aftersale AS (price - (SalePercentage / 100 * price)) PERSISTED;
+insert into Contact values ('nada' , 'n@gmail.com','hello','new meet')

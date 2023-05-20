@@ -33,59 +33,51 @@
                                         <h6 class="mb-0 text-muted">items @Model.carttable.Rows.Count</h6>
                                     </div>
                                     <div class="product-container">
-                                    @for(int i =0 ; i < Model.carttable.Rows.Count; i++)
-                                    {
+                                        @for(int i =0 ; i < Model.carttable.Rows.Count; i++)
+                                        {
                                         Model.dt = Model.returnrecordofproduct(Convert.ToInt32(Model.carttable.Rows[i][1]));
-                                         <hr class="my-4">
-                                      
-                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                        <hr class="my-4">
+                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                            <div class="col-md-2 col-lg-2 col-xl-2">
                                                 <img src="@Model.dt.Rows[0][8]" class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                        </div>
-
-                                         
-                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-3">
                                                 <h6 class="text-muted"> @Model.returnCategory((int)Model.dt.Rows[0][6])</h6>
                                                 <h6 class="text-black mb-0">@Model.dt.Rows[0][1]</h6>
-                                        </div>
-
-                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-
-                                                <button class="btn btn-link px-2" onclick="decreaseQuantity(this)" >
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                <button class="btn btn-link px-2" onclick="decreaseQuantity(this)">
                                                     <i class="fa fa-minus"></i>
                                                 </button>
-                                          
-                                            
                                                 <input asp-for="@Model.Quantity" data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="1" type="number" class="form-control form-control-sm" oninput="update()" />
-
                                                 <button class="btn btn-link px-2" onclick="increaseQuantity(this)">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
-                                            
-                                        </div>
-                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h6 class="mb-0">EGB @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.Quantity)</h6>
-
-                                                @{Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.Quantity);}
                                             </div>
-                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                <h6 class="mb-0">EGB @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.Quantity)</h6>
+                                                @{
+                            Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.Quantity);
+}
+                                            </div>
+                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                
+                                                    <input type="hidden" value="@Model.carttable.Rows[i][1]"/>
+                                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                        <div class="add-to-cart">
+                                                    <a asp-page-handler="Add" asp-route-id="@Model.carttable.Rows[i][1]" href="/CartClient" class="text-muted" data-id="@Model.carttable.Rows[i][1]">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                    </div>
 
-                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                    <form method="get">
-                                                        <input type="hidden" name="id" asp-for="@Model.deletedid" value="@Model.carttable.Rows[i][1]" />
-                                                        <button asp-page-handler="Delete" type="submit" class="btn btn-link px-0">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                           
-                                          
+                                                    </div>
+                                                    
+                                               
+                                            </div>
                                         </div>
+                                        }
                                     </div>
 
-                                    
-                                    }
-                                    </div>
                                     <hr class="my-4">
 
                                     <div class="pt-5">
@@ -104,8 +96,9 @@
 
                                     <div class="d-flex justify-content-between mb-4">
                                         <h5 class="text-uppercase">items @Model.carttable.Rows.Count</h5>
-
-                                        <h5>EGB @Model.summary </h5>
+                                        <span id="totalPrice">
+                                            <h5>EGB @Model.summary </h5>
+                                        </span>
                                     </div>
 
                                     <h5 class="text-uppercase mb-3">Shipping</h5>
@@ -192,6 +185,8 @@
             input.addEventListener('input', update);
         });
 
+    
+
         function decreaseQuantity(button) {
             var input = button.parentNode.querySelector('input[type=number]');
             if (input.value > 1) {
@@ -231,5 +226,8 @@
             summaryTotal.textContent = 'EGB ' + totalPriceWithShipping.toFixed(2);
         }
     </script>
+
     
     </section>
+
+
