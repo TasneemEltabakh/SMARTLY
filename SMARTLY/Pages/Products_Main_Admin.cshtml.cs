@@ -10,11 +10,11 @@ namespace SMARTLY.Pages
 		private readonly Database Db;
         public DataTable dt { get; set; }
 
-        [BindProperty]
+        //[BindProperty]
 		public DataTable CategoriesTable { get; set; }
 
 
-		[BindProperty]
+		//[BindProperty]
 		public DataTable ProductsTable { get; set; }
 
 		public Products_Main_AdminModel(Database db)

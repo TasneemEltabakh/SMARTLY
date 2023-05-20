@@ -24,9 +24,10 @@ namespace SMARTLY.Pages.Models
         {
             //Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
             // Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
-            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True; Trusted_Connection=True");
+            // Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True; Trusted_Connection=True");
 
-           // Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+            // Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+            Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -456,28 +457,28 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        public DataTable ReadProductRow(int Id)   //***
+        public DataTable ReadProductRow(int id)   //***
         {
-            string Q = "Select * from Product where PId= @id;";
+            string Q = "Select * from Product where PId= @id";
             SqlCommand cmd = new SqlCommand(Q, Connection);
-            cmd.Parameters.AddWithValue("@id", Id);
+            cmd.Parameters.AddWithValue("@id", id);
             DataTable dt = new DataTable();
             try
             {
                 Connection.Open();
                 
                 dt.Load(cmd.ExecuteReader());
-                return dt;
+                //return dt;
             }
             catch (SqlException ex)
             {
-                return dt;
+                //return dt;
             }
             finally
             {
                 Connection.Close();
             }
-            
+            return dt;
         }
         public DataTable ReadCart(string username)   
         {
@@ -649,18 +650,21 @@ namespace SMARTLY.Pages.Models
 
 		public void DeleteProduct(string PId)
 		{
-			string q = "DELETE FROM Product WHERE PId = @PId";
+			string q = "DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId ";
 
-			SqlCommand cmd = new SqlCommand(q, Connection);
-			cmd.Parameters.AddWithValue("@PId", PId);
+			//SqlCommand cmd = new SqlCommand(q, Connection);
+			//cmd.Parameters.AddWithValue("@PId", PId);
 
 			try
 			{
 				Connection.Open();
-				cmd.ExecuteNonQuery();
+                SqlCommand cmd = new SqlCommand(q, Connection);
+                cmd.Parameters.AddWithValue("@PId", PId);
+                //cmd.Parameters.AddWithValue("@PId", PId);
+                cmd.ExecuteNonQuery();
 
 			}
-			catch
+			catch(SqlException ex)
 			{
 
 			}
@@ -758,7 +762,265 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+
+        public string ReturnCategoryForProduct(int id)
+        {
+            string q = "select  title from Categories c,Product p where c.id=p.PId and p.PId = @id ;";
+            SqlCommand cmd = new SqlCommand(q, Connection);
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            try
+            {
+                Connection.Open();
+
+                
+
+                return (string)cmd.ExecuteScalar();
+            }
+            catch
+            {
+                return " ";
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+
+        public int CountFeedBackProduct(int id)   //***
+        {
+            string Q = "select count(*)  from FeedBack f,Product p where f.PId=p.PId and p.PId= " + id;
+            int c = 0;
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                c = (int)cmd.ExecuteScalar();
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return c;
+        }
+
+		public void Insert_Contact(Contact_Us contactcs)
+		{
+            string Q = "insert into Contact values (@_Name, @Email,@_Subject,@_Message)";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.Add("@_Name", SqlDbType.VarChar).Value = contactcs._Name;
+            cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = contactcs.Email;
+            cmd.Parameters.Add("@_Subject", SqlDbType.VarChar).Value = contactcs._Subject;
+            cmd.Parameters.Add("@_Message", SqlDbType.VarChar).Value = contactcs._Message;
+            try
+			{
+				Connection.Open();
+				
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+
+        public DataTable loadTableofContact()
+        {
+            DataTable dt = new DataTable();
+            string queury = "select * from Contact";
+            SqlCommand cmd = new SqlCommand(queury, Connection);
+            try
+            {
+                Connection.Open();
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+            return c;
+        }
+
+		public int AVGRATING(int id)   //***
+		{
+			string Q = "select AVG(Rate) from FeedBack where PId = " + id;
+			int c = 0;
+			if (CountFeedBackProduct(id) == 0)
+			{
+				return 0;
+			}
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				c = (int)cmd.ExecuteScalar();
+				return c;
+			}
+			catch (SqlException ex)
+			{
+                return 0;
+			}
+			finally
+			{
+				Connection.Close();
+			}
+			
+		}
+
+		public DataTable ReturnRatesForProduct(int id)   //***
+		{
+			string Q = "select u.username,p.PId,f.Rate from FeedBack f,Product p ,_User u where f.PId=p.PId and u.username=f.Username and p.PId =" +id;
+			DataTable dt = new DataTable();
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				dt.Load(cmd.ExecuteReader());
+				
+			}
+			catch (SqlException ex)
+			{
+			}
+			finally
+			{
+				Connection.Close();
+			}
+			return dt;
+		}
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         
+		public DataTable ImgsForProduct(int id)   //***
+		{
+			string Q = "select * from Product_Photoes where product_Id = " + id;
+			DataTable dt = new DataTable();
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				dt.Load(cmd.ExecuteReader());
+
+			}
+			catch (SqlException ex)
+			{
+			}
+			finally
+			{
+				Connection.Close();
+			}
+			return dt;
+		}
+
+        public void AddNewProduct(Product product)
+        {
+
+            string query = "insert into Product values(@PId,@PName,@price,@Quantity,@color,@salePercentage,@category,@AdditionalNotes,@Pimage);";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@PId", product.PId);
+            cmd.Parameters.AddWithValue("@PName", product.PName);
+            cmd.Parameters.AddWithValue("@price", product.price);
+            cmd.Parameters.AddWithValue("@Quantity", product.Quantity);
+            cmd.Parameters.AddWithValue("@color", product.color);
+            cmd.Parameters.AddWithValue("@salePercentage", product.salePercentage);
+            cmd.Parameters.AddWithValue("@category", product.category);
+            cmd.Parameters.AddWithValue("@AdditionalNotes", product.AdditionalNotes);
+            cmd.Parameters.AddWithValue("@Pimage", product.Pimage);
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        
+        public int GetMaxProductId()
+        {
+            int max = -1;
+            string Q = "Select Max(PId) From Product";
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                max = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (SqlException ex) { }
+            finally { Connection.Close(); }
+            return max + 1;
+        }
+        public int GetMaxBundleId()
+        {
+            int max = -1;
+            string Q = "Select Max(BundleId) From Bundle";
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                max = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (SqlException ex) { }
+            finally { Connection.Close(); }
+            return max + 1;
+        }
+        public void AddNewBundle(Bundle bundle)
+        {
+            string query = "insert into Bundle values(@BundleId,@price,@level,@BundleDescription,@_Name,@img);";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@BundleId", bundle.BundleId);
+            cmd.Parameters.AddWithValue("@price", bundle.price);
+            cmd.Parameters.AddWithValue("@level", bundle.level);
+            cmd.Parameters.AddWithValue("@BundleDescription", bundle.Description);
+            cmd.Parameters.AddWithValue("@_Name", bundle.Name);
+            cmd.Parameters.AddWithValue("@img", bundle.img);
+            
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
 
 
 
