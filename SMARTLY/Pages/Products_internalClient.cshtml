@@ -9,9 +9,13 @@
 		<h1>OUR PRODUCTS</h1>
 		<div class="header-search">
 			<form>
-				<input class="input-select"></input>
-				<button class="search-btn">Search</button>
+				<input class="input-select" placeholder="   Search for Products "></input>
+				<button  class="search-btn">Search</button>
 			</form>
+			@*<form method="post" id="SearchForm">
+				<input class="input-select" id="SearchQuery" name="searchQuery" placeholder="   Search for Products "></input>
+				<button  class="search-btn">Search</button>
+			</form>*@
 		</div>
 </section>
 
@@ -119,8 +123,7 @@
 					</div>
 					<div class="add-to-cart">
 						<ul class="product-btns">
-							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							<!--<li><button href="#" class="Admin_Button">Edit</button></li>-->
+							<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]" >Add to cart</a>
 						</ul>
 					</div>
 

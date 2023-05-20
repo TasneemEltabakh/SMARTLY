@@ -51,7 +51,7 @@
                                                 </button>
                                                 <input asp-for="@Model.quantity" data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="1" type="number" class="form-control form-control-sm" oninput="update(this)" />
                                               
-                                                <input asp-for="@Model.quantity" id="form2"/>
+                                                <input asp-for="@Model.quantity" id="form2" hidden/>
 
                                               
                                                 @{
