@@ -3,15 +3,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using SMARTLY.Pages.Models;
 namespace SMARTLY.Pages
 {
-    public class Contact_UsClientModel : UserPageModel
+    public class Contact_UsGuestModel : UserPageModel
     {
+
 
         private readonly Database db;
         [BindProperty]
         public Contact_Us contactcs { get; set; }
         public string msg { get; set; }
 
-        public Contact_UsClientModel(Database db)
+        public Contact_UsGuestModel(Database db)
         {
             this.db = db;
         }
@@ -20,7 +21,7 @@ namespace SMARTLY.Pages
             msg = "free";
 
         }
-        public IActionResult OnPost()
+        public void OnPost()
         {
 
             // insert in table contact 
@@ -28,11 +29,16 @@ namespace SMARTLY.Pages
             {
 
                 db.Insert_Contact(contactcs);
-                return Page(); // is there the eror ? 
+                msg = "Recived sucessfully ";
+                // is there the eror ? 
 
             }
             else
-                return Page();
+            {
+                msg = "free";
+
+            }
+
 
         }
     }

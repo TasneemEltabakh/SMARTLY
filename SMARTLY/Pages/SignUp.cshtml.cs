@@ -28,7 +28,7 @@ namespace SMARTLY.Pages
         public void OnGet()
         {
             msg = "free";
-            user.usertype = 0;
+           
 
         }
         public IActionResult OnPost()
