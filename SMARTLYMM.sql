@@ -389,3 +389,21 @@ insert into FeedBack
 values('rghda',2,5);
 insert into FeedBack
 values('ss',1,1);
+
+Create table Product_Photoes (
+product_Id varchar(15) foreign key references Product,
+p_Img varchar(200)
+primary key (p_Img,product_Id)
+)
+
+insert into Product_Photoes
+values(1,'assets\img\product1.jpg');
+insert into Product_Photoes
+values(1,'assets\img\R3.jpg');
+insert into Product_Photoes
+values(1,'assets\img\OIP (2).jpg');
+insert into Product_Photoes
+values(4,'assets\img\R2.jpg');
+insert into Product_Photoes
+values(4,'assets\img\product2.jpg');
+

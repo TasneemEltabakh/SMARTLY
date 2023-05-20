@@ -469,17 +469,17 @@ namespace SMARTLY.Pages.Models
                 Connection.Open();
                 
                 dt.Load(cmd.ExecuteReader());
-                return dt;
+                //return dt;
             }
             catch (SqlException ex)
             {
-                return dt;
+                //return dt;
             }
             finally
             {
                 Connection.Close();
             }
-            
+            return dt;
         }
         public DataTable ReadCart(string username)   
         {
@@ -602,30 +602,6 @@ namespace SMARTLY.Pages.Models
             }
             return dt;
         }
-		public void Insert_New_Bundle(Bundle bundle)
-		{
-			string Q = "insert Into Bundle(price,level,BundleDescription,_Name,img) values(@bundle.price,@bundle.level,@bundle.BundleDescription,@bundle._Name,@bundle.img);";
-			try
-			{
-				Connection.Open();
-				SqlCommand cmd = new SqlCommand(Q, Connection);
-				bundle.BundleId = Convert.ToString(GetMax("Bundle", "BundleId")+1);
-				cmd.Parameters.Add("@bundle.price", SqlDbType.Int).Value = bundle.price;
-				cmd.Parameters.Add("@bundle.level", SqlDbType.VarChar).Value = bundle.level;
-				cmd.Parameters.Add("@bundle.BundleDescription", SqlDbType.Int).Value = bundle.Description;
-				cmd.Parameters.Add("@bundle._Name", SqlDbType.Int).Value = bundle.Name;
-				cmd.Parameters.Add("@bundle.img", SqlDbType.Char).Value = bundle.img;
-				cmd.ExecuteNonQuery();
-			}
-			catch (SqlException ex)
-			{
-
-			}
-			finally
-			{
-				Connection.Close();
-			}
-		}
 
 		public DataTable AllProduct()   //***
 		{
@@ -651,7 +627,7 @@ namespace SMARTLY.Pages.Models
 
 		public void DeleteProduct(string PId)
 		{
-			string q = "DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM Product WHERE PId = @PId";
+			string q = "DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId ";
 
 			//SqlCommand cmd = new SqlCommand(q, Connection);
 			//cmd.Parameters.AddWithValue("@PId", PId);
@@ -837,5 +813,165 @@ namespace SMARTLY.Pages.Models
             }
 
         }
+            return c;
+        }
+
+		public int AVGRATING(int id)   //***
+		{
+			string Q = "select AVG(Rate) from FeedBack where PId = " + id;
+			int c = 0;
+			if (CountFeedBackProduct(id) == 0)
+			{
+				return 0;
+			}
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				c = (int)cmd.ExecuteScalar();
+				return c;
+			}
+			catch (SqlException ex)
+			{
+                return 0;
+			}
+			finally
+			{
+				Connection.Close();
+			}
+			
+		}
+
+		public DataTable ReturnRatesForProduct(int id)   //***
+		{
+			string Q = "select u.username,p.PId,f.Rate from FeedBack f,Product p ,_User u where f.PId=p.PId and u.username=f.Username and p.PId =" +id;
+			DataTable dt = new DataTable();
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				dt.Load(cmd.ExecuteReader());
+				
+			}
+			catch (SqlException ex)
+			{
+			}
+			finally
+			{
+				Connection.Close();
+			}
+			return dt;
+		}
+
+		public DataTable ImgsForProduct(int id)   //***
+		{
+			string Q = "select * from Product_Photoes where product_Id = " + id;
+			DataTable dt = new DataTable();
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				dt.Load(cmd.ExecuteReader());
+
+			}
+			catch (SqlException ex)
+			{
+			}
+			finally
+			{
+				Connection.Close();
+			}
+			return dt;
+		}
+
+        public void AddNewProduct(Product product)
+        {
+
+            string query = "insert into Product values(@PId,@PName,@price,@Quantity,@color,@salePercentage,@category,@AdditionalNotes,@Pimage);";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@PId", product.PId);
+            cmd.Parameters.AddWithValue("@PName", product.PName);
+            cmd.Parameters.AddWithValue("@price", product.price);
+            cmd.Parameters.AddWithValue("@Quantity", product.Quantity);
+            cmd.Parameters.AddWithValue("@color", product.color);
+            cmd.Parameters.AddWithValue("@salePercentage", product.salePercentage);
+            cmd.Parameters.AddWithValue("@category", product.category);
+            cmd.Parameters.AddWithValue("@AdditionalNotes", product.AdditionalNotes);
+            cmd.Parameters.AddWithValue("@Pimage", product.Pimage);
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        
+        public int GetMaxProductId()
+        {
+            int max = -1;
+            string Q = "Select Max(PId) From Product";
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                max = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (SqlException ex) { }
+            finally { Connection.Close(); }
+            return max + 1;
+        }
+        public int GetMaxBundleId()
+        {
+            int max = -1;
+            string Q = "Select Max(BundleId) From Bundle";
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                max = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (SqlException ex) { }
+            finally { Connection.Close(); }
+            return max + 1;
+        }
+        public void AddNewBundle(Bundle bundle)
+        {
+            string query = "insert into Bundle values(@BundleId,@price,@level,@BundleDescription,@_Name,@img);";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@BundleId", bundle.BundleId);
+            cmd.Parameters.AddWithValue("@price", bundle.price);
+            cmd.Parameters.AddWithValue("@level", bundle.level);
+            cmd.Parameters.AddWithValue("@BundleDescription", bundle.Description);
+            cmd.Parameters.AddWithValue("@_Name", bundle.Name);
+            cmd.Parameters.AddWithValue("@img", bundle.img);
+            
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+
     }
 }

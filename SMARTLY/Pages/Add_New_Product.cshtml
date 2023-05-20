@@ -1,0 +1,76 @@
+﻿@page
+@model SMARTLY.Pages.Add_New_ProductModel
+@{
+    Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+}
+    <section id="hero2" class="d-flex align-items-center">
+        <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+           
+            <h1>Add new Product</h1>
+
+        </div>
+</section>
+<section>
+    </br>
+    </br>
+<div class="container">
+            <!-- row -->
+<div class="row">
+            <div class="col-md-2">
+                </div>
+ <div class="col-md-8">
+ <form method="post" class="signin-form">
+            <!-- Billing Details -->
+
+  
+        <div class="form-group">
+                        <input asp-for="@Model.product.PName" class="form-control" type="text" placeholder="Name">
+                        <span asp-validation-for="@Model.product.PName"></span>
+        </div>
+
+        <div class="form-group">
+                        <input asp-for="@Model.product.price" class="form-control" type="text" placeholder="Price">
+                        <span asp-validation-for="@Model.product.price"></span>
+        </div>
+
+        <div class="form-group">
+                        <input asp-for="@Model.product.Quantity" class="form-control" type="text" placeholder="Quantity">
+                        <span asp-validation-for="@Model.product.Quantity"></span>
+        </div>
+
+        <div class="form-group">
+                        <input asp-for="@Model.product.color" class="form-control" type="text" placeholder="color">
+                        <span asp-validation-for="@Model.product.color"></span>
+        </div>
+
+        <div class="form-group">
+                        <input asp-for="@Model.product.salePercentage" class="form-control" type="text" placeholder="salePercentage">
+                        <span asp-validation-for="@Model.product.salePercentage"></span>
+        </div>
+
+        <div class="form-group">
+                        <input asp-for="@Model.product.category" class="form-control" type="text" placeholder="category">
+                        <span asp-validation-for="@Model.product.category"></span>
+        </div>
+
+        <div class="form-group">
+                        <input asp-for="@Model.product.AdditionalNotes" class="form-control" type="text" placeholder="AdditionalNotes">
+                        <span asp-validation-for="@Model.product.AdditionalNotes"></span>
+        </div>
+
+        <div class="form-group">
+                        <input asp-for="@Model.product.Pimage" class="form-control" type="text" placeholder="Pimage">
+                        <span asp-validation-for="@Model.product.Pimage"></span>
+        </div>
+
+       
+            <div class="form-group">
+                <button type="submit" class="form-control btn primary-btn1">Add new Product</button>
+            </div>
+
+            </form>
+        </div>
+      </div>
+      </div>
+ </section>
+

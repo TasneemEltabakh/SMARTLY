@@ -10,18 +10,18 @@ namespace SMARTLY.Pages
 		private readonly Database database;
 
 
-		[BindProperty]
+		//[BindProperty]
 
-		public string PId { get; set; }
+		static public string PId { get; set; }
 
         public DeleteProductModel(Database db)
         {
 			database = db;
 		}
 
-        public void OnGet(string Piid)
+        public void OnGet(string id)
         {
-			PId = Piid;
+			PId = id;
 		}
 		public IActionResult OnPost()
 		{
