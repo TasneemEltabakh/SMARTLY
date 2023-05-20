@@ -53,47 +53,19 @@
 
 					<div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
 						<div class="swiper-wrapper">
-
-							<div class="swiper-slide">
-								<div class="testimonial-item">
-									<div id="product-main-img" class="slick-initialized slick-slider">
-										
-										<div class="product-preview">
-											<img src="/assets/img/OIP (3).jpg" alt="">
-										</div>
-									</div>
-								</div>
-							</div><!-- End testimonial item -->
-							<div class="swiper-slide">
-								<div class="testimonial-item">
-									<div id="product-main-img" class="slick-initialized slick-slider">
-										
-										<div class="product-preview">
-											<img src="/assets/img/OIP (1).jpg" alt="">
-										</div>
-									</div>
-								</div>
-							</div><!-- End testimonial item -->
+							@for (int i = 0; i < Model.ImgsTable.Rows.Count;i++)
+							{
 								<div class="swiper-slide">
 									<div class="testimonial-item">
 										<div id="product-main-img" class="slick-initialized slick-slider">
 
 											<div class="product-preview">
-												<img src="/assets/img/OIP (2).jpg" alt="">
+													<img src="@Model.ImgsTable.Rows[i][1]" alt="" width="500" Hight="500">
 											</div>
 										</div>
 									</div>
-								</div><!-- End testimonial item -->
-								<div class="swiper-slide">
-									<div class="testimonial-item">
-										<div id="product-main-img" class="slick-initialized slick-slider">
-
-											<div class="product-preview">
-												<img src="/assets/img/20200925160928-108091078-A.webp" alt="">
-											</div>
-										</div>
-									</div>
-								</div><!-- End testimonial item -->
+								</div>
+							}
 						</div>
 					</div>
 				</div>
@@ -109,10 +81,12 @@
 					<h2 class="product-name">@Model.dt.Rows[0][1]</h2>
 					<div>
 						<div class="product-rating">
-							@for(int i=0;i<Model.CountFeedBack;i++){
+							@for (int i = 0; i < Model.rating; i++)
+							{
 								<i class="fa fa-star"></i>
 							}
-							@for(int i=0;i<(5-Model.CountFeedBack);i++){
+							@for (int i = 0; i < (5 - Model.rating); i++)
+							{
 								<i class="fa fa-star-o"></i>
 							}
 						</div>
@@ -120,57 +94,29 @@
 					</div>
 					<div>
 						<h3 class="product-price">$ @Model.dt.Rows[0][9] <del class="product-old-price">$ @Model.dt.Rows[0][2]</del></h3>
-						<span class="product-available">In Stock</span>
-					</div>
-					<p>
-						@Model.dt.Rows[0][7]
-					</p>
-				
-					<div class="product-options">
-						<label>
-							
-							<select class="input-select1">
-								
-								<option value="@Model.dt.Rows[0][4]">@Model.dt.Rows[0][4]</option>
-								<!--<option value="0">Red</option>
-								<option value="1">Black</option>
-								<option value="2">White</option>
-								<option value="3">Blue</option>-->
-							</select>
-						</label>
-						<label>
-							
-						<div class="input-number">
-								<input type="number" placeholder="1">
-								<span class="qty-up">+</span>
-								<span class="qty-down">-</span>
-							</div>
-						</label>
+						@if ((int)@Model.dt.Rows[0][3]!=0)
+						{
+							<span class="product-available">In Stock</span>
 
+						}
 					</div>
+					
 
-					
-					
-					<ul class="product-links">
-						<li>Category:</li>
-						<li><a href="#">@Model.Categorietype</a></li>
+					<div font-size="500px">
+					<ul >
+						<li>Category: <a href="#">@Model.Categorietype</a></li>
 						
 					</ul>
-					<ul class="product-links">
+					<ul>
 
-						<li>Brand: Generic </br>
-							Connectivity technology	Bluetooth </br>
-							Special features	Bluetooth </br>
-							Compatible devices	Laptop, Tablet, Smartphone </br>
-							Mounting type	Tabletop </br>
-							Controller type	Amazon Alexa, Voice Control </br>
-							Surround sound channel configuration	2 </br>
-							Colour	Deep Sea Blue </br>
-							Product dimensions	5D x 5W x 5H centimeters </br>
-							Frequency response	17.5 KHz</br>
-						</li>
+						<li>Colour: @Model.dt.Rows[0][4] </li> <br />
+						<li>Quantity: @Model.dt.Rows[0][3] </li> <br />
+						<li>Category: @Model.Categorietype </li> <br />
+						<li>Discription: @Model.dt.Rows[0][7] </li> <br />
+						<li>Price After Sale: @Model.dt.Rows[0][9] </li> <br />
 						
 					</ul>
+					</div>
 					<div class="add-to-cart">
 						<ul class="product-btns">
 							<li><button href="#" class="Admin_Button">Edit</button></li>
@@ -184,7 +130,7 @@
 				<div id="product-tab">
 					<!-- product tab nav -->
 					<ul class="tab-nav">
-						<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+						<li><a data-toggle="tab" href="#tab3">Reviews @Model.RateTable.Rows.Count</a></li>
 					</ul>
 					
 							<div class="row" data-aos="fade-up">
@@ -192,81 +138,34 @@
 								<div class="col-md-3">
 									<div id="rating">
 										<div class="rating-avg">
-											<span>4.5</span>
+											<span>@Model.rating</span>
 											<div class="rating-stars">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
+												@for(int i=0;i<Model.rating;i++){
+													<i class="fa fa-star"></i>
+												}
+												@for(int i=0;i<5-Model.rating;i++){
+													<i class="fa fa-star-o"></i>
+												}
 											</div>
 										</div>
 										<ul class="rating">
-											<li>
-												<div class="rating-stars">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="rating-progress">
-													<div style="width: 80%;"></div>
-												</div>
-												<span class="sum">3</span>
-											</li>
-											<li>
-												<div class="rating-stars">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="rating-progress">
-													<div style="width: 60%;"></div>
-												</div>
-												<span class="sum">2</span>
-											</li>
-											<li>
-												<div class="rating-stars">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="rating-progress">
-													<div></div>
-												</div>
-												<span class="sum">0</span>
-											</li>
-											<li>
-												<div class="rating-stars">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="rating-progress">
-													<div></div>
-												</div>
-												<span class="sum">0</span>
-											</li>
-											<li>
-												<div class="rating-stars">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="rating-progress">
-													<div></div>
-												</div>
-												<span class="sum">0</span>
-											</li>
+											@for (int i = 0; i < Model.RateTable.Rows.Count; i++)
+											{
+													<li>
+														<div class="rating-stars">
+															@for(int j=0;j<(int)Model.RateTable.Rows[i][2];j++){
+																<i class="fa fa-star"></i>
+															}
+															@for(int j=0;j<5-(int)Model.RateTable.Rows[i][2];j++){
+																<i class="fa fa-star-o"></i>
+															}
+														</div>
+														<div class="rating-progress">
+															<div style="width: @Model.rating%;"></div>
+														</div>
+													</li>
+											}
+											
 										</ul>
 									</div>
 								</div>
@@ -275,54 +174,37 @@
 								<div class="col-md-6">
 									<div id="reviews">
 										<ul class="reviews">
-											<li>
-												<div class="review-heading">
-													<h5 class="name">Tasneem</h5>
-													<p class="date">5 May 2023, 2:0 PM</p>
-													<div class="review-rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o empty"></i>
+											@for (int i = 0; i < Model.RateTable.Rows.Count;i++)
+											{
+												<li>
+													<div class="review-heading">
+														<h5 class="name">@Model.RateTable.Rows[i][0]</h5>
+														<div class="review-rating">
+																@for (int j = 0; j < (int)Model.RateTable.Rows[i][2]; j++)
+																{
+																	<i class="fa fa-star"></i>
+																}
+																@for (int j = 0; j < 5 - (int)Model.RateTable.Rows[i][2]; j++)
+																{
+																<i class="fa fa-star-o empty"></i>
+																}
+														</div>
+												
 													</div>
-												</div>
-												<div class="review-body">
-													<p>Amazing!</p>
-												</div>
-											</li>
-											<li>
-												<div class="review-heading">
-													<h5 class="name">Ali</h5>
-													<p class="date">2 Sep 2021, 8:0 PM</p>
-													<div class="review-rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o empty"></i>
+													<div class="review-body">
+														@if((int)Model.RateTable.Rows[i][2]==0 ||(int)Model.RateTable.Rows[i][2]==1){
+															<p>Good!</p>
+														}else if((int)Model.RateTable.Rows[i][2]==2 ||(int)Model.RateTable.Rows[i][2]==3){
+															<p>Nice!</p>
+														}else if((int)Model.RateTable.Rows[i][2]==4 ){
+															<p>Great!</p>
+														}else if((int)Model.RateTable.Rows[i][2]==5 ){
+															<p>Amazing!</p>
+														}
+														
 													</div>
-												</div>
-												<div class="review-body">
-													<p>Nice.</p>
-												</div>
-											</li>
-											<li>
-												<div class="review-heading">
-													<h5 class="name">Muhammed</h5>
-													<p class="date">12 DEC 2020, 8:0 PM</p>
-													<div class="review-rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o empty"></i>
-													</div>
-												</div>
-												<div class="review-body">
-													<p>Great!</p>
-												</div>
-											</li>
+												</li>
+											}
 										</ul>
 										<br/>
 								<br />
@@ -344,9 +226,9 @@
 	</div>
 	<!-- /container -->
 </div>
-<button class="Admin_Button" style="display:block; margin: 0 auto; background-color:red ">Delete This Product</button>
-
-
+<div class="text-center"  >
+	<a asp-page="/DeleteProduct" asp-route-id="@Model.dt.Rows[0][0]" class="Admin_Button_Delete">Delete</a>
+</div>
 <br />
 <br />
 <br />

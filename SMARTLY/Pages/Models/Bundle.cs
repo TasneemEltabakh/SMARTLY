@@ -6,7 +6,7 @@ namespace SMARTLY.Pages.Models
     {
         [Required(ErrorMessage = "this field is required")]
 
-        public string BundleId { get; set; }
+        public int BundleId { get; set; }
 
 
 
