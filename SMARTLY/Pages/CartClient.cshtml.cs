@@ -21,13 +21,15 @@ namespace SMARTLY.Pages
 
         public DataTable dt { get; set; }
 
+    
+
         [BindProperty]
         public DataTable carttable { get; set; }
 
         public double summary { get; set; }
 
         [BindProperty]
-        public int Quantity { get; set; } = 1;
+        public int quantity { get; set; }
 
         [BindProperty]
         public int idproduct { get; set; }
@@ -40,7 +42,7 @@ namespace SMARTLY.Pages
         public CartClientModel(Database database)
         {
             this.data = database;
-            Quantity = 1;
+            quantity = 1;
         }
 
         public void OnGet()
@@ -56,13 +58,13 @@ namespace SMARTLY.Pages
         {
         
             this.id = id;
-            data.AddProductToCart(UserName, id, Quantity);
+            data.AddProductToCart(UserName, id, quantity);
             carttable = data.ReadCart(UserName);
             shipping = 5;
             
 
         }
-
+       
         public DataTable returnrecordofproduct(int id)
         {
             dt = data.ReadProductRow(id);
@@ -83,10 +85,15 @@ namespace SMARTLY.Pages
 
         public void update(int id, int quantity)
         {
-            idproduct = id;
-            Quantity = quantity;
-            data.UpdateCart(idproduct, Quantity);
-            carttable = data.ReadCart(UserName);
+                    
+
+
+            data.UpdateCart(id, quantity);
+
+           
+           
+
+          
         }
     }
 }
