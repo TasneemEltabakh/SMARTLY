@@ -47,7 +47,7 @@
                         <div class="col-md-4 col-xs-6">
                             <div class="product">
                                 <div class="product-img">
-                                    <img class="circle" src="@Model.ProductsTable.Rows[i][8]" alt="Basic Bundle" width="200" Hight="200">
+                                    <img class="circle" src="@Model.ProductsTable.Rows[i][8]" alt="Basic Bundle" width="200" Hight="200" object-fit="contain">
 
                                     <div class="product-label">
                                         @if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
@@ -64,6 +64,10 @@
                                         {
                                             <h4 class="product-price">
                                                 EGB @Model.ProductsTable.Rows[i][2]
+                                            </h4>
+                                        }else{
+                                            <h4 class="product-price">
+                                                EGB @Model.ProductsTable.Rows[i][9]
                                             </h4>
                                         }
 
@@ -83,22 +87,22 @@
 
                         </div>
                                 <div class="add-to-cart">
-                                    <a asp-page="/Product_internal_Admin" asp-route-id="@Model.ProductsTable.Rows[i][0]" class="Admin_Button">Edit</a><br>
-                            <a asp-page="/DeleteProduct"  asp-route-id="@Model.ProductsTable.Rows[i][0]" class="Admin_Button">Delete</a>
+                                    <a asp-page="/Product_internal_Admin" asp-route-id="@Model.ProductsTable.Rows[i][0]" >Edit</a><br>
+                            <a asp-page="/DeleteProduct"  asp-route-id="@Model.ProductsTable.Rows[i][0]" >Delete</a>
 
                         </div>
 
                     </div>
-                            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                            
                  </div>
                  
                  
                         <!-- /product -->
                         }
-
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
          </div>
          <div class="text-center">
-                <a asp-page="/Add_New_Product" class="Admin_Button">Add</a>
+                    <a asp-page="/Add_New_Product" class="Admin_Button" >Add</a>
 
                 <br /><br /><br /><br />
         </div>

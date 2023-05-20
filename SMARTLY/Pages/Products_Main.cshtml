@@ -68,7 +68,7 @@
 								</div>
 								<div class="product-body">
 									<p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
-									<h3 class="product-name"><a href="/Product_internal">@Model.ProductsTable.Rows[i][1]</a></h3>
+									<h3 class="product-name"><a asp-page="/Product_internal" asp-route-id="@Model.ProductsTable.Rows[i][0]">@Model.ProductsTable.Rows[i][1]</a></h3>
 									
 
 										@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
