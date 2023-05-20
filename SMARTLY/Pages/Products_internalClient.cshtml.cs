@@ -30,11 +30,7 @@ namespace SMARTLY.Pages
                 RateTable = data.ReturnRatesForProduct(id);
                 ImgsTable = data.ImgsForProduct(id);
             }
-            public void OnPost()
-            {
-
-            }
-
+           
 
     }
 }

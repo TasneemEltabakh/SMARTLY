@@ -69,9 +69,9 @@
                     <li class="dropdown">
                         <a asp-page="/Bundle_OutClient"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a href="/Bundle_ItemClient">Basic</a></li>
-                            <li><a href="/Bundle_ItemClient">Intermediate</a></li>
-                            <li><a href="/Bundle_ItemClient">Premium</a></li>
+                            <li><a asp-page="/Bundle_ItemClient" asp-route-id="1">Basic</a></li>
+                            <li><a asp-page="/Bundle_ItemClient" asp-route-id="2">Intermediate</a></li>
+                            <li><a asp-page="/Bundle_ItemClient" asp-route-id="3">Premium</a></li>
                         </ul>
                     </li>
                     <li><a class="nav-link scrollto" href="/Contact_Us">Contact</a></li>
@@ -84,8 +84,8 @@
                        <a href="#"><span>settings</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="/Profile">Profile</a></li>
-                            <li><a href="/My_Orders">My orders</a></li>
-                            <li><a href="/WishListClient">Wish List</a></li>
+                          @*  <li><a href="/My_Orders">My orders</a></li>
+                            <li><a href="/WishListClient">Wish List</a></li>*@
                             <li><a href="/LogIn">Log Out</a></li>
                         </ul>
                     </li>
