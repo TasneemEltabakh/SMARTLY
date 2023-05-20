@@ -1,8 +1,9 @@
 ﻿@page
-@model SMARTLY.Pages.Contact_UsModel
+@model SMARTLY.Pages.Contact_UsClientModel
 @{
-    
+	Layout = "/Pages/Shared/_LayoutClient.cshtml";
 }
+
 
 <style>
     header {
@@ -120,12 +121,6 @@
             </div>
 
             <div class="col-lg-8 mt-5 mt-lg-0">
-                @if (Model.msg != "free")
-                {
-                    <h3 style="color:red>"> @Model.msg</h3>
-                    
-                }
-
 
                 <form method="post" >
                     <div class="row">

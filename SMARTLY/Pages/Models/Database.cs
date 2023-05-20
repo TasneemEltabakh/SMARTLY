@@ -24,9 +24,10 @@ namespace SMARTLY.Pages.Models
         {
             //Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
             // Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
-            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True; Trusted_Connection=True");
+            // Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True; Trusted_Connection=True");
 
-           // Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+            // Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+            Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -789,6 +790,52 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
             return c;
+        }
+
+		public void Insert_Contact(Contact_Us contactcs)
+		{
+            string Q = "insert into Contact values (@_Name, @Email,@_Subject,@_Message)";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.Add("@_Name", SqlDbType.VarChar).Value = contactcs._Name;
+            cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = contactcs.Email;
+            cmd.Parameters.Add("@_Subject", SqlDbType.VarChar).Value = contactcs._Subject;
+            cmd.Parameters.Add("@_Message", SqlDbType.VarChar).Value = contactcs._Message;
+            try
+			{
+				Connection.Open();
+				
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+
+        public DataTable loadTableofContact()
+        {
+            DataTable dt = new DataTable();
+            string queury = "select * from Contact";
+            SqlCommand cmd = new SqlCommand(queury, Connection);
+            try
+            {
+                Connection.Open();
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
         }
     }
 }

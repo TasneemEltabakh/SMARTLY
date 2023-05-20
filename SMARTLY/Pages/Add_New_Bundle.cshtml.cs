@@ -33,11 +33,12 @@ namespace SMARTLY.Pages
         {
             if (ModelState.IsValid)
             {
-                    msg = "free";
+                   
                     //user.usertype = 3;
                     database.Insert_New_Bundle(bundle);
                     return RedirectToPage("/Bundle_Item_Admin");
-                
+                msg = "WE HAVE RECIVED YOUR MESSAGE ";
+
             }
             else
                 return Page();
