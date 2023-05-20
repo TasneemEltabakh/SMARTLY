@@ -379,3 +379,13 @@ primary key (username,productid)
 
 ALTER TABLE product
 ADD price_aftersale AS (price - (SalePercentage / 100 * price)) PERSISTED;
+
+--->Next Day
+insert into FeedBack
+values('cc',1,4);
+insert into FeedBack
+values('Nada',1,3);
+insert into FeedBack
+values('rghda',2,5);
+insert into FeedBack
+values('ss',1,1);

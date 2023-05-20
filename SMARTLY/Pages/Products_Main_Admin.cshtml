@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
-                                    <h3 class="product-name"><a href="/Product_internal">@Model.ProductsTable.Rows[i][1]</a></h3>
+                                    <h3 class="product-name"><a href="/Product_internal_Admin">@Model.ProductsTable.Rows[i][1]</a></h3>
 
                                    @if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
                                         {
@@ -76,7 +76,7 @@
                         </div>
 
                         <div class="product-btns">
-                            <a asp-page="/Products_internal" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]">
+                            <a asp-page="/Products_internal_Admin" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]">
                                 <i class="fa fa-eye"></i><span class="tooltipp"></span>
                             </a>
                         </div>
@@ -84,8 +84,8 @@
                         </div>
 
                         <div class="add-to-cart">
-                            <a href="/Product_internal_Admin" class="Admin_Button">Edit On It</a>
-                            <a asp-page="/DeleteProduct" class="Admin_Button" asp-route-PId="@Model.ProductsTable.Rows[i][0]">Delete</a>
+                                    <a asp-page="/Product_internal_Admin" asp-route-id="@Model.ProductsTable.Rows[i][0]">Edit On It</a><br>
+                            <a asp-page="/DeleteProduct"  asp-route-id="@Model.ProductsTable.Rows[i][0]">Delete</a>
                         </div>
 
                     </div>

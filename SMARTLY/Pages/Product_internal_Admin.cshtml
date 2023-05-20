@@ -29,9 +29,9 @@
 			<div class="col-md-12">
 				<ul class="breadcrumb-tree">
 					<li><a href="/Index">Home</a></li>
-					<li><a href="/Products_Main">All Categories</a></li>
-					<li><a href="/Products_Main">Alexa Hub</a></li>
-					<li class="active">Alexa</li>
+					<li><a href="/Products_Main_Admin">All Categories</a></li>
+					<li><a href="/Products_Main_Admin">@Model.Categorietype</a></li>
+					<li class="active">@Model.dt.Rows[0][1]</li>
 				</ul>
 			</div>
 		</div>
@@ -106,35 +106,36 @@
 			<div class="col-md-6">
 				<div class="product-details" data-aos="fade-up" data-aos-delay="500">
 					<br/>
-					<h2 class="product-name">Alexa</h2>
+					<h2 class="product-name">@Model.dt.Rows[0][1]</h2>
 					<div>
 						<div class="product-rating">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
+							@for(int i=0;i<Model.CountFeedBack;i++){
+								<i class="fa fa-star"></i>
+							}
+							@for(int i=0;i<(5-Model.CountFeedBack);i++){
+								<i class="fa fa-star-o"></i>
+							}
 						</div>
-						<a class="review-link" href="#">10 Review(s)</a>
+						<a class="review-link" href="#">@Model.CountFeedBack Review(s)</a>
 					</div>
 					<div>
-						<h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
+						<h3 class="product-price">$ @Model.dt.Rows[0][9] <del class="product-old-price">$ @Model.dt.Rows[0][2]</del></h3>
 						<span class="product-available">In Stock</span>
 					</div>
 					<p>
-						Echo Dot is a smart speaker that uses Alexa, a voice assistant that performs tasks like controlling smart home hardware, setting timers, and answering questions. The Echo Dot has a different design from other Echo speakers and is the least expensive Echo speaker.
-
-						
+						@Model.dt.Rows[0][7]
 					</p>
 				
 					<div class="product-options">
 						<label>
 							
 							<select class="input-select1">
-								<option value="0">Red</option>
+								
+								<option value="@Model.dt.Rows[0][4]">@Model.dt.Rows[0][4]</option>
+								<!--<option value="0">Red</option>
 								<option value="1">Black</option>
 								<option value="2">White</option>
-								<option value="3">Blue</option>
+								<option value="3">Blue</option>-->
 							</select>
 						</label>
 						<label>
@@ -152,7 +153,7 @@
 					
 					<ul class="product-links">
 						<li>Category:</li>
-						<li><a href="#">Alexa Hub</a></li>
+						<li><a href="#">@Model.Categorietype</a></li>
 						
 					</ul>
 					<ul class="product-links">

@@ -24,7 +24,7 @@ namespace SMARTLY.Pages.Models
         {
             //Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
             // Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
-            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+            Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
 
            // Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
         }
@@ -416,23 +416,24 @@ namespace SMARTLY.Pages.Models
         public DataTable ReadProduct()  
         {
             string Q = "Select * from Product";
-            SqlCommand cmd = new SqlCommand(Q, Connection);
+            //SqlCommand cmd = new SqlCommand(Q, Connection);
             DataTable dt = new DataTable();
             try
             {
                 Connection.Open();
-                
+                SqlCommand cmd = new SqlCommand(Q, Connection);
                 dt.Load(cmd.ExecuteReader());
-                return dt;
+                //return dt;
             }
             catch (SqlException ex)
             {
-                return dt;
+                //return dt;
             }
             finally
             {
                 Connection.Close();
             }
+            return dt;
 
         }
         public string getTitleCategory(int id)
@@ -456,11 +457,11 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        public DataTable ReadProductRow(int Id)   //***
+        public DataTable ReadProductRow(int id)   //***
         {
-            string Q = "Select * from Product where PId= @id;";
+            string Q = "Select * from Product where PId= @id";
             SqlCommand cmd = new SqlCommand(Q, Connection);
-            cmd.Parameters.AddWithValue("@id", Id);
+            cmd.Parameters.AddWithValue("@id", id);
             DataTable dt = new DataTable();
             try
             {
@@ -649,18 +650,21 @@ namespace SMARTLY.Pages.Models
 
 		public void DeleteProduct(string PId)
 		{
-			string q = "DELETE FROM Product WHERE PId = @PId";
+			string q = "DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM Product WHERE PId = @PId";
 
-			SqlCommand cmd = new SqlCommand(q, Connection);
-			cmd.Parameters.AddWithValue("@PId", PId);
+			//SqlCommand cmd = new SqlCommand(q, Connection);
+			//cmd.Parameters.AddWithValue("@PId", PId);
 
 			try
 			{
 				Connection.Open();
-				cmd.ExecuteNonQuery();
+                SqlCommand cmd = new SqlCommand(q, Connection);
+                cmd.Parameters.AddWithValue("@PId", PId);
+                //cmd.Parameters.AddWithValue("@PId", PId);
+                cmd.ExecuteNonQuery();
 
 			}
-			catch
+			catch(SqlException ex)
 			{
 
 			}
@@ -717,5 +721,51 @@ namespace SMARTLY.Pages.Models
             }
         }
 
+        public string ReturnCategoryForProduct(int id)
+        {
+            string q = "select  title from Categories c,Product p where c.id=p.PId and p.PId = @id ;";
+            SqlCommand cmd = new SqlCommand(q, Connection);
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            try
+            {
+                Connection.Open();
+
+                
+
+                return (string)cmd.ExecuteScalar();
+            }
+            catch
+            {
+                return " ";
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+
+        public int CountFeedBackProduct(int id)   //***
+        {
+            string Q = "select count(*)  from FeedBack f,Product p where f.PId=p.PId and p.PId= " + id;
+            int c = 0;
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                c = (int)cmd.ExecuteScalar();
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return c;
+        }
     }
 }

@@ -19,9 +19,9 @@ namespace SMARTLY.Pages
 			database = db;
 		}
 
-        public void OnGet(string PId)
+        public void OnGet(string Piid)
         {
-			this.PId = PId;
+			PId = Piid;
 		}
 		public IActionResult OnPost()
 		{
