@@ -55,8 +55,7 @@
                                                     <i class="fa fa-minus"></i>
                                                 </button>
                                           
-                                             <input hidden asp-for="@Model.idproduct" value="@Model.carttable.Rows[i][1]" />
-
+                                            
                                                 <input asp-for="@Model.Quantity" data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="1" type="number" class="form-control form-control-sm" oninput="update()" />
 
                                                 <button class="btn btn-link px-2" onclick="increaseQuantity(this)">
@@ -70,11 +69,21 @@
                                                 @{Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.Quantity);}
                                             </div>
                                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <a href="#!" class="text-muted"><i class="fa fa-times"></i></a>
+
+                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                    <form method="get">
+                                                        <input type="hidden" name="id" asp-for="@Model.deletedid" value="@Model.carttable.Rows[i][1]" />
+                                                        <button asp-page-handler="Delete" type="submit" class="btn btn-link px-0">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                           
+                                          
                                         </div>
                                     </div>
 
-
+                                    
                                     }
                                     </div>
                                     <hr class="my-4">

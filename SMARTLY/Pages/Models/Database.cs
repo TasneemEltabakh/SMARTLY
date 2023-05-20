@@ -24,7 +24,7 @@ namespace SMARTLY.Pages.Models
         {
             //Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
             // Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
-            Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True; Trusted_Connection=True");
 
            // Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
         }
@@ -709,6 +709,29 @@ namespace SMARTLY.Pages.Models
                 cmd.Parameters.AddWithValue("@product_id", idProduct);
                 cmd.Parameters.AddWithValue("@Bundle_ID", idbundle);
                 
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public void Deletefromcart(string id)
+        {
+            string Q = "delete from cart where Productid = @id";
+      
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@id", id);
+            try
+            {
+                Connection.Open();
+               
+               
+               
                 cmd.ExecuteNonQuery();
             }
             catch (SqlException ex)

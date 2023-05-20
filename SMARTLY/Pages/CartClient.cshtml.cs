@@ -13,6 +13,11 @@ namespace SMARTLY.Pages
         [BindProperty]
         public string id { get; set; }
 
+
+        [BindProperty]
+        public string deletedid { get; set; }
+
+
         private readonly Database data;
 
         public DataTable dt { get; set; }
@@ -32,20 +37,38 @@ namespace SMARTLY.Pages
         [BindProperty]
         public double productprice { get; set; }
         public double shipping { get; set; }
+
         public CartClientModel(Database database)
         {
             this.data = database;
 
             Quantity = 1;
         }
-        public void OnGet(string id)
+       
+        public IActionResult OnGetDelete(string id)
+        {
+            // Call the Deletefromcart method to delete the product from the cart
+            data.Deletefromcart(id);
+
+            // Refresh the cart data
+            carttable = data.ReadCart(UserName);
+            shipping = 5;
+
+            // Redirect back to the same page
+            return RedirectToPage();
+        }
+        public void OnGet()
+        {
+
+            carttable = data.ReadCart(UserName);
+            shipping = 5;
+        }
+        public void OnGetAdd(string id)
         {
             this.id = id;
             data.AddProductToCart(UserName, id, Quantity);
             carttable = data.ReadCart(UserName);
             shipping = 5;
-
-
         }
         public DataTable returnrecordofproduct(int id)
         {
@@ -73,6 +96,7 @@ namespace SMARTLY.Pages
             data.UpdateCart(idproduct, Quantity);
             carttable = data.ReadCart(UserName);
         }
+        
 
     }
 
