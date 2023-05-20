@@ -608,7 +608,7 @@ namespace SMARTLY.Pages.Models
 			{
 				Connection.Open();
 				SqlCommand cmd = new SqlCommand(Q, Connection);
-				bundle.BundleId = Convert.ToString(GetMax("Bundle", "BundleId")+1);
+				bundle.BundleId = GetMax("Bundle", "BundleId")+1;
 				cmd.Parameters.Add("@bundle.price", SqlDbType.Int).Value = bundle.price;
 				cmd.Parameters.Add("@bundle.level", SqlDbType.VarChar).Value = bundle.level;
 				cmd.Parameters.Add("@bundle.BundleDescription", SqlDbType.Int).Value = bundle.Description;
@@ -854,8 +854,8 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
 
-        }
-            return c;
+       
+          
         }
 
 		public int AVGRATING(int id)   //***
@@ -903,13 +903,7 @@ namespace SMARTLY.Pages.Models
 				Connection.Close();
 			}
 			return dt;
-		}
-
-            }
-            finally
-            {
-                Connection.Close();
-            }
+		
         }
         
 		public DataTable ImgsForProduct(int id)   //***
