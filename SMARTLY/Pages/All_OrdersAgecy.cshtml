@@ -1,0 +1,56 @@
+﻿@page
+@model SMARTLY.Pages.All_OrdersAgecyModel
+@{
+    Layout = "/Pages/Shared/_LayoutAgency.cshtml";
+}
+
+<section id="hero2" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+        <h1>Placed orders</h1>
+
+    </div>
+</section>
+</br>
+</br>
+</br>
+<section>
+<div class="Container">
+
+
+    <table class="table table-striped center_Table" style="width:70%">
+        <thead>
+            <tr>
+
+                <th scope="col">OrderCode</th>
+                <th scope="col">Username</th>
+                <th scope="col">Amaount To Pay </th>
+                <th scope="col">Order Date</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.dt.Rows.Count; i++)
+            {
+                <tr>
+
+                    @for (int j = 0; j < 4; j++)
+                    {
+                        <td>@Model.dt.Rows[i][j]</td>
+
+                    }
+                  
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</section>
+<br/>
+
+                </br>
+</br>
+</br>
+
+                                </br>
+</br>
+</br>
