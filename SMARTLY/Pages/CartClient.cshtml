@@ -49,15 +49,24 @@
                                                 <button class="btn btn-link px-2" onclick="decreaseQuantity(this)">
                                                     <i class="fa fa-minus"></i>
                                                 </button>
-                                                <input asp-for="@Model.Quantity" data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="1" type="number" class="form-control form-control-sm" oninput="update()" />
+                                                <input asp-for="@Model.quantity" data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="1" type="number" class="form-control form-control-sm" oninput="update(this)" />
+                                              
+                                                <input asp-for="@Model.quantity" id="form2"/>
+
+                                              
+                                                @{
+                                                int x = Convert.ToInt32(Model.carttable.Rows[i][1]);
+                                                int y = Convert.ToInt32(Model.quantity);
+                                                Model.update(x, y);
+                                                }
                                                 <button class="btn btn-link px-2" onclick="increaseQuantity(this)">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h6 class="mb-0">EGB @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.Quantity)</h6>
+                                                <h6 class="mb-0">EGB @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity)</h6>
                                                 @{
-                            Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.Quantity);
+                            Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity);
 }
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
@@ -75,6 +84,7 @@
                                                
                                             </div>
                                         </div>
+                                        
                                         }
                                     </div>
 
@@ -96,9 +106,7 @@
 
                                     <div class="d-flex justify-content-between mb-4">
                                         <h5 class="text-uppercase">items @Model.carttable.Rows.Count</h5>
-                                        <span id="totalPrice">
-                                            <h5>EGB @Model.summary </h5>
-                                        </span>
+                                        
                                     </div>
 
                                     <h5 class="text-uppercase mb-3">Shipping</h5>
@@ -202,7 +210,6 @@
         }
 
         function update() {
-            // Get the updated quantity and calculate the total price
             var quantityInputs = document.querySelectorAll('input[name="quantity"]');
             var totalQuantity = 0;
             var totalPrice = 0;
@@ -216,7 +223,6 @@
                 totalPrice += productPrice * quantity;
             }
 
-            // Update the summary and total price
             var summaryTotal = document.getElementById('summaryTotal');
             var selectShipping = document.getElementById('shippingOption');
             var selectedShippingOption = selectShipping.options[selectShipping.selectedIndex];
@@ -224,10 +230,19 @@
             var totalPriceWithShipping = totalPrice + selectedShippingCost;
 
             summaryTotal.textContent = 'EGB ' + totalPriceWithShipping.toFixed(2);
+
+            document.getElementById('form2').value = quantityInputs[0].value; // Set the value of the second input to the updated quantity
+
+            // Set the value of the second input to its corresponding asp-for attribute
+            document.querySelector('input#form2').setAttribute('value', quantityInputs[0].value);
+            var form1Value = document.getElementById('form1').value;
+            document.getElementById('form2').value = form1Value;
         }
+
+        // Submit the form on update
+       
+
     </script>
 
     
     </section>
-
-
