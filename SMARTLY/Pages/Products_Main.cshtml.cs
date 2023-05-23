@@ -37,12 +37,13 @@ namespace SMARTLY.Pages
             SearchTable = Db.ReadSearchProject(searchQueury);
             issearched = true;
             if (SearchTable.Rows.Count == 0) msg = "No results found for this product";
+            else msg = "free";
             return Page();
+           
         }
         public Products_MainModel(Database db)
         {
             Db = db;
-            issearched=false;
             msg = "free";
         }
         public void OnGet()

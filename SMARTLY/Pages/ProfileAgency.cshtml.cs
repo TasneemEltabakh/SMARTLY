@@ -5,7 +5,7 @@ using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class ProfileModel : UserPageModel
+    public class ProfileAgencyModel : UserPageModel
     {
         private readonly Database Db;
         public DataTable dt { get; set; }
@@ -23,20 +23,17 @@ namespace SMARTLY.Pages
         [BindProperty]
 
         public string passwordencryped { get; set; }
-
-        [BindProperty]
-        public bool isedit { set; get; }
-        public ProfileModel(Database db)
+        public ProfileAgencyModel(Database db)
         {
             Db = db;
-            isedit = false;
         }
         public void OnGet()
         {
             userData = Db.ReadUser(UserName);
             password = Convert.ToString(userData.Rows[0][1]);
+
             passwordencryped = new string('*', password.Length);
         }
     }
-    
 }
+
