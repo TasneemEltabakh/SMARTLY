@@ -16,11 +16,34 @@ namespace SMARTLY.Pages
         [BindProperty]
         public DataTable ProductsTable { get; set; }
 
+        [BindProperty]
+        public DataTable SearchTable { get; set; }
+
+        [BindProperty]
+
+        public string searchQueury { get; set; }
+
+        [BindProperty]
+
+        public  bool issearched { get; set; }
 
 
+        [BindProperty]
+
+        public string msg { get; set; }
+
+        public IActionResult OnPostSearch()
+        {
+            SearchTable = Db.ReadSearchProject(searchQueury);
+            issearched = true;
+            if (SearchTable.Rows.Count == 0) msg = "No results found for this product";
+            return Page();
+        }
         public Products_MainModel(Database db)
         {
             Db = db;
+            issearched=false;
+            msg = "free";
         }
         public void OnGet()
         {

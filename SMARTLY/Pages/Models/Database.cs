@@ -1038,5 +1038,27 @@ namespace SMARTLY.Pages.Models
 
 
         }
+        public DataTable ReadSearchProject(string search)
+        {
+            string Q = "select * from Product where PName=@search or color = @search ";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
     }
 }
