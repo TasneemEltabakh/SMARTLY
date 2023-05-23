@@ -24,7 +24,7 @@ namespace SMARTLY.Pages.Models
         {
             //Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
             // Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
-             Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True; Trusted_Connection=True");
+             Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
 
             // Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
            // Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
@@ -1059,6 +1059,36 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public List<string> getbest3products()
+        {
+            DataTable dt =new DataTable();
+            List <string> products = new List<string>();
+			string Q = "SELECT TOP 3 Max(SailedNum) AS TotalSailedNum, PName FROM Product GROUP BY PName ORDER BY TotalSailedNum DESC;";
+
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				cmd.CommandType= CommandType.StoredProcedure;
+
+                SqlDataReader sdr = cmd.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    products.Add(sdr["PName"].ToString());
+                }
+			}
+			catch //(Exception ex)
+			{
+                //throw ex;
+			}
+			finally
+			{
+				Connection.Close();
+			}
+            return products;
+		}
+
 
     }
 }
