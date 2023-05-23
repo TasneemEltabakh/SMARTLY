@@ -9,6 +9,8 @@ using System.Security.Cryptography.X509Certificates;
 using static System.Net.Mime.MediaTypeNames;
 using System.Reflection;
 using System.Data.Common;
+using System.Reflection.Metadata;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SMARTLY.Pages.Models
 {
@@ -1042,6 +1044,9 @@ namespace SMARTLY.Pages.Models
         {
             string Q = "select * from Product where PName=@search or color = @search ";
             SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@search", search);
+            cmd.Parameters.AddWithValue("@search", search);
+
             DataTable dt = new DataTable();
             try
             {
@@ -1059,6 +1064,56 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public DataTable ReadUser(string username)
+        {
+
+            string Q = "select * from _User where username = @username";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public void updatepassword(string newpassword, string username)
+        {
+           
+                string Q = " update _User  set userPassword = @newpassword where username=@username";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@newpassword", newpassword);
+            cmd.Parameters.AddWithValue("@username", username);
+
+
+
+            try
+            {
+                Connection.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+               
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
 
     }
 }
