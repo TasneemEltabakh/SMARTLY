@@ -1093,7 +1093,7 @@ namespace SMARTLY.Pages.Models
 			}
             return products;
 		}
-        }
+        
         public DataTable ReadUser(string username)
         {
 
