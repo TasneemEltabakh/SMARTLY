@@ -1,0 +1,28 @@
+﻿@page
+@model SMARTLY.Pages.Bundle_GraphModel
+@{
+	Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<style>
+	header {
+		background-image: url('assets/img/homeView.jpg');
+	}
+</style>
+<br>
+<br><br /><br /><br /><br><br><br><br /><br />
+
+<div class="chart-container" width="600" height="400">
+	<canvas id="barChart2"></canvas>
+</div>
+
+
+<script type="module">
+	document.addEventListener('DOMContentLoaded', (event) => {
+		var ctx = document.getElementById('barChart2');
+		var myChart = new Chart(ctx, @Html.Raw(Model.ChartJson) );
+	});
+</script>
+
+<br /><br><br /><br /><br /><br /><br /><br />

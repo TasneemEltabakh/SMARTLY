@@ -157,7 +157,7 @@ namespace SMARTLY.Pages.Models
         public DataTable loadTableofOrder()
         {
             DataTable dt = new DataTable();
-            string queury = "select OrderCode,Username,OrderDate,AmountToPay from anorder";
+            string queury = "select OrderCode,Username,OrderDate,AmountToPay from AnOrder order by AmountToPay desc\r\n";
             SqlCommand cmd = new SqlCommand(queury, Connection);
             try
             {
@@ -1087,8 +1087,36 @@ namespace SMARTLY.Pages.Models
 			}
             return products;
 		}
-        
-        public DataTable ReadUser(string username)
+		public List<string> QuantityProduct()
+		{
+			DataTable dt = new DataTable();
+			List<string> products = new List<string>();
+			string Q = "SELECT distinct PName FROM Product";
+
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				//cmd.CommandType= CommandType.StoredProcedure;
+
+				SqlDataReader sdr = cmd.ExecuteReader();
+
+				while (sdr.Read())
+				{
+					products.Add(sdr["PName"].ToString());
+				}
+			}
+			catch //(Exception ex)
+			{
+				//throw ex;
+			}
+			finally
+			{
+				Connection.Close();
+			}
+			return products;
+		}
+		public DataTable ReadUser(string username)
         {
 
             string Q = "select * from _User where username = @username";
@@ -1136,35 +1164,6 @@ namespace SMARTLY.Pages.Models
             {
                 Connection.Close();
             }
-        }
-        public List<string> QuantityProduct()
-        {
-            DataTable dt = new DataTable();
-            List<string> products = new List<string>();
-            string Q = "SELECT distinct PName FROM Product";
-
-            try
-            {
-                Connection.Open();
-                SqlCommand cmd = new SqlCommand(Q, Connection);
-                //cmd.CommandType= CommandType.StoredProcedure;
-
-                SqlDataReader sdr = cmd.ExecuteReader();
-
-                while (sdr.Read())
-                {
-                    products.Add(sdr["PName"].ToString());
-                }
-            }
-            catch //(Exception ex)
-            {
-                //throw ex;
-            }
-            finally
-            {
-                Connection.Close();
-            }
-            return products;
         }
 
 
