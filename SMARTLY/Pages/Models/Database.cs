@@ -1137,6 +1137,35 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public List<string> QuantityProduct()
+        {
+            DataTable dt = new DataTable();
+            List<string> products = new List<string>();
+            string Q = "SELECT distinct PName FROM Product";
+
+            try
+            {
+                Connection.Open();
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                //cmd.CommandType= CommandType.StoredProcedure;
+
+                SqlDataReader sdr = cmd.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    products.Add(sdr["PName"].ToString());
+                }
+            }
+            catch //(Exception ex)
+            {
+                //throw ex;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return products;
+        }
 
 
 
