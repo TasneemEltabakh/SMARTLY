@@ -39,7 +39,7 @@ namespace SMARTLY.Pages
                 {
                     msg = "free";
                     HttpContext.Session.SetString("UserName", user.UserName);
-                    user.usertype = 3;
+                    HttpContext.Session.SetString("getUserType", "3");
                     database.SignUpNewMember(user, client);
                     return RedirectToPage("/IndexClient");
                 }

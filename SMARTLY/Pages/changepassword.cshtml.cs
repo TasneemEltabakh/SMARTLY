@@ -25,7 +25,7 @@ namespace SMARTLY.Pages
         }
         public void OnGet()
         {
-            type = db.getUserType;
+            type = db.returnType(UserName);
         }
         public IActionResult OnPost()
         {
@@ -35,18 +35,8 @@ namespace SMARTLY.Pages
                 return RedirectToPage("/ProfileClient");
             if (type == 2)
                 return RedirectToPage("/ProfileAgency");
-            if (type == 1)
+           
                 return RedirectToPage("/Profile");
-
-           else return Page();
-
-
-
-
-
-
-
-
 
         }
 

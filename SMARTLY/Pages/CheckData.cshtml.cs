@@ -27,7 +27,7 @@ namespace SMARTLY.Pages
         public void OnGet()
         {
 
-            type = db.getUserType;
+            type = db.returnType(UserName);
 
 
         }
@@ -37,17 +37,17 @@ namespace SMARTLY.Pages
                 if (!db.CheckPassword(password,UserName))
                 {
                     message = "Wrong password";
-                    return Page();
+                     return RedirectToPage("/changepassword", new { UserName = this.UserName });
                 }
                 else
                 {
                     message = "free";
 
-                return RedirectToPage("/changepassword");
+                  return RedirectToPage("/changepassword");
 
 
                  }
-
+                  
 
 
         }
