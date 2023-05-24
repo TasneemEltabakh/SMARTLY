@@ -29,13 +29,23 @@ namespace SMARTLY.Pages
         }
         public IActionResult OnPost()
         {
+            db.updatepassword(password, UserName);
+
+            if (type == 3)
+                return RedirectToPage("/ProfileClient");
+            if (type == 2)
+                return RedirectToPage("/ProfileAgency");
+            if (type == 1)
+                return RedirectToPage("/Profile");
+
+            return Page();
 
 
-            db.updatepassword(password,UserName);
-           return RedirectToPage("/ProfileClient");
 
 
-            
+
+
+
 
 
         }

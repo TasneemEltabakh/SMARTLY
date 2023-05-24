@@ -391,3 +391,8 @@ values(4,'assets\img\R2.jpg');
 insert into Product_Photoes
 values(4,'assets\img\product2.jpg');
 
+ALTER TABLE _User
+ADD img VARCHAR(50) DEFAULT 'assets/img/noImage.png';
+update _User  set userPassword = 'assets/img/noImage.jpeg' 
+update _User  set img = 'assets/img/202101031.jpeg' where username = 'Tasneem'
+update _User  set img = 'assets/img/admin.jpeg' where username = 'smartly'

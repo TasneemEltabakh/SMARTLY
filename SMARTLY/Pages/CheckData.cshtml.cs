@@ -14,6 +14,7 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public string password { get; set; }
+
         [BindProperty]
         public int type { get; set; }
 
