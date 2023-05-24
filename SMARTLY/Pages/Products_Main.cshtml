@@ -12,7 +12,7 @@
 		<h1>OUR PRODUCTS</h1>
 		<div class="header-search">
 			<form method="post" id="SearchForm">
-				<input asp-for="searchQueury" class="input-select"   placeholder="   Search for Products "></input>
+				<input class="input-select" id="SearchQuery" name="searchQuery" placeholder="   Search for Products "></input>
 				<button asp-page-handler="search" class="search-btn">Search</button>
 			</form>
 		</div>
@@ -43,11 +43,11 @@
 
 
 
-@*
+
 		@if (Model.issearched)
 		{
 			if (Model.msg == "free")
-			{*@
+			{
 				<div class="section">
 					<!-- container -->
 					<div class="container" data-aos="fade-up">
@@ -134,14 +134,14 @@
 					</div>
 					<!-- /STORE -->
 				</div>
-		@*	}
+		}
 			else
 			{
 				<h2>@Model.msg</h2>
 			}
 			
 		}
-*@
+
 
 
 		@*section products*@

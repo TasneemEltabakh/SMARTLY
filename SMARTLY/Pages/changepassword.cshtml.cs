@@ -38,7 +38,7 @@ namespace SMARTLY.Pages
             if (type == 1)
                 return RedirectToPage("/Profile");
 
-            return Page();
+           else return Page();
 
 
 
