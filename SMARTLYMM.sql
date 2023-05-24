@@ -391,6 +391,22 @@ values(4,'assets\img\R2.jpg');
 insert into Product_Photoes
 values(4,'assets\img\product2.jpg');
 
+select * from Bundle
+Select * from Categories
+
+--->
+--->
+--->
+ALTER TABLE Product
+ADD SailedNum int default 0
+
+update Product
+set SailedNum =0
+
+insert into Product
+values(2,'Smart Door',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp',6)
+insert into Product
+values(3,'Door Lock outdoor',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp',10)
 ALTER TABLE _User
 ADD img VARCHAR(50) DEFAULT 'assets/img/noImage.png';
 update _User  set userPassword = 'assets/img/noImage.jpeg' 
