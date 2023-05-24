@@ -26,30 +26,24 @@ namespace SMARTLY.Pages.Models
         {
             //Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
             // Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
-             Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+             Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True; Trusted_Connection=True");
 
             // Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
            // Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
-            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE); insert into Client values (@USERNAME,@email,@phonenumber);";
+            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE,'assets/img/noImage.png'); insert into Client values (@USERNAME,@email,@phonenumber)";
             SqlCommand cmd = new SqlCommand(query, Connection);
             cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
             cmd.Parameters.AddWithValue("@PASSWORD", U.password);
             cmd.Parameters.AddWithValue("@TYPE", 3);
-
-
-            cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
             cmd.Parameters.AddWithValue("@email", C.email);
             cmd.Parameters.AddWithValue("@phonenumber", C.phonenumber);
-
             try
             {
                 Connection.Open();
                 cmd.ExecuteNonQuery();
-
-
             }
             catch
             {
@@ -1149,7 +1143,7 @@ namespace SMARTLY.Pages.Models
         public void updatepassword(string newpassword, string username)
         {
            
-                string Q = " update _User  set userPassword = @newpassword where username=@username";
+                string Q = " update _User  set userPassword = @newpassword where username=@username ";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@newpassword", newpassword);
             cmd.Parameters.AddWithValue("@username", username);
