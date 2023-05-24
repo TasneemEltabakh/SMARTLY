@@ -1068,7 +1068,7 @@ namespace SMARTLY.Pages.Models
 			{
 				Connection.Open();
 				SqlCommand cmd = new SqlCommand(Q, Connection);
-				cmd.CommandType= CommandType.StoredProcedure;
+				
 
                 SqlDataReader sdr = cmd.ExecuteReader();
 
