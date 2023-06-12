@@ -33,9 +33,20 @@
                             <h4><sup>EGB</sup>@Model.dt.Rows[i][1]</h4>
                             <ul>
                             </ul>
+                            @if(Model.ThisState==0)
+                            {
+
+                         
                             <div class="btn-wrap">
                                 <a asp-page="/Bundle_ItemClient" class="btn-buy" asp-route-id="@Model.dt.Rows[i][0]"> Buy Now </a>
                             </div>
+                            }
+                            else
+                            {
+                                <div class="btn-wrap">
+                                    <a asp-page="/Bundle_ItemClient" asp-route-id="@Model.dt.Rows[i][0]">View</a>
+                                </div>
+                            }
                         </div>
                     </div>
                 }

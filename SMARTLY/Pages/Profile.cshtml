@@ -37,14 +37,32 @@
       <div class="col-lg-5">
         <div class="card mb-6">
           <div class="card-body text-center">
-
-                        <img src="@Model.userData.Rows[0][3]" alt="avatar" class="rounded-circle img-fluid" style="width: 200px;">
-
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="@Model.userData.Rows[0][3]" alt="avatar" class="rounded-circle img-fluid" style="width: 200px;">
+                            <a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>
+                        </div>
             <h5 class="my-3">Muhammed Abusharaf</h5>
-            <p class="text-muted mb-1">The Admin Of the website</p>
+            <p class="text-muted mb-1"> Admin </p>
             <div class="d-flex justify-content-center mb-2">
                 <br/>
-              <button type="button" class="btn btn-primary">Turn To portfolio </button>
+                <br/>
+                            <br />
+                            <br />
+                 <form method="post" asp-page="/Profile">
+                               
+                    @if (Model.isedit == 0) {
+                    <button  type="submit" class="btn btn-primary">
+                        Turn to portfolio
+                    </button>
+                }
+                  else 
+                {
+                        <button type="submit" class="btn btn-primary">
+                        Turn to store
+                    </button>
+                }
+                              
+                  </form>
             </div>
           </div>
         </div>

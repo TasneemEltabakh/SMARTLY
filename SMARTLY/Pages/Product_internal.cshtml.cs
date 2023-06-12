@@ -6,7 +6,7 @@ using SMARTLY.Pages.Models;
 
 namespace SMARTLY.Pages
 {
-    public class Product_internalModel : PageModel
+    public class Product_internalModel : UserPageModel
     {
  
 			private readonly Database data;

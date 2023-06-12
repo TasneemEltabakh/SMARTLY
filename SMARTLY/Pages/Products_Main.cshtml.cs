@@ -5,7 +5,7 @@ using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class Products_MainModel : PageModel
+    public class Products_MainModel : UserPageModel
     {
         private readonly Database Db;
 

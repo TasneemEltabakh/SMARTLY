@@ -4,7 +4,7 @@ using SMARTLY.Pages.Models;
 
 namespace SMARTLY.Pages
 {
-    public class SubscribeModel : PageModel
+    public class SubscribeModel : UserPageModel
     {
         private readonly Database database;
 

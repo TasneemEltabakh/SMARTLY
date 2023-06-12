@@ -33,17 +33,21 @@ namespace SMARTLY.Pages.Models
         }
         public void SignUpNewMember(User U, Client C)
         {
-            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE,'assets/img/noImage.png'); insert into Client values (@USERNAME,@email,@phonenumber)";
+            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE,'assets/img/noImage.png');";
+            string query2 = " insert into Client values (@USERNAME,@email,@phonenumber);";
             SqlCommand cmd = new SqlCommand(query, Connection);
+            SqlCommand cmd2 = new SqlCommand(query2, Connection);
             cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
             cmd.Parameters.AddWithValue("@PASSWORD", U.password);
             cmd.Parameters.AddWithValue("@TYPE", 3);
-            cmd.Parameters.AddWithValue("@email", C.email);
-            cmd.Parameters.AddWithValue("@phonenumber", C.phonenumber);
+            cmd2.Parameters.AddWithValue("@USERNAME", U.UserName);
+            cmd2.Parameters.AddWithValue("@email", C.email);
+            cmd2.Parameters.AddWithValue("@phonenumber", C.phonenumber);
             try
             {
                 Connection.Open();
                 cmd.ExecuteNonQuery();
+                cmd2.ExecuteNonQuery();
             }
             catch
             {

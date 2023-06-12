@@ -4,7 +4,7 @@ using SMARTLY.Pages.Models;
 
 namespace SMARTLY.Pages
 {
-    public class SignUpModel : PageModel
+    public class SignUpModel : UserPageModel
     {
         private readonly Database database;
         private readonly IHttpContextAccessor httpContextAccessor;
@@ -18,7 +18,9 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public string passwordcheck { get; set; }
-
+        [BindProperty(SupportsGet = true)]
+        public bool state { get; set; }
+        public int val { get; set; }
         public string msg { get; set; }
         public SignUpModel(Database db, IHttpContextAccessor httpContextAccessor)
         {
@@ -33,6 +35,7 @@ namespace SMARTLY.Pages
         }
         public IActionResult OnPost()
         {
+
             if (ModelState.IsValid)
             {
                 if (String.Equals(passwordcheck, user.password))
@@ -40,6 +43,7 @@ namespace SMARTLY.Pages
                     msg = "free";
                     HttpContext.Session.SetString("UserName", user.UserName);
                     HttpContext.Session.SetString("getUserType", "3");
+
                     database.SignUpNewMember(user, client);
                     return RedirectToPage("/IndexClient");
                 }

@@ -3856,7 +3856,9 @@ textarea.input {
     background-color: #eae8e8;
 }
 
-
+.fa-vodafone {
+    color: red;
+}
 /* nada for bundle */
 /*--------------------------------------------------------------
 # Pricing

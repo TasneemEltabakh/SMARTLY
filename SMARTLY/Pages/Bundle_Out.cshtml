@@ -124,9 +124,20 @@
                     <ul>
      
                     </ul>
-                    <div class="btn-wrap">
-                                <a asp-page="/Bundle_Item" class="btn-buy" asp-route-id="@Model.dt.Rows[i][0]"> Buy Now </a>
-                    </div>
+                            @if (Model.ThisState == 0)
+                            {
+
+
+                                <div class="btn-wrap">
+                                    <a asp-page="/Bundle_Item" class="btn-buy" asp-route-id="@Model.dt.Rows[i][0]"> Buy Now </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="btn-wrap">
+                                    <a asp-page="/Bundle_Item" asp-route-id="@Model.dt.Rows[i][0]">View</a>
+                                </div>
+                            }
                 </div>
             </div>
             }

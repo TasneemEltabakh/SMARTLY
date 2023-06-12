@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SMARTLY.Pages
 {
-    public class PoliciesModel : PageModel
+    public class PoliciesModel : UserPageModel
     {
         public void OnGet()
         {

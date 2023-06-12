@@ -5,7 +5,7 @@ using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class CartModel : PageModel
+    public class CartModel : UserPageModel
     {
         [BindProperty]
         static public int itemsCount { get; set; }= 0;

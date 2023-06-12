@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SMARTLY.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : UserPageModel
     {
         private readonly ILogger<IndexModel> _logger;
         [BindProperty(SupportsGet = true)]
