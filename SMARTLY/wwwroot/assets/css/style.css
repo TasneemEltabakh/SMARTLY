@@ -59,7 +59,12 @@ height: 40px;
 border-radius: 4px;
 transition: all 0.4s;
 }
-
+.product-item.hidden-category {
+    display: none;
+}
+.product-filters ul li.active .product-rating i {
+    color: #ffc451;
+}
 .back-to-top i {
 font-size: 28px;
 color: #151515;
@@ -3854,6 +3859,12 @@ textarea.input {
 
 .bg-grey {
     background-color: #eae8e8;
+}
+
+svg {
+    width: 24px;
+    height: 24px;
+    fill: #333;
 }
 
 .fa-vodafone {

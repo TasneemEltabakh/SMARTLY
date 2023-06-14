@@ -436,6 +436,56 @@ namespace SMARTLY.Pages.Models
             }
 
         }
+        public DataTable ReadProductspecificcategory(string category)
+        {
+            if (category == "*")
+            {
+                string Q = "Select * from Product";
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                DataTable dt = new DataTable();
+                try
+                {
+                    Connection.Open();
+
+                    dt.Load(cmd.ExecuteReader());
+                    return dt;
+                }
+                catch (SqlException ex)
+                {
+                    return dt;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+
+            }
+            else
+            {
+
+
+                string Q = "select * from Product where category in( Select id from Categories where title = @category);";
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                cmd.Parameters.AddWithValue("@category", category);
+                DataTable dt = new DataTable();
+                try
+                {
+                    Connection.Open();
+
+                    dt.Load(cmd.ExecuteReader());
+                    return dt;
+                }
+                catch (SqlException ex)
+                {
+                    return dt;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+            }
+
+        }
         public string getTitleCategory(int id)
         {
             string q = "select title  from categories where id = @id;";
