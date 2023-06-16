@@ -5,7 +5,7 @@ using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class Products_MainModel : PageModel
+    public class Products_MainModel : UserPageModel
     {
         private readonly Database Db;
 
@@ -32,6 +32,10 @@ namespace SMARTLY.Pages
 
         public string msg { get; set; }
 
+        [BindProperty]
+        public string categorychoosen { get; set; }
+
+
         public IActionResult OnPostSearch()
         {
             SearchTable = Db.ReadSearchProject(searchQueury);
@@ -45,12 +49,35 @@ namespace SMARTLY.Pages
         {
             Db = db;
             msg = "free";
+            categorychoosen = "All";
         }
         public void OnGet()
         {
+            string selectedCategory = Request.Query["selectedCategory"];
+            if (!string.IsNullOrEmpty(selectedCategory))
+            {
+                OnGetByCategory(selectedCategory);
+            }
+            else
+            {
+                CategoriesTable = Db.ReadCategories();
+                ProductsTable = Db.ReadProduct();
+            }
+        }
 
+        public void OnGetByCategory(string selectedCategory)
+        {
             CategoriesTable = Db.ReadCategories();
-            ProductsTable = Db.ReadProduct();
+            if (string.IsNullOrEmpty(selectedCategory) || selectedCategory == "All")
+            {
+                ProductsTable = Db.ReadProduct();
+                categorychoosen = "All";
+            }
+            else
+            {
+                categorychoosen = selectedCategory;
+                ProductsTable = Db.ReadProductspecificcategory(categorychoosen);
+            }
         }
         public string returnCategory(int id)
         {

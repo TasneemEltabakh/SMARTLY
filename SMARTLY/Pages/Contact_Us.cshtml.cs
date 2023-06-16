@@ -29,7 +29,6 @@ namespace SMARTLY.Pages
 
                 db.Insert_Contact(contactcs);
                 msg = "Recived sucessfully ";
-                // is there the eror ? 
 
             }
             else

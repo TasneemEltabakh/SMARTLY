@@ -16,16 +16,42 @@ namespace SMARTLY.Pages
         [BindProperty]
         public DataTable ProductsTable { get; set; }
 
+        [BindProperty]
+        public string  categorychoosen { get; set; }
+
 
         public Product_MainClientModel(Database db)
         {
             Db = db;
+            categorychoosen = "All";
         }
         public void OnGet()
         {
+            string selectedCategory = Request.Query["selectedCategory"];
+            if (!string.IsNullOrEmpty(selectedCategory))
+            {
+                OnGetByCategory(selectedCategory);
+            }
+            else
+            {
+                CategoriesTable = Db.ReadCategories();
+                ProductsTable = Db.ReadProduct();
+            }
+        }
 
+        public void OnGetByCategory(string selectedCategory)
+        {
             CategoriesTable = Db.ReadCategories();
-            ProductsTable = Db.ReadProduct();
+            if (string.IsNullOrEmpty(selectedCategory) || selectedCategory == "All")
+            {
+                ProductsTable = Db.ReadProduct();
+                categorychoosen = "All";
+            }
+            else
+            {
+                categorychoosen = selectedCategory;
+                ProductsTable = Db.ReadProductspecificcategory(categorychoosen);
+            }
         }
         public string returnCategory(int id)
         {

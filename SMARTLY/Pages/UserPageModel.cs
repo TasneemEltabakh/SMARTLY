@@ -8,10 +8,13 @@ namespace SMARTLY.Pages
     {
         
         public string UserName { get; set; }
-
+        public int ThisState { get; set; }
+   
         public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
         {
             UserName = HttpContext.Session.GetString("UserName");
+            ThisState = (int)(HttpContext.Session.GetInt32("State") ?? 0);
+
             base.OnPageHandlerExecuting(context);
         }
     }

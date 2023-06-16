@@ -404,11 +404,20 @@ update Product
 set SailedNum =0
 
 insert into Product
-values(2,'Smart Door',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp',6)
+values(5,'Smart Door',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp',6)
 insert into Product
-values(3,'Door Lock outdoor',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp',10)
+values(6,'Door Lock outdoor',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp',10)
 ALTER TABLE _User
-ADD img VARCHAR(50) DEFAULT 'assets/img/noImage.png';
-update _User  set userPassword = 'assets/img/noImage.jpeg' 
+alter column img VARCHAR(200)
+update _User  set img = 'assets/img/noImage.png' 
 update _User  set img = 'assets/img/202101031.jpeg' where username = 'Tasneem'
-update _User  set img = 'assets/img/admin.jpeg' where username = 'smartly'
+update _User  set img = 'assets/img/admin.jpg' where username = 'smartly'
+
+select * from _User
+
+insert into _User values('agency','nn',2,'assets/img/noImage.png' )
+
+insert into Agency values('agency','Agency@gmail','FirstAgency','Dokki' )
+select * from Categories
+
+select * from AnOrder

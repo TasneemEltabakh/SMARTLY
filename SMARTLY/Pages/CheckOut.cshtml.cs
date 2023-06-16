@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SMARTLY.Pages
 {
-    public class CheckOutModel : PageModel
+    public class CheckOutModel : UserPageModel
     {
         public void OnGet()
         {

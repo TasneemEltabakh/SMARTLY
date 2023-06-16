@@ -9,11 +9,11 @@
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
         <h1>OUR PRODUCTS</h1>
         <div class="header-search">
-            <form method="post" id="SearchForm">
+           @* <form method="post" id="SearchForm">
                 <input class="input-select" id="SearchQuery" name="searchQuery" placeholder="   Search for Products "></input>
                 <button asp-page-handler="search" class="search-btn">Search</button>
             </form>
-        </div>
+        </div>*@
     </div>
 </section>
 <br />
@@ -25,11 +25,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-filters">
-                    <ul>
-                        <li data-filter="*" class="active">All</li>
+                      <ul>
+                        <li data-filter=".*" class="active" onclick="filterProducts('*')">All</li>
                         @for (int i = 0; i < Model.CategoriesTable.Rows.Count; i++)
                         {
-                            <li data-filter=".berry">@Model.CategoriesTable.Rows[i][1]</li>
+                            <li data-filter=".@Model.CategoriesTable.Rows[i]["title"]" onclick="filterProducts('.@Model.CategoriesTable.Rows[i]["title"]')">@Model.CategoriesTable.Rows[i]["title"]</li>
                         }
                     </ul>
                 </div>
@@ -42,7 +42,10 @@
 
                 <!-- store products -->
                 <div class="row">
-                                        <!-- product -->
+                          	@if(Model.ProductsTable.Rows.Count==0) 
+						{
+						<p>Nothing to show here</p>
+						}              <!-- product -->
                     @for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
                     {
                         <div class="col-md-4 col-xs-6">
@@ -110,5 +113,40 @@
 
 
 
-                      
 
+<script>
+    function filterProducts(category) {
+        // remove any dots before the category name
+        category = category.replace(/^\./, '');
+
+        // add the 'active' class to the clicked filter button
+        $(".product-filters ul li").removeClass("active");
+        $(`.product-filters ul li[data-filter='${category}']`).addClass("active");
+
+        // set the selected category in localStorage
+        localStorage.setItem("selectedCategory", category);
+
+        // set the URL parameter to the selected category
+        var urlParams = new URLSearchParams(window.location.search);
+        urlParams.set("selectedCategory", category);
+        var newUrl = window.location.pathname + "?" + urlParams.toString();
+
+        // reload the page with the new URL
+        window.location.href = newUrl;
+    }
+    $(document).ready(function () {
+        // get the selected category from the URL parameter
+        var urlParams = new URLSearchParams(window.location.search);
+        var selectedCategory = urlParams.get("selectedCategory");
+
+        // set the active filter button based on the selected category
+        if (selectedCategory) {
+            $(".product-filters ul li").removeClass("active");
+            $(`.product-filters ul li[data-filter='.${selectedCategory}']`).addClass("active");
+        } else {
+            // if no category is selected, set "All" as the default
+            $(".product-filters ul li").removeClass("active");
+            $(".product-filters ul li[data-filter='.*']").addClass("active");
+        }
+    });
+</script>

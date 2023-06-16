@@ -17,18 +17,44 @@ namespace SMARTLY.Pages
 		[BindProperty]
 		public DataTable ProductsTable { get; set; }
 
-		public Products_Main_AdminModel(Database db)
+        [BindProperty]
+        public string categorychoosen { get; set; }
+
+        public Products_Main_AdminModel(Database db)
 		{
 			Db = db;
-		}
-		public void OnGet()
+            categorychoosen = "All";
+        }
+        public void OnGet()
         {
-            //dt = Db.LoadBundlesInfo();
-            CategoriesTable = Db.ReadCategories();
-			ProductsTable = Db.ReadProduct();
-		}
+            string selectedCategory = Request.Query["selectedCategory"];
+            if (!string.IsNullOrEmpty(selectedCategory))
+            {
+                OnGetByCategory(selectedCategory);
+            }
+            else
+            {
+                CategoriesTable = Db.ReadCategories();
+                ProductsTable = Db.ReadProduct();
+            }
+        }
 
-		public string returnCategory(int id)
+        public void OnGetByCategory(string selectedCategory)
+        {
+            CategoriesTable = Db.ReadCategories();
+            if (string.IsNullOrEmpty(selectedCategory) || selectedCategory == "All")
+            {
+                ProductsTable = Db.ReadProduct();
+                categorychoosen = "All";
+            }
+            else
+            {
+                categorychoosen = selectedCategory;
+                ProductsTable = Db.ReadProductspecificcategory(categorychoosen);
+            }
+        }
+
+        public string returnCategory(int id)
 		{
 			string title = Db.getTitleCategory(id);
 			return title;

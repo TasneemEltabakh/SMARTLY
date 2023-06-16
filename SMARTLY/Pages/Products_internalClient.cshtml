@@ -8,10 +8,10 @@
 	<div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
 		<h1>OUR PRODUCTS</h1>
 		<div class="header-search">
-			<form>
+			@*<form>
 				<input class="input-select" placeholder="   Search for Products "></input>
 				<button  class="search-btn">Search</button>
-			</form>
+			</form>*@
 			@*<form method="post" id="SearchForm">
 				<input class="input-select" id="SearchQuery" name="searchQuery" placeholder="   Search for Products "></input>
 				<button  class="search-btn">Search</button>
@@ -97,7 +97,12 @@
 						<a class="review-link" href="#">@Model.CountFeedBack Review(s)</a>
 					</div>
 					<div>
-						<h3 class="product-price">$ @Model.dt.Rows[0][9] <del class="product-old-price">$ @Model.dt.Rows[0][2]</del></h3>
+						<h3 class="product-price">$ @Model.dt.Rows[0][9]	
+							@if (Convert.ToInt32( Model.dt.Rows[0][5])!=0){
+								<del class="product-old-price">$ @Model.dt.Rows[0][2]</del>
+							}
+
+						</h3>
 						@if ((int)@Model.dt.Rows[0][3]!=0)
 						{
 							<span class="product-available">In Stock</span>
@@ -121,11 +126,14 @@
 						
 					</ul>
 					</div>
-					<div class="add-to-cart">
-						<ul class="product-btns">
-							<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]" >Add to cart</a>
-						</ul>
-					</div>
+					@if (Model.ThisState == 0)
+					{
+						<div class="add-to-cart">
+							<ul class="product-btns">
+								<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]" >Add to cart</a>
+							</ul>
+						</div>
+					}
 
 				</div>
 
@@ -288,91 +296,20 @@
 							<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
 						</div>
 					</div>
-					<div class="add-to-cart">
-						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-					</div>
-				</div>
-			</div>
-			<!-- /product -->
-			<!-- product -->
-			<div class="col-md-3 col-xs-6">
-				<div class="product">
-					<div class="product-img">
-						<img src="/assets/img/Alexa.jpg" alt="">
-						<div class="product-label">
-							<span class="sale">-30%</span>
+					@if (Model.ThisState == 0)
+					{
+						<div class="add-to-cart">
+							<ul class="product-btns">
+								<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]">Add to cart</a>
+							</ul>
 						</div>
-					</div>
-					<div class="product-body">
-						<p class="product-category">Alexa Hub</p>
-						<h3 class="product-name"><a href="#">Alexa</a></h3>
-						<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-						<div class="product-rating">
-						</div>
-						<div class="product-btns">
-							<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-							<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-						</div>
-					</div>
-					<div class="add-to-cart">
-						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-					</div>
-				</div>
-			</div>
-			<!-- /product -->
-			<!-- product -->
-			<div class="col-md-3 col-xs-6">
-				<div class="product">
-					<div class="product-img">
-						<img src="/assets/img/Alexa.jpg" alt="">
-						<div class="product-label">
-							<span class="sale">-30%</span>
-						</div>
-					</div>
-					<div class="product-body">
-						<p class="product-category">Alexa Hub</p>
-						<h3 class="product-name"><a href="#">Alexa</a></h3>
-						<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-						<div class="product-rating">
-						</div>
-						<div class="product-btns">
-							<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-							<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-						</div>
-					</div>
-					<div class="add-to-cart">
-						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-					</div>
-				</div>
-			</div>
-			<!-- /product -->
-			<!-- product -->
-			<div class="col-md-3 col-xs-6">
-				<div class="product">
-					<div class="product-img">
-						<img src="/assets/img/Alexa.jpg" alt="">
-						<div class="product-label">
-							<span class="sale">-30%</span>
-						</div>
-					</div>
-					<div class="product-body">
-						<p class="product-category">Alexa Hub</p>
-						<h3 class="product-name"><a href="#">Alexa</a></h3>
-						<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-						<div class="product-rating">
-						</div>
-						<div class="product-btns">
-							<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-							<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-						</div>
-					</div>
-					<div class="add-to-cart">
-						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-					</div>
-				</div>
-			</div>
-			<!-- /product -->
+					}
 
+				</div>
+			</div>
+			<!-- /product -->
+			<!-- product -->
+			
 		</div>
 		<!-- /row -->
 	</div>

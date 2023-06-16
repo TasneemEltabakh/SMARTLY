@@ -29,17 +29,21 @@ namespace SMARTLY.Pages.Models
         }
         public void SignUpNewMember(User U, Client C)
         {
-            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE,'assets/img/noImage.png'); insert into Client values (@USERNAME,@email,@phonenumber)";
+            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE,'assets/img/noImage.png');";
+            string query2 = " insert into Client values (@USERNAME,@email,@phonenumber);";
             SqlCommand cmd = new SqlCommand(query, Connection);
+            SqlCommand cmd2 = new SqlCommand(query2, Connection);
             cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
             cmd.Parameters.AddWithValue("@PASSWORD", U.password);
             cmd.Parameters.AddWithValue("@TYPE", 3);
-            cmd.Parameters.AddWithValue("@email", C.email);
-            cmd.Parameters.AddWithValue("@phonenumber", C.phonenumber);
+            cmd2.Parameters.AddWithValue("@USERNAME", U.UserName);
+            cmd2.Parameters.AddWithValue("@email", C.email);
+            cmd2.Parameters.AddWithValue("@phonenumber", C.phonenumber);
             try
             {
                 Connection.Open();
                 cmd.ExecuteNonQuery();
+                cmd2.ExecuteNonQuery();
             }
             catch
             {
@@ -425,6 +429,56 @@ namespace SMARTLY.Pages.Models
             finally
             {
                 Connection.Close();
+            }
+
+        }
+        public DataTable ReadProductspecificcategory(string category)
+        {
+            if (category == "*")
+            {
+                string Q = "Select * from Product";
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                DataTable dt = new DataTable();
+                try
+                {
+                    Connection.Open();
+
+                    dt.Load(cmd.ExecuteReader());
+                    return dt;
+                }
+                catch (SqlException ex)
+                {
+                    return dt;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+
+            }
+            else
+            {
+
+
+                string Q = "select * from Product where category in( Select id from Categories where title = @category);";
+                SqlCommand cmd = new SqlCommand(Q, Connection);
+                cmd.Parameters.AddWithValue("@category", category);
+                DataTable dt = new DataTable();
+                try
+                {
+                    Connection.Open();
+
+                    dt.Load(cmd.ExecuteReader());
+                    return dt;
+                }
+                catch (SqlException ex)
+                {
+                    return dt;
+                }
+                finally
+                {
+                    Connection.Close();
+                }
             }
 
         }
@@ -1064,7 +1118,7 @@ namespace SMARTLY.Pages.Models
 			{
 				Connection.Open();
 				SqlCommand cmd = new SqlCommand(Q, Connection);
-				//cmd.CommandType= CommandType.StoredProcedure;
+				
 
                 SqlDataReader sdr = cmd.ExecuteReader();
 
