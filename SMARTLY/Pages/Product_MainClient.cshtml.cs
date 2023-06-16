@@ -32,10 +32,17 @@ namespace SMARTLY.Pages
         public void OnGet()
         {
             string selectedCategory = Request.Query["selectedCategory"];
+            search = Request.Query["search"];
             if (!string.IsNullOrEmpty(selectedCategory))
             {
                 OnGetByCategory(selectedCategory);
             }
+            else if (!string.IsNullOrEmpty(search))
+            {
+                CategoriesTable = Db.ReadCategories();
+                ProductsTable = Db.ReadSearchProject(search);
+            }
+
             else
             {
                 CategoriesTable = Db.ReadCategories();
@@ -57,18 +64,20 @@ namespace SMARTLY.Pages
                 ProductsTable = Db.ReadProductspecificcategory(categorychoosen);
             }
         }
-        public void OnGetSearch(string selectedCategory)
+        public IActionResult OnPostSearch()
         {
-         
-            CategoriesTable = Db.ReadCategories();
-            ProductsTable = Db.ReadSearchProject(selectedCategory);
+            if (string.IsNullOrEmpty(search))
+            {
+                return RedirectToPage("/Product_MainClient");
+            }
+            else
+            {
+                CategoriesTable = Db.ReadCategories();
+                ProductsTable = Db.ReadSearchProject(search);
+                return RedirectToPage("/Product_MainClient", new  { search = this.search });
+            }
         }
-        public void OnPostSearch()
-        {
-            OnGetSearch(search);
 
-        }
-      
         public string returnCategory(int id)
         {
             string title = Db.getTitleCategory(id);

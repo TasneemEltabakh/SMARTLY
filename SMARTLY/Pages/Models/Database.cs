@@ -1089,8 +1089,6 @@ namespace SMARTLY.Pages.Models
             string Q = "select * from Product where PName=@search or color = @search ";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@search", search);
-            cmd.Parameters.AddWithValue("@search", search);
-
             DataTable dt = new DataTable();
             try
             {
