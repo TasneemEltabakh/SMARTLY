@@ -64,7 +64,7 @@
 
 
                 <ul>
-                    <li><a class="nav-link scrollto active" href="/IndexClient">Home</a></li>
+                    <li><a class="nav-link scrollto" href="/IndexClient">Home</a></li>
                     <li><a class="nav-link scrollto" asp-page="/Product_MainClient">Product</a></li>
                     <li class="dropdown">
                         <a asp-page="/Bundle_OutClient"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
@@ -180,7 +180,23 @@
     <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script>
+  function setActiveLink(link) {
+   
+    $("#navbar a").removeClass("active");
 
+  
+    $(link).addClass("active");
+  }
+
+  $(document).ready(function() {
+  
+    const currentPageLink = $(`#navbar a[href="${window.location.pathname}"]`);
+
+ 
+    setActiveLink(currentPageLink);
+  });
+</script>
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 

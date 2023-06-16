@@ -24,7 +24,7 @@ namespace SMARTLY.Pages.Models
         public Object table { get; set; }
         public Database()
         {
-             Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+             Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
 
         }
         public void SignUpNewMember(User U, Client C)
