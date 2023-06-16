@@ -811,9 +811,8 @@ namespace SMARTLY.Pages.Models
 
         public string ReturnCategoryForProduct(int id)
         {
-            string q = "select  title from Categories c,Product p where c.id=p.PId and p.PId = @id ;";
+            string q = "select title from Categories where id=@id";
             SqlCommand cmd = new SqlCommand(q, Connection);
-
             cmd.Parameters.AddWithValue("@id", id);
 
             try
@@ -855,6 +854,31 @@ namespace SMARTLY.Pages.Models
             }
             return c;
         }
+
+        public void Insert_Feedback(string user, int id,int num)
+        {
+            string Q = "insert into FeedBack values (@user,@id,@number);";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("user", user);
+            cmd.Parameters.AddWithValue("id", id);
+            cmd.Parameters.AddWithValue("number", num);
+
+            try
+            {
+                Connection.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
 
         public void Insert_Contact(Contact_Us contactcs)
         {
