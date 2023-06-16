@@ -24,12 +24,8 @@ namespace SMARTLY.Pages.Models
         public Object table { get; set; }
         public Database()
         {
-            //Connection = new SqlConnection("Data Source=DESKTOP-710ECC4;Initial Catalog=SMARTLY;Integrated Security=True");
-            // Connection =new SqlConnection( "Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True"); 
-             Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True; Trusted_Connection=True");
+             Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
 
-            // Connection = new SqlConnection("Data Source=DESKTOP-AC88DP1\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
-           // Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -926,7 +922,7 @@ namespace SMARTLY.Pages.Models
         public void AddNewProduct(Product product)
         {
 
-            string query = "insert into Product values(@PId,@PName,@price,@Quantity,@color,@salePercentage,@category,@AdditionalNotes,@Pimage);";
+            string query = "insert into Product (PId,PName,price,Quantity,color,salePercentage,category,AdditionalNotes,Pimage) values(@PId,@PName,@price,@Quantity,@color,@salePercentage,@category,@AdditionalNotes,@Pimage);";
             SqlCommand cmd = new SqlCommand(query, Connection);
             cmd.Parameters.AddWithValue("@PId", product.PId);
             cmd.Parameters.AddWithValue("@PName", product.PName);
