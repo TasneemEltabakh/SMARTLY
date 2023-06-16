@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using SMARTLY.Pages.Models;
 using System.Data;
 
@@ -18,6 +19,9 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public string  categorychoosen { get; set; }
+
+        [BindProperty]
+        public string search { get; set; }
 
 
         public Product_MainClientModel(Database db)
@@ -53,6 +57,18 @@ namespace SMARTLY.Pages
                 ProductsTable = Db.ReadProductspecificcategory(categorychoosen);
             }
         }
+        public void OnGetSearch(string selectedCategory)
+        {
+         
+            CategoriesTable = Db.ReadCategories();
+            ProductsTable = Db.ReadSearchProject(selectedCategory);
+        }
+        public void OnPostSearch()
+        {
+            OnGetSearch(search);
+
+        }
+      
         public string returnCategory(int id)
         {
             string title = Db.getTitleCategory(id);
