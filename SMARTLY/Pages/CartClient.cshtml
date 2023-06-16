@@ -72,12 +72,13 @@
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                 
-                                                    <input type="hidden" value="@Model.carttable.Rows[i][1]"/>
+                                                    <input type="hidden"  value="@Model.carttable.Rows[i][1]"/>
                                                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                         <div class="add-to-cart">
-                                                    <a asp-page-handler="Add" asp-route-id="@Model.carttable.Rows[i][1]" href="/CartClient" class="text-muted" data-id="@Model.carttable.Rows[i][1]">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
+                                                  
+                                                       
+                                                            <button onclick="DeleteProducts(@Convert.ToUInt32(Model.carttable.Rows[i][1]))" style="border: none;"><i class="fa fa-times"></i></button>
+                                                        
                                                     </div>
 
                                                     </div> 
@@ -167,12 +168,12 @@
         </div>
     </div>
     <script>
-        // Get the select element and the shipping cost element
+        
         const selectShipping = document.getElementById('shippingOption');
         const shippingCost = document.getElementById('shippingCosts');
         const summaryElement = document.getElementById('summaryTotal');
 
-        // Define the shipping cost for each option
+      
         const shippingCosts = {
             1: 5,
             2: 15,
@@ -180,14 +181,14 @@
             4: 50
         };
 
-        // Initialize the shipping cost to 5
+       
         let currentShippingCost = 5;
         shippingCost.textContent = `EGB ${currentShippingCost.toFixed(2)}`;
 
-        // Set the default selected option to the first one
+        
         selectShipping.selectedIndex = 0;
 
-        // Add event listeners for the change events
+       
         selectShipping.addEventListener('change', update);
         document.querySelectorAll('input[name="quantity"]').forEach(function (input) {
             input.addEventListener('input', update);
@@ -231,16 +232,35 @@
 
             summaryTotal.textContent = 'EGB ' + totalPriceWithShipping.toFixed(2);
 
-            document.getElementById('form2').value = quantityInputs[0].value; // Set the value of the second input to the updated quantity
+            document.getElementById('form2').value = quantityInputs[0].value; 
 
-            // Set the value of the second input to its corresponding asp-for attribute
+           
             document.querySelector('input#form2').setAttribute('value', quantityInputs[0].value);
             var form1Value = document.getElementById('form1').value;
             document.getElementById('form2').value = form1Value;
         }
+        function DeleteProducts(id) {
 
-        // Submit the form on update
-       
+
+
+            localStorage.setItem("Deleted", id);
+
+
+            var urlParams = new URLSearchParams(window.location.search);
+            urlParams.set("Deleted", id);
+            var newUrl = window.location.pathname + "?" + urlParams.toString();
+
+
+            window.location.href = newUrl;
+        }
+        $(document).ready(function () {
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var selectedCategory = urlParams.get("Deleted");
+
+
+           
+        });
 
     </script>
 

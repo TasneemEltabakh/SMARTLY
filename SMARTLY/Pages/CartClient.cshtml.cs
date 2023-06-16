@@ -35,8 +35,11 @@ namespace SMARTLY.Pages
         public int idproduct { get; set; }
 
         [BindProperty]
+
         public double productprice { get; set; }
 
+        [BindProperty]
+        public int Deleted { get; set; }
         public double shipping { get; set; }
 
         public CartClientModel(Database database)
@@ -47,21 +50,36 @@ namespace SMARTLY.Pages
 
         public void OnGet()
         {
-            DeletedId = null;
-            carttable = data.ReadCart(UserName);
+            string deleted = Request.Query["Deleted"]; 
+
+            if (!string.IsNullOrEmpty(deleted))
+            {
+                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName); 
+            }
+            else
+            {
+                carttable = data.ReadCart(UserName); 
+              
+            }
             shipping = 5;
-           
         }
-
-
         public void OnGetAdd(string id)
         {
-        
-            this.id = id;
-            data.AddProductToCart(UserName, id, quantity);
-            carttable = data.ReadCart(UserName);
+            string deleted = Request.Query["Deleted"]; 
+
+            if (!string.IsNullOrEmpty(deleted))
+            {
+                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName); 
+            }
+            else
+            {
+                this.id = id;
+                data.AddProductToCart(UserName, id, quantity);
+                carttable = data.ReadCart(UserName);
+              
+            }
             shipping = 5;
-            
+
 
         }
        
@@ -95,6 +113,7 @@ namespace SMARTLY.Pages
 
           
         }
+       
     }
 }
 

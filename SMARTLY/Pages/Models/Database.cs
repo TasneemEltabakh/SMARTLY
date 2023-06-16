@@ -766,21 +766,27 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        public void Deletefromcart(int id)
+        public DataTable Deletefromcart(int id, string username)
         {
-            string Q = "delete from cart where Productid = @id";
+            DataTable dt = new DataTable();
+            string Q = "delete from cart where Productid = @id and username= @username";
+            string Q2 = "select * from Cart where username= @username";
 
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@username", username);
+            SqlCommand cmd2 = new SqlCommand(Q2, Connection);
+            cmd2.Parameters.AddWithValue("@username", username);
             try
             {
                 Connection.Open();
-
                 cmd.ExecuteNonQuery();
-            }
+                dt.Load(cmd2.ExecuteReader());
+                return dt;
+             }
             catch (SqlException ex)
             {
-
+                return dt;
             }
             finally
             {
