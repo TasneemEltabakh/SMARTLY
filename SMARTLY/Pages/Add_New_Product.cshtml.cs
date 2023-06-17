@@ -19,7 +19,7 @@ namespace SMARTLY.Pages
         public void OnGet()
         {
         }
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAdd()
         {
             //if (ModelState.IsValid)
             //{

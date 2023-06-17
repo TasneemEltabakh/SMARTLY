@@ -24,13 +24,13 @@ namespace SMARTLY.Pages.Models
         public Object table { get; set; }
         public Database()
         {
-             Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+             Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
 
         }
         public void SignUpNewMember(User U, Client C)
         {
             string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE,'assets/img/noImage.png');";
-            string query2 = " insert into Client values (@USERNAME,@email,@phonenumber);";
+            string query2 = " insert into Client values (@USERNAME,@email,@phonenumber,@Fname,@Lname);";
             SqlCommand cmd = new SqlCommand(query, Connection);
             SqlCommand cmd2 = new SqlCommand(query2, Connection);
             cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
@@ -39,6 +39,8 @@ namespace SMARTLY.Pages.Models
             cmd2.Parameters.AddWithValue("@USERNAME", U.UserName);
             cmd2.Parameters.AddWithValue("@email", C.email);
             cmd2.Parameters.AddWithValue("@phonenumber", C.phonenumber);
+            cmd2.Parameters.AddWithValue("@Fname", C.FirstName);
+            cmd2.Parameters.AddWithValue("@Lname", C.LastName);
             try
             {
                 Connection.Open();
@@ -1044,7 +1046,7 @@ namespace SMARTLY.Pages.Models
             {
                 Connection.Open();
                 SqlCommand cmd = new SqlCommand(Q, Connection);
-                if (cmd.ExecuteScalar() == null)
+                if (string.IsNullOrEmpty(Convert.ToString(cmd.ExecuteScalar()))) 
                 {
                     return 1;
                 }
@@ -1249,7 +1251,60 @@ namespace SMARTLY.Pages.Models
             }
         }
 
+        public DataTable ReadClient(string username)
+        {
+
+            string Q = "select * from Client where username = @username";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public void UsersAdress(Adress adress, string username)
+        {
+            string query = "insert into Adress values(@username,@zip,@gov,@city,@street,@no,@floor,@flat,@notes);";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@zip", adress.Zipcode);
+            cmd.Parameters.AddWithValue("@gov", adress.Gov);
+            cmd.Parameters.AddWithValue("@city", adress.City);
+            cmd.Parameters.AddWithValue("@street", adress.Street);
+            cmd.Parameters.AddWithValue("@no", adress.Buildingno);
+            cmd.Parameters.AddWithValue("@floor", adress.Floor);
+            cmd.Parameters.AddWithValue("@flat", adress.Flat);
+            cmd.Parameters.AddWithValue("@notes", adress.notes);
 
 
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
     }
 }

@@ -17,7 +17,14 @@
 				<div class="login-wrap p-0">
 
 					<form method="post" class="signin-form">
-
+						<div class="form-group">
+							<input asp-for="@Model.client.FirstName" type="text" class="form-control" placeholder="First Name" required>
+							<span asp-validation-for="@Model.client.FirstName"></span>
+						</div>
+						<div class="form-group">
+							<input asp-for="@Model.client.LastName" type="text" class="form-control" placeholder="Last Name" required>
+							<span asp-validation-for="@Model.client.LastName"></span>
+						</div>
 						<div class="form-group">
 							<input asp-for="@Model.user.UserName" type="text" class="form-control" placeholder="Username" required>
 							<span asp-validation-for="@Model.user.UserName"></span>

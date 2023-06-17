@@ -29,12 +29,12 @@
 <br />
 <br />
 <div class="section">
-	<!-- container -->
+	
 	<div class="container">
 		<div id="breadcrumb1" class="section">
-			<!-- container -->
+			
 			<div class="container">
-				<!-- row -->
+			
 				<div class="row">
 					<div class="col-md-12">
 						<h3 class="breadcrumb-header">Checkout</h3>
@@ -44,73 +44,75 @@
 						</ul>
 					</div>
 				</div>
-				<!-- /row -->
+				
 			</div>
-			<!-- /container -->
+			
 		</div>
-		<!-- /BREADCRUMB -->
+		
 
-		<!-- SECTION -->
+	
 		<div class="section">
-			<!-- container -->
+			
 			<div class="container">
-				<!-- row -->
+				
 				<div class="row">
 
 					<div class="col-md-7">
-						<!-- Billing Details -->
+						
 						<div class="billing-details">
 							<div class="section-title">
 								<h3 class="title">Order's Information</h3>
 							</div>
+							
 							<div class="form-group">
-								<input  class="form-control" type="text" name="first-name" placeholder="First Name">
+								<input  class="form-control" type="text"  placeholder="street" asp-for="@Model.Adress.Street" >
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="text" name="last-name" placeholder="Last Name">
+								<input class="form-control" type="text" placeholder="Building number" asp-for="@Model.Adress.Buildingno">
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="email" name="email" placeholder="Email">
+								<input class="form-control" type="text" placeholder="Floor number" asp-for="@Model.Adress.Floor">
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="text" name="address" placeholder="Address">
+								<input class="form-control" type="text" placeholder="Flat Number" asp-for="@Model.Adress.Flat">
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="text" name="city" placeholder="City">
+								<input class="form-control" type="text" placeholder="City" asp-for="@Model.Adress.City">
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="text" name="country" placeholder="Country">
+								<input class="form-control" type="text" placeholder="Governorate" asp-for="@Model.Adress.Gov">
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="text" name="zip-code" placeholder="ZIP Code">
+								<input class="form-control" type="number" placeholder="ZIP Code" asp-for="@Model.Adress.Zipcode">
 							</div>
-							<div class="form-group">
-								<input  class="form-control" type="tel" name="tel" placeholder="Telephone">
-							</div>
-							<div class="form-group">
-								<div class="input-checkbox">
-								
-									<label for="create-account"> <a href="/SignUp">
-										<span></span>
-										Don't Have Account?
-										</a>
-									</label>
-									<div class="caption">
-										
-										<input class="input" type="password" name="password" placeholder="Enter Your Password">
+							@if(Model.type !=3)
+							{
+								<div class="form-group">
+									<div class="input-checkbox">
+
+										<label for="create-account">
+											<a href="/SignUp">
+												<span></span>
+												Don't Have Account?
+											</a>
+										</label>
+										<div class="caption">
+											<input class="input" type="password" name="password" placeholder="Enter Your Password">
+										</div>
 									</div>
 								</div>
-							</div>
+							}
+							
 						</div>
 			
-						<!-- Order notes -->
+					
 						<div class="order-notes">
-							<textarea class="form-control" placeholder="Order Notes"></textarea>
+							<textarea class="form-control" placeholder="Order Notes" asp-for="@Model.Adress.notes"></textarea>
 						</div>
-						<!-- /Order notes -->
+					
 					</div>
 
-					<!-- Order Details -->
+				
 					<div class="col-md-5 order-details">
 						<div class="section-title text-center">
 							<h3 class="title">Your Order</h3>
@@ -121,22 +123,23 @@
 								<div><strong>TOTAL</strong></div>
 							</div>
 							<div class="order-products">
+							@for(int i =0; i<Model.carttable.Rows.Count;i++)
+							{
 								<div class="order-col">
-									<div>1x Alexa blue</div>
-									<div>$980.00</div>
+									<div> @(Model.returnName(Convert.ToInt32(Model.carttable.Rows[i][1])))</div>
+										<div>EGB @(Model.returnPrice(Convert.ToInt32(Model.carttable.Rows[i][1])))</div>
 								</div>
-								<div class="order-col">
-									<div>2x Alexa Gold</div>
-									<div>$980.00</div>
-								</div>
+							}
+
+							
 							</div>
 							<div class="order-col">
 								<div>Shiping</div>
-								<div><strong>FREE</strong></div>
+								<div><strong>20</strong></div>
 							</div>
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">$2940.00</strong></div>
+								<div><strong class="order-total">EGB @(Model.calcTotal())</strong></div>
 							</div>
 						</div>
 						
@@ -146,13 +149,13 @@
 								   alt="pay-using-fawry" id="fawry-payment-btn" />
 						
 					</div>
-					<!-- /Order Details -->
+				
 				</div>
-				<!-- /row -->
+			
 			</div>
-			<!-- /container -->
+		
 		</div>
-		<!-- /SECTION -->
+	
     </div>
 </div>
 <script>

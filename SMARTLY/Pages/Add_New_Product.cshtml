@@ -60,16 +60,51 @@
 
         <div class="form-group">
                         <input asp-for="@Model.Image123" class="form-control" type="file" id="files">
+                        <p id="GFG_DOWN">
+                          
         </div>
-
        
             <div class="form-group">
-                <button type="submit" class="form-control btn primary-btn1">Add new Product</button>
+                <button asp-page-handler="Add" type="submit" class="form-control btn primary-btn1">Add new Product</button>
             </div>
 
+                    <button onclick="AddNextImg()">
+                        <i class="fa fa-plus"></i>
+                    </button>
             </form>
+
+              
         </div>
       </div>
       </div>
- </section>
 
+ </section>
+<script>
+    var down = document.getElementById("GFG_DOWN");
+
+    function AddNextImg() {
+       
+        var button = document.querySelector('button[onclick="AddNextImg()"]');
+        if (!button) {
+            console.error('Button element not found');
+            return;
+        }
+
+        console.log('Button clicked');
+
+        var formGroup = document.createElement('div');
+        formGroup.setAttribute('class', 'form-group');
+
+        var nextimg = document.createElement('input');
+        nextimg.setAttribute('type', 'file');
+        nextimg.setAttribute('name', 'Image123');
+        nextimg.setAttribute('id', 'files');
+        nextimg.setAttribute('class', 'form-control');
+
+        formGroup.appendChild(nextimg);
+        var submitButton = document.querySelector('button[type="submit"]');
+        submitButton.parentNode.insertBefore(formGroup, submitButton);
+
+        event.preventDefault();
+    }
+</script>
