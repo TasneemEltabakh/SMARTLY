@@ -1,5 +1,7 @@
+using ChartExample.Models.Chart;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using SMARTLY.Pages.Models;
 using System.Data;
 
@@ -19,7 +21,10 @@ namespace SMARTLY.Pages
         [BindProperty]
         public string  categorychoosen { get; set; }
 
-
+        [BindProperty]
+        public string search { get; set; }
+        public int rating { get; set; }
+       
         public Product_MainClientModel(Database db)
         {
             Db = db;
@@ -28,10 +33,21 @@ namespace SMARTLY.Pages
         public void OnGet()
         {
             string selectedCategory = Request.Query["selectedCategory"];
+            search = Request.Query["search"];
+         
             if (!string.IsNullOrEmpty(selectedCategory))
             {
                 OnGetByCategory(selectedCategory);
+                search = "";
             }
+            else if (!string.IsNullOrEmpty(search))
+            {
+                CategoriesTable = Db.ReadCategories();
+                ProductsTable = Db.ReadSearchProject(search);
+             
+
+            }
+
             else
             {
                 CategoriesTable = Db.ReadCategories();
@@ -53,6 +69,20 @@ namespace SMARTLY.Pages
                 ProductsTable = Db.ReadProductspecificcategory(categorychoosen);
             }
         }
+        public IActionResult OnPostSearch()
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                return RedirectToPage("/Product_MainClient");
+            }
+            else
+            {
+                CategoriesTable = Db.ReadCategories();
+                ProductsTable = Db.ReadSearchProject(search);
+                return RedirectToPage("/Product_MainClient", new  { search = this.search });
+            }
+        }
+
         public string returnCategory(int id)
         {
             string title = Db.getTitleCategory(id);

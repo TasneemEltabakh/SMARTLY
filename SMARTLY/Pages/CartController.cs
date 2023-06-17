@@ -29,7 +29,7 @@ namespace SMARTLY.Pages
             int id = request.Id;
             int quantity = request.Quantity;
 
-            db.UpdateCart(id, quantity);
+           // db.UpdateCart(id, quantity,user);
 
          
 

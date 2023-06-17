@@ -24,7 +24,7 @@ namespace SMARTLY.Pages.Models
         public Object table { get; set; }
         public Database()
         {
-             Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+             Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
 
         }
         public void SignUpNewMember(User U, Client C)
@@ -576,13 +576,14 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        public void UpdateCart(int id, int Qu)   //***
+        public void UpdateCart(int id, int Qu, string username)   //***
         {
-            string Q = "update cart set quantity = @q where productid = @id";
+            string Q = "update cart set quantity = @q where productid = @id and username=@username ";
             SqlCommand cmd = new SqlCommand(Q, Connection);
 
             cmd.Parameters.AddWithValue("@q", Qu);
             cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@username", username);
 
 
             try
@@ -766,21 +767,27 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        public void Deletefromcart(int id)
+        public DataTable Deletefromcart(int id, string username)
         {
-            string Q = "delete from cart where Productid = @id";
+            DataTable dt = new DataTable();
+            string Q = "delete from cart where Productid = @id and username= @username";
+            string Q2 = "select * from Cart where username= @username";
 
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@username", username);
+            SqlCommand cmd2 = new SqlCommand(Q2, Connection);
+            cmd2.Parameters.AddWithValue("@username", username);
             try
             {
                 Connection.Open();
-
                 cmd.ExecuteNonQuery();
-            }
+                dt.Load(cmd2.ExecuteReader());
+                return dt;
+             }
             catch (SqlException ex)
             {
-
+                return dt;
             }
             finally
             {
@@ -811,9 +818,8 @@ namespace SMARTLY.Pages.Models
 
         public string ReturnCategoryForProduct(int id)
         {
-            string q = "select  title from Categories c,Product p where c.id=p.PId and p.PId = @id ;";
+            string q = "select title from Categories where id=@id";
             SqlCommand cmd = new SqlCommand(q, Connection);
-
             cmd.Parameters.AddWithValue("@id", id);
 
             try
@@ -855,6 +861,31 @@ namespace SMARTLY.Pages.Models
             }
             return c;
         }
+
+        public void Insert_Feedback(string user, int id,int num)
+        {
+            string Q = "insert into FeedBack values (@user,@id,@number);";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("user", user);
+            cmd.Parameters.AddWithValue("id", id);
+            cmd.Parameters.AddWithValue("number", num);
+
+            try
+            {
+                Connection.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
 
         public void Insert_Contact(Contact_Us contactcs)
         {
@@ -1093,8 +1124,6 @@ namespace SMARTLY.Pages.Models
             string Q = "select * from Product where PName=@search or color = @search ";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@search", search);
-            cmd.Parameters.AddWithValue("@search", search);
-
             DataTable dt = new DataTable();
             try
             {

@@ -13,24 +13,36 @@ namespace SMARTLY.Pages
             public DataTable dt { get; set; }
             public string Categorietype { get; set; }
             public int CountFeedBack { get; set; }
-            public int rating { get; set; }
+             public int rating { get; set; }
+        public int userrating { get; set; }
+        public int id { get; set; } 
 
-            public DataTable RateTable { get; set; }
+        public DataTable RateTable { get; set; }
             public DataTable ImgsTable { get; set; }
             public Products_internalClientModel(Database db)
             {
                 data = db;
             }
-            public void OnGet(int id)
-            {
-                dt = data.ReadProductRow(id);
-                Categorietype = data.ReturnCategoryForProduct(id);
-                CountFeedBack = data.CountFeedBackProduct(id);
-                rating = data.AVGRATING(id);
-                RateTable = data.ReturnRatesForProduct(id);
-                ImgsTable = data.ImgsForProduct(id);
-            }
-           
+        public void OnGet(int id)
+        {
+            this.id = id;
+            dt = data.ReadProductRow(id);
+            Categorietype = data.ReturnCategoryForProduct(Convert.ToInt32(dt.Rows[0][6]));
+            CountFeedBack = data.CountFeedBackProduct(id);
+            rating = data.AVGRATING(id);
+            RateTable = data.ReturnRatesForProduct(id);
+            ImgsTable = data.ImgsForProduct(id);
+            
+        }
+        public IActionResult OnPostFeedback()
+        {
+            int id = Convert.ToInt32(Request.Form["id"]);
+            int userrating = Convert.ToInt32(Request.Form["userrating"]);
+            data.Insert_Feedback(UserName, id, userrating);
+            return RedirectToPage("/Products_internalClient", new { id = id });
+        }
+
+
 
     }
 }

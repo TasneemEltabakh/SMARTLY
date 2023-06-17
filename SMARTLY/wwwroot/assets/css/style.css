@@ -775,13 +775,12 @@ margin-top: 20px;
 position: relative;
 }
 
-.clients .swiper-pagination .swiper-pagination-bullet {
-width: 12px;
-height: 12px;
-background-color: #fff;
-opacity: 1;
-background-color: #ddd;
-}
+    .clients .swiper-pagination .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        opacity: 1;
+        background-color: #ffc451;
+    }
 
 .clients .swiper-pagination .swiper-pagination-bullet-active {
 background-color: #ffc451;
@@ -1392,12 +1391,12 @@ margin-top: 20px;
 position: relative;
 }
 
-.testimonials .swiper-pagination .swiper-pagination-bullet {
-width: 12px;
-height: 12px;
-background-color: rgba(255, 255, 255, 0.4);
-opacity: 0.5;
-}
+    .testimonials .swiper-pagination .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        background-color: #ffc451;
+        opacity: 0.5;
+    }
 
 .testimonials .swiper-pagination .swiper-pagination-bullet-active {
 background-color: #ffc451;
@@ -3737,7 +3736,7 @@ textarea.input {
             }
 
                 #breadcrumb1 .breadcrumb-tree li a:hover {
-                    color: #D10024;
+                    color: #ffc451;
                 }
 
 
@@ -4035,7 +4034,7 @@ svg {
 
             .portfolio .portfolio-item .portfolio-info .preview-link:hover,
             .portfolio .portfolio-item .portfolio-info .details-link:hover {
-                color: #cc1616;
+                color: #ffc451;
             }
 
         .portfolio .portfolio-item .portfolio-info .details-link {
@@ -4061,7 +4060,7 @@ svg {
         }
 
             .portfolio .portfolio-item .portfolio-links a:hover {
-                color: #e82d2d;
+                color: #ffc451;
             }
 
     .portfolio .portfolio-item:hover .portfolio-info {
@@ -4069,70 +4068,6 @@ svg {
         bottom: 20px;
     }
 
-/*--------------------------------------------------------------
-# Portfolio Details  Rghda
---------------------------------------------------------------*/
-.abt-bg {
-    background-image: url(../img/R1.jpg);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    border-top-right-radius: 200px;
-    border-bottom-left-radius: 50px;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-}
-
-        .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
-            width: 12px;
-            height: 12px;
-            background-color: #fff;
-            opacity: 1;
-            border: 1px solid #cc1616;
-        }
-
-        .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-            background-color: #cc1616;
-        }
-
-    .portfolio-details .portfolio-info {
-        padding: 30px;
-        box-shadow: 0px 0 30px rgba(25, 25, 25, 0.08);
-    }
-
-        .portfolio-details .portfolio-info h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .portfolio-details .portfolio-info ul {
-            list-style: none;
-            padding: 0;
-            font-size: 15px;
-        }
-
-            .portfolio-details .portfolio-info ul li + li {
-                margin-top: 10px;
-            }
-
-    .portfolio-details .portfolio-description {
-        padding-top: 30px;
-    }
-
-        .portfolio-details .portfolio-description h2 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .portfolio-details .portfolio-description p {
-            padding: 0;
-        }
 /*--------------------------------------------------------------
 # Part In Bundle  Rghda
 --------------------------------------------------------------*/

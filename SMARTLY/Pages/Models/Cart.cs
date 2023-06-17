@@ -5,6 +5,12 @@
         
         public string username { get; set; }
 
-       public int product_id { get; set; }
+        public List<Product> Products { get; set; }
+
+        public void Add_New_ProductModel(int id, int quantity)
+        {
+            Products = new List<Product>();
+        }
+
     }
 }

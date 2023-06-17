@@ -9,7 +9,7 @@
 		<h1>OUR PRODUCTS</h1>
 		<div class="header-search">
 			<form method="post" id="SearchForm">
-				<input class="input-select" id="SearchQuery" name="searchQuery" placeholder="   Search for Products "></input>
+				<input class="input-select"  asp-for="@Model.search" placeholder="   Search for Products "></input>
 				<button asp-page-handler="search" class="search-btn">Search</button>
 			</form>
 		</div>
@@ -95,18 +95,10 @@
 											}
 
 
-											<div class="product-rating">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											</div>
-
-
+											
 											<div class="product-btns">
 
-												<a asp-page="/WishList" class="add-to-wishlist" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-heart-o"></i><span class="tooltipp"></span></a>
+												
 												<a asp-page="/Products_internalClient" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-eye"></i><span class="tooltipp"></span></a>
 
 											</div>
@@ -227,30 +219,30 @@
 <br />
 <script>
 	function filterProducts(category) {
-		// remove any dots before the category name
+		
 		category = category.replace(/^\./, '');
 
-		// add the 'active' class to the clicked filter button
+	
 		$(".product-filters ul li").removeClass("active");
 		$(`.product-filters ul li[data-filter='${category}']`).addClass("active");
 
-		// set the selected category in localStorage
+		
 		localStorage.setItem("selectedCategory", category);
 
-		// set the URL parameter to the selected category
+		
 		var urlParams = new URLSearchParams(window.location.search);
 		urlParams.set("selectedCategory", category);
 		var newUrl = window.location.pathname + "?" + urlParams.toString();
 
-		// reload the page with the new URL
+	
 		window.location.href = newUrl;
 	}
 	$(document).ready(function () {
-		// get the selected category from the URL parameter
+	
 		var urlParams = new URLSearchParams(window.location.search);
 		var selectedCategory = urlParams.get("selectedCategory");
 
-		// set the active filter button based on the selected category
+		
 		if (selectedCategory) {
 			$(".product-filters ul li").removeClass("active");
 			$(`.product-filters ul li[data-filter='.${selectedCategory}']`).addClass("active");
@@ -260,4 +252,5 @@
 			$(".product-filters ul li[data-filter='.*']").addClass("active");
 		}
 	});
+
 </script>
