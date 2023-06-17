@@ -10,24 +10,38 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public Product product { get; set; }
+
+        [BindProperty]
+        public List<IFormFile> Image123 { get; set; }
         public Add_New_ProductModel(Database db) {
             data = db;
         }
         public void OnGet()
         {
         }
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
+                foreach (var item in Image123)
+                {
+                    if (item.Length > 0)
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            await item.CopyToAsync(stream);
+                            product.Pimage = stream.ToArray();
+                        }
+                    }
+                }
                 product.PId = data.GetMaxProductId();
                 data.AddNewProduct(product);
                 return RedirectToPage("/Products_Main_Admin");
-            }
-            else
-            {
-                return Page();
-            }
+            //}
+            //else
+            //{
+                //return Page();
+            //}
         }
     }
 }

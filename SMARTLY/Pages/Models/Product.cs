@@ -21,7 +21,7 @@ namespace SMARTLY.Pages.Models
         public float salePercentage { get; set; }  //Okay for null
         public int category { get; set; }    //Okay for null
         public string AdditionalNotes { get; set; }    //Okay for null
-        public string Pimage { get; set; }     //Okay for null
+        public byte[] Pimage { get; set; }     //Okay for null
         public float price_aftersale { get; set; }    //Okay for null
 
 

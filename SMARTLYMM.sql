@@ -421,3 +421,26 @@ insert into Agency values('agency','Agency@gmail','FirstAgency','Dokki' )
 select * from Categories
 
 select * from AnOrder
+
+--> In Summer R
+DROP TABLE Product_Photoes;
+
+Create table Product_Photoes (
+product_Id varchar(15) foreign key references Product,
+p_Img VARBINARY(Max)
+)
+
+DELETE FROM Product_Photoes;
+DELETE FROM Bundle_Product;
+DELETE FROM Cart;
+DELETE FROM Contain;
+DELETE FROM FeedBack;
+DELETE FROM OrderFor;
+DELETE FROM Product;
+
+Alter table Product
+alter column Pimage int 
+
+Alter table Product
+alter column Pimage VARBINARY(Max) 
+--->After img works 

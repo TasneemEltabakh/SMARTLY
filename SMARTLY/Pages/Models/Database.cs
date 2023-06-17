@@ -1013,6 +1013,10 @@ namespace SMARTLY.Pages.Models
             {
                 Connection.Open();
                 SqlCommand cmd = new SqlCommand(Q, Connection);
+                if (cmd.ExecuteScalar() == null)
+                {
+                    return 1;
+                }
                 max = Convert.ToInt32(cmd.ExecuteScalar());
             }
             catch (SqlException ex) { }
