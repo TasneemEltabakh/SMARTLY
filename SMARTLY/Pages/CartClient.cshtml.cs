@@ -40,6 +40,12 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public int Deleted { get; set; }
+
+
+        [BindProperty]
+        public List<ProductsCart> ProductsCart { get; set; }
+
+       
         public double shipping { get; set; }
 
         public CartClientModel(Database database)
@@ -54,12 +60,26 @@ namespace SMARTLY.Pages
 
             if (!string.IsNullOrEmpty(deleted))
             {
-                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName); 
+                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName);
+                ProductsCart = new List<ProductsCart>();
+                for (int i = 0; i< carttable.Rows.Count; i++)
+                {
+                    ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                    ProductsCart.Add(product);
+
+                }
             }
             else
             {
-                carttable = data.ReadCart(UserName); 
-              
+                carttable = data.ReadCart(UserName);
+                ProductsCart = new List<ProductsCart>();
+                for (int i = 0; i < carttable.Rows.Count; i++)
+                {
+                    ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                    ProductsCart.Add(product);
+
+                }
+
             }
             shipping = 5;
         }
@@ -69,20 +89,34 @@ namespace SMARTLY.Pages
 
             if (!string.IsNullOrEmpty(deleted))
             {
-                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName); 
+                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName);
+                ProductsCart = new List<ProductsCart>();
+                for (int i = 0; i < carttable.Rows.Count; i++)
+                {
+                    ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                    ProductsCart.Add(product);
+
+                }
             }
             else
             {
                 this.id = id;
                 data.AddProductToCart(UserName, id, quantity);
                 carttable = data.ReadCart(UserName);
-              
+                ProductsCart = new List<ProductsCart>();
+                for (int i = 0; i < carttable.Rows.Count; i++)
+                {
+                    ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                    ProductsCart.Add(product);
+
+                }
+
             }
             shipping = 5;
 
 
         }
-       
+
         public DataTable returnrecordofproduct(int id)
         {
             dt = data.ReadProductRow(id);
@@ -100,20 +134,13 @@ namespace SMARTLY.Pages
             shipping = 0;
             return shipping;
         }
-
-        public void update(int id, int quantity)
+        public IActionResult OnPost()
         {
-                    
-
-
-            data.UpdateCart(id, quantity);
-
-           
-           
-
-          
+            return RedirectToPage("/CheckOut");
         }
        
+
+
     }
 }
 

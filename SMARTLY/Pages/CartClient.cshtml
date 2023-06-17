@@ -55,11 +55,6 @@
                                               
                                                 <input asp-for="@Model.quantity" id="form2" hidden/>
 
-                                                @{
-                                                int x = Convert.ToInt32(Model.carttable.Rows[i][1]);
-                                                int y = Convert.ToInt32(Model.quantity);
-                                                Model.update(x, y);
-                                                }
                                                 <button class="btn btn-link px-2" onclick="increaseQuantity(this)">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
@@ -67,7 +62,7 @@
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                 <h6 class="mb-0">EGB @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity)</h6>
                                                 @{
-                            Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity);
+                                              Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity);
 }
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
@@ -126,7 +121,7 @@
                                    
                                     </form>
                                     </div>
-
+                                    
 
                                     <h5 class="text-uppercase mb-3">Promo code</h5>
 
@@ -144,9 +139,17 @@
                                      
                                         <h5>
                                             EGB <input hidden id="shippingCosts" asp-for="shipping"> <span id="summaryTotal">
-                            @(
-                                Model.summary + Model.shipping
-                                )</span>
+                                @if (Model.carttable.Rows.Count==0)
+                                {
+                                   @( 0 ) 
+                                }
+
+                                 else
+                                {
+                                    
+
+                              @(  Model.summary + Model.shipping)
+                                 }</span>
                                             </input>
                                         </h5>
                 </div>
@@ -202,12 +205,14 @@
                 input.value = parseInt(input.value) - 1;
                 update();
             }
+          
         }
 
         function increaseQuantity(button) {
             var input = button.parentNode.querySelector('input[type=number]');
             input.value = parseInt(input.value) + 1;
             update();
+           
         }
 
         function update() {
@@ -219,9 +224,25 @@
                 var input = quantityInputs[i];
                 var productPrice = parseFloat(input.getAttribute('data-price'));
                 var quantity = parseInt(input.value);
+        ;
 
+               
                 totalQuantity += quantity;
                 totalPrice += productPrice * quantity;
+
+               
+                var productId = input.getAttribute('data-id');
+                $.ajax({
+                    url: '/CartClient?handler=Update',
+                    type: 'POST',
+                    data: { id: productId, quantity: quantity },
+                    success: function () {
+                        console.log('Product quantity updated');
+                    },
+                    error: function () {
+                        console.error('Failed to update product quantity');
+                    }
+                });
             }
 
             var summaryTotal = document.getElementById('summaryTotal');
@@ -230,27 +251,30 @@
             var selectedShippingCost = parseFloat(selectedShippingOption.getAttribute('data-cost'));
             var totalPriceWithShipping = totalPrice + selectedShippingCost;
 
-            summaryTotal.textContent = 'EGB ' + totalPriceWithShipping.toFixed(2);
+            summaryTotal.textContent = totalPriceWithShipping.toFixed(2);
+            totalQuantity.textContent = totalQuantity;
 
-            document.getElementById('form2').value = quantityInputs[0].value; 
+            document.getElementById('form2').value = quantityInputs[0].value;
 
-           
+            localStorage.setItem("totalPriceWithShipping", totalPriceWithShipping.toFixed(2));
+            localStorage.setItem("shippingMethod", selectedShippingCost);
+
+            var urlParams = new URLSearchParams(window.location.search);
+            urlParams.set("totalPriceWithShipping", totalPriceWithShipping.toFixed(2));
+          
+            var urlParams = new URLSearchParams(window.location.search);
+            urlParams.set("shippingMethod", selectedShippingCost);
+          
+
             document.querySelector('input#form2').setAttribute('value', quantityInputs[0].value);
             var form1Value = document.getElementById('form1').value;
             document.getElementById('form2').value = form1Value;
         }
         function DeleteProducts(id) {
-
-
-
             localStorage.setItem("Deleted", id);
-
-
             var urlParams = new URLSearchParams(window.location.search);
             urlParams.set("Deleted", id);
             var newUrl = window.location.pathname + "?" + urlParams.toString();
-
-
             window.location.href = newUrl;
         }
         $(document).ready(function () {
@@ -265,4 +289,4 @@
     </script>
 
     
-    </section>
+ </section>

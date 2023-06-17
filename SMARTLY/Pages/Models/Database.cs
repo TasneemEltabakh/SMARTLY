@@ -576,13 +576,14 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        public void UpdateCart(int id, int Qu)   //***
+        public void UpdateCart(int id, int Qu, string username)   //***
         {
-            string Q = "update cart set quantity = @q where productid = @id";
+            string Q = "update cart set quantity = @q where productid = @id and username=@username ";
             SqlCommand cmd = new SqlCommand(Q, Connection);
 
             cmd.Parameters.AddWithValue("@q", Qu);
             cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@username", username);
 
 
             try
