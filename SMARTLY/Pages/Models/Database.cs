@@ -1344,5 +1344,30 @@ namespace SMARTLY.Pages.Models
             }
          
         }
+        public DataTable ReadAdress(string username)
+        {
+
+            string Q = " select * from Adress where username=@username";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+       
     }
 }

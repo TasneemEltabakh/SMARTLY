@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SMARTLY.Pages.Models;
 using System.Data;
+using System.Net;
 
 namespace SMARTLY.Pages
 {
@@ -18,7 +19,6 @@ namespace SMARTLY.Pages
         [BindProperty]
         public int type { get; set; }
 
-       
 
         [BindProperty]
         public DataTable Dt { get; set; }
@@ -31,14 +31,16 @@ namespace SMARTLY.Pages
         [BindProperty(SupportsGet = true)]
         public int overall { get; set; }
 
+        [BindProperty]
         public Adress Adress { get; set; }
+
 
         [BindProperty(SupportsGet = true)]
         public int total { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string shippingFees { get; set; }
-
+        public DataTable adresst { get; set; }
         public CheckOutModel(Database database)
         {
             db = database;
@@ -51,12 +53,35 @@ namespace SMARTLY.Pages
             type = db.returnType(UserName);
             Dt = db.ReadClient(UserName);
             carttable = db.ReadCart(UserName);
-            shippingFees =Convert.ToString(carttable.Rows[0][3]);
+            adresst = db.ReadAdress(UserName);
+            shippingFees = Convert.ToString(carttable.Rows[0][3]);
             overall = Convert.ToInt32(shippingFees) + calcTotal();
+            if (adresst != null && adresst.Rows.Count != 0)
+            {
+                Adress = new Adress
+                {
+                    Zipcode = Convert.ToString(adresst.Rows[0][1]),
+                    Gov = Convert.ToString(adresst.Rows[0][2]),
+                    City = Convert.ToString(adresst.Rows[0][3]),
+                    Street = Convert.ToString(adresst.Rows[0][4]),
+                    Buildingno = Convert.ToString(adresst.Rows[0][5]),
+                    Floor = Convert.ToString(adresst.Rows[0][6]),
+                    Flat = Convert.ToString(adresst.Rows[0][7])
+                };
+            }
+            else
+            {
+                Adress = new Adress();
+            }
+
         }
-        public void OnPost()
+        public void OnPostProc()
         {
-            db.UsersAdress(Adress, UserName);
+            
+                db.UsersAdress(Adress, UserName);
+            
+          
+
         }
         public string returnName(int id)
         {

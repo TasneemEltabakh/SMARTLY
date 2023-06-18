@@ -83,7 +83,7 @@
 								<input class="form-control" type="text" placeholder="Governorate" asp-for="@Model.Adress.Gov">
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="number" placeholder="ZIP Code" asp-for="@Model.Adress.Zipcode">
+								<input class="form-control" type="text" placeholder="ZIP Code" asp-for="@Model.Adress.Zipcode">
 							</div>
 							@if(Model.type !=3)
 							{
@@ -152,8 +152,20 @@
 						
 						<br>
 						
-							<input style="display:block; margin: 0 auto;" type="image" onclick="checkout();" src="https://www.atfawry.com/assets/img/FawryPayLogo.jpg"
-								   alt="pay-using-fawry" id="fawry-payment-btn" />
+							@*<input style="display:block; margin: 0 auto;" type="image" onclick="checkout();" src="https://www.atfawry.com/assets/img/FawryPayLogo.jpg"
+								   alt="pay-using-fawry" id="fawry-payment-btn" />*@
+						<form method="post">
+						
+
+								<button asp-page-handler="Proc"  type="submit" class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;"
+									data-mdb-ripple-color="dark">
+
+									Proceed To Payement
+
+								</button>
+
+							
+						</form>
 						
 					</div>
 				
