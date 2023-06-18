@@ -266,7 +266,8 @@
 			localStorage.setItem("shippin", value);
 			var urlParams = new URLSearchParams(window.location.search);
 			urlParams.set("shippin", value);
-			
+			var newUrl = window.location.pathname + "?" + urlParams.toString();
+			window.location.href = newUrl;
 
 			
 		}
@@ -274,7 +275,7 @@
 		$(document).ready(function () {
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedShipping = urlParams.get("shippin");
-	
+		
 		});
 		
 

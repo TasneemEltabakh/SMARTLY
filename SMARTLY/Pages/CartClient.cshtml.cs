@@ -23,9 +23,6 @@ namespace SMARTLY.Pages
         public string? DeletedId { get; set; } = null;
 
 
-     
-
-    
 
         [BindProperty]
         public DataTable carttable { get; set; }
@@ -53,12 +50,14 @@ namespace SMARTLY.Pages
         [BindProperty]
 
         public ProductsCart p { set; get; }
-        public double shipping { get; set; }
+        public string shipping { get; set; }
 
         public CartClientModel(Database database)
         {
             this.data = database;
             quantity = 1;
+            shipping = "5";
+
         }
 
         public void OnGet()
@@ -92,6 +91,7 @@ namespace SMARTLY.Pages
                     }
 
                 }  
+
             }
             else
             {
@@ -131,7 +131,15 @@ namespace SMARTLY.Pages
                                 product.quantity = newQuantity;
                             }
                         }
-                        data.UpdateCart(id, newQuantity, UserName);
+                        if (string.IsNullOrEmpty(Shipp))
+                        {
+                            data.UpdateCart(id, newQuantity, UserName, shipping);
+                        }
+                        else
+                        {
+                            data.UpdateCart(id, newQuantity, UserName, Shipp);
+                        }
+
                         carttable = data.ReadCart(UserName);
                         itemsCount = data.TotalItem(UserName);
                         
@@ -139,7 +147,7 @@ namespace SMARTLY.Pages
                     }
                 }
             }
-            shipping = 5;
+             
         }
         public void OnGetAdd(string id)
         {
@@ -178,7 +186,15 @@ namespace SMARTLY.Pages
             else
             {
                 this.id = id;
-                data.AddProductToCart(UserName, id, quantity);
+                if (string.IsNullOrEmpty(Shipp))
+                {
+                    data.AddProductToCart(UserName, id, quantity, shipping);
+                }
+                else
+                {
+                    data.AddProductToCart(UserName, id, quantity, Shipp);
+                }
+             
                 itemsCount = data.TotalItem(UserName);
 
                 carttable = data.ReadCart(UserName);
@@ -217,14 +233,23 @@ namespace SMARTLY.Pages
                                 product.quantity = newQuantity;
                             }
                         }
-                        data.UpdateCart(idd, newQuantity, UserName);
+                        if(string.IsNullOrEmpty(Shipp))
+                        {
+                            data.UpdateCart(idd, newQuantity, UserName,shipping);
+                        }
+                        else
+                        {
+                            data.UpdateCart(idd, newQuantity, UserName, Shipp);
+                        }
+                      
                         carttable = data.ReadCart(UserName);
                         itemsCount = data.TotalItem(UserName);
                         
                     }
                 }
             }
-            shipping = 5;
+
+          
 
 
         }
@@ -241,11 +266,6 @@ namespace SMARTLY.Pages
             return title;
         }
 
-        public double setshipping()
-        {
-            shipping = 0;
-            return shipping;
-        }
         public IActionResult OnPost()
         {
             return RedirectToPage("/CheckOut");
@@ -264,11 +284,11 @@ namespace SMARTLY.Pages
             {
              
                 DataTable t = data.ReadProductRow(Convert.ToInt32(carttable.Rows[i][1]));
-                x = (Convert.ToInt32(t.Rows[0][9]) * Convert.ToInt32(carttable.Rows[i][2])) + totalPrice;
+                x = (Convert.ToInt32(t.Rows[0][9]) * Convert.ToInt32(carttable.Rows[i][2])) + x;
 
             }
-           totalPrice = x;
-          return x;
+           totalPrice = x + Convert.ToInt32(Shipp);
+          return totalPrice;
             
          
 
@@ -281,7 +301,7 @@ namespace SMARTLY.Pages
             return RedirectToPage("/CheckOut", new
             {
                 shippingFees = this.Shipp,
-                total = this.totalPrice
+               
             });
 
 

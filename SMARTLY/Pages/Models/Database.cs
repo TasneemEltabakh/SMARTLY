@@ -552,14 +552,14 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        public void AddProductToCart(string username, string id, int Qu)   //***
+        public void AddProductToCart(string username, string id, int Qu, string sh)   //***
         {
-            string Q = "insert into cart values(@username, @id,@q)";
+            string Q = "insert into cart values(@username, @id,@q,@sh)";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@q", Qu);
-
+            cmd.Parameters.AddWithValue("@sh", sh);
 
             try
             {
@@ -578,14 +578,19 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        public void UpdateCart(string id, int Qu, string username)   //***
+        public void UpdateCart(string id, int Qu, string username,string shipping)   //***
         {
-            string Q = "update cart set quantity = @q where productid = @id and username=@username ";
+            string Q = "update cart set quantity = @q , Shipping=@sh where productid = @id and username=@username ";
+            string Q2 = "update cart set Shipping=@sh where username=@username ";
             SqlCommand cmd = new SqlCommand(Q, Connection);
+            SqlCommand cmd2 = new SqlCommand(Q2, Connection);
 
             cmd.Parameters.AddWithValue("@q", Qu);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@sh", shipping);
+            cmd2.Parameters.AddWithValue("@username", username);
+            cmd2.Parameters.AddWithValue("@sh", shipping);
 
 
             try
@@ -593,6 +598,7 @@ namespace SMARTLY.Pages.Models
                 Connection.Open();
 
                 cmd.ExecuteNonQuery();
+                cmd2.ExecuteNonQuery();
 
             }
             catch (SqlException ex)

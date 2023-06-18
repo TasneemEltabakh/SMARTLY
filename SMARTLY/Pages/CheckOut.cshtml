@@ -141,8 +141,12 @@
 								<div><strong>@Model.shippingFees</strong></div>
 							</div>
 							<div class="order-col">
-								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">EGB @(Model.total)</strong></div>
+								<div><strong>Sub Total</strong></div>
+								<div><strong class="order-total">EGB @(Model.calcTotal())</strong></div>
+							</div>
+							<div class="order-col">
+								<div><strong>Total</strong></div>
+								<div><strong class="order-total">EGB @Model.overall</strong></div>
 							</div>
 						</div>
 						

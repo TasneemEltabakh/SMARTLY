@@ -28,7 +28,8 @@ namespace SMARTLY.Pages
         public string message { get; set; }
 
 
-       
+        [BindProperty(SupportsGet = true)]
+        public int overall { get; set; }
 
         public Adress Adress { get; set; }
 
@@ -50,7 +51,8 @@ namespace SMARTLY.Pages
             type = db.returnType(UserName);
             Dt = db.ReadClient(UserName);
             carttable = db.ReadCart(UserName);
-
+            shippingFees =Convert.ToString(carttable.Rows[0][3]);
+            overall = Convert.ToInt32(shippingFees) + calcTotal();
         }
         public void OnPost()
         {
@@ -68,7 +70,22 @@ namespace SMARTLY.Pages
             int name = Convert.ToInt32(t.Rows[0][9]);
             return name;
         }
-       
-        
+        public int calcTotal()
+        {
+            int x = 0;
+            for (int i = 0; i < carttable.Rows.Count; i++)
+            {
+
+                DataTable t = db.ReadProductRow(Convert.ToInt32(carttable.Rows[i][1]));
+                x = (Convert.ToInt32(t.Rows[0][9]) * Convert.ToInt32(carttable.Rows[i][2])) + x;
+
+            }
+            total = x;
+            return x;
+
+
+
+        }
+
     }
 }
