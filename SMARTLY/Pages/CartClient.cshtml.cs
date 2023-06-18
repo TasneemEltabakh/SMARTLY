@@ -7,8 +7,14 @@ namespace SMARTLY.Pages
 {
     public class CartClientModel : UserPageModel
     {
+        private readonly Database data;
+
+        public DataTable dt { get; set; }
         [BindProperty]
-        public int itemsCount { get; set; } = 0;
+        public int itemsCount { get; set; }
+
+        [BindProperty]
+        public string Shipp { get; set; }
 
         [BindProperty]
         public string id { get; set; }
@@ -17,16 +23,14 @@ namespace SMARTLY.Pages
         public string? DeletedId { get; set; } = null;
 
 
-        private readonly Database data;
-
-        public DataTable dt { get; set; }
+     
 
     
 
         [BindProperty]
         public DataTable carttable { get; set; }
 
-        public double summary { get; set; }
+        public string summary { get; set; }
 
         [BindProperty]
         public int quantity { get; set; }
@@ -40,12 +44,15 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public int Deleted { get; set; }
+        [BindProperty]
+        public int totalPrice { get; set; } = 0;
 
 
         [BindProperty]
         public List<ProductsCart> ProductsCart { get; set; }
+        [BindProperty]
 
-       
+        public ProductsCart p { set; get; }
         public double shipping { get; set; }
 
         public CartClientModel(Database database)
@@ -56,45 +63,115 @@ namespace SMARTLY.Pages
 
         public void OnGet()
         {
-            string deleted = Request.Query["Deleted"]; 
+            string deleted = Request.Query["Deleted"];
+            string id= Request.Query["id"];
+            summary = Request.Query["quantity"];
+            itemsCount = data.TotalItem(UserName);
+            Shipp= Request.Query["shippin"];
+
 
             if (!string.IsNullOrEmpty(deleted))
-            {
+                {
                 carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName);
                 ProductsCart = new List<ProductsCart>();
+                itemsCount = data.TotalItem(UserName);
+
                 for (int i = 0; i< carttable.Rows.Count; i++)
                 {
-                    ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
-                    ProductsCart.Add(product);
+                    int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
+                    if (Quantity > 0)
+                    {
+                        ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                        ProductsCart.Add(product);
 
-                }
+                    }
+                    else
+                    {
+                        ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                        ProductsCart.Add(product);
+                    }
+
+                }  
             }
             else
             {
                 carttable = data.ReadCart(UserName);
                 ProductsCart = new List<ProductsCart>();
+                itemsCount = data.TotalItem(UserName);
+
                 for (int i = 0; i < carttable.Rows.Count; i++)
                 {
-                    ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
-                    ProductsCart.Add(product);
+
+                    int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
+                    if (Quantity > 0)
+                    {
+                        ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                        ProductsCart.Add(product);
+
+                    }
+                    else
+                    {
+                        ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                        ProductsCart.Add(product);
+                    }
 
                 }
 
+            }
+            if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(summary))
+            {
+                for (int i = 0; i < carttable.Rows.Count; i++)
+                {
+                    if (int.TryParse(id, out int productId) && int.TryParse(summary, out int newQuantity) && Convert.ToInt32(carttable.Rows[i][1]) == productId)
+                    {
+                        foreach (var product in ProductsCart)
+                        {
+                            if (product.Id == productId)
+                            {
+                                product.quantity = newQuantity;
+                            }
+                        }
+                        data.UpdateCart(id, newQuantity, UserName);
+                        carttable = data.ReadCart(UserName);
+                        itemsCount = data.TotalItem(UserName);
+                        
+
+                    }
+                }
             }
             shipping = 5;
         }
         public void OnGetAdd(string id)
         {
-            string deleted = Request.Query["Deleted"]; 
+            string deleted = Request.Query["Deleted"];
+            string idd = Request.Query["id"];
+            summary = Request.Query["quantity"];
+            Shipp = Request.Query["shippin"];
+            itemsCount = data.TotalItem(UserName);
+           
 
             if (!string.IsNullOrEmpty(deleted))
             {
                 carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName);
+                calcTotal();
+                itemsCount = data.TotalItem(UserName);
+
                 ProductsCart = new List<ProductsCart>();
                 for (int i = 0; i < carttable.Rows.Count; i++)
                 {
-                    ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
-                    ProductsCart.Add(product);
+
+                    int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
+                    if (Quantity > 0)
+                    {
+                        ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                        ProductsCart.Add(product);
+
+                    }
+                    else
+                    {
+                        ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                        ProductsCart.Add(product);
+                    }
 
                 }
             }
@@ -102,15 +179,50 @@ namespace SMARTLY.Pages
             {
                 this.id = id;
                 data.AddProductToCart(UserName, id, quantity);
+                itemsCount = data.TotalItem(UserName);
+
                 carttable = data.ReadCart(UserName);
+                calcTotal();
+
                 ProductsCart = new List<ProductsCart>();
                 for (int i = 0; i < carttable.Rows.Count; i++)
                 {
-                    ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
-                    ProductsCart.Add(product);
+
+                    int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
+                    if (Quantity > 0)
+                    {
+                        ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                        ProductsCart.Add(product);
+
+                    }
+                    else
+                    {
+                        ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                        ProductsCart.Add(product);
+                    }
 
                 }
 
+            }
+            if (!string.IsNullOrEmpty(idd) && !string.IsNullOrEmpty(summary))
+            {
+                for (int i = 0; i < carttable.Rows.Count; i++)
+                {
+                    if (int.TryParse(idd, out int productId) && int.TryParse(summary, out int newQuantity) && Convert.ToInt32(carttable.Rows[i][1]) == productId)
+                    {
+                        foreach (var product in ProductsCart)
+                        {
+                            if (product.Id == productId)
+                            {
+                                product.quantity = newQuantity;
+                            }
+                        }
+                        data.UpdateCart(idd, newQuantity, UserName);
+                        carttable = data.ReadCart(UserName);
+                        itemsCount = data.TotalItem(UserName);
+                        
+                    }
+                }
             }
             shipping = 5;
 
@@ -138,7 +250,42 @@ namespace SMARTLY.Pages
         {
             return RedirectToPage("/CheckOut");
         }
-       
+        public string returnPrice(int id)
+        {
+            DataTable t = data.ReadProductRow(id);
+            string name = Convert.ToString(t.Rows[0][2]);
+            return name;
+        }
+      
+        public int calcTotal()
+        {
+            int x = 0; 
+            for (int i = 0; i < carttable.Rows.Count; i++)
+            {
+             
+                DataTable t = data.ReadProductRow(Convert.ToInt32(carttable.Rows[i][1]));
+                x = (Convert.ToInt32(t.Rows[0][9]) * Convert.ToInt32(carttable.Rows[i][2])) + totalPrice;
+
+            }
+           totalPrice = x;
+          return x;
+            
+         
+
+        }
+        public IActionResult OnPostProceed()
+        {
+            totalPrice= calcTotal();
+     
+            Console.WriteLine($"Shipping : {Shipp},  price: {totalPrice}");
+            return RedirectToPage("/CheckOut", new
+            {
+                shippingFees = this.Shipp,
+                total = this.totalPrice
+            });
+
+
+        }
 
 
     }

@@ -18,6 +18,8 @@ namespace SMARTLY.Pages
         [BindProperty]
         public int type { get; set; }
 
+       
+
         [BindProperty]
         public DataTable Dt { get; set; }
         [BindProperty]
@@ -25,10 +27,16 @@ namespace SMARTLY.Pages
 
         public string message { get; set; }
 
-        [BindProperty(SupportsGet =true)]
-        public List<ProductsCart> ProductCart { get; set; } = new List<ProductsCart>();
 
-        public Adress Adress { get; set; }  
+       
+
+        public Adress Adress { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int total { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string shippingFees { get; set; }
 
         public CheckOutModel(Database database)
         {
@@ -38,7 +46,7 @@ namespace SMARTLY.Pages
         }
         public void OnGet()
         {
-
+            Console.WriteLine($"Shipping fees: {shippingFees}, Total price: {total}");
             type = db.returnType(UserName);
             Dt = db.ReadClient(UserName);
             carttable = db.ReadCart(UserName);
@@ -54,25 +62,13 @@ namespace SMARTLY.Pages
             string name =Convert.ToString( t.Rows[0][1]);
             return name;
         }
-        public string returnPrice(int id)
+        public int returnPrice(int id)
         {
             DataTable t = db.ReadProductRow(id);
-            string name = Convert.ToString(t.Rows[0][2]);
+            int name = Convert.ToInt32(t.Rows[0][9]);
             return name;
         }
-        public int calcTotal()
-        {
-            int sum = 0;
-            for(int i =0; i< carttable.Rows.Count; i++)
-            {
-                sum =+sum;
-
-                DataTable t = db.ReadProductRow(Convert.ToInt32(carttable.Rows[i][1]));
-               sum = Convert.ToInt32(t.Rows[0][9])+sum;
-                
-            }
-            return sum+20; 
-
-        }
+       
+        
     }
 }

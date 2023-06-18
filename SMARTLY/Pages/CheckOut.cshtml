@@ -123,23 +123,26 @@
 								<div><strong>TOTAL</strong></div>
 							</div>
 							<div class="order-products">
-							@for(int i =0; i<Model.carttable.Rows.Count;i++)
-							{
-								<div class="order-col">
-									<div> @(Model.returnName(Convert.ToInt32(Model.carttable.Rows[i][1])))</div>
-										<div>EGB @(Model.returnPrice(Convert.ToInt32(Model.carttable.Rows[i][1])))</div>
-								</div>
-							}
+								@{
+									for (int i = 0; i < Model.carttable.Rows.Count; i++)
+									{
+										var productName = Model.returnName(Convert.ToInt32(Model.carttable.Rows[i][1]));
+										var productPrice = Model.returnPrice(Convert.ToInt32(Model.carttable.Rows[i][1])) * Convert.ToInt32(Model.carttable.Rows[i][2]);
 
-							
+										<div class="order-col">
+											<div>@Model.carttable.Rows[i][2] X @productName</div>
+											<div>EGB @productPrice</div>
+										</div>
+									}
+								}
 							</div>
 							<div class="order-col">
 								<div>Shiping</div>
-								<div><strong>20</strong></div>
+								<div><strong>@Model.shippingFees</strong></div>
 							</div>
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">EGB @(Model.calcTotal())</strong></div>
+								<div><strong class="order-total">EGB @(Model.total)</strong></div>
 							</div>
 						</div>
 						

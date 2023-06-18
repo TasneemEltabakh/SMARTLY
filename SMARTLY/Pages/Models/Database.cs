@@ -578,7 +578,7 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        public void UpdateCart(int id, int Qu, string username)   //***
+        public void UpdateCart(string id, int Qu, string username)   //***
         {
             string Q = "update cart set quantity = @q where productid = @id and username=@username ";
             SqlCommand cmd = new SqlCommand(Q, Connection);
@@ -1305,6 +1305,38 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
 
+        }
+        public int TotalItem(string id)   //***
+        {
+            string Q = "select sum(Quantity) from Cart where username=@username ";
+            int c = 0;
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@username", id);
+      
+            try
+            {
+                Connection.Open();
+                object result = cmd.ExecuteScalar();
+                if (result == null || result == DBNull.Value)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)result;
+                }
+
+
+            }
+            catch (SqlException ex)
+            {
+                return 0;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+         
         }
     }
 }
