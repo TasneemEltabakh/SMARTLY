@@ -1352,7 +1352,7 @@ namespace SMARTLY.Pages.Models
         }
         public void UsersAdress(Adress adress, string username)
         {
-            string query = "insert into Adress values(@username,@zip,@gov,@city,@street,@no,@floor,@flat,'Not');";
+            string query = "insert into Adress values(@username,@zip,@gov,@city,@street,@no,@floor,@flat,@Not);";
             SqlCommand cmd = new SqlCommand(query, Connection);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@zip", adress.Zipcode);
@@ -1362,17 +1362,18 @@ namespace SMARTLY.Pages.Models
             cmd.Parameters.AddWithValue("@no", adress.Buildingno);
             cmd.Parameters.AddWithValue("@floor", adress.Floor);
             cmd.Parameters.AddWithValue("@flat", adress.Flat);
+			cmd.Parameters.AddWithValue("@Not", adress.Notes);
 
 
 
-            try
+			try
             {
                 Connection.Open();
                 cmd.ExecuteNonQuery();
 
             }
-            catch
-            {
+            catch (SqlException ex)
+			{
 
             }
             finally
@@ -1381,7 +1382,7 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        public int TotalItem(string id)   //***
+		public int TotalItem(string id)   //***
         {
             string Q = "select sum(Quantity) from Cart where username=@username ";
             int c = 0;

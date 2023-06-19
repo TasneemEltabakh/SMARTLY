@@ -458,3 +458,8 @@ alter column img int
 
 Alter table _User
 alter column img VARBINARY(Max) 
+
+-->Tasneem for nada
+Alter table Cart 
+add Shipping varchar(10) null;
+

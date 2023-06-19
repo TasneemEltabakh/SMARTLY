@@ -32,9 +32,10 @@ namespace SMARTLY.Pages.Models
         public string Gov { get; set; }
 
 
-     
-      
+		public string Notes { get; set; }
 
 
-    }
+
+
+	}
 }

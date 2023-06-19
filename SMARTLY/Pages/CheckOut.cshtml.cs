@@ -11,8 +11,7 @@ namespace SMARTLY.Pages
     {
         
         private readonly Database db;
-
-       
+        
         [BindProperty]
         public string password { get; set; }
 
@@ -68,15 +67,15 @@ namespace SMARTLY.Pages
                     Floor = Convert.ToString(adresst.Rows[0][6]),
                     Flat = Convert.ToString(adresst.Rows[0][7])
                 };
-            }
+
+			}
            
         }
         public IActionResult OnPostAdress()
         {
-            
-            db.UsersAdress(Adress, UserName);
-
-            return RedirectToPage("/IndexClient");
+           
+			db.UsersAdress(Adress, UserName);
+ 			return RedirectToPage("/IndexClient");
 
         }
         public string returnName(int id)
