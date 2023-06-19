@@ -72,15 +72,10 @@ namespace SMARTLY.Pages
                     }
                 }
             }
-            if (ModelState.IsValid)
-            {
+           
                 Db.AddImgNewUser(Pimage123);
-                return RedirectToPage("/IndexAdmin");
-            }
-            else
-            {
-                return RedirectToPage();
-            }
+                return RedirectToPage("/Profile");
+            
         }
     }
     

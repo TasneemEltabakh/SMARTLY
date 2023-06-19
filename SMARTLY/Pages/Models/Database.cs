@@ -29,7 +29,7 @@ namespace SMARTLY.Pages.Models
         }
         public void SignUpNewMember(User U, Client C)
         {
-            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE,'assets/img/noImage.png');";
+            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE, null);";
             string query2 = " insert into Client values (@USERNAME,@email,@phonenumber,@Fname,@Lname);";
             SqlCommand cmd = new SqlCommand(query, Connection);
             SqlCommand cmd2 = new SqlCommand(query2, Connection);
@@ -1198,7 +1198,7 @@ namespace SMARTLY.Pages.Models
         }
         public DataTable ReadSearchProject(string search)
         {
-            string Q = "select * from Product where PName=@search or color = @search ";
+            string Q = "SELECT * FROM Product WHERE PName LIKE '%' + @search + '%' OR color LIKE '%' + @search + '%' OR category LIKE '%' + @search + '%' OR AdditionalNotes LIKE '%' + @search + '%'";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@search", search);
             DataTable dt = new DataTable();
@@ -1352,7 +1352,7 @@ namespace SMARTLY.Pages.Models
         }
         public void UsersAdress(Adress adress, string username)
         {
-            string query = "insert into Adress values(@username,@zip,@gov,@city,@street,@no,@floor,@flat,@notes);";
+            string query = "insert into Adress values(@username,@zip,@gov,@city,@street,@no,@floor,@flat,'Not');";
             SqlCommand cmd = new SqlCommand(query, Connection);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@zip", adress.Zipcode);
@@ -1362,7 +1362,7 @@ namespace SMARTLY.Pages.Models
             cmd.Parameters.AddWithValue("@no", adress.Buildingno);
             cmd.Parameters.AddWithValue("@floor", adress.Floor);
             cmd.Parameters.AddWithValue("@flat", adress.Flat);
-            cmd.Parameters.AddWithValue("@notes", adress.notes);
+
 
 
             try
