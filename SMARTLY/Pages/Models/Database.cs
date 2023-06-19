@@ -24,7 +24,7 @@ namespace SMARTLY.Pages.Models
         public Object table { get; set; }
         public Database()
         {
-             Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+             Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
 
         }
         public void SignUpNewMember(User U, Client C)
@@ -415,6 +415,28 @@ namespace SMARTLY.Pages.Models
         public DataTable ReadProduct()
         {
             string Q = "Select * from Product";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        public DataTable ReadCategoryForAddProduct()
+        {
+            string Q = "Select * from Categories";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             DataTable dt = new DataTable();
             try

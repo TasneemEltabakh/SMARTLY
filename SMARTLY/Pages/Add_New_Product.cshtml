@@ -47,27 +47,44 @@
                                                 <span asp-validation-for="@Model.product.salePercentage"></span>
                                 </div>
 
+                                
                                 <div class="form-group">
-                                                <input asp-for="@Model.product.category" class="form-control" type="text" placeholder="category">
-                                                <span asp-validation-for="@Model.product.category"></span>
-                                </div>
-
+                                    <select id="category" onchange="updateCategory()">
+                                        @for (int i = 0; i < Model.dtt.Rows.Count; i++)
+                                        {
+                                            <option value="@Model.dtt.Rows[i][0]">@Model.dtt.Rows[i][1]</option>
+                                        }
+                                    </select>
+										
+								</div>
                                 <div class="form-group">
                                                 <input asp-for="@Model.product.AdditionalNotes" class="form-control" type="text" placeholder="AdditionalNotes">
-                                                <span asp-validation-for="@Model.product.AdditionalNotes"></span>
                                 </div>
 
                                 <div class="form-group">
+                                                <label>Choose the <span style="color:#FFC733">Main</span> Image</label><br>
                                                 <input asp-for="@Model.Image123" class="form-control" type="file" id="files">
-                                                @if(Model.NumberOfExtraImg<=3){
-                                                    //@(Model.vv());
+                                                <!--if(Model.NumberOfExtraImg<=3){
+                                                    //(Model.vv());
+                                                    <input type="hidden" id="Model.NumberOfExtraImg" name="Model.NumberOfExtraImg" value="Model.NumberOfExtraImg+1">
+                                                    (Model.NumberOfExtraImg);
                                                     <button onclick="AddNextImg()">
                                                     <i class="fa fa-plus"></i>
                                                     </button>
                                                     <p id="GFG_DOWN"></p>
-                                                }
-                                                
-                          
+                                                }-->
+                                </div>
+                                <div class="form-group">
+                                                <label style="color:#FFC733">"Optional"</label><br>
+                                                <input asp-for="@Model.Image111" class="form-control" type="file" id="files">
+                                </div>
+                                <div class="form-group">
+                                                <label style="color:#FFC733">"Optional"</label><br>
+                                                <input asp-for="@Model.Image222" class="form-control" type="file" id="files">
+                                </div>
+                                <div class="form-group">
+                                                <label style="color:#FFC733">"Optional"</label><br>
+                                                <input asp-for="@Model.Image333" class="form-control" type="file" id="files">
                                 </div>
        
                                     <div class="form-group">
@@ -82,8 +99,30 @@
             </div>
         </div>
 
-        
-                <script>
+    <script>
+        function updateCategory() {
+            var categoryValue = $('#category').val();
+            $.ajax({
+                type: "POST",
+                url: "/Products_Main_Admin?handler=UpdateCategory",
+                data: JSON.stringify({ category: categoryValue }),
+                contentType: "application/json",
+                success: function () {
+                    console.log("Category updated successfully");
+                },
+                error: function () {
+                    console.log("Error updating category");
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#category').change(function () {
+                updateCategory();
+            });
+        });
+    </script>
+                <!--<script>
                     var down = document.getElementById("GFG_DOWN");
 
                     function AddNextImg() {
@@ -111,6 +150,6 @@
 
                         event.preventDefault();
                     }
-                </script>
+                </script>-->
  </section>
 
