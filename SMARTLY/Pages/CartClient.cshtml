@@ -39,7 +39,12 @@
 										<hr class="my-4">
 										<div class="row mb-4 d-flex justify-content-between align-items-center">
 											<div class="col-md-2 col-lg-2 col-xl-2">
-												<img src="@Model.dt.Rows[0][8]" class="img-fluid rounded-3" alt="Cotton T-shirt">
+												@{
+										        byte[] bytes = (byte[])Model.dt.Rows[0][8];
+										        var base64 = Convert.ToBase64String(bytes);
+										        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+									            }
+									            <img src="@imgsrc" class="img-fluid rounded-3" alt="Product" />
 											</div>
 											<div class="col-md-3 col-lg-3 col-xl-3">
 												<h6 class="text-muted"> @Model.returnCategory((int)Model.dt.Rows[0][6])</h6>
