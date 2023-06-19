@@ -3393,7 +3393,9 @@ textarea.input {
 /*----------------------------*\
 	Products slick
 \*----------------------------*/
-
+.navbar-profile-image {
+    border-radius: 50%;
+}
 .products-slick .slick-list {
     padding-bottom: 60px;
     margin-bottom: -60px;
