@@ -49,7 +49,7 @@ namespace SMARTLY.Pages
         }
         public void OnGet()
         {
-            Console.WriteLine($"Shipping fees: {shippingFees}, Total price: {total}");
+            
             type = db.returnType(UserName);
             Dt = db.ReadClient(UserName);
             carttable = db.ReadCart(UserName);
@@ -69,18 +69,14 @@ namespace SMARTLY.Pages
                     Flat = Convert.ToString(adresst.Rows[0][7])
                 };
             }
-            else
-            {
-                Adress = new Adress();
-            }
-
+           
         }
-        public void OnPostProc()
+        public IActionResult OnPostAdress()
         {
             
-                db.UsersAdress(Adress, UserName);
-            
-          
+            db.UsersAdress(Adress, UserName);
+
+            return RedirectToPage("/IndexClient");
 
         }
         public string returnName(int id)

@@ -66,24 +66,31 @@
 							
 							<div class="form-group">
 								<input  class="form-control" type="text"  placeholder="street" asp-for="@Model.Adress.Street" >
+							
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" placeholder="Building number" asp-for="@Model.Adress.Buildingno">
+								
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" placeholder="Floor number" asp-for="@Model.Adress.Floor">
+								
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" placeholder="Flat Number" asp-for="@Model.Adress.Flat">
+								
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" placeholder="City" asp-for="@Model.Adress.City">
+								
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" placeholder="Governorate" asp-for="@Model.Adress.Gov">
+								
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" placeholder="ZIP Code" asp-for="@Model.Adress.Zipcode">
+								
 							</div>
 							@if(Model.type !=3)
 							{
@@ -107,7 +114,7 @@
 			
 					
 						<div class="order-notes">
-							<textarea class="form-control" placeholder="Order Notes" asp-for="@Model.Adress.notes"></textarea>
+							<textarea class="form-control" placeholder="Order Notes"></textarea>
 						</div>
 					
 					</div>
@@ -157,7 +164,7 @@
 						<form method="post">
 						
 
-								<button asp-page-handler="Proc"  type="submit" class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;"
+								<button asp-page-handler="Adress"  type="submit" class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;"
 									data-mdb-ripple-color="dark">
 
 									Proceed To Payement

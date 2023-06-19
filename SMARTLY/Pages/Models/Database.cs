@@ -1283,7 +1283,7 @@ namespace SMARTLY.Pages.Models
         }
         public void UsersAdress(Adress adress, string username)
         {
-            string query = "insert into Adress values(@username,@zip,@gov,@city,@street,@no,@floor,@flat,@notes);";
+            string query = "insert into Adress values(@username,@zip,@gov,@city,@street,@no,@floor,@flat,'Not');";
             SqlCommand cmd = new SqlCommand(query, Connection);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@zip", adress.Zipcode);
@@ -1293,7 +1293,7 @@ namespace SMARTLY.Pages.Models
             cmd.Parameters.AddWithValue("@no", adress.Buildingno);
             cmd.Parameters.AddWithValue("@floor", adress.Floor);
             cmd.Parameters.AddWithValue("@flat", adress.Flat);
-            cmd.Parameters.AddWithValue("@notes", adress.notes);
+
 
 
             try
