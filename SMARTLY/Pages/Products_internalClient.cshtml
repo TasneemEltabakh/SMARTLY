@@ -41,7 +41,12 @@
 							@for (int i = 0; i < Model.ImgsTable.Rows.Count; i++)
 							{
 								<div class="swiper-slide">
-									<img src="@Model.ImgsTable.Rows[i][1]" alt="" style="width: 500px; height: 500px; object-fit: fill;">
+									@{
+										byte[] bytes = (byte[])Model.ImgsTable.Rows[i][1];
+										var base64 = Convert.ToBase64String(bytes);
+										var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+									}
+									<img src="@imgsrc" alt="" style="width: 500px; height: 500px; object-fit: fill;" />
 								</div>
 							}
 
@@ -53,9 +58,27 @@
 				<div class="col-lg-4">
 					<div class="portfolio-info">
 						<h3>Product Information</h3>
+						<h2 class="product-name" style="color:#FFC733">@Model.dt.Rows[0][1]</h2>
+						<div>
+							<div class="product-rating">
+								@for (int i = 0; i < Model.rating; i++)
+								{
+									<i class="fa fa-star"></i>
+								}
+								@for (int i = 0; i < (5 - Model.rating); i++)
+								{
+									<i class="fa fa-star-o"></i>
+								}
+								<a class="review-link" href="#">@Model.CountFeedBack Review(s)</a>
+							</div>
+						</div>
+						<div>
+							<h3 class="product-price">$ @Model.dt.Rows[0][9] <del class="product-old-price" style="color:#FFC733">$ @Model.dt.Rows[0][2]</del></h3>
+						</div>
 						<ul>
 							<li><strong>Category</strong>: @Model.Categorietype</li>
 							<li><strong>Colour</strong>: @Model.dt.Rows[0][4]</li>
+							<li><strong>Quantity</strong>: @Model.dt.Rows[0][3]</li>
 							@if (Convert.ToInt32(Model.dt.Rows[0][5])!=0)
 							{
 								<li><strong>Price before Sale</strong>: @Model.dt.Rows[0][2]</li>

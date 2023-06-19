@@ -9,7 +9,10 @@ namespace SMARTLY.Pages
     {
         private readonly Database Db;
         public DataTable dt { get; set; }
-
+        [BindProperty]
+        public List<IFormFile> Image123 { get; set; }
+        [BindProperty]
+        public byte[] Pimage123 { get; set; }
         [BindProperty]
         public DataTable userData { get; set; }
 
@@ -54,6 +57,30 @@ namespace SMARTLY.Pages
             }
             HttpContext.Session.SetInt32("State", this.isedit);
             return RedirectToPage("/IndexAdmin", new { UserName = this.UserName, ThisState = this.isedit });
+        }
+        public async Task<IActionResult> OnPostAdd()
+        {
+            
+            foreach (var item in Image123)
+            {
+                if (item.Length > 0)
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        await item.CopyToAsync(stream);
+                        Pimage123 = stream.ToArray();
+                    }
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                Db.AddImgNewUser(Pimage123);
+                return RedirectToPage("/IndexAdmin");
+            }
+            else
+            {
+                return RedirectToPage();
+            }
         }
     }
     

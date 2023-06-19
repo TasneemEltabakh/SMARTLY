@@ -444,3 +444,17 @@ alter column Pimage int
 Alter table Product
 alter column Pimage VARBINARY(Max) 
 --->After img works 
+-->Important
+DELETE FROM Client;
+DELETE FROM AnOrder;
+DELETE FROM Agency;
+DELETE FROM _User;
+
+ALTER TABLE _User DROP CONSTRAINT DF___User__img__07C12930;
+ALTER TABLE _User ALTER COLUMN img int;
+
+Alter table _User
+alter column img int 
+
+Alter table _User
+alter column img VARBINARY(Max) 

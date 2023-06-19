@@ -697,7 +697,7 @@ namespace SMARTLY.Pages.Models
 
         public void DeleteProduct(string PId)
         {
-            string q = "DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId ";
+            string q = "DELETE FROM Contain WHERE PId = @PId;DELETE FROM Cart WHERE productid = @PId;DELETE FROM Product_Photoes WHERE product_id = @PId;DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId;";
 
             //SqlCommand cmd = new SqlCommand(q, Connection);
             //cmd.Parameters.AddWithValue("@PId", PId);
@@ -1018,6 +1018,53 @@ namespace SMARTLY.Pages.Models
             cmd.Parameters.AddWithValue("@category", product.category);
             cmd.Parameters.AddWithValue("@AdditionalNotes", product.AdditionalNotes);
             cmd.Parameters.AddWithValue("@Pimage", product.Pimage);
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+		public void AddImgNewProduct(int idd,byte[] imgg)
+		{
+
+			string query = "insert into Product_Photoes (product_Id,p_Img) values(@product_Id,@p_Img);";
+			SqlCommand cmd = new SqlCommand(query, Connection);
+			cmd.Parameters.AddWithValue("@product_Id", idd);
+			cmd.Parameters.AddWithValue("@p_Img", imgg);
+
+			try
+			{
+				Connection.Open();
+				cmd.ExecuteNonQuery();
+
+			}
+			catch
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+
+		}
+        public void AddImgNewUser(byte[] imgg)
+        {
+
+            string query = "UPDATE _User SET img = @p_Img WHERE UserType=1;";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@p_Img", imgg);
 
             try
             {
