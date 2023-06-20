@@ -574,9 +574,57 @@ namespace SMARTLY.Pages.Models
             }
 
         }
+        public DataTable ReadCartGuest(string username)
+        {
+            string Q = "SELECT * FROM CartGuest WHERE id = @id";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@id", username);
+
+            DataTable dt = new DataTable();
+            try
+            {
+                Connection.Open();
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         public void AddProductToCart(string username, string id, int Qu, string sh)   //***
         {
             string Q = "insert into cart values(@username, @id,@q,@sh)";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@q", Qu);
+            cmd.Parameters.AddWithValue("@sh", sh);
+
+            try
+            {
+                Connection.Open();
+
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        public void AddProductToCartGuest(string username, string id, int Qu, string sh)   //***
+        {
+            string Q = "insert into CartGuest values(@username, @id,@q,@sh)";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@id", id);
@@ -609,6 +657,39 @@ namespace SMARTLY.Pages.Models
 
             cmd.Parameters.AddWithValue("@q", Qu);
             cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@username", username);
+            cmd.Parameters.AddWithValue("@sh", shipping);
+            cmd2.Parameters.AddWithValue("@username", username);
+            cmd2.Parameters.AddWithValue("@sh", shipping);
+
+
+            try
+            {
+                Connection.Open();
+
+                cmd.ExecuteNonQuery();
+                cmd2.ExecuteNonQuery();
+
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        public void UpdateCartGuest(string pro, int Qu, string username, string shipping)   //***
+        {
+            string Q = "update CartGuest set quantity = @q , Shipping=@sh where productid = @pro and id=@username";
+            string Q2 = "update CartGuest set Shipping=@sh where id=@username ";
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            SqlCommand cmd2 = new SqlCommand(Q2, Connection);
+
+            cmd.Parameters.AddWithValue("@q", Qu);
+            cmd.Parameters.AddWithValue("@pro", pro);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@sh", shipping);
             cmd2.Parameters.AddWithValue("@username", username);
@@ -815,6 +896,33 @@ namespace SMARTLY.Pages.Models
                 dt.Load(cmd2.ExecuteReader());
                 return dt;
              }
+            catch (SqlException ex)
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public DataTable DeletefromcartGuest(int id, string username)
+        {
+            DataTable dt = new DataTable();
+            string Q = "delete from CartGuest where Productid = @id and id= @username";
+            string Q2 = "select * from CartGuest where id= @username";
+
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@username", username);
+            SqlCommand cmd2 = new SqlCommand(Q2, Connection);
+            cmd2.Parameters.AddWithValue("@username", username);
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+                dt.Load(cmd2.ExecuteReader());
+                return dt;
+            }
             catch (SqlException ex)
             {
                 return dt;
@@ -1414,6 +1522,38 @@ namespace SMARTLY.Pages.Models
             }
          
         }
+        public int TotalItemGuest(string id)   //***
+        {
+            string Q = "select sum(quantity) from CartGuest where id=@username ";
+            int c = 0;
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@username", id);
+
+            try
+            {
+                Connection.Open();
+                object result = cmd.ExecuteScalar();
+                if (result == null || result == DBNull.Value)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)result;
+                }
+
+
+            }
+            catch (SqlException ex)
+            {
+                return 0;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
         public DataTable ReadAdress(string username)
         {
 
@@ -1438,6 +1578,73 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-       
+        public int maxGuestID()
+        {
+            string query = "SELECT MAX(id) FROM Guest;";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+
+            try
+            {
+                Connection.Open();
+                object result = cmd.ExecuteScalar();
+                if (result == DBNull.Value || result == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return Convert.ToInt32(result) + 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                // handle the exception here
+                return 0;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public void AddGuest(int num)
+        {
+            string query = "INSERT INTO Guest  VALUES (@username, GETDATE());";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@username", num);
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                // Handle the exception
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public void DeleteoldGuest()
+        {
+            string query = "DELETE FROM CartGuest WHERE ID IN (SELECT id FROM Guest WHERE InsertionTime < DATEADD(MINUTE, -30, GETDATE())); DELETE FROM Guest WHERE InsertionTime < DATEADD(MINUTE, -30, GETDATE());     ";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+               
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
     }
+
 }

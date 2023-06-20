@@ -23,6 +23,10 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public string search { get; set; }
+
+        [BindProperty]
+        public int type { get; set; }
+
         public int rating { get; set; }
        
         public Product_MainClientModel(Database db)
@@ -32,6 +36,7 @@ namespace SMARTLY.Pages
         }
         public void OnGet()
         {
+            type = Db.returnType(UserName);
             string selectedCategory = Request.Query["selectedCategory"];
             search = Request.Query["search"];
          

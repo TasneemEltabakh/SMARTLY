@@ -15,8 +15,10 @@ namespace SMARTLY.Pages
             public int CountFeedBack { get; set; }
             public int rating { get; set; }
             public int userrating { get; set; }
-            public int id { get; set; } 
+            public int id { get; set; }
 
+            [BindProperty]
+            public int type { get; set; }
             public DataTable RateTable { get; set; }
             public DataTable ImgsTable { get; set; }
             public Products_internalClientModel(Database db)
@@ -25,6 +27,7 @@ namespace SMARTLY.Pages
             }
             public void OnGet(int id)
             {
+                type = data.returnType(UserName);
                 this.id = id;
                 dt = data.ReadProductRow(id);
                 Categorietype = data.ReturnCategoryForProduct(Convert.ToInt32(dt.Rows[0][6]));

@@ -121,7 +121,11 @@
             </div>
 
             <div class="col-lg-8 mt-5 mt-lg-0">
-
+                  @if (Model.msg != "free")
+                {
+                    <h3 style="color:red>"> @Model.msg</h3>
+                    
+                }
                 <form method="post" >
                     <div class="row">
                         <div class="col-md-6 form-group">

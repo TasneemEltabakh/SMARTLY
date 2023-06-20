@@ -1,7 +1,10 @@
 ﻿@page
 @model SMARTLY.Pages.Products_internalClientModel
 @{
-   Layout = "/Pages/Shared/_LayoutClient.cshtml";
+  if(Model.type==3)
+    Layout = "/Pages/Shared/_LayoutClient.cshtml";
+	else
+	Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
 <style>
@@ -94,7 +97,13 @@
 						{
 							<div class="add-to-cart">
 								<ul class="product-btns">
-									<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]">Add to cart</a>
+									@if(Model.type==3){
+										<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]">Add to cart</a>
+									}
+									else
+									{
+											<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]">Add to cart</a>
+									}
 								</ul>
 							</div>
 						}

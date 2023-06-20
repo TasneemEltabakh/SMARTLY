@@ -48,34 +48,51 @@ namespace SMARTLY.Pages
         }
         public void OnGet()
         {
-            
             type = db.returnType(UserName);
-            Dt = db.ReadClient(UserName);
-            carttable = db.ReadCart(UserName);
-            adresst = db.ReadAdress(UserName);
-            shippingFees = Convert.ToString(carttable.Rows[0][3]);
-            overall = Convert.ToInt32(shippingFees) + calcTotal();
-            if (adresst != null && adresst.Rows.Count != 0)
+            if (type==3)
             {
-                Adress = new Adress
+                Dt = db.ReadClient(UserName);
+                carttable = db.ReadCart(UserName);
+                adresst = db.ReadAdress(UserName);
+                shippingFees = Convert.ToString(carttable.Rows[0][3]);
+                overall = Convert.ToInt32(shippingFees) + calcTotal();
+                if (adresst != null && adresst.Rows.Count != 0)
                 {
-                    Zipcode = Convert.ToString(adresst.Rows[0][1]),
-                    Gov = Convert.ToString(adresst.Rows[0][2]),
-                    City = Convert.ToString(adresst.Rows[0][3]),
-                    Street = Convert.ToString(adresst.Rows[0][4]),
-                    Buildingno = Convert.ToString(adresst.Rows[0][5]),
-                    Floor = Convert.ToString(adresst.Rows[0][6]),
-                    Flat = Convert.ToString(adresst.Rows[0][7])
-                };
+                    Adress = new Adress
+                    {
+                        Zipcode = Convert.ToString(adresst.Rows[0][1]),
+                        Gov = Convert.ToString(adresst.Rows[0][2]),
+                        City = Convert.ToString(adresst.Rows[0][3]),
+                        Street = Convert.ToString(adresst.Rows[0][4]),
+                        Buildingno = Convert.ToString(adresst.Rows[0][5]),
+                        Floor = Convert.ToString(adresst.Rows[0][6]),
+                        Flat = Convert.ToString(adresst.Rows[0][7])
+                    };
 
-			}
+                }
+            }
+            else
+            {
+                carttable = db.ReadCartGuest(UserName);
+                shippingFees = Convert.ToString(carttable.Rows[0][3]);
+                overall = Convert.ToInt32(shippingFees) + calcTotal();
+            }
+            
+            
            
         }
         public IActionResult OnPostAdress()
         {
-           
-			db.UsersAdress(Adress, UserName);
- 			return RedirectToPage("/IndexClient");
+            if (type == 3)
+            {
+                db.UsersAdress(Adress, UserName);
+                return RedirectToPage("/IndexClient");
+            }
+            else
+            {
+                return Page();
+            }
+              
 
         }
         public string returnName(int id)

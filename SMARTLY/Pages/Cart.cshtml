@@ -3,138 +3,288 @@
 @{
    
 }
-
 <section id="hero" class="d-flex align-items-center ftco-section">
-   @* <link rel="_Cart_Layout" href="/_Cart_Layout.html">*@
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-           
-        <input hidden asp-for="@Model.id"/>
-            <div class="col-12">
+	@* <link rel="_Cart_Layout" href="/_Cart_Layout.html">*@
+	<div class="container py-5 h-100">
+		<div class="row d-flex justify-content-center align-items-center h-100">
 
-                <br />
-                <br />
-                <br />
+			<input hidden asp-for="@Model.id" />
+			<div class="col-12">
 
-                <br />
-              
-                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
-                    <div class="card-body p-0">
+				<br />
+				<br />
 
-                        <div class="row g-0">
-                            <div class="col-lg-8">
-                                <div class="p-5">
-                                    <div class="d-flex justify-content-between align-items-center mb-5">
-                                        <br />
-                                        <br />
-                                        <br />
-   
-                                        <h1 class="fw-bold mb-0 text-black"></h1>
-                                        <h6 class="mb-0 text-muted">3 items</h6>
-                                    </div>
-                                  
+				<br />
 
-                                    <hr class="my-4">
+				<br />
 
-                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                        <div class="col-md-2 col-lg-2 col-xl-2">
-                                            <img src="~/assets/img/OIP (1).jpg"
-                                                 class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-3">
-                                            <h6 class="text-muted">Alexa Hub</h6>
-                                            <h6 class="text-black mb-0">alexa</h6>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
+				<div class="card card-registration card-registration-2">
+					<div class="card-body p-0" id="cart-container">
 
-                                            <input id="form1" min="0" name="quantity" value="1" type="number"
-                                                   class="form-control form-control-sm" />
+						<div class="row g-0">
+							<div class="col-lg-8">
+								<div class="p-5">
+									<div class="d-flex justify-content-between align-items-center mb-5">
+										<br />
+										<br />
+										<br />
 
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h6 class="mb-0">$ 998.00</h6>
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <a href="#!" class="text-muted"><i class="fa fa-times"></i></a>
-                                        </div>
-                                    </div>
+										<h1 class="fw-bold mb-0 text-black">My Cart</h1>
+										<h6 class="mb-0 text-muted">items @Model.itemsCount</h6>
+									</div>
+									<div class="product-container">
+										@for(int i =0 ; i < Model.carttable.Rows.Count; i++)
+										{
+										Model.dt = Model.returnrecordofproduct(Convert.ToInt32(Model.carttable.Rows[i][1]));
+										<hr class="my-4">
+										<div class="row mb-4 d-flex justify-content-between align-items-center">
+											<div class="col-md-2 col-lg-2 col-xl-2">
+												@{
+										        byte[] bytes = (byte[])Model.dt.Rows[0][8];
+										        var base64 = Convert.ToBase64String(bytes);
+										        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+									            }
+									            <img src="@imgsrc" class="img-fluid rounded-3" alt="Product" />
+											</div>
+											<div class="col-md-3 col-lg-3 col-xl-3">
+												<h6 class="text-muted"> @Model.returnCategory((int)Model.dt.Rows[0][6])</h6>
+												<h6 class="text-black mb-0">@Model.dt.Rows[0][1]</h6>
+											</div>
+											<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+												@{
 
-                  
+												foreach (var product in Model.ProductsCart)
+												{
+												if (product.Id == Convert.ToInt32(Model.carttable.Rows[i][1]))
+												{
+												Model.p =product;
+
+												}
+												}
+												}
+												<button class="btn btn-link px-2" onclick="decreaseQuantity(this,(@Convert.ToInt32(Model.carttable.Rows[i][1])))">
+													<i class="fa fa-minus"></i>
+												</button>
+												
+
+												<input data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="@Model.p.quantity" type="number" class="form-control form-control-sm" oninput="update(this)" />
+
+												<input asp-for="@Model.quantity" id="form2" hidden />
+											
+												<button class="btn btn-link px-2" onclick="increaseQuantity(this,(@Convert.ToInt32(Model.carttable.Rows[i][1])))">
+													<i class="fa fa-plus"></i>
+												</button>
+											</div>
+											<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+												<h6 class="mb-0">EGB @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity)</h6>
+												@{
+												Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity);
+												}
+											</div>
+											<div class="col-md-1 col-lg-1 col-xl-1 text-end">
+
+												<input type="hidden" value="@Model.carttable.Rows[i][1]" />
+												<div class="col-md-1 col-lg-1 col-xl-1 text-end">
+													<div class="add-to-cart">
 
 
-                                    <hr class="my-4">
+														<button onclick="DeleteProducts(@Convert.ToUInt32(Model.carttable.Rows[i][1]))" style="border: none;"><i class="fa fa-times"></i></button>
 
-                                    <div class="pt-5">
-                                        <h6 class="mb-0">
-                                            <a href="/Products_Main" class="text-body">
-                                                <i class="fa fa-arrow-left" > </i>  Back to shop
-                                            </a>
-                                        </h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 bg-grey">
-                                <div class="p-5">
-                                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                                    <hr class="my-4">
+													</div>
 
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <h5 class="text-uppercase">items 3</h5>
-                                        <h5>€ 132.00</h5>
-                                    </div>
+												</div>
 
-                                    <h5 class="text-uppercase mb-3">Shipping</h5>
-                               
-                                  
-                                    
-                                    <div class="mb-4 pb-2">
-                                        <select class="input-select1">
-                                            <option value="1">Standard-Delivery - $5.00</option>
-                                            <option value="2"> International - $15.00</option>
-                                            <option value="3">Overnight - $30.00</option>
-                                            <option value="4">
-                                                Priority Mail - $50
-                                            </option>
-                                        </select>
-                                    </div>
+											</div>
+										</div>
 
-                                    <h5 class="text-uppercase mb-3">Promo code</h5>
+										}
+									</div>
 
-                                    <div class="mb-5">
-                                        <div class="form-outline">
-                                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                                           
-                                        </div>
-                                    </div>
+									<hr class="my-4">
 
-                                    <hr class="my-4">
+									<div class="pt-5">
+										<h6 class="mb-0">
+											<a href="/Product_MainClient" class="text-body">
+												<i class="fa fa-arrow-left"> </i>  Back to shop
+											</a>
+										</h6>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 bg-grey" id="cart-summary">
+								<div class="p-5">
+									<h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+									<hr class="my-4">
 
-                                    <div class="d-flex justify-content-between mb-5">
-                                        <h5 class="text-uppercase">Total price</h5>
-                                        <h5>€ 137.00</h5>
-                                    </div>
+									<div class="d-flex justify-content-between mb-4">
+										<h5 class="text-uppercase">items @Model.itemsCount</h5>
 
-                                    <button type="button" class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;"
-                                            data-mdb-ripple-color="dark"  >
-                                        <a href="/CheckOut">   
-                                        Proceed To Payement
-                                        </a>
-                                    </button>
+									</div>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+									<h5 class="text-uppercase mb-3">Shipping</h5>
+
+
+
+									<div class="mb-4 pb-2">
+										<form>
+											<select asp-asp-for="@Model.shipping" id="shippingOption" class="input-select1" name="selectedValu" onchange="Shipping(value)">
+												<option  value="5" data-cost="5">Standard-Delivery - EGB 5.00</option>
+												<option value="15" data-cost="15">International - EGB 15.00</option>
+												<option value="30" data-cost="30">Overnight - EGB 30.00</option>
+												<option value="50" data-cost="50">Priority Mail - EGB 50</option>
+											</select>
+
+
+										</form>
+									</div>
+
+
+									<h5 class="text-uppercase mb-3">Promo code</h5>
+
+									<div class="mb-5">
+										<div class="form-outline">
+											<input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+
+										</div>
+									</div>
+
+									<hr class="my-4">
+
+									<div class="d-flex justify-content-between mb-5">
+										<h5 class="text-uppercase">Total price</h5>
+
+										<h5>
+											EGB <input hidden id="shippingCosts" asp-for="shipping"> <span id="summaryTotal">
+													@Model.calcTotal()
+											</span>
+											</input>
+										</h5>
+									</div>
+									<form method="post" >
+									@if(Model.itemsCount!=0)
+									{
+										
+											<button asp-page-handler="Proceed" type="submit" class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;"
+												data-mdb-ripple-color="dark">
+
+												Proceed To Payement
+
+											</button>
+									
+									}
+									</form>
+									
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+
+		const selectShipping = document.getElementById('shippingOption');
+		const shippingCost = document.getElementById('shippingCosts');
+		const summaryElement = document.getElementById('summaryTotal');
+
+		const cartContainer = document.getElementById('cart-container');
+
+		const cartSummary = document.getElementById('cart-summary');
+
+		cartSummary.style.height = cartContainer.offsetHeight + 'px';
+
+		const shippingCosts = {
+			1: 5,
+			2: 15,
+			3: 30,
+			4: 50
+		};
+
+
+		let currentShippingCost = 5;
+		shippingCost.textContent = `EGB ${currentShippingCost.toFixed(2)}`;
+
+
+		selectShipping.selectedIndex = 0;
+
+
+		selectShipping.addEventListener('change', update);
+		document.querySelectorAll('input[name="quantity"]').forEach(function (input) {
+			input.addEventListener('input', update);
+		});
+
+
+
+		function decreaseQuantity(button,id) {
+			var input = button.parentNode.querySelector('input[type=number]');
+			if (input.value > 1) {
+				input.value = parseInt(input.value) - 1;
+				
+			}
+			Summerry(id, input.value);
+
+		}
+
+		function increaseQuantity(button,id) {
+			var input = button.parentNode.querySelector('input[type=number]');
+			input.value = parseInt(input.value) + 1;
+			Summerry(id, input.value);
+
+		}
+		
+		function DeleteProducts(id) {
+			localStorage.setItem("Deleted", id);
+			var urlParams = new URLSearchParams(window.location.search);
+			urlParams.set("Deleted", id);
+			var newUrl = window.location.pathname + "?" + urlParams.toString();
+			window.location.href = newUrl;
+		}
+		$(document).ready(function () {
+
+			var urlParams = new URLSearchParams(window.location.search);
+			var selectedCategory = urlParams.get("Deleted");
+
+
+
+		});
+		function Summerry(id,quantity) {
+			localStorage.setItem("quantity", quantity);
+			localStorage.setItem("id", id);
+			var urlParams = new URLSearchParams(window.location.search);
+			urlParams.set("quantity", quantity);
+			urlParams.set("id", id);
+			var newUrl = window.location.pathname + "?" + urlParams.toString();
+			window.location.href = newUrl;
+		}
+		$(document).ready(function () {
+
+			var urlParams = new URLSearchParams(window.location.search);
+			var selectedCategory = urlParams.get("quantity");
+			var selectedCategory = urlParams.get("id");
+
+
+
+		});
+		function Shipping(value) {
+			localStorage.setItem("shippin", value);
+			var urlParams = new URLSearchParams(window.location.search);
+			urlParams.set("shippin", value);
+			var newUrl = window.location.pathname + "?" + urlParams.toString();
+			window.location.href = newUrl;
+
+			
+		}
+
+		$(document).ready(function () {
+			var urlParams = new URLSearchParams(window.location.search);
+			var selectedShipping = urlParams.get("shippin");
+		
+		});
+		
+
+	</script>
+
+
 </section>
