@@ -26,7 +26,7 @@ namespace SMARTLY.Pages
             UserName = Convert.ToString(guestID);
             db.AddGuest(guestID);
           
-         db.DeleteoldGuest();
+             db.DeleteoldGuest();
             
             HttpContext.Session.SetString("UserName", UserName);
             HttpContext.Session.SetString("getUserType", "0");

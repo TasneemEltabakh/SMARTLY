@@ -1580,25 +1580,18 @@ namespace SMARTLY.Pages.Models
         }
         public int maxGuestID()
         {
-            string query = "SELECT MAX(id) FROM Guest;";
+            string query = "SELECT ISNULL(MIN(id), MAX(id)+1) FROM Guest WHERE id NOT IN (SELECT ID FROM CartGuest);";
             SqlCommand cmd = new SqlCommand(query, Connection);
 
             try
             {
                 Connection.Open();
                 object result = cmd.ExecuteScalar();
-                if (result == DBNull.Value || result == null)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return Convert.ToInt32(result) + 1;
-                }
+                return Convert.ToInt32(result);
             }
             catch (Exception ex)
             {
-                // handle the exception here
+                
                 return 0;
             }
             finally
