@@ -27,10 +27,10 @@ namespace SMARTLY.Pages
                 BundleId = id;
 
             }
-            public void OnPost(int Product_id)
+            public void OnPost()
             {
-                data.AddProductToBundle(Product_id, BundleId);
-            }
+			
+		    }
         }
     }
 
