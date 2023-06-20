@@ -180,7 +180,7 @@ namespace SMARTLY.Pages.Models
         public void AddNewAgency(User U, Agency A)
         {
 
-            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE); insert into Agency values (@usernameA,@email,@Agencyname,@Location);";
+            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE,Null); insert into Agency values (@usernameA,@email,@Agencyname,@Location);";
             SqlCommand cmd = new SqlCommand(query, Connection);
             cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
             cmd.Parameters.AddWithValue("@PASSWORD", U.password);

@@ -45,19 +45,19 @@ namespace SMARTLY.Pages
        
         public async Task<IActionResult> OnPostAdd()
         {
-           
-            if(string.IsNullOrEmpty(Request.Form["category"]))
+
+            if (string.IsNullOrEmpty(Request.Form["category"]))
             {
-                category = 1;
+                product.category = 1;
             }
             else
             {
                 int category = Convert.ToInt32(Request.Form["category"]);
                 product.category = category;
             }
-         
 
-            
+
+
 
             foreach (var item in Image123)
                 {

@@ -30,7 +30,7 @@ namespace SMARTLY.Pages
             {
                 user.usertype = 2;
                 database.AddNewAgency(user, Agency);
-                return RedirectToPage("/All_Agencies");
+                return RedirectToPage("/All_Agencies", new {UserName= this.UserName});
                
             }
             else
