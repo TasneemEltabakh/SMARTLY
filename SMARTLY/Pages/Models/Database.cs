@@ -112,6 +112,29 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public bool checkForgotten(string email)
+        {
+            string queury = "select count(*) from Client where email = @username;";
+            SqlCommand cmd = new SqlCommand(queury, Connection);
+            cmd.Parameters.AddWithValue("@username", email);
+            try
+            {
+                Connection.Open();
+                int count = (int)cmd.ExecuteScalar();
+                if (count != 0)
+                    return true;
+                else return false;
+
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         public int returnType(string username)
         {
 

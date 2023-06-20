@@ -4,7 +4,7 @@ using SMARTLY.Pages.Models;
 
 namespace SMARTLY.Pages
 {
-    public class DeleteCategoryModel : PageModel
+    public class DeleteCategoryModel : UserPageModel
     {
         private readonly Database database;
 
