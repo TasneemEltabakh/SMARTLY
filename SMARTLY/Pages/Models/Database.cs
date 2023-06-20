@@ -1621,6 +1621,7 @@ namespace SMARTLY.Pages.Models
         }
         public void DeleteoldGuest()
         {
+
             string query = "DELETE FROM CartGuest WHERE ID IN (SELECT id FROM Guest WHERE InsertionTime < DATEADD(MINUTE, -30, GETDATE())); DELETE FROM Guest WHERE InsertionTime < DATEADD(MINUTE, -30, GETDATE());     ";
             SqlCommand cmd = new SqlCommand(query, Connection);
 
@@ -1638,6 +1639,50 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public int GetMaxIdCategory()
+        {
+            string query = "select max(id) from categories";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+
+
+            try
+            {
+                Connection.Open();
+                int c = (int)cmd.ExecuteScalar();
+                return c;
+            }
+            catch (SqlException ex)
+            {
+                return 0;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public void AddCategory(int c,string title)
+        {
+            string query = "INSERT INTO Categories  VALUES (@id, @title);";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@id", c);
+            cmd.Parameters.AddWithValue("@title", title);
+            
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        
     }
 
 }

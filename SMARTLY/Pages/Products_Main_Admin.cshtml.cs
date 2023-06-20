@@ -16,7 +16,10 @@ namespace SMARTLY.Pages
 
 		[BindProperty]
 		public DataTable ProductsTable { get; set; }
-
+        [BindProperty]
+        public string AddedOne { get; set; }
+        [BindProperty]
+        public string search { get; set; }
         [BindProperty]
         public string categorychoosen { get; set; }
 
@@ -28,10 +31,21 @@ namespace SMARTLY.Pages
         public void OnGet()
         {
             string selectedCategory = Request.Query["selectedCategory"];
+            search = Request.Query["search"];
+
             if (!string.IsNullOrEmpty(selectedCategory))
             {
                 OnGetByCategory(selectedCategory);
+                search = "";
             }
+            else if (!string.IsNullOrEmpty(search))
+            {
+                CategoriesTable = Db.ReadCategories();
+                ProductsTable = Db.ReadSearchProject(search);
+
+
+            }
+
             else
             {
                 CategoriesTable = Db.ReadCategories();
@@ -53,6 +67,26 @@ namespace SMARTLY.Pages
                 ProductsTable = Db.ReadProductspecificcategory(categorychoosen);
             }
         }
+        public IActionResult OnPostSearch()
+        {
+            if (string.IsNullOrEmpty(search))
+            {
+                return RedirectToPage("/Products_Main_Admin");
+            }
+            else
+            {
+                CategoriesTable = Db.ReadCategories();
+                ProductsTable = Db.ReadSearchProject(search);
+                return RedirectToPage("/Products_Main_Admin", new { search = this.search });
+            }
+        }
+        public IActionResult OnPostAddCategory()
+        {
+            int c = Db.GetMaxIdCategory() + 1;
+            Db.AddCategory(c,AddedOne);
+            return RedirectToPage("/Products_Main_Admin");
+            
+        }
 
         public string returnCategory(int id)
 		{
@@ -69,6 +103,6 @@ namespace SMARTLY.Pages
 			double Price = price - ((sale/100) * price);
 			return Price;
 		}
-
-	}
+       
+    }
 }

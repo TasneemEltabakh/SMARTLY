@@ -8,8 +8,8 @@
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
         <h1>OUR PRODUCTS</h1>
         <div class="header-search">
-           <form method="post" id="SearchForm">
-                <input class="input-select" id="SearchQuery" name="searchQuery" placeholder="   Search for Products "></input>
+            <form method="post" id="SearchForm">
+                <input class="input-select" asp-for="@Model.search" placeholder="   Search for Products "></input>
                 <button asp-page-handler="search" class="search-btn">Search</button>
             </form>
         </div>
@@ -30,8 +30,14 @@
                         {
                             <li data-filter=".@Model.CategoriesTable.Rows[i]["title"]" onclick="filterProducts('.@Model.CategoriesTable.Rows[i]["title"]')">@Model.CategoriesTable.Rows[i]["title"]</li>
                         }
+                        <form method="post">
+                            <input class="AddPro" asp-for="@Model.AddedOne" placeholder="  Add new Category "></input>
+                            <button asp-page-handler="AddCategory" type="submit" class="btn2">
+                                <i class="fa fa-plus"></i> 
+                            </button>
+                        </form>
                     </ul>
-
+                    
                 </div>
             </div>
         </div>
