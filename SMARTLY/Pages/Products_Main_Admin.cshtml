@@ -28,7 +28,9 @@
                         <li data-filter=".*" class="active" onclick="filterProducts('*')">All</li>
                         @for (int i = 0; i < Model.CategoriesTable.Rows.Count; i++)
                         {
+
                             <li data-filter=".@Model.CategoriesTable.Rows[i]["title"]" onclick="filterProducts('.@Model.CategoriesTable.Rows[i]["title"]')">@Model.CategoriesTable.Rows[i]["title"]</li>
+                           // <button class="remove-category" onclick="removeCategory('@Model.CategoriesTable.Rows[i]["title"]')"><i class="fa fa-times"></i></button>
                         }
                         <form method="post">
                             <input class="AddPro" asp-for="@Model.AddedOne" placeholder="  Add new Category "></input>
@@ -161,4 +163,19 @@
 			$(".product-filters ul li[data-filter='.*']").addClass("active");
 		}
 	});
+    function DeleteCategory(id) {
+        localStorage.setItem("Deleted", id);
+        var urlParams = new URLSearchParams(window.location.search);
+        urlParams.set("Deleted", id);
+        var newUrl = window.location.pathname + "?" + urlParams.toString();
+        window.location.href = newUrl;
+    }
+    $(document).ready(function () {
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var selectedCategory = urlParams.get("Deleted");
+
+
+
+    });
 </script>

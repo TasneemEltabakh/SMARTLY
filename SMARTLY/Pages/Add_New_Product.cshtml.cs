@@ -31,26 +31,25 @@ namespace SMARTLY.Pages
         public List<IFormFile> Image333 { get; set; }
         [BindProperty]
         public byte[] Pimage33 { get; set; }
-
+        [BindProperty]
+        public string ProductName { get; set; }
         public Add_New_ProductModel(Database db) {
             data = db;
         }
         public void OnGet()
         {
+           
+
             dtt = data.ReadCategoryForAddProduct();
         }
-        public IActionResult OnPostUpdateCategory([FromBody] JObject data)
-        {
-            int category = data["category"].Value<int>();
-            HttpContext.Session.SetInt32("category", category);
-            return new JsonResult("Category updated successfully");
-        }
+       
         public async Task<IActionResult> OnPostAdd()
         {
+            int category = Convert.ToInt32(Request.Form["category"]);
 
-            int category = HttpContext.Session.GetInt32("category") ?? 1;
             product.category = category;
 
+            
 
             foreach (var item in Image123)
                 {

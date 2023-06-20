@@ -47,16 +47,16 @@
                                                 <span asp-validation-for="@Model.product.salePercentage"></span>
                                 </div>
 
-                                
-                                <div class="form-group">
-                                    <select id="category" onchange="updateCategory()">
-                                        @for (int i = 0; i < Model.dtt.Rows.Count; i++)
-                                        {
-                                            <option value="@Model.dtt.Rows[i][0]">@Model.dtt.Rows[i][1]</option>
-                                        }
-                                    </select>
-										
-								</div>
+
+                                        <div class="form-group">
+                                            <select id="category" onchange="Category(value)">
+                                                @for (int i = 0; i < Model.dtt.Rows.Count; i++)
+                                                {
+                                                    <option value="@Model.dtt.Rows[i][0]">@Model.dtt.Rows[i][1]</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <input type="hidden" name="category" id="categoryInput" />
                                 <div class="form-group">
                                                 <input asp-for="@Model.product.AdditionalNotes" class="form-control" type="text" placeholder="AdditionalNotes">
                                 </div>
@@ -100,56 +100,21 @@
         </div>
 
     <script>
-        function updateCategory() {
-            var categoryValue = $('#category').val();
-            $.ajax({
-                type: "POST",
-                url: "/Products_Main_Admin?handler=UpdateCategory",
-                data: JSON.stringify({ category: categoryValue }),
-                contentType: "application/json",
-                success: function () {
-                    console.log("Category updated successfully");
-                },
-                error: function () {
-                    console.log("Error updating category");
-                }
-            });
+        function Category(value) {
+            localStorage.setItem("shippin", value);
+            var urlParams = new URLSearchParams(window.location.search);
+            urlParams.set("shippin", value);
+            document.getElementById("categoryInput").value = value;
         }
 
         $(document).ready(function () {
-            $('#category').change(function () {
-                updateCategory();
-            });
+            var urlParams = new URLSearchParams(window.location.search);
+            var selectedShipping = urlParams.get("shippin");
+            if (selectedShipping) {
+                document.getElementById("categoryInput").value = selectedShipping;
+            }
         });
     </script>
-                <!--<script>
-                    var down = document.getElementById("GFG_DOWN");
-
-                    function AddNextImg() {
-       
-                        var button = document.querySelector('button[onclick="AddNextImg()"]');
-                        if (!button) {
-                            console.error('Button element not found');
-                            return;
-                        }
-
-                        console.log('Button clicked');
-
-                        var formGroup = document.createElement('div');
-                        formGroup.setAttribute('class', 'form-group');
-
-                        var nextimg = document.createElement('input');
-                        nextimg.setAttribute('type', 'file');
-                        nextimg.setAttribute('name', 'Image333');
-                        nextimg.setAttribute('id', 'files');
-                        nextimg.setAttribute('class', 'form-control');
-
-                        formGroup.appendChild(nextimg);
-                        var submitButton = document.querySelector('button[type="submit"]');
-                        submitButton.parentNode.insertBefore(formGroup, submitButton);
-
-                        event.preventDefault();
-                    }
-                </script>-->
+             
  </section>
 

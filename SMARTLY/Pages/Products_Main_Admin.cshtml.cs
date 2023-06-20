@@ -84,8 +84,13 @@ namespace SMARTLY.Pages
         {
             int c = Db.GetMaxIdCategory() + 1;
             Db.AddCategory(c,AddedOne);
-            return RedirectToPage("/Products_Main_Admin");
-            
+            return RedirectToPage("/Products_Main_Admin", new
+            {
+                UserName = this.UserName,
+
+            });
+
+
         }
 
         public string returnCategory(int id)
