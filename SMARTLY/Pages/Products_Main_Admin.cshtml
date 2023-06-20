@@ -28,9 +28,10 @@
                         <li data-filter=".*" class="active" onclick="filterProducts('*')">All</li>
                         @for (int i = 0; i < Model.CategoriesTable.Rows.Count; i++)
                         {
-
+                            
                             <li data-filter=".@Model.CategoriesTable.Rows[i]["title"]" onclick="filterProducts('.@Model.CategoriesTable.Rows[i]["title"]')">@Model.CategoriesTable.Rows[i]["title"]</li>
-                           // <button class="remove-category" onclick="removeCategory('@Model.CategoriesTable.Rows[i]["title"]')"><i class="fa fa-times"></i></button>
+                            <a asp-page="/DeleteCategory" asp-route-id="@Model.CategoriesTable.Rows[i][0]"><i class="fa fa-times"></i></a>
+
                         }
                         <form method="post">
                             <input class="AddPro" asp-for="@Model.AddedOne" placeholder="  Add new Category "></input>

@@ -831,6 +831,36 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public void DeleteCategory(string PId)
+        {
+            string q = @"
+        DECLARE @PID INT = (SELECT PId FROM Product WHERE category = @catId);
+
+     DELETE FROM Contain WHERE PId = @PId;DELETE FROM Cart WHERE productid = @PId;DELETE FROM Product_Photoes WHERE product_id = @PId;DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId;
+
+        DELETE FROM Categories WHERE id = @catId;";
+
+            try
+            {
+                Connection.Open();
+
+                using (SqlTransaction transaction = Connection.BeginTransaction())
+                {
+                    SqlCommand cmd = new SqlCommand(q, Connection, transaction);
+                    cmd.Parameters.AddWithValue("@catId", PId);
+                    cmd.ExecuteNonQuery();
+                    transaction.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Handle exception
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         public DataTable LoadProductInfo()
         {
             string query = "select *  from  Product";
@@ -1154,7 +1184,15 @@ namespace SMARTLY.Pages.Models
             cmd.Parameters.AddWithValue("@color", product.color);
             cmd.Parameters.AddWithValue("@salePercentage", product.salePercentage);
             cmd.Parameters.AddWithValue("@category", product.category);
-            cmd.Parameters.AddWithValue("@AdditionalNotes", product.AdditionalNotes);
+            if(string.IsNullOrEmpty(product.AdditionalNotes))
+            {
+                cmd.Parameters.AddWithValue("@AdditionalNotes", " ");
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@AdditionalNotes", product.AdditionalNotes);
+            }
+           
             cmd.Parameters.AddWithValue("@Pimage", product.Pimage);
 
             try
@@ -1641,15 +1679,21 @@ namespace SMARTLY.Pages.Models
         }
         public int GetMaxIdCategory()
         {
-            string query = "select max(id) from categories";
+            string query = "SELECT MAX(id) FROM categories";
             SqlCommand cmd = new SqlCommand(query, Connection);
-
 
             try
             {
                 Connection.Open();
-                int c = (int)cmd.ExecuteScalar();
-                return c;
+                object result = cmd.ExecuteScalar();
+                if (result == null || result == DBNull.Value)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)result;
+                }
             }
             catch (SqlException ex)
             {

@@ -83,13 +83,13 @@ namespace SMARTLY.Pages
         public IActionResult OnPostAddCategory()
         {
             int c = Db.GetMaxIdCategory() + 1;
-            Db.AddCategory(c,AddedOne);
+            if(!string.IsNullOrEmpty(AddedOne))
+             Db.AddCategory(c,AddedOne);
             return RedirectToPage("/Products_Main_Admin", new
             {
                 UserName = this.UserName,
 
             });
-
 
         }
 
