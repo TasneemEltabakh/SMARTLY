@@ -241,7 +241,8 @@ color: #343a40;
 
 .primary-btn1:hover, .primary-btn:focus {
     opacity: 0.9;
-    color: #FFF;
+    background-color: #F28123;
+    color: #fff;
 }
 .btn2 {
     display: inline-block;
