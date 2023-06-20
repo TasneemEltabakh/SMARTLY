@@ -45,9 +45,17 @@ namespace SMARTLY.Pages
        
         public async Task<IActionResult> OnPostAdd()
         {
-            int category = Convert.ToInt32(Request.Form["category"]);
-
-            product.category = category;
+           
+            if(string.IsNullOrEmpty(Request.Form["category"]))
+            {
+                category = 1;
+            }
+            else
+            {
+                int category = Convert.ToInt32(Request.Form["category"]);
+                product.category = category;
+            }
+         
 
             
 
@@ -100,18 +108,24 @@ namespace SMARTLY.Pages
             
 
                 
-                product.PId = data.GetMaxProductId();
-                data.AddNewProduct(product);
-                data.AddImgNewProduct(product.PId, product.Pimage);
+            product.PId = data.GetMaxProductId();
+            data.AddNewProduct(product);
+            data.AddImgNewProduct(product.PId, product.Pimage);
+            if (string.IsNullOrEmpty(Convert.ToString(Pimage11)))
+            {
                 data.AddImgNewProduct(product.PId, Pimage11);
-                data.AddImgNewProduct(product.PId, Pimage22);
-                data.AddImgNewProduct(product.PId, Pimage33);
+            }
+            if (string.IsNullOrEmpty(Convert.ToString(Pimage22)))
+            {
+            data.AddImgNewProduct(product.PId, Pimage22);
+            }
+            if (string.IsNullOrEmpty(Convert.ToString(Pimage33)))
+            {
+            data.AddImgNewProduct(product.PId, Pimage33);
+            }
+
 				return RedirectToPage("/Products_Main_Admin");
-            //}
-            //else
-            //{
-                //return Page();
-            //}
+           
         }
         
     }
