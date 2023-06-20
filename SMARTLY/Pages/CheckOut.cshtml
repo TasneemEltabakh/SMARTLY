@@ -93,31 +93,29 @@
 								
 							</div>
 							</form>
-							@if(Model.type !=3)
-							{
-								<div class="form-group">
-									<div class="input-checkbox">
-
-										<label for="create-account">
-											<a href="/SignUp">
-												<span></span>
-												Don't Have Account?
-											</a>
-										</label>
-										<div class="caption">
-											<input class="input" type="password" name="password" placeholder="Enter Your Password">
-										</div>
-									</div>
-								</div>
-							}
-							
+					
 						</div>
 			
 					
 						<div class="order-notes">
 							<textarea class="form-control" placeholder="Order Notes" asp-for="@Model.Adress.Notes" form="myyform"></textarea>
 						</div>
-					
+						@if (Model.type != 3)
+						{
+						<br/>
+							<div class="form-group">
+								<div class="input-checkbox">
+									<h7 class="instructions">As a guest user, your personal information and shipping address will not be stored for future transactions.</h7>
+									
+										<a href="/SignUp">
+										Would you like to create an account?
+										</a>
+								
+
+								</div>
+							</div>
+						}
+
 					</div>
 
 				

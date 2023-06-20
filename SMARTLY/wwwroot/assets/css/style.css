@@ -3389,7 +3389,10 @@ textarea.input {
         border: none;
         color: #FFF;
     }
-
+.instructions {
+    font-weight: bold;
+    color: red;
+}
 /*----------------------------*\
 	Products slick
 \*----------------------------*/
