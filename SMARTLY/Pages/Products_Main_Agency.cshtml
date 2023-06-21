@@ -50,7 +50,7 @@
 						@for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
 						{
 							<div class="col-md-4 col-xs-6">
-								<div class="product" data-category="@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])">
+							<div class="product" data-category="@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])" style="width: 408px; height: 443px; object-fit: fill;">
 									<div class="product-img">
 										@{
 											byte[] bytes = (byte[])Model.ProductsTable.Rows[i][8];
