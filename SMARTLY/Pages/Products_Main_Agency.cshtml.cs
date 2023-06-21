@@ -20,7 +20,10 @@ namespace SMARTLY.Pages
         [BindProperty]
         public DataTable ProductsTable { get; set; }
 
-        public Products_Main_AgencyModel(Database db)
+
+		[BindProperty]
+		public string search { get; set; }
+		public Products_Main_AgencyModel(Database db)
          {
                 Db = db;
             categorychoosen = "All";

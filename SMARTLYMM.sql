@@ -483,3 +483,6 @@ product_Id varchar(15) foreign key references Product,
 p_Img VARBINARY(Max),
 Img_Num int
 )
+-->to add bundle to cart
+Alter table Product 
+Add  price_in_bundle float null
