@@ -182,6 +182,27 @@ namespace SMARTLY.Pages.Models
             }
 
         }
+        public DataTable loadTableofManagers()
+        {
+            DataTable dt = new DataTable();
+            string queury = "select * from _user where UserType=4";
+            SqlCommand cmd = new SqlCommand(queury, Connection);
+            try
+            {
+                Connection.Open();
+                dt.Load(cmd.ExecuteReader());
+                return dt;
+            }
+            catch
+            {
+                return dt;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
         public DataTable loadTableofOrder()
         {
             DataTable dt = new DataTable();
@@ -215,6 +236,32 @@ namespace SMARTLY.Pages.Models
             cmd.Parameters.AddWithValue("@email", A.email);
             cmd.Parameters.AddWithValue("@Agencyname", A.Name);
             cmd.Parameters.AddWithValue("@Location", A.location);
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        public void AddNewManager(User U)
+        {
+
+            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE,Null);";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
+            cmd.Parameters.AddWithValue("@PASSWORD", U.password);
+            cmd.Parameters.AddWithValue("@TYPE", 4);
+        
 
             try
             {
@@ -301,6 +348,26 @@ namespace SMARTLY.Pages.Models
             }
         }
 
+        public void DeletedrecordManager(string username)
+        {
+            string Query = "delete from _User where username = @username ;";
+            SqlCommand cmd = new SqlCommand(Query, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
         // nada added for all orders 
         public void DeleteOrder(int OrderCode)
         {
@@ -349,6 +416,7 @@ namespace SMARTLY.Pages.Models
             }
 
         }
+        
         public int GetMax(string table_name, string column)
         {
             string q = "select max(@id) from @table ";
@@ -773,6 +841,28 @@ namespace SMARTLY.Pages.Models
             {
                 Connection.Open();
                 SqlCommand cmd = new SqlCommand(Q, Connection);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return dt;
+        }
+        public DataTable ProductsOfBundleCart(int Id)   //***
+        {
+            string Q = "select * from Bundle_Product BP, Product p where BP.product_id=p.PId and BP.Bundle_ID= @id";
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@id", Id);
+            try
+            {
+                Connection.Open();
+                
                 dt.Load(cmd.ExecuteReader());
             }
             catch (SqlException ex)

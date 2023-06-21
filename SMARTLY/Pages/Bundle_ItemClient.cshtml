@@ -68,7 +68,13 @@
 							<ul class="product-btns">
 								@if(Model.ThisState==0)
 								{
-									<a asp-page="/CartClient" asp-page-handler="Add" class="btn2" asp-route-id="@Model.dt.Rows[0][0]" asp-route-type="2"> Add to cart</a>
+								@if(Model.type==3){
+										<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]" asp-route-type="2">Add to cart</a>
+								}
+								else
+								{
+										<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]" asp-route-type="2">Add to cart</a>
+								}
 								}
 								
 							</ul>

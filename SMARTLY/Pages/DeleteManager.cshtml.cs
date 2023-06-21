@@ -5,17 +5,10 @@ using System.Data;
 
 namespace SMARTLY.Pages
 {
-    public class DeleteAgencyModel : UserPageModel
+    public class DeleteManagerModel : UserPageModel
     {
         private readonly Database db;
-
         public DataTable dt { get; set; }
-
-        [BindProperty]
-        public Agency agency { get; set; }
-
-        [BindProperty]
-        public int type { get; set; }
 
         [BindProperty]
         public string Email { get; set; }
@@ -24,22 +17,20 @@ namespace SMARTLY.Pages
 
         public string username { get; set; }
 
-        public DeleteAgencyModel(Database database)
+        public DeleteManagerModel(Database database)
         {
             db = database;
         }
-        public void OnGet(string email)
+        public void OnGet(string username)
         {
-            type = db.returnType(UserName);
-            username = db.returnUsername(email);
+
+            this.username = username;
 
         }
         public IActionResult OnPost()
         {
-            db.Deletedrecord(username);
-           return RedirectToPage("/All_Agencies");
+            db.DeletedrecordManager(this.username);
+            return RedirectToPage("/AllManager");
         }
-
     }
 }
-

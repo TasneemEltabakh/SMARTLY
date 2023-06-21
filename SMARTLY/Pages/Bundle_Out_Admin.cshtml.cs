@@ -9,14 +9,16 @@ namespace SMARTLY.Pages
     {
         public DataTable dt { get; set; }   
         private readonly Database database;
-
-       public Bundle_Out_AdminModel(Database db)
+        [BindProperty]
+        public int type { get; set; }
+        public Bundle_Out_AdminModel(Database db)
         {
             database = db;
         }
         public void OnGet()
         {
             dt = database.LoadBundlesInfo();
+            type = database.returnType(UserName);
         }
     }
 }

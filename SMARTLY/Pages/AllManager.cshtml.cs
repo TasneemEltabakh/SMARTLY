@@ -1,19 +1,16 @@
-using Microsoft.AspNetCore.DataProtection.XmlEncryption;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SMARTLY.Pages.Models;
 using System.Data;
-using System.Reflection.Metadata;
 
 namespace SMARTLY.Pages
 {
-    public class All_AgenciesModel : UserPageModel
+    public class AllManagersModel : UserPageModel
     {
         private readonly Database database;
         public DataTable dt { get; set; }
-        [BindProperty]
-        public int type { get; set; }
-        public All_AgenciesModel(Database database)
+
+        public AllManagersModel(Database database)
         {
             this.database = database;
 
@@ -21,10 +18,8 @@ namespace SMARTLY.Pages
 
         public void OnGet()
         {
-            type = database.returnType(UserName);
-            dt = database.loadTableofAgencies();
+            dt = database.loadTableofManagers();
         }
-
 
     }
 }

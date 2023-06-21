@@ -1,7 +1,10 @@
 ﻿@page
 @model SMARTLY.Pages.Products_Main_AdminModel
 @{
-    Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+    if (Model.type == 1)
+        Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+    if (Model.type == 4)
+        Layout = "/Pages/Shared/_LayoutManager.cshtml";
 }
 
 <section id="hero2" class="d-flex align-items-center">

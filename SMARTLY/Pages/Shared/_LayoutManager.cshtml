@@ -56,68 +56,60 @@
     <link href="~/assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-  
-        <header id="header" class="fixed-top">
-            <div class="container d-flex align-items-center justify-content-lg-between">
+
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center justify-content-lg-between">
 
 
-                <a href="/IndexAdmin" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
+            <a href="/IndexAdmin" class="logo"><img src="assets/img/Smartly (4).png" height="120" width="120" alt="" class="img-fluid"></a>
 
 
-                <nav id="navbar" class="navbar order-last order-lg-0">
+            <nav id="navbar" class="navbar order-last order-lg-0">
 
 
-                    <ul>
-                        <li><a class="nav-link scrollto " href="/IndexAdmin">Home</a></li>
-                        <li><a class="nav-link scrollto" asp-page="/Products_Main_Admin">Products</a></li>
-                        <li class="dropdown">
-                            <a asp-page="/Bundle_Out_Admin"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
-                            <ul>
+                <ul>
+                    <li><a class="nav-link scrollto " href="/IndexAdmin">Home</a></li>
+                    <li><a class="nav-link scrollto" asp-page="/Products_Main_Admin">Products</a></li>
+                    <li class="dropdown">
+                        <a asp-page="/Bundle_Out_Admin"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
                             <li><a asp-page="/Bundle_Item_Admin" asp-route-id="1">Basic</a></li>
                             <li><a asp-page="/Bundle_Item_Admin" asp-route-id="2">Intermediate</a></li>
                             <li><a asp-page="/Bundle_Item_Admin" asp-route-id="3">Premium</a></li>
-                            </ul>
-                        </li>
-                    
-                    <li><a class="nav-link scrollto" asp-page="/All_Agencies">Agencies</a></li>
-                    <li><a class="nav-link scrollto" asp-page="/AllManager"> Managers </a></li>
-                    <li><a class="nav-link scrollto" asp-page="/All_Orders">Orders</a></li>
-                    
-                    @*<li><a class="nav-link scrollto" asp-page="/Bundle_Graph">Statistics</a></li>*@
-                   @* <li class="dropdown">
-                        <a asp-page="/ChartBundleModel"><span>Statistics</span> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a asp-page="/Bundle_Graph" asp-route-id="1">Quantity_P</a></li>
-                            <li><a asp-page="/ChartBundleModel" asp-route-id="2">Best_Orded</a></li>
                         </ul>
-                    </li>*@
+                    </li>
+
+                    <li><a class="nav-link scrollto" asp-page="/All_Agencies">Agencies</a></li>
+                  
+                    <li><a class="nav-link scrollto" asp-page="/All_Orders">Orders</a></li>
+              
                     <li><a class="nav-link scrollto" href="/Contact_Us_Admin">Contacts</a></li>
 
-                    @* <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>*@
-                     <li class="dropdown">
+          
+                    <li class="dropdown">
                         <a href="#"><span>settings</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a href="/Profile">Profile</a></li>
-                            
+                            <li><a href="/ProfileManager">Profile</a></li>
+
                             <li><a href="/LogIn"> Log Out</a></li>
                         </ul>
                     </li>
 
-                    </ul>
+                </ul>
 
-                    <i class="bi bi-list mobile-nav-toggle"></i>
+                <i class="bi bi-list mobile-nav-toggle"></i>
 
-                </nav><!-- .navbar -->
+            </nav><!-- .navbar -->
 
-            </div>
-        </header><!-- End Header -->
-        <!-- ======= Hero Section ======= -->
-        <main>
+        </div>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <main>
         @RenderBody()
-        </main>
-   
+    </main>
+
     <footer id="footer">
- 
+
 
 
 
@@ -162,7 +154,6 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
 
 
 

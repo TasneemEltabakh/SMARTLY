@@ -47,13 +47,7 @@ namespace SMARTLY.Pages
                 else
                 {
                     message = "free";
-                    if ((database.returnType(user.UserName) != 1) && (database.returnType(user.UserName) != 2) && (database.returnType(user.UserName) != 3))
-                    {
-                        message = "hererero";
-                        return Page();
-                    }
-                    else
-                    {
+                    
                         HttpContext.Session.SetString("UserName", user.UserName);
                      
                         message = "free";
@@ -64,9 +58,11 @@ namespace SMARTLY.Pages
                             return RedirectToPage("/IndexAgency");
                         if (Type == 3)
                             return RedirectToPage("/IndexClient");
-                        else
+                        if (Type == 4)
+                              return RedirectToPage("/IndexManager");
+                           else
                             return RedirectToPage("/Index");
-                    }
+                    
 
 
 
