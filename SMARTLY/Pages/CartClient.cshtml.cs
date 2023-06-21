@@ -228,13 +228,13 @@ namespace SMARTLY.Pages
                     {
                         if (string.IsNullOrEmpty(Shipp))
                         {
-                            data.AddProductToCart(UserName,Convert.ToString(products.Rows[i][0]), quantity, shipping);
+                            data.AddProductToCart(UserName, Convert.ToString(products.Rows[i][0]), quantity, shipping);
                         }
                         else
                         {
                             data.AddProductToCart(UserName, Convert.ToString(products.Rows[i][0]), quantity, Shipp);
                         }
-
+                    }
                         itemsCount = data.TotalItem(UserName);
 
                         carttable = data.ReadCart(UserName);
@@ -258,7 +258,7 @@ namespace SMARTLY.Pages
                             }
 
                         }
-                    }
+                    
 
                 }
                 
