@@ -11,7 +11,8 @@ namespace SMARTLY.Pages
         public DataTable dt { get; set; }
 		public DataTable dt22 { get; set; }
 		public int productnum { get; set; }
-
+        [BindProperty]
+        public int type { get; set; }
         public int BundleId { get; set; }
         public DataTable products { get; set; }
         public Bundle_Item_AdminModel(Database db)
@@ -20,6 +21,7 @@ namespace SMARTLY.Pages
         }
         public void OnGet(int id)
         {
+            type = data.returnType(UserName);
             dt=data.ReadBundleRow(id);
             productnum = data.countProductsinBundle(id);
             products = data.ProductsOfThisBundle(id);

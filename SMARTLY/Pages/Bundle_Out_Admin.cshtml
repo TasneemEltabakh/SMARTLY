@@ -1,7 +1,11 @@
 ﻿@page
 @model SMARTLY.Pages.Bundle_Out_AdminModel
 @{
+    if(Model.type==1)
     Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+    if(Model.type==4)
+     Layout = "/Pages/Shared/_LayoutManager.cshtml";
+
 }
 
 

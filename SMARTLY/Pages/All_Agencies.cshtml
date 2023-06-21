@@ -1,7 +1,10 @@
 ﻿@page
 @model SMARTLY.Pages.All_AgenciesModel
 @{
-    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+      if(Model.type==1)
+    Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+    if(Model.type==4)
+     Layout = "/Pages/Shared/_LayoutManager.cshtml";
 }
 
 

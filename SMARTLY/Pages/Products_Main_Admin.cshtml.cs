@@ -12,7 +12,8 @@ namespace SMARTLY.Pages
 
         [BindProperty]
 		public DataTable CategoriesTable { get; set; }
-
+        [BindProperty]
+        public int type { get; set; }
 
 		[BindProperty]
 		public DataTable ProductsTable { get; set; }
@@ -30,6 +31,7 @@ namespace SMARTLY.Pages
         }
         public void OnGet()
         {
+            type = Db.returnType(UserName);
             string selectedCategory = Request.Query["selectedCategory"];
             search = Request.Query["search"];
 

@@ -4,36 +4,30 @@ using SMARTLY.Pages.Models;
 
 namespace SMARTLY.Pages
 {
-    public class Add_AgencyModel : UserPageModel
+    public class Add_ManagerModel : UserPageModel
     {
-      
-        [BindProperty]
-        public Agency Agency { get; set; }
-
         [BindProperty]
         public User user { get; set; }
-        [BindProperty]
-        public int type { get; set; }
 
         private readonly Database database;
-        public Add_AgencyModel(Database database)
+        public Add_ManagerModel(Database database)
         {
             this.database = database;
-            
+
         }
 
         public void OnGet()
         {
-            type = database.returnType(UserName);
+
         }
         public IActionResult OnPost()
         {
             if (ModelState.IsValid)
             {
-                user.usertype = 2;
-                database.AddNewAgency(user, Agency);
-                return RedirectToPage("/All_Agencies", new {UserName= this.UserName});
-               
+                user.usertype = 4;
+                database.AddNewManager(user);
+                return RedirectToPage("/AllManager", new { UserName = this.UserName });
+
             }
             else
             {

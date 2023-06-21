@@ -1,11 +1,14 @@
 ﻿@page
 @model SMARTLY.Pages.Add_AgencyModel
 @{
-    Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+    if (Model.type == 1)
+        Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+    if (Model.type == 4)
+        Layout = "/Pages/Shared/_LayoutManager.cshtml";
 }
 
 
-    <section id="hero2" class="d-flex align-items-center">
+<section id="hero2" class="d-flex align-items-center">
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
            
             <h1>Add new agency</h1>

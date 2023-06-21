@@ -1,0 +1,85 @@
+﻿@page
+@model SMARTLY.Pages.ProfileManagerModel
+@{
+	 Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    header {
+        background-image: url('assets/img/homeView.jpg');
+        "background-color: black;
+    }
+</style>
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+<section style="background-color: black;">
+    <br />
+    <br />
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="/IndexManager">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-lg-5">
+                <div class="card mb-6">
+                    <div class="card-body text-center">
+                        <img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle img-fluid" style="width: 200px;" />
+
+                        <h5 class="my-3">@Model.userData.Rows[0][0]</h5>
+                        <p class="text-muted mb-1">Manager</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card mb-6">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">username</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="text-muted mb-0">@Model.userData.Rows[0][0]</p>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Password</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="text-muted mb-0" type="password">@Model.passwordencryped</p>
+                                </div>
+                                <div class="col-sm-3">
+                                    <a asp-page="/Checkdata" /> Update </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+
+</section>
