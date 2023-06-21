@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data;
 using SMARTLY.Pages.Models;
 using ChartExample.Models.Chart;
+using System.Text;
 
 namespace SMARTLY.Pages
 {
@@ -14,6 +15,12 @@ namespace SMARTLY.Pages
 			db = data;
 		}
 		[BindProperty]
+		public int category { get; set; }
+		[BindProperty]
+		public DataTable dtt { get; set; }
+		[BindProperty]
+		public DataTable tableimg { get; set; }
+		[BindProperty]
 		public DataTable Dt { get; set; }
 
 		[BindProperty]
@@ -21,11 +28,25 @@ namespace SMARTLY.Pages
 
 		[BindProperty]
 		public Product Product { get; set; }
+		[BindProperty]
+		public List<IFormFile> Image123 { get; set; }
 
+		[BindProperty]
+		public List<IFormFile> Image111 { get; set; }
+		[BindProperty]
+		public byte[] Pimage11 { get; set; }
+		[BindProperty]
+		public List<IFormFile> Image222 { get; set; }
+		[BindProperty]
+		public byte[] Pimage22 { get; set; }
+		[BindProperty]
+		public List<IFormFile> Image333 { get; set; }
+		[BindProperty]
+		public byte[] Pimage33 { get; set; }
 		public void OnGet(int id)
 		{
 			Dt = db.ReadProduct(id);
-
+			tableimg = db.ReadProduct_Imgs(id);
 			if (Dt != null && Dt.Rows.Count != 0)
 			{
 				Product = new Product
@@ -38,12 +59,76 @@ namespace SMARTLY.Pages
 					salePercentage = Convert.ToInt64(Dt.Rows[0][5]),
 					category = Convert.ToInt32(Dt.Rows[0][6]),
 					AdditionalNotes = Convert.ToString(Dt.Rows[0][7]),
+					Pimage = (byte[])Dt.Rows[0][8],
 				};
 			}
+
+			dtt = db.ReadCategoryForAddProduct();
 		}
-		public IActionResult OnPost()
+		public async Task<IActionResult> OnPost()
 		{
+			if (string.IsNullOrEmpty(Request.Form["category"]))
+			{
+				Product.category = 1;
+			}
+			else
+			{
+				int category = Convert.ToInt32(Request.Form["category"]);
+				Product.category = category;
+			}
+			foreach (var item in Image123)
+			{
+				if (item.Length > 0)
+				{
+					using (var stream = new MemoryStream())
+					{
+						await item.CopyToAsync(stream);
+						Product.Pimage = stream.ToArray();
+					}
+				}
+			}
+			foreach (var item in Image111)
+			{
+				if (item.Length > 0)
+				{
+					using (var stream = new MemoryStream())
+					{
+						await item.CopyToAsync(stream);
+						Pimage11 = stream.ToArray();
+					}
+				}
+			}
+			foreach (var item in Image222)
+			{
+				if (item.Length > 0)
+				{
+					using (var stream = new MemoryStream())
+					{
+						await item.CopyToAsync(stream);
+						Pimage22 = stream.ToArray();
+					}
+				}
+			}
+			foreach (var item in Image333)
+			{
+				if (item.Length > 0)
+				{
+					using (var stream = new MemoryStream())
+					{
+						await item.CopyToAsync(stream);
+						Pimage33 = stream.ToArray();
+					}
+				}
+			}
 			db.Edit_Product(Product);
+
+			db.AddImgNewProduct(Product.PId, Product.Pimage);
+
+			db.AddImgNewProduct(Product.PId, Pimage11);
+
+			db.AddImgNewProduct(Product.PId, Pimage22);
+
+			db.AddImgNewProduct(Product.PId, Pimage33);
 			return RedirectToPage("/Products_Main_Admin");
 		}
 	}

@@ -27,8 +27,8 @@ namespace SMARTLY.Pages.Models
         public Object table { get; set; }
         public Database()
         {           
-           // Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
-            Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+            Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+            //Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -1403,7 +1403,7 @@ namespace SMARTLY.Pages.Models
 		public void Edit_Product(Product pro)
 		{
 
-			string query = "UPDATE Product SET PName=@PName, price=@price,Quantity=@Quantity,color=@color, salePercentage=@salePercentage,category=@category,AdditionalNotes=@AdditionalNotes WHERE PId=@PId;";
+			string query = "UPDATE Product SET Pimage=@Pimage, PName=@PName, price=@price,Quantity=@Quantity,color=@color, salePercentage=@salePercentage,category=@category,AdditionalNotes=@AdditionalNotes WHERE PId=@PId;";
 			SqlCommand cmd = new SqlCommand(query, Connection);
 			cmd.Parameters.AddWithValue("@PId", pro.PId);
 			cmd.Parameters.AddWithValue("@PName", pro.PName);
@@ -1413,6 +1413,7 @@ namespace SMARTLY.Pages.Models
 			cmd.Parameters.AddWithValue("@salePercentage", pro.salePercentage);
 			cmd.Parameters.AddWithValue("@category", pro.category);
 			cmd.Parameters.AddWithValue("@AdditionalNotes", pro.AdditionalNotes);
+			cmd.Parameters.AddWithValue("@Pimage", pro.Pimage);
 
 			try
 			{
@@ -1817,6 +1818,30 @@ namespace SMARTLY.Pages.Models
 			string Q = "select * from Product where PId=@PId";
 			SqlCommand cmd = new SqlCommand(Q, Connection);
 			cmd.Parameters.AddWithValue("@PId", PId);
+
+			DataTable dt = new DataTable();
+			try
+			{
+				Connection.Open();
+
+				dt.Load(cmd.ExecuteReader());
+				return dt;
+			}
+			catch (SqlException ex)
+			{
+				return dt;
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+		public DataTable ReadProduct_Imgs(int product_Id)
+		{
+
+			string Q = "select * from Product_Photoes where product_Id=@product_Id";
+			SqlCommand cmd = new SqlCommand(Q, Connection);
+			cmd.Parameters.AddWithValue("@product_Id", product_Id);
 
 			DataTable dt = new DataTable();
 			try
