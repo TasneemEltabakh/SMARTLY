@@ -1327,13 +1327,14 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-		public void AddImgNewProduct(int idd,byte[] imgg)
+		public void AddImgNewProduct(int idd,byte[] imgg,int Img_Num)
 		{
 
-			string query = "insert into Product_Photoes (product_Id,p_Img) values(@product_Id,@p_Img);";
+			string query = "insert into Product_Photoes (product_Id,p_Img,Img_Num) values(@product_Id,@p_Img,@Img_Num);";
 			SqlCommand cmd = new SqlCommand(query, Connection);
 			cmd.Parameters.AddWithValue("@product_Id", idd);
 			cmd.Parameters.AddWithValue("@p_Img", imgg);
+			cmd.Parameters.AddWithValue("@Img_Num", Img_Num);
 
 			try
 			{
@@ -1351,7 +1352,32 @@ namespace SMARTLY.Pages.Models
 			}
 
 		}
-        public void AddImgNewUser(byte[] imgg)
+		public void EditImgNewProduct(int idd, byte[] imgg, int Img_Num)
+		{
+
+			string query = "UPDATE Product_Photoes SET p_Img=@p_Img WHERE product_Id=@product_Id and Img_Num=@Img_Num;";
+			SqlCommand cmd = new SqlCommand(query, Connection);
+			cmd.Parameters.AddWithValue("@product_Id", idd);
+			cmd.Parameters.AddWithValue("@p_Img", imgg);
+			cmd.Parameters.AddWithValue("@Img_Num", Img_Num);
+
+			try
+			{
+				Connection.Open();
+				cmd.ExecuteNonQuery();
+
+			}
+			catch
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+
+		}
+		public void AddImgNewUser(byte[] imgg)
         {
 
             string query = "UPDATE _User SET img = @p_Img WHERE UserType=1;";

@@ -472,3 +472,14 @@ WHERE BundleId=2;
 UPDATE Bundle
 SET img = 'assets\img\home.png'
 WHERE BundleId=3;
+
+-->For Update Imgs in product
+Delete from Product_Photoes
+
+DROP TABLE Product_Photoes;
+
+Create table Product_Photoes (
+product_Id varchar(15) foreign key references Product,
+p_Img VARBINARY(Max),
+Img_Num int
+)

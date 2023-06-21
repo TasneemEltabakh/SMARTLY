@@ -110,13 +110,13 @@ namespace SMARTLY.Pages
                 
             product.PId = data.GetMaxProductId();
             data.AddNewProduct(product);
-            data.AddImgNewProduct(product.PId, product.Pimage);
+            data.AddImgNewProduct(product.PId, product.Pimage,1);
             
-                data.AddImgNewProduct(product.PId, Pimage11);
+            data.AddImgNewProduct(product.PId, Pimage11,2);
             
-            data.AddImgNewProduct(product.PId, Pimage22);
+            data.AddImgNewProduct(product.PId, Pimage22,3);
            
-            data.AddImgNewProduct(product.PId, Pimage33);
+            data.AddImgNewProduct(product.PId, Pimage33,4);
           
 
 				return RedirectToPage("/Products_Main_Admin");

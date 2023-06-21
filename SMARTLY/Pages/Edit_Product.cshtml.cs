@@ -122,13 +122,13 @@ namespace SMARTLY.Pages
 			}
 			db.Edit_Product(Product);
 
-			db.AddImgNewProduct(Product.PId, Product.Pimage);
+			db.EditImgNewProduct(Product.PId, Product.Pimage,1);
 
-			db.AddImgNewProduct(Product.PId, Pimage11);
+			db.EditImgNewProduct(Product.PId, Pimage11,2);
 
-			db.AddImgNewProduct(Product.PId, Pimage22);
+			db.EditImgNewProduct(Product.PId, Pimage22,3);
 
-			db.AddImgNewProduct(Product.PId, Pimage33);
+			db.EditImgNewProduct(Product.PId, Pimage33,4);
 			return RedirectToPage("/Products_Main_Admin");
 		}
 	}
