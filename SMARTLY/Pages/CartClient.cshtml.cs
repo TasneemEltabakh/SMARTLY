@@ -22,7 +22,7 @@ namespace SMARTLY.Pages
         [BindProperty]
         public string? DeletedId { get; set; } = null;
 
-
+        public DataTable products { get; set; }
 
         [BindProperty]
         public DataTable carttable { get; set; }
@@ -149,7 +149,7 @@ namespace SMARTLY.Pages
             }
              
         }
-        public void OnGetAdd(string id)
+        public void OnGetAdd(string id,string type)
         {
             string deleted = Request.Query["Deleted"];
             string idd = Request.Query["id"];
@@ -186,39 +186,82 @@ namespace SMARTLY.Pages
             else
             {
                 this.id = id;
-                if (string.IsNullOrEmpty(Shipp))
+                if(Convert.ToInt32(type)==1)
                 {
-                    data.AddProductToCart(UserName, id, quantity, shipping);
-                }
-                else
-                {
-                    data.AddProductToCart(UserName, id, quantity, Shipp);
-                }
-             
-                itemsCount = data.TotalItem(UserName);
-
-                carttable = data.ReadCart(UserName);
-                calcTotal();
-
-                ProductsCart = new List<ProductsCart>();
-                for (int i = 0; i < carttable.Rows.Count; i++)
-                {
-
-                    int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
-                    if (Quantity > 0)
+                    if (string.IsNullOrEmpty(Shipp))
                     {
-                        ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) };
-                        ProductsCart.Add(product);
-
+                        data.AddProductToCart(UserName, id, quantity, shipping);
                     }
                     else
                     {
-                        ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
-                        ProductsCart.Add(product);
+                        data.AddProductToCart(UserName, id, quantity, Shipp);
+                    }
+
+                    itemsCount = data.TotalItem(UserName);
+
+                    carttable = data.ReadCart(UserName);
+                    calcTotal();
+
+                    ProductsCart = new List<ProductsCart>();
+                    for (int i = 0; i < carttable.Rows.Count; i++)
+                    {
+
+                        int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
+                        if (Quantity > 0)
+                        {
+                            ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                            ProductsCart.Add(product);
+
+                        }
+                        else
+                        {
+                            ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+                            ProductsCart.Add(product);
+                        }
+
+                    }
+                }
+                if(Convert.ToInt32(type) == 2)
+                {
+                    products = data.ProductsOfBundleCart(Convert.ToInt32(id));
+                    for (int i = 0; i < products.Rows.Count; i++)
+                    {
+                        if (string.IsNullOrEmpty(Shipp))
+                        {
+                            data.AddProductToCart(UserName,Convert.ToString(products.Rows[i][0]), quantity, shipping);
+                        }
+                        else
+                        {
+                            data.AddProductToCart(UserName, Convert.ToString(products.Rows[i][0]), quantity, Shipp);
+                        }
+
+                        itemsCount = data.TotalItem(UserName);
+
+                        carttable = data.ReadCart(UserName);
+                        calcTotal();
+
+                        ProductsCart = new List<ProductsCart>();
+                        for (int j = 0; j < carttable.Rows.Count; j++)
+                        {
+
+                            int Quantity = Convert.ToInt32(carttable.Rows[j][2]);
+                            if (Quantity > 0)
+                            {
+                                ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[j][1]) };
+                                ProductsCart.Add(product);
+
+                            }
+                            else
+                            {
+                                ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[j][1]) };
+                                ProductsCart.Add(product);
+                            }
+
+                        }
                     }
 
                 }
-
+                
             }
             if (!string.IsNullOrEmpty(idd) && !string.IsNullOrEmpty(summary))
             {

@@ -38,7 +38,13 @@
 
                          
                             <div class="btn-wrap">
-                                    <a class="btn-buy" asp-page="/CartClient" asp-page-handler="Add" asp-route-id="@Model.dt.Rows[0][0]" asp-route-type="2"> Buy Now </a>
+                                   @if(Model.type==3){
+										<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[i][0]" asp-route-type="2">Add to cart</a>
+									}
+									else
+									{
+											<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[i][0]" asp-route-type="2">Add to cart</a>
+									}
                             </div>
                             }
                             else

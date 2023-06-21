@@ -850,6 +850,28 @@ namespace SMARTLY.Pages.Models
             }
             return dt;
         }
+        public DataTable ProductsOfBundleCart(int Id)   //***
+        {
+            string Q = "select * from Bundle_Product BP, Product p where BP.product_id=p.PId and BP.Bundle_ID= @id";
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand(Q, Connection);
+            cmd.Parameters.AddWithValue("@id", Id);
+            try
+            {
+                Connection.Open();
+                
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException ex)
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return dt;
+        }
         public void Insert_New_Bundle(Bundle bundle)
         {
             string Q = "insert Into Bundle(price,level,BundleDescription,_Name,img) values(@bundle.price,@bundle.level,@bundle.BundleDescription,@bundle._Name,@bundle.img);";

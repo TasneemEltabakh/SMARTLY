@@ -115,11 +115,11 @@
 									}
 									<div class="add-to-cart">
 									@if(Model.type==3){
-											<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]" >Add to cart</a>
+											<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
 									}
 									else
 									{
-											<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a>
+											<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
 									}
 										</div>
 
