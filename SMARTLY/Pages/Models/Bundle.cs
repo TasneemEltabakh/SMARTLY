@@ -4,15 +4,13 @@ namespace SMARTLY.Pages.Models
 {
     public class Bundle
     {
-        [Required(ErrorMessage = "this field is required")]
 
-        public int BundleId { get; set; }
-
+        public string BundleId { get; set; }
 
 
 
-        [Required(ErrorMessage = "this field is required")]
-        public float price { get; set; }
+
+        public string price { get; set; }
 
 
 
@@ -23,13 +21,11 @@ namespace SMARTLY.Pages.Models
 
 
 
-        [Required(ErrorMessage = "this field is required")]
         public string Name { get; set; }
 
 
 
 
-        [Required(ErrorMessage = "this field is required")]
         public string img { get; set; }
 
     }

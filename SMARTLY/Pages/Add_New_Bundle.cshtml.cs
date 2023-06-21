@@ -24,7 +24,7 @@ namespace SMARTLY.Pages
         {
             if (ModelState.IsValid)
             {
-                bundle.BundleId = data.GetMaxBundleId();
+                bundle.BundleId = Convert.ToString( data.GetMaxBundleId());
                 data.AddNewBundle(bundle);
                 return RedirectToPage("/Bundle_Out_Admin");
             }

@@ -462,4 +462,13 @@ alter column img VARBINARY(Max)
 -->Tasneem for nada
 Alter table Cart 
 add Shipping varchar(10) null;
-
+-->
+UPDATE Bundle
+SET img = 'assets\img\basics.png'
+WHERE BundleId=1;
+UPDATE Bundle
+SET img = 'assets\img\image_6487327_prev_ui.png'
+WHERE BundleId=2;
+UPDATE Bundle
+SET img = 'assets\img\home.png'
+WHERE BundleId=3;

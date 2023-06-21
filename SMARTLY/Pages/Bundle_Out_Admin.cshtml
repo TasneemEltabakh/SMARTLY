@@ -28,11 +28,11 @@
             {
             <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="150">
                 <div class="box" >
-                    <h3>@Model.dt.Rows[i][4]</h3>
-                       
-                        <img class="circle" src="@Model.dt.Rows[i][5]" alt="Basic Bundle" width="200" Hight=" 200">
-                      
-                         <h4><sup>EGB</sup>@Model.dt.Rows[i][1]</h4>
+                    <h3><a asp-page="/Bundle_Item_Admin" asp-route-id="@Model.dt.Rows[i][0]">@Model.dt.Rows[i][4]</a></h3>
+
+                    <img src="@Model.dt.Rows[i][5]" alt="Basic Bundle" width="200" Hight=" 200">
+
+                    <h4><sup>EGB</sup><a asp-page="/Bundle_Item_Admin" asp-route-id="@Model.dt.Rows[i][0]">@Model.dt.Rows[i][1]</a></h4>
                     <ul>
      
                     </ul>
@@ -48,12 +48,7 @@
     </div>
         
 </section><!-- End Pricing Section -->
-<div class="text-center">
-    <br /><br /><br /><br />
-    <a asp-page="/Add_New_Bundlde" class="Admin_Button">Add New Bundle</a>
 
-    <br /><br /><br /><br />
-</div>
 <br />o
 <br />
 <br />

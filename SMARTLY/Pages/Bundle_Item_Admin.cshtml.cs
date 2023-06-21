@@ -31,5 +31,10 @@ namespace SMARTLY.Pages
         {
             data.AddProductToBundle(Product_id, BundleId);
         }
-    }
+
+		public IActionResult OnPostEdit()
+		{
+            return RedirectToPage("/Edit_Bundle");
+		}
+	}
 }
