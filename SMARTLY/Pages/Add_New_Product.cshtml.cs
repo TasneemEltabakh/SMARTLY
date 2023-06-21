@@ -31,25 +31,32 @@ namespace SMARTLY.Pages
         public List<IFormFile> Image333 { get; set; }
         [BindProperty]
         public byte[] Pimage33 { get; set; }
-
+        [BindProperty]
+        public string ProductName { get; set; }
         public Add_New_ProductModel(Database db) {
             data = db;
         }
         public void OnGet()
         {
+           
+
             dtt = data.ReadCategoryForAddProduct();
         }
-        public IActionResult OnPostUpdateCategory([FromBody] JObject data)
-        {
-            int category = data["category"].Value<int>();
-            HttpContext.Session.SetInt32("category", category);
-            return new JsonResult("Category updated successfully");
-        }
+       
         public async Task<IActionResult> OnPostAdd()
         {
 
-            int category = HttpContext.Session.GetInt32("category") ?? 1;
-            product.category = category;
+            if (string.IsNullOrEmpty(Request.Form["category"]))
+            {
+                product.category = 1;
+            }
+            else
+            {
+                int category = Convert.ToInt32(Request.Form["category"]);
+                product.category = category;
+            }
+
+
 
 
             foreach (var item in Image123)
@@ -101,18 +108,19 @@ namespace SMARTLY.Pages
             
 
                 
-                product.PId = data.GetMaxProductId();
-                data.AddNewProduct(product);
-                data.AddImgNewProduct(product.PId, product.Pimage);
+            product.PId = data.GetMaxProductId();
+            data.AddNewProduct(product);
+            data.AddImgNewProduct(product.PId, product.Pimage);
+            
                 data.AddImgNewProduct(product.PId, Pimage11);
-                data.AddImgNewProduct(product.PId, Pimage22);
-                data.AddImgNewProduct(product.PId, Pimage33);
+            
+            data.AddImgNewProduct(product.PId, Pimage22);
+           
+            data.AddImgNewProduct(product.PId, Pimage33);
+          
+
 				return RedirectToPage("/Products_Main_Admin");
-            //}
-            //else
-            //{
-                //return Page();
-            //}
+           
         }
         
     }

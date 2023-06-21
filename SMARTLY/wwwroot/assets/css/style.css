@@ -241,9 +241,27 @@ color: #343a40;
 
 .primary-btn1:hover, .primary-btn:focus {
     opacity: 0.9;
-    color: #FFF;
+    background-color: #F28123;
+    color: #fff;
+}
+.btn2 {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #FFF;
+    border: 2px solid #FFD700;
+    border-radius: 40px;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    transition: 0.2s all;
 }
 
+    .btn2:hover, .btn2:focus {
+        opacity: 0.9;
+        color: #FFF;
+        background-color: #ffc451;
+    }
 @media (max-width: 992px) {
 .get-started-btn {
 padding: 7px 20px 8px 20px;
@@ -2387,8 +2405,44 @@ margin-bottom: 0px;
 width: 90px;
 }
 
+.AddPro {
+    display: inline-block;
+    padding: 8px 20px;
+    height: 42px;
+    background-color: #FFF;
+    border: 2px solid #FFD700;
+    border-radius: 40px;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    transition: 0.2s all;
+}
+
 .product-details .add-to-cart {
 margin-bottom: 30px;
+}
+
+li {
+    position: relative;
+}
+
+.remove-category {
+    position: absolute;
+    top: -10px;
+    right: -10px; /* Move button to the right by 10 pixels */
+    background-color: #fff;
+    color: #000;
+    font-size: 16px;
+    padding: 5px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #f6d200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .product-details .add-to-cart .add-to-cart-btn {
@@ -3392,6 +3446,12 @@ textarea.input {
 .instructions {
     font-weight: bold;
     color: red;
+}
+.account-icon {
+  width: 20px; /* adjust the width to your desired size */
+  height: 20px; /* adjust the height to your desired size */
+  border-radius: 50%; /* make the image circular */
+  object-fit: cover; /* make the image fill the container */
 }
 /*----------------------------*\
 	Products slick

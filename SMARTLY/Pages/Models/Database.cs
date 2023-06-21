@@ -24,7 +24,7 @@ namespace SMARTLY.Pages.Models
         public Object table { get; set; }
         public Database()
         {
-             Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+             Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
 
         }
         public void SignUpNewMember(User U, Client C)
@@ -112,6 +112,29 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public bool checkForgotten(string email)
+        {
+            string queury = "select count(*) from Client where email = @username;";
+            SqlCommand cmd = new SqlCommand(queury, Connection);
+            cmd.Parameters.AddWithValue("@username", email);
+            try
+            {
+                Connection.Open();
+                int count = (int)cmd.ExecuteScalar();
+                if (count != 0)
+                    return true;
+                else return false;
+
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         public int returnType(string username)
         {
 
@@ -180,7 +203,7 @@ namespace SMARTLY.Pages.Models
         public void AddNewAgency(User U, Agency A)
         {
 
-            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE); insert into Agency values (@usernameA,@email,@Agencyname,@Location);";
+            string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE,Null); insert into Agency values (@usernameA,@email,@Agencyname,@Location);";
             SqlCommand cmd = new SqlCommand(query, Connection);
             cmd.Parameters.AddWithValue("@USERNAME", U.UserName);
             cmd.Parameters.AddWithValue("@PASSWORD", U.password);
@@ -831,6 +854,36 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public void DeleteCategory(string PId)
+        {
+            string q = @"
+        DECLARE @PID INT = (SELECT PId FROM Product WHERE category = @catId);
+
+     DELETE FROM Contain WHERE PId = @PId;DELETE FROM Cart WHERE productid = @PId;DELETE FROM Product_Photoes WHERE product_id = @PId;DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId;
+
+        DELETE FROM Categories WHERE id = @catId;";
+
+            try
+            {
+                Connection.Open();
+
+                using (SqlTransaction transaction = Connection.BeginTransaction())
+                {
+                    SqlCommand cmd = new SqlCommand(q, Connection, transaction);
+                    cmd.Parameters.AddWithValue("@catId", PId);
+                    cmd.ExecuteNonQuery();
+                    transaction.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Handle exception
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         public DataTable LoadProductInfo()
         {
             string query = "select *  from  Product";
@@ -1154,7 +1207,15 @@ namespace SMARTLY.Pages.Models
             cmd.Parameters.AddWithValue("@color", product.color);
             cmd.Parameters.AddWithValue("@salePercentage", product.salePercentage);
             cmd.Parameters.AddWithValue("@category", product.category);
-            cmd.Parameters.AddWithValue("@AdditionalNotes", product.AdditionalNotes);
+            if(string.IsNullOrEmpty(product.AdditionalNotes))
+            {
+                cmd.Parameters.AddWithValue("@AdditionalNotes", " ");
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@AdditionalNotes", product.AdditionalNotes);
+            }
+           
             cmd.Parameters.AddWithValue("@Pimage", product.Pimage);
 
             try
@@ -1670,6 +1731,7 @@ namespace SMARTLY.Pages.Models
         }
         public void DeleteoldGuest()
         {
+
             string query = "DELETE FROM CartGuest WHERE ID IN (SELECT id FROM Guest WHERE InsertionTime < DATEADD(MINUTE, -30, GETDATE())); DELETE FROM Guest WHERE InsertionTime < DATEADD(MINUTE, -30, GETDATE());     ";
             SqlCommand cmd = new SqlCommand(query, Connection);
 
@@ -1687,6 +1749,56 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public int GetMaxIdCategory()
+        {
+            string query = "SELECT MAX(id) FROM categories";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+
+            try
+            {
+                Connection.Open();
+                object result = cmd.ExecuteScalar();
+                if (result == null || result == DBNull.Value)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)result;
+                }
+            }
+            catch (SqlException ex)
+            {
+                return 0;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public void AddCategory(int c,string title)
+        {
+            string query = "INSERT INTO Categories  VALUES (@id, @title);";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+            cmd.Parameters.AddWithValue("@id", c);
+            cmd.Parameters.AddWithValue("@title", title);
+            
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        
     }
 
 }

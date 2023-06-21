@@ -85,12 +85,14 @@ namespace SMARTLY.Pages
         {
             if (type == 3)
             {
+                //handling giving adress to fawry
                 db.UsersAdress(Adress, UserName);
                 return RedirectToPage("/IndexClient");
             }
             else
             {
-                return Page();
+                //handling giving adress to fawry
+                return RedirectToPage("/Index");
             }
               
 
