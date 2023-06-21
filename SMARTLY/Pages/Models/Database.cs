@@ -11,6 +11,9 @@ using System.Reflection;
 using System.Data.Common;
 using System.Reflection.Metadata;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using ChartExample.Models.Chart;
+using System.Drawing;
+using System.Security.Cryptography;
 
 namespace SMARTLY.Pages.Models
 {
@@ -23,9 +26,9 @@ namespace SMARTLY.Pages.Models
 
         public Object table { get; set; }
         public Database()
-        {
-             Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
-
+        {           
+            Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+            //Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
         }
         public void SignUpNewMember(User U, Client C)
         {
@@ -1307,6 +1310,36 @@ namespace SMARTLY.Pages.Models
 			}
 
 		}
+		public void Edit_Product(Product pro)
+		{
+
+			string query = "UPDATE Product SET PName=@PName, price=@price,Quantity=@Quantity,color=@color, salePercentage=@salePercentage,category=@category,AdditionalNotes=@AdditionalNotes WHERE PId=@PId;";
+			SqlCommand cmd = new SqlCommand(query, Connection);
+			cmd.Parameters.AddWithValue("@PId", pro.PId);
+			cmd.Parameters.AddWithValue("@PName", pro.PName);
+			cmd.Parameters.AddWithValue("@price", pro.price);
+			cmd.Parameters.AddWithValue("@Quantity", pro.Quantity);
+			cmd.Parameters.AddWithValue("@color", pro.color);
+			cmd.Parameters.AddWithValue("@salePercentage", pro.salePercentage);
+			cmd.Parameters.AddWithValue("@category", pro.category);
+			cmd.Parameters.AddWithValue("@AdditionalNotes", pro.AdditionalNotes);
+
+			try
+			{
+				Connection.Open();
+				cmd.ExecuteNonQuery();
+
+			}
+			catch
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+
+		}
 		public int GetMaxProductId()
         {
             int max = -1;
@@ -1670,6 +1703,30 @@ namespace SMARTLY.Pages.Models
 			string Q = " select * from Bundle where BundleId=@BundleId";
 			SqlCommand cmd = new SqlCommand(Q, Connection);
 			cmd.Parameters.AddWithValue("@BundleId", BundleId);
+
+			DataTable dt = new DataTable();
+			try
+			{
+				Connection.Open();
+
+				dt.Load(cmd.ExecuteReader());
+				return dt;
+			}
+			catch (SqlException ex)
+			{
+				return dt;
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+		public DataTable ReadProduct(int PId)
+		{
+
+			string Q = "select * from Product where PId=@PId";
+			SqlCommand cmd = new SqlCommand(Q, Connection);
+			cmd.Parameters.AddWithValue("@PId", PId);
 
 			DataTable dt = new DataTable();
 			try

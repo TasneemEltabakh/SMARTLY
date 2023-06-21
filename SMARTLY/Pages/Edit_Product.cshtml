@@ -1,4 +1,87 @@
 ﻿@page
 @model SMARTLY.Pages.Edit_ProductModel
 @{
+	Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
 }
+
+<section id="hero2" class="d-flex align-items-center">
+	<div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+
+		<h1>Edit this Product</h1>
+
+	</div>
+</section>
+
+<div class="container">
+<div class="row">
+	<br />
+	<br />
+	<br />
+
+	<div class="col-md-8">
+		<div class="section-title">
+			<br />
+			<br />
+
+			<h3 class="title" >Product's Information</h3>
+		</div>
+		<form method="post" class="signin-form">
+
+			<div class="form-group">
+				<input class="form-control" type="hidden" class="form-control" placeholder="Product ID" asp-for="@Model.Product.PId">
+
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" class="form-control" placeholder="Product Name" asp-for="@Model.Product.PName">
+
+			</div>
+			<div class="form-group">
+					<input class="form-control" type="text" class="form-control" placeholder="Product Total Price" asp-for="@Model.Product.price">
+
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" class="form-control" placeholder="Product Quantity" asp-for="@Model.Product.Quantity">
+
+			</div>
+			<div class="form-group">
+					<input class="form-control" type="text" class="form-control" placeholder="Product color" asp-for="@Model.Product.color">
+
+			</div>
+			<div class="form-group">
+					<input class="form-control" type="text" class="form-control" placeholder="Product salePercentage" asp-for="@Model.Product.salePercentage">
+
+			</div>
+			<div class="form-group">
+					<input class="form-control" type="text" class="form-control" placeholder="Product category" asp-for="@Model.Product.category">
+
+			</div>
+			
+
+		
+
+	
+
+
+			<div class="order-notes">
+					<textarea class="form-control" class="form-control" placeholder="Product Notes" asp-for="@Model.Product.AdditionalNotes"></textarea>
+			</div>
+
+			<br />
+			<br />
+
+
+				<button asp-page-handler="Edit" type="submit" class="form-control btn primary-btn1">
+
+				Edit
+
+			</button>
+
+
+
+	</form>
+	<br />
+	<br />
+	<br />
+	</div>
+</div>
+</div>
