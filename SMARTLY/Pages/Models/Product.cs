@@ -16,7 +16,9 @@ namespace SMARTLY.Pages.Models
         public float price { get; set; }
 
 
-        public int Quantity { get; set; }   //Okay for null
+
+		public float price_in_bundle { get; set; }  //Okay for null
+		public int Quantity { get; set; }   //Okay for null
         public string color { get; set; }   //Okay for null
         public float salePercentage { get; set; }  //Okay for null
         public int category { get; set; }    //Okay for null

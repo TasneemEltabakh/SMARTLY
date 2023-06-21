@@ -43,8 +43,7 @@
 
 				<div class="col-lg-8">
 					<div class="portfolio-details-slider swiper">
-						@if (Model.ImgsTable.Rows.Count == 1)
-						{
+						@if(Model.ImgsTable.Rows.Count==1){
 							<div class=" align-items-center" style="padding-left: 170px;">
 								@for (int i = 0; i < Model.ImgsTable.Rows.Count; i++)
 								{
@@ -114,13 +113,13 @@
 							{
 								<li><strong>Price</strong>: @Model.dt.Rows[0][9]</li>
 							}
-
+							<li><strong>Price In Bundle</strong>: @Model.dt.Rows[0][11]</li>
 						</ul>
 						<div class="add-to-cart">
 							<ul class="product-btns">
 								<li>
-									<a asp-page="/Edit_Product" asp-route-id="@Model.dt.Rows[0][0]" class="Admin_Button" style=" height:50px;width:100px;text-align:center">Edit</a>
-									<a asp-page="/DeleteProduct" asp-route-id="@Model.dt.Rows[0][0]" class="Admin_Button" style=" height:50px;width:100px;text-align:center">Delete</a>
+									<a asp-page="/Edit_Product" asp-route-id="@Model.dt.Rows[0][0]" class="Admin_Button" style=" height:60px;width:150px;">Edit</a>
+									<a asp-page="/DeleteProduct" asp-route-id="@Model.dt.Rows[0][0]" class="Admin_Button" style=" height:60px;width:150px;">Delete</a>
 								</li>
 							</ul>
 						</div>

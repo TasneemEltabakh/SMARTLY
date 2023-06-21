@@ -33,6 +33,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                                <input asp-for="@Model.product.price_in_bundle" class="form-control" type="text" placeholder="Price In Bundle">
+                                                <span asp-validation-for="@Model.product.price_in_bundle"></span>
+                                </div>
+
+                                <div class="form-group">
                                                 <input asp-for="@Model.product.Quantity" class="form-control" type="text" placeholder="Quantity">
                                                 <span asp-validation-for="@Model.product.Quantity"></span>
                                 </div>

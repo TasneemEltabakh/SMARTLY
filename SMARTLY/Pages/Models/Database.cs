@@ -1291,11 +1291,12 @@ namespace SMARTLY.Pages.Models
         public void AddNewProduct(Product product)
         {
 
-            string query = "insert into Product (PId,PName,price,Quantity,color,salePercentage,category,AdditionalNotes,Pimage) values(@PId,@PName,@price,@Quantity,@color,@salePercentage,@category,@AdditionalNotes,@Pimage);";
+            string query = "insert into Product (PId,PName,price,price_in_bundle,Quantity,color,salePercentage,category,AdditionalNotes,Pimage) values(@PId,@PName,@price,@price_in_bundle,@Quantity,@color,@salePercentage,@category,@AdditionalNotes,@Pimage);\r\n";
             SqlCommand cmd = new SqlCommand(query, Connection);
             cmd.Parameters.AddWithValue("@PId", product.PId);
             cmd.Parameters.AddWithValue("@PName", product.PName);
             cmd.Parameters.AddWithValue("@price", product.price);
+            cmd.Parameters.AddWithValue("@price_in_bundle", product.price_in_bundle);
             cmd.Parameters.AddWithValue("@Quantity", product.Quantity);
             cmd.Parameters.AddWithValue("@color", product.color);
             cmd.Parameters.AddWithValue("@salePercentage", product.salePercentage);

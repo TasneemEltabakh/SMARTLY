@@ -54,6 +54,7 @@ namespace SMARTLY.Pages
 					PId = Convert.ToInt32(Dt.Rows[0][0]),
 					PName = Convert.ToString(Dt.Rows[0][1]),
 					price = Convert.ToInt64(Dt.Rows[0][2]),
+					price_in_bundle = Convert.ToInt64(Dt.Rows[0][11]),
 					Quantity = Convert.ToInt32(Dt.Rows[0][3]),
 					color = Convert.ToString(Dt.Rows[0][4]),
 					salePercentage = Convert.ToInt64(Dt.Rows[0][5]),
