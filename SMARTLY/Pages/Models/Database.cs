@@ -857,7 +857,7 @@ namespace SMARTLY.Pages.Models
             {
                 Connection.Open();
                 SqlCommand cmd = new SqlCommand(Q, Connection);
-                bundle.BundleId = GetMax("Bundle", "BundleId") + 1;
+                bundle.BundleId = Convert.ToString( GetMax("Bundle", "BundleId") + 1);
                 cmd.Parameters.Add("@bundle.price", SqlDbType.Int).Value = bundle.price;
                 cmd.Parameters.Add("@bundle.level", SqlDbType.VarChar).Value = bundle.level;
                 cmd.Parameters.Add("@bundle.BundleDescription", SqlDbType.Int).Value = bundle.Description;
@@ -1349,8 +1349,33 @@ namespace SMARTLY.Pages.Models
             }
 
         }
+		public void Edit_Bundle(string _Name, string BundleDescription, string price,string BundleId)
+		{
 
-        public int GetMaxProductId()
+			string query = "UPDATE Bundle SET price=@price,BundleDescription=@BundleDescription,_Name=@_Name WHERE BundleId=@BundleId;";
+			SqlCommand cmd = new SqlCommand(query, Connection);
+			cmd.Parameters.AddWithValue("@price", price);
+			cmd.Parameters.AddWithValue("@BundleDescription", BundleDescription);
+			cmd.Parameters.AddWithValue("@_Name", _Name);
+			cmd.Parameters.AddWithValue("@BundleId", BundleId);
+
+			try
+			{
+				Connection.Open();
+				cmd.ExecuteNonQuery();
+
+			}
+			catch
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+
+		}
+		public int GetMaxProductId()
         {
             int max = -1;
             string Q = "Select Max(PId) From Product";
@@ -1707,7 +1732,31 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        public int maxGuestID()
+		public DataTable ReadBudle(int BundleId)
+		{
+
+			string Q = " select * from Bundle where BundleId=@BundleId";
+			SqlCommand cmd = new SqlCommand(Q, Connection);
+			cmd.Parameters.AddWithValue("@BundleId", BundleId);
+
+			DataTable dt = new DataTable();
+			try
+			{
+				Connection.Open();
+
+				dt.Load(cmd.ExecuteReader());
+				return dt;
+			}
+			catch (SqlException ex)
+			{
+				return dt;
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+		public int maxGuestID()
         {
             string query = "SELECT ISNULL(MIN(id), MAX(id)+1) FROM Guest WHERE id NOT IN (SELECT ID FROM CartGuest);";
             SqlCommand cmd = new SqlCommand(query, Connection);

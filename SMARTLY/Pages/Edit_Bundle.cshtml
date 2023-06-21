@@ -1,0 +1,69 @@
+﻿@page
+@model SMARTLY.Pages.Edit_BundleModel
+@{
+	Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<section id="hero2" class="d-flex align-items-center">
+	<div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+
+		<h1>Edit this Bundle</h1>
+
+	</div>
+</section>
+
+<div class="container">
+<div class="row">
+	<br />
+	<br />
+	<br />
+
+	<div class="col-md-8">
+		<div class="section-title">
+			<br />
+			<br />
+
+			<h3 class="title" >Bundle's Information</h3>
+		</div>
+		<form method="post" class="signin-form">
+
+			<div class="form-group">
+				<input class="form-control" type="hidden" class="form-control" placeholder="Bundle ID" asp-for="@Model.Bundle.BundleId">
+
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" class="form-control" placeholder="Bundle Name" asp-for="@Model.Bundle.Name">
+
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" class="form-control" placeholder="Bundle Total Price" asp-for="@Model.Bundle.price">
+
+			</div>
+		
+
+	
+
+
+			<div class="order-notes">
+				<textarea class="form-control" class="form-control" placeholder="Bundle Notes" asp-for="@Model.Bundle.Description"></textarea>
+			</div>
+
+			<br />
+			<br />
+
+
+				<button asp-page-handler="Edit" type="submit" class="form-control btn primary-btn1">
+
+				Edit
+
+			</button>
+
+
+
+	</form>
+	<br />
+	<br />
+	<br />
+	</div>
+</div>
+</div>
