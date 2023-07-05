@@ -11,10 +11,7 @@ namespace SMARTLY.Pages
         [HttpDelete("{id}")]
         public IActionResult DeleteItem(int id)
         {
-            // Implement the deletion logic here
-            // Delete the item with the specified id from the cart
-
-            // Return appropriate response
+           
             return Ok();
         }
         public CartController(Database db)
@@ -25,15 +22,13 @@ namespace SMARTLY.Pages
             [HttpPost]
         public IActionResult UpdateQuantity([FromBody] QuantityUpdateRequest request)
         {
-            // Get the ID and quantity from the request
+           
             int id = request.Id;
             int quantity = request.Quantity;
 
-           // db.UpdateCart(id, quantity,user);
-
          
 
-            return Ok(); // Return an HTTP 200 OK response to indicate success
+            return Ok(); 
         }
 
         public class QuantityUpdateRequest

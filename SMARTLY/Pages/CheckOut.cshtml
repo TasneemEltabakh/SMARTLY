@@ -92,6 +92,8 @@
 								<input class="form-control" type="text" placeholder="ZIP Code" asp-for="@Model.Adress.Zipcode">
 								
 							</div>
+
+								
 							</form>
 					
 						</div>
@@ -157,17 +159,12 @@
 						</div>
 						
 						<br>
-						
-							@*<input style="display:block; margin: 0 auto;" type="image" onclick="checkout();" src="https://www.atfawry.com/assets/img/FawryPayLogo.jpg"
-								   alt="pay-using-fawry" id="fawry-payment-btn" />*@
-						
-						<button asp-page-handler="Adress"  type="submit" class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;"
-									data-mdb-ripple-color="dark" form="myyform">
 
-									Proceed To Payement
 
-						</button>
-								
+
+						<div style="text-align: center;">
+							<input type="image" onclick="checkout();" src="https://www.atfawry.com/assets/img/FawryPayLogo.jpg" alt="pay-using-fawry" id="fawry-payment-btn" />
+						</div>
 
 							
 						
@@ -221,8 +218,9 @@
 				area: 'GAMETDEWAL', //Area code at Fawry
 				address: '9th 90 Street, apartment number 8, 4th floor',
 				receiverName: 'Receiver Name'
+			
 			},
-			returnUrl: 'https://developer.fawrystaging.com',
+			returnUrl: '/IndexClient',
 			authCaptureModePayment: false,
 			signature: "2ca4c078ab0d4c50ba90e31b3b0339d4d4ae5b32f97092dd9e9c07888c7eef36"
 		};
