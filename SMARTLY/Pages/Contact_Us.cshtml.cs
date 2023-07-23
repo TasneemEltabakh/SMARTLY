@@ -22,8 +22,7 @@ namespace SMARTLY.Pages
         }
         public void OnPost()
         {
-
-            // insert in table contact 
+ 
             if (ModelState.IsValid)
             {
 

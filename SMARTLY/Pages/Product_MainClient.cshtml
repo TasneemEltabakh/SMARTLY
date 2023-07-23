@@ -13,17 +13,13 @@
 		<div class="header-search">
 			<form method="post" id="SearchForm">
 				<input class="input-select"  asp-for="@Model.search" placeholder="   Search for Products "></input>
-				<button asp-page-handler="search" class="search-btn">Search</button>
+				  <button asp-page-handler="search" class="search-btn"><i class="fa fa-search"></i> </button>
 			</form>
 		</div>
 </section>
 <br />
 
 
-
-
-
-<!-- products Category -->
 <div class="product-section mt-150 mb-150">
 	<div class="container" data-aos="fade-up">
 
@@ -42,24 +38,19 @@
 			</div>
 		</div>
 
-		
 		@if (Model.ThisState == 0)
 		{
-
 		<div class="section">
-			<!-- container -->
+		
 			<div class="container" data-aos="fade-up">
 
-				<!-- store products -->
 				<div class="row">
-					<!-- product -->
-						@if(Model.ProductsTable.Rows.Count==0) 
+					@if(Model.ProductsTable.Rows.Count==0) 
 						{
 						<p>Nothing to show here</p>
 						}
 					@for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
 					{
-					
 
 							<div class="col-md-4 col-xs-6">
 								<div class="product" style="width: 408px; height: 443px; object-fit: fill;">
@@ -132,7 +123,7 @@
 									
 								</div>
 					}
-					<!-- /product -->
+				
 
 
 					<br />
@@ -140,21 +131,19 @@
 
 
 				</div>
-				<!-- /product -->
+				
 
 			</div>
-			<!-- /STORE -->
+		
 		</div>
 		}
 		else
 		{
 		<div class="section">
-			<!-- container -->
+			
 			<div class="container" data-aos="fade-up">
-
-				<!-- store products -->
 				<div class="row">
-					<!-- product -->
+		
 					@for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
 					{
 						<div class="col-md-4 col-xs-6">
@@ -218,19 +207,21 @@
 						</div>
 
 
-						<!-- /product -->
+						
 					}
+
 					<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 				</div>
 			</div>
 		</div>
+
 		}
 
-		<!-- /row -->
+	
 	</div>
-	<!-- /container -->
+
 </div>
-<!-- /SECTION -->
+
 <br />
 <br />
 <br />
@@ -265,7 +256,7 @@
 			$(".product-filters ul li").removeClass("active");
 			$(`.product-filters ul li[data-filter='.${selectedCategory}']`).addClass("active");
 		} else {
-			// if no category is selected, set "All" as the default
+			
 			$(".product-filters ul li").removeClass("active");
 			$(".product-filters ul li[data-filter='.*']").addClass("active");
 		}

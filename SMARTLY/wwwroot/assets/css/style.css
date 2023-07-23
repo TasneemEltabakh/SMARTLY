@@ -1,14 +1,4 @@
-/**
-* Template Name: Gp
-* Updated: Mar 10 2023 with Bootstrap v5.2.3
-* Template URL: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
 body {
 font-family: "Open Sans", sans-serif;
 color: #444444;
@@ -244,6 +234,30 @@ color: #343a40;
     background-color: #F28123;
     color: #fff;
 }
+.sold-out-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('sold-out-background.jpg');
+    background-size: cover;
+    filter: blur(2px);
+}
+
+    .sold-out-badge i {
+        font-size: 2.5rem;
+        margin-right: 5px;
+    }
+
+    .sold-out-badge span {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+    }
 .btn2 {
     display: inline-block;
     padding: 8px 20px;
@@ -628,9 +642,9 @@ color: #fff;
 font-family: "Poppins", sans-serif;
 }
 
-#hero2 h1 span {
-color: #ffc451;
-}
+    #hero2 h1 span {
+        color: #DEB887;
+    }
 
 #hero2 h2 {
 color: rgba(255, 255, 255, 0.9);
@@ -2482,6 +2496,101 @@ padding: 0px 30px 0px 50px;
 opacity: 1;
 visibility: visible;
 }
+.add-to-cart-btn {
+position: relative;
+border: 2px solid transparent;
+height: 40px;
+padding: 0 30px;
+background-color: #ffc451;
+color: #FFF;
+text-transform: uppercase;
+font-weight: 700;
+border-radius: 40px;
+-webkit-transition: 0.2s all;
+transition: 0.2s all;
+}
+
+.product-details .add-to-cart .add-to-cart-btn > i {
+position: absolute;
+left: 0;
+top: 0;
+width: 40px;
+height: 40px;
+line-height: 38px;
+color: #ffc451;
+opacity: 0;
+visibility: hidden;
+}
+
+.product-details .add-to-cart .add-to-cart-btn:hover {
+background-color: #FFF;
+color: #ffc451;
+border-color: #ffc451;
+padding: 0px 30px 0px 50px;
+}
+
+.product-details .add-to-cart .add-to-cart-btn:hover > i {
+opacity: 1;
+visibility: visible;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.add-to-cart-btn {
+    position: relative;
+    border: 2px solid transparent;
+    height: 40px;
+    padding: 0 30px;
+    background-color: #ffc451;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 40px;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+ .add-to-cart-btn > i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    line-height: 38px;
+    color: #ffc451;
+    opacity: 0;
+    visibility: hidden;
+}
+
+ .add-to-cart-btn:hover {
+    background-color: #FFF;
+    color: #ffc451;
+    border-color: #ffc451;
+    padding: 0px 30px 0px 50px;
+}
+
+ .add-to-cart-btn:hover > i {
+        opacity: 1;
+        visibility: visible;
+    }
+
+
+
+
+
+
+
 
 .product-details .add-to-cart .qty-label {
 display: inline-block;
@@ -4133,9 +4242,7 @@ svg {
         bottom: 20px;
     }
 
-/*--------------------------------------------------------------
-# Part In Bundle  Rghda
---------------------------------------------------------------*/
+
 .abt-bg {
     background-image: url(../img/R1.jpg);
     height: 100%;
@@ -4197,9 +4304,6 @@ svg {
     }
 
 
-    /*--------------------------------------------------------------
-# Button Admin  Rghda
---------------------------------------------------------------*/
 .Admin_Button {
     display: inline-block;
     padding: 15px 25px;
