@@ -25,7 +25,7 @@ namespace SMARTLY.Pages
         {
             type = data.returnType(UserName);
             dt = data.ReadProductRow(id);
-            Categorietype = data.ReturnCategoryForProduct(id);
+            Categorietype = data.ReturnCategoryForProduct((int)dt.Rows[0][6]);
             CountFeedBack = data.CountFeedBackProduct(id);
             rating = data.AVGRATING(id);
             RateTable = data.ReturnRatesForProduct(id);

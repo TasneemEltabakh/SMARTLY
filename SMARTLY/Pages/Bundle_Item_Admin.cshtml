@@ -27,7 +27,7 @@
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Bundle Details</h2>
 				<ol>
-					<li><a asp-page="/IndexClient">Home</a></li>
+					<li><a asp-page="/IndexAdmin">Home</a></li>
 					<li>Bundle Details</li>
 				</ol>
 			</div>
@@ -66,12 +66,12 @@
 						</div>
 						<ul>
 							<li><strong>Number of Products</strong>: @Model.productnum</li>
-							<li><strong><a href="Bundle_OutClient" class="boxed-btn mt-4">See Other Bundles</a></strong></li>
+							<li><strong><a href="Bundle_Out_Admin" class="boxed-btn mt-4">See Other Bundles</a></strong></li>
 
 						</ul>
 						<div class="add-to-cart">
 							<ul class="product-btns">
-								<a class="Admin_Button"  asp-route-id="@Model.dt.Rows[0][0]" asp-page="/Edit_Bundle">Edit</a>
+								<a class="form-control btn primary-btn1" style=" width:250px;" asp-route-id="@Model.dt.Rows[0][0]" asp-page="/Edit_Bundle">Edit</a>
 							</ul>
 						</div>
 					</div>

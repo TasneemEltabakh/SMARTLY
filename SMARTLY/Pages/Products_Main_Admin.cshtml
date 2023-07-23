@@ -69,7 +69,7 @@
                                     var base64 = Convert.ToBase64String(bytes);
                                     var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
                                 }
-                                <img src="@imgsrc" style="width: 416px; height: 300px; object-fit: fill;" />
+                                <img src="@imgsrc" style="width: 408px; height: 300px; object-fit: fill;" />
                                     <div class="product-label">
                                         @if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
                                         {
@@ -77,7 +77,7 @@
                                         }
                                     </div>
                                 </div>
-                                <div class="product-body">
+                            <div class="product-body" style="background: #333">
                                     <p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
                                     <h3 class="product-name"><a asp-page="/Product_internal_Admin" asp-route-id="@Model.ProductsTable.Rows[i][0]">@Model.ProductsTable.Rows[i][1]</a></h3>
 
@@ -92,13 +92,7 @@
                                             </h4>
                                         }
 
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
+                        
 
                         <div class="product-btns">
                             <a asp-page="/Products_internal_Admin" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]">
@@ -120,13 +114,13 @@
                  
                         <!-- /product -->
                      }
-                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
          </div>
-         <div class="text-center">
-                    <a asp-page="/Add_New_Product" class="Admin_Button" >Add</a>
+        <div class="text-center">
+                <br /><br /><br /><br /><br /><br />
+                <a asp-page="/Add_New_Product" class="form-control btn primary-btn1" style=" width:500px;">Add</a>
 
                 <br /><br /><br /><br />
-      </div>
+        </div>
     </div>
   </div>
 </div>
