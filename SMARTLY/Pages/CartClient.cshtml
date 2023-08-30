@@ -76,7 +76,7 @@
 												</button>
 											</div>
 											<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-												<h6 class="mb-0">EGB @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity)</h6>
+												<h6 class="mb-0">EGP @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity)</h6>
 												@{
 												Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity);
 												}
@@ -128,10 +128,10 @@
 									<div class="mb-4 pb-2">
 										<form>
 											<select asp-for="@Model.shipping" id="shippingOption" class="input-select1" name="selectedValu" onchange="Shipping(value)">
-												<option  value="5" data-cost="5">Standard-Delivery - EGB 5.00</option>
-												<option value="15" data-cost="15">International - EGB 15.00</option>
-												<option value="30" data-cost="30">Overnight - EGB 30.00</option>
-												<option value="50" data-cost="50">Priority Mail - EGB 50</option>
+												<option  value="5" data-cost="5">Standard-Delivery - EGP 5.00</option>
+												<option value="15" data-cost="15">International - EGP 15.00</option>
+												<option value="30" data-cost="30">Overnight - EGP 30.00</option>
+												<option value="50" data-cost="50">Priority Mail - EGP 50</option>
 											</select>
 
 
@@ -154,7 +154,7 @@
 										<h5 class="text-uppercase">Total price</h5>
 
 										<h5>
-											EGB <input hidden id="shippingCosts" asp-for="shipping"> <span id="summaryTotal">
+											EGP <input hidden id="shippingCosts" asp-for="shipping"> <span id="summaryTotal">
 													@Model.calcTotal()
 											</span>
 											</input>
@@ -204,7 +204,7 @@
 
 
 		let currentShippingCost = 5;
-		shippingCost.textContent = `EGB ${currentShippingCost.toFixed(2)}`;
+		shippingCost.textContent = `EGP ${currentShippingCost.toFixed(2)}`;
 
 
 		selectShipping.selectedIndex = 0;

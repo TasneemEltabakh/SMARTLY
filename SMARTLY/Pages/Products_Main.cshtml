@@ -89,14 +89,14 @@
 												@if (Model.returnSale((double)Model.SearchTable.Rows[i][5]) != 0)
 												{
 													<h4 class="product-price">
-														EGB @Model.price_after_sale((double)Model.SearchTable.Rows[i][2], (double)Model.SearchTable.Rows[i][5])
-														<del class="product-old-price"> EGB @Model.SearchTable.Rows[i][2]  </del>
+														EGP @Model.price_after_sale((double)Model.SearchTable.Rows[i][2], (double)Model.SearchTable.Rows[i][5])
+														<del class="product-old-price"> EGP @Model.SearchTable.Rows[i][2]  </del>
 													</h4>
 												}
 												@if (Model.returnSale((double)Model.SearchTable.Rows[i][5]) == 0)
 												{
 													<h4 class="product-price">
-														EGB @Model.SearchTable.Rows[i][2]
+														EGP @Model.SearchTable.Rows[i][2]
 													</h4>
 												}
 
@@ -187,14 +187,14 @@
 										@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
 										{
 											<h4 class="product-price">
-												EGB @Model.price_after_sale((double)Model.ProductsTable.Rows[i][2], (double)Model.ProductsTable.Rows[i][5])
-												<del class="product-old-price"> EGB @Model.ProductsTable.Rows[i][2]  </del>
+												EGP @Model.price_after_sale((double)Model.ProductsTable.Rows[i][2], (double)Model.ProductsTable.Rows[i][5])
+												<del class="product-old-price"> EGP @Model.ProductsTable.Rows[i][2]  </del>
 											</h4>
 										}
 										@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
 										{
 											<h4 class="product-price">
-												EGB @Model.ProductsTable.Rows[i][2]
+												EGP @Model.ProductsTable.Rows[i][2]
 											</h4>
 										}
 
@@ -274,13 +274,13 @@
 										@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
 										{
 											<h4 class="product-price">
-												EGB @Model.ProductsTable.Rows[i][2]
+												EGP @Model.ProductsTable.Rows[i][2]
 											</h4>
 										}
 										else
 										{
 											<h4 class="product-price">
-												EGB @Model.ProductsTable.Rows[i][9]
+												EGP @Model.ProductsTable.Rows[i][9]
 											</h4>
 										}
 
