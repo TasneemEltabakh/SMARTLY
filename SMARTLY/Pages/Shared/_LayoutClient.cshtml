@@ -11,6 +11,7 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="icon" type="image/png" href="assets/img/Smartly (4) (1)-fotor-bg-remover-2023083017466-fotor-20230830174753-fotor-20230830175452.png">
 
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
@@ -78,13 +79,11 @@
                         </ul>
                     </li>
                     <li><a class="nav-link scrollto" href="/Contact_Us">Contact</a></li>
-                    @if (Model.ThisState == 0)
-                    {
-                        <li>
-                            <a class="shopping-cart" asp-page="/CartClient"><i class="fa fa-shopping-cart"></i></a>
-                        </li>
-                    }
-                  
+
+                    <li>
+                        <a class="shopping-cart" asp-page="/CartClient"><i class="fa fa-shopping-cart"></i></a>
+                    </li>
+                   @* <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>*@
                      <li class="dropdown">
                         <a href="#">
                         <img src="~/assets/img/noImage.png" alt="Account" class="account-icon">
@@ -126,8 +125,8 @@
                             <p>
                                 <a href="#">SMARTLY</a> <br><br>
                                 <strong>Egypt</strong>  <br>
-                                <strong>Phone:</strong><a href="tel:+201589554885">+20 0158 9554 885</a> <br>
-                                <strong>Email:</strong><a href="mailto:Smartly@gmail.com"> Smartly@gmail.com<br></a>
+                                <strong>Phone:</strong><a href="tel:+201096694498">+20 1096694498</a> <br>
+                                <strong>Email:</strong><a href="mailto:info@smartlyegy.com">info@smartlyegy.com<br></a>
                             </p>
 
                         </div>
@@ -149,12 +148,10 @@
                     <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                         <a href="/All_Comments">Follow Us</a> <br /><br />
                         <div class="social-links ">
-                            <!--<h4>Follow Us</h4>-->
 
-                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a> <br /> <br />
+                            <a href="https://www.facebook.com/SmartlyEgy" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="https://instagram.com/smartly.egy?igshid=MzRlODBiNWFlZA==" class="instagram"><i class="bx bxl-instagram"></i></a> <br /> <br />
 
-                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 footer-newsletter">

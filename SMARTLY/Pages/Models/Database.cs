@@ -29,7 +29,8 @@ namespace SMARTLY.Pages.Models
         public Database()
         {
             
-            string connectionString = "Data Source=db970214840.hosting-data.io; Initial Catalog =db970214840; User Id =dbo970214840; Password =smart12345; TrustServerCertificate=true";
+            string connectionString = "Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
+        //    string connectionString = "Data Source=db970214840.hosting-data.io; Initial Catalog =db970214840; User Id =dbo970214840; Password =smart12345; TrustServerCertificate=true";
             Connection = new SqlConnection(connectionString);
 
         }
