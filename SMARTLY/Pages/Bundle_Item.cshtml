@@ -5,308 +5,137 @@
 
 }
 <style>
-    header {
-        background-image: url('assets/img/homeView.jpg');
-    }
+	header {
+		background-image: url('assets/img/homeView.jpg');
+	}
 </style>
-    <br />
-    <br />
-    <br />
-    <br />
-
-
-
-    <!-- ======= Breadcrumbs ======= -->
-    <section id="breadcrumbs" class="breadcrumbs">
-        <div class="container">
-
-            <div class="d-flex justify-content-between align-items-center">
-                <h2>Bundle Details</h2>
-                <ol>
-                    <li><a href="Index">Home</a></li>
-                    <li>Bundle Details</li>
-                </ol>
-            </div>
-
-        </div>
-    </section><!-- End Breadcrumbs -->
-
-    <br />
-    <br />
-
-<!-- advertisement section -->
-<div class="abt-section mb-150">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <div class="abt-bg">
-
-                    <img src="@Model.dt.Rows[0][5]" class="img-fluid" alt="">
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="abt-text">
-                    <p class="top-sub">First Stage</p>
-                    <h2>This is <span class="orange-text">@Model.dt.Rows[0][4]</span></h2>
-                    <p>Total Price: @Model.dt.Rows[0][1]</p>
-                    <p>Number of Products: @Model.productnum </p>
-                    <p>@Model.dt.Rows[0][3]</p>
-
-                    <a href="Bundle_Out" class="boxed-btn mt-4">See Other Bundles</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <br />
 <br />
 <br />
 <br />
+<main id="main">
 
-<!-- ======= Portfolio Section ======= -->
-<section id="portfolio" class="portfolio">
-<div class="container">
+	<!-- ======= Breadcrumbs ======= -->
+	<section id="breadcrumbs" class="breadcrumbs">
+		<div class="container">
 
-                <div class="section-title">
-                  <span>Products</span>
-                  <h2>Products of this Bundle</h2>
-                  <p>Here You Could Find The Products Of This Bundle</p>
-                </div>
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>Bundle Details</h2>
+				<ol>
+					<li><a asp-page="/Index">Home</a></li>
+					<li>Bundle Details</li>
+				</ol>
+			</div>
 
-                <div class="row" data-aos="fade-up">
-                  <div class="col-lg-12 d-flex justify-content-center">
-                    <ul id="portfolio-flters">
-                      <li data-filter="*" class="filter-active">All</li>
-                    </ul>
-                  </div>
-               </div>
+		</div>
+	</section><!-- End Breadcrumbs -->
+	<!-- ======= Portfolio Details Section ======= -->
+	<section id="portfolio-details" class="portfolio-details">
+		<div class="container">
 
-        <br />
-        <br />
-        <br />
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="150">
+			<div class="row gy-4">
 
+				<div class="col-lg-6">
+					<div class="portfolio-details-slider swiper">
+						<div class="swiper-wrapper align-items-center" style="padding-left: 40px;">
+							<div>
+								<!--{
+									byte[] bytes = (byte[])Model.dt.Rows[0][5];
+									var base64 = Convert.ToBase64String(bytes);
+									var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+								}
+								<img src="imgsrc" class="img-fluid" alt="" style="width: 500px; height: 500px; object-fit: fill;" />-->
+								<img src="@Model.dt.Rows[0][5]" alt="" style="width: 400px; height: 400px; object-fit: fill;">
+							</div>
+						</div>
+					</div>
+				</div>
 
+				<div class="col-lg-6 text-center">
+					<div class="portfolio-info">
+						<h3>Bundle Information</h3>
+						<h2 class="product-name" style="color:#FFC733">@Model.dt.Rows[0][4]</h2>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                <img src="assets/img/R1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product Name</h4>
-                    <p>Information about this product</p>
-                    <a href="assets/img/R1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-            </div>
+						<div>
+							<h3 class="product-price">$ @Model.dt.Rows[0][1] </h3>
+						</div>
+						<ul>
+							<li><strong>Number of Products</strong>: @Model.productnum</li>
+							<li><strong><a href="Bundle_Out" class="boxed-btn mt-4">See Other Bundles</a></strong></li>
 
+						</ul>
+						<div class="add-to-cart">
+							<ul class="product-btns">
+								@if (Model.ThisState == 0)
+								{
+									<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]" asp-route-type="2">Add to cart</a>
+								}
 
+							</ul>
+						</div>
+					</div>
+					<div class="portfolio-description">
+						<p>
+							@Model.dt.Rows[0][3]
+						</p>
+					</div>
+				</div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                <img src="assets/img/R2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product Name</h4>
-                    <p>Information about this product</p>
-                    <a href="assets/img/R2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-            </div>
+			</div>
 
+		</div>
+		<div class="col-md-12" style="margin: 0;width: 100%; padding: 0px;">
+			<div id="product-tab" style="padding-top:0px; padding-bottom:0px;">
+				<!-- product tab nav -->
+				<ul class="tab-nav">
+					<li><a data-toggle="tab" href="#tab3">Products @Model.products.Rows.Count</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<section id="portfolio" class="portfolio">
+		<div class="container" style="padding-top:0px; padding-bottom:0px;">
+			<div class="section-title" style="padding-top:0px">
+				<h2>Products of this Bundle</h2>
+			</div>
 
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                <img src="assets/img/R3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product Name</h4>
-                    <p>Information about this product</p>
-                    <a href="assets/img/R3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-            </div>
+			<div class="row" data-aos="fade-up">
+				<div class="col-lg-12 d-flex justify-content-center">
+					<ul id="portfolio-flters">
+						<li data-filter="*" class="filter-active">All</li>
+					</ul>
+				</div>
+			</div>
 
-
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                <img src="assets/img/R4.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product Name</h4>
-                    <p>Information about this product</p>
-                    <a href="assets/img/R4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-            </div>
-
-        </div>
-
-        
-
-</div>
-</section>
-
-
-
-    <br />
-    <br />
-
-<!-- End Portfolio Section -->
-
-
-
-
-
-
-
-
-
-@*<style>
-    header {
-        background-image: url('assets/img/homeView.jpg');
-    }
-</style>
-
-    <br />
-    <br />
-    <br />
-    <br />
-
-    <!-- ======= Breadcrumbs ======= -->
-    <section id="breadcrumbs" class="breadcrumbs">
-        <div class="container">
-
-            <div class="d-flex justify-content-between align-items-center">
-                <h2>Bundle Details</h2>
-                <ol>
-                    <li><a href="Index">Home</a></li>
-                    <li>Bundle Details</li>
-                </ol>
-            </div>
-
-        </div>
-    </section><!-- End Breadcrumbs -->
-
-    <br />
-    <br />
-
-<!-- advertisement section -->
-<div class="abt-section mb-150">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 col-md-6 d-flex align-items-stretch">
-                <div class="abt-bg">
-                    <img src="assets/img/Basissics.jpg" class="img-fluid" alt="">
-                </div>
-            </div>
-           
-            <div class="col-lg-2 col-md-4 d-flex align-items-stretch"></div>
-
-               <div class="col-lg-4 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right">
-                   <p class="top-sub"> Level <strong>1</strong></p>
-                    <h2 >This is <span class="orange-text">Basic</span></h2>
-                <p>
-                    Total Price:
-                </p> <div style="color: #ffc451;">
-                        <h3 class="product-price">$3000.00</h3>
-                       
-                    </div>
-               
-                   
-                    <h5>This Bundle Controls all the lightining of your home</h5>
-                    <div class="product-details" data-aos="fade-up" data-aos-delay="500">
-                        </br>
-                <div class="add-to-cart" href="/Cart">
-                    <ul class="product-btns">
-                       
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                    </ul>
-                </div>
-             </div>
-             </div>
-             </div>
-        </div>
-    </div>
-</div>
-<!-- end advertisement section -->
-<br />
-<br />
-<br />
-<br />
-
-<!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
-      <div class="container">
-
-        <div class="section-title">
-         
-          <h2>Products of this Bundle</h2>
-          <p>Here You Could Find The Products Of This Bundle</p>
-        </div>
-
-        <div class="row" data-aos="fade-up">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-            </ul>
-          </div>
-        </div>
-
-        <br />
-        <br />
-        <br />
-
-
-            <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="150">
+			<br />
+			<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="150">
+				@for (int i = 0; i < Model.products.Rows.Count; i++)
+				{
+					<div class="col-lg-4 col-md-6 portfolio-item filter-app">
+						@{
+							byte[] bytes = (byte[])Model.products.Rows[i][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+						}
+						<img src="@imgsrc" class="img-fluid" alt="" />
+						<div class="portfolio-info">
+							<h4>@Model.products.Rows[i][0]</h4>
+							<a asp-page="/Products_internal" class="quick-view" asp-route-id="@Model.products.Rows[i][2]" class="boxed-btn mt-4">Details</a>
+							<a src="@imgsrc" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="@Model.products.Rows[i][0]"><i class="bx bx-plus"></i></a>
+							<a asp-page="/Products_internal" asp-route-id="@Model.products.Rows[i][2]" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</section>
 
 
 
-                  <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <img src="assets/img/R1.jpg" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-                          <h4>Product Name</h4>
-                          <p>Information about this product</p>
-                          <a href="assets/img/R1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                          <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                  </div>
+	<br />
+	<br />
 
+	<!-- End Portfolio Section -->
 
+</main><!-- End #main -->
 
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <img src="assets/img/R2.jpg" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>Product Name</h4>
-                        <p>Information about this product</p>
-                        <a href="assets/img/R2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                        <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                <img src="assets/img/R3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product Name</h4>
-                    <p>Information about this product</p>
-                    <a href="assets/img/R3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-            </div>
-
-
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                <img src="assets/img/R4.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                    <h4>Product Name</h4>
-                    <p>Information about this product</p>
-                    <a href="assets/img/R4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Product Name"><i class="bx bx-plus"></i></a>
-                    <a href="/Product_internal" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-            </div>
-
-            </div>
-
-      </div>
-    </section>
-
-    <br />
-    <br />
-
-<!-- End Portfolio Section -->*@

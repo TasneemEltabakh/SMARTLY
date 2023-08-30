@@ -12,6 +12,8 @@ namespace SMARTLY.Pages
 
         [BindProperty]
         public User user { get; set; }
+        [BindProperty]
+        public int type { get; set; }
 
         private readonly Database database;
         public Add_AgencyModel(Database database)
@@ -22,7 +24,7 @@ namespace SMARTLY.Pages
 
         public void OnGet()
         {
-           
+            type = database.returnType(UserName);
         }
         public IActionResult OnPost()
         {
@@ -30,7 +32,7 @@ namespace SMARTLY.Pages
             {
                 user.usertype = 2;
                 database.AddNewAgency(user, Agency);
-                return RedirectToPage("/All_Agencies");
+                return RedirectToPage("/All_Agencies", new {UserName= this.UserName});
                
             }
             else

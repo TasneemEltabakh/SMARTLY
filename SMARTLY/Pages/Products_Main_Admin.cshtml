@@ -1,17 +1,20 @@
 ﻿@page
 @model SMARTLY.Pages.Products_Main_AdminModel
 @{
-    Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+    if (Model.type == 1)
+        Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+    if (Model.type == 4)
+        Layout = "/Pages/Shared/_LayoutManager.cshtml";
 }
 
 <section id="hero2" class="d-flex align-items-center">
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
         <h1>OUR PRODUCTS</h1>
         <div class="header-search">
-          @*  <form method="post" id="SearchForm">
-                <input class="input-select" id="SearchQuery" name="searchQuery" placeholder="   Search for Products "></input>
-                <button asp-page-handler="search" class="search-btn">Search</button>
-            </form>*@
+            <form method="post" id="SearchForm">
+                <input class="input-select" asp-for="@Model.search" placeholder="   Search for Products "></input>
+                <button asp-page-handler="search" class="search-btn"><i class="fa fa-search"></i> </button>
+            </form>
         </div>
     </div>
 </section>
@@ -25,30 +28,48 @@
             <div class="col-md-12">
                 <div class="product-filters">
                     <ul>
-                        <li data-filter="*" class="active">All</li>
+                        <li data-filter=".*" class="active" onclick="filterProducts('*')">All</li>
                         @for (int i = 0; i < Model.CategoriesTable.Rows.Count; i++)
                         {
-                            <li data-filter=".berry">@Model.CategoriesTable.Rows[i][1]</li>
+                            
+                            <li data-filter=".@Model.CategoriesTable.Rows[i]["title"]" onclick="filterProducts('.@Model.CategoriesTable.Rows[i]["title"]')">@Model.CategoriesTable.Rows[i]["title"]</li>
+                            <a asp-page="/DeleteCategory" asp-route-id="@Model.CategoriesTable.Rows[i][0]"><i class="fa fa-times"></i></a>
+
                         }
+                        <form method="post">
+                            <input class="AddPro" asp-for="@Model.AddedOne" placeholder="  Add new Category "></input>
+                            <button asp-page-handler="AddCategory" type="submit" class="btn2">
+                                <i class="fa fa-plus"></i> 
+                            </button>
+                        </form>
                     </ul>
+                    
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="section">
+  <div class="section">
             <!-- container -->
-            <div class="container" data-aos="fade-up">
+     <div class="container" data-aos="fade-up">
 
                 <!-- store products -->
                 <div class="row">
-                                        <!-- product -->
+                             	@if(Model.ProductsTable.Rows.Count==0) 
+						{
+						<p>Nothing to show here</p>
+						}           <!-- product -->
                     @for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
                     {
-                        <div class="col-md-4 col-xs-6">
-                            <div class="product">
-                                <div class="product-img">
-                                    <img class="circle" src="@Model.ProductsTable.Rows[i][8]" alt="Basic Bundle" width="200" Hight="200" object-fit="contain">
-
+                    <div class="col-md-4 col-xs-6">
+                        <div class="product" style="width: 408px; height: 443px; object-fit: fill;">
+                            <div class="product-img">
+                                @{
+                                    byte[] bytes = (byte[])Model.ProductsTable.Rows[i][8];
+                                    var base64 = Convert.ToBase64String(bytes);
+                                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                <img src="@imgsrc" style="width: 408px; height: 300px; object-fit: fill;" />
                                     <div class="product-label">
                                         @if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
                                         {
@@ -56,7 +77,7 @@
                                         }
                                     </div>
                                 </div>
-                                <div class="product-body">
+                            <div class="product-body" style="background: #333">
                                     <p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
                                     <h3 class="product-name"><a asp-page="/Product_internal_Admin" asp-route-id="@Model.ProductsTable.Rows[i][0]">@Model.ProductsTable.Rows[i][1]</a></h3>
 
@@ -71,13 +92,7 @@
                                             </h4>
                                         }
 
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
+                        
 
                         <div class="product-btns">
                             <a asp-page="/Products_internal_Admin" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]">
@@ -87,7 +102,7 @@
 
                         </div>
                                 <div class="add-to-cart">
-                                    <a asp-page="/Product_internal_Admin" asp-route-id="@Model.ProductsTable.Rows[i][0]" >Edit</a><br>
+                                    <a asp-page="/Edit_Product" asp-route-id="@Model.ProductsTable.Rows[i][0]" >Edit</a><br>
                             <a asp-page="/DeleteProduct"  asp-route-id="@Model.ProductsTable.Rows[i][0]" >Delete</a>
 
                         </div>
@@ -98,19 +113,67 @@
                  
                  
                         <!-- /product -->
-                        }
-                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                     }
          </div>
-         <div class="text-center">
-                    <a asp-page="/Add_New_Product" class="Admin_Button" >Add</a>
+        <div class="text-center">
+                <br /><br /><br /><br /><br /><br />
+                <a asp-page="/Add_New_Product" class="form-control btn primary-btn1" style=" width:500px;">Add</a>
 
                 <br /><br /><br /><br />
         </div>
     </div>
-
+  </div>
 </div>
 
 
+<script>
+	function filterProducts(category) {
+		
+		category = category.replace(/^\./, '');
 
-                      
+		// add the 'active' class to the clicked filter button
+		$(".product-filters ul li").removeClass("active");
+		$(`.product-filters ul li[data-filter='${category}']`).addClass("active");
 
+		
+		localStorage.setItem("selectedCategory", category);
+
+		
+		var urlParams = new URLSearchParams(window.location.search);
+		urlParams.set("selectedCategory", category);
+		var newUrl = window.location.pathname + "?" + urlParams.toString();
+
+		
+		window.location.href = newUrl;
+	}
+	$(document).ready(function () {
+		// get the selected category from the URL parameter
+		var urlParams = new URLSearchParams(window.location.search);
+		var selectedCategory = urlParams.get("selectedCategory");
+
+		// set the active filter button based on the selected category
+		if (selectedCategory) {
+			$(".product-filters ul li").removeClass("active");
+			$(`.product-filters ul li[data-filter='.${selectedCategory}']`).addClass("active");
+		} else {
+			// if no category is selected, set "All" as the default
+			$(".product-filters ul li").removeClass("active");
+			$(".product-filters ul li[data-filter='.*']").addClass("active");
+		}
+	});
+    function DeleteCategory(id) {
+        localStorage.setItem("Deleted", id);
+        var urlParams = new URLSearchParams(window.location.search);
+        urlParams.set("Deleted", id);
+        var newUrl = window.location.pathname + "?" + urlParams.toString();
+        window.location.href = newUrl;
+    }
+    $(document).ready(function () {
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var selectedCategory = urlParams.get("Deleted");
+
+
+
+    });
+</script>

@@ -11,7 +11,8 @@ namespace SMARTLY.Pages
     {
         private readonly Database database;
         public DataTable dt { get; set; }
-
+        [BindProperty]
+        public int type { get; set; }
         public All_AgenciesModel(Database database)
         {
             this.database = database;
@@ -20,6 +21,7 @@ namespace SMARTLY.Pages
 
         public void OnGet()
         {
+            type = database.returnType(UserName);
             dt = database.loadTableofAgencies();
         }
 

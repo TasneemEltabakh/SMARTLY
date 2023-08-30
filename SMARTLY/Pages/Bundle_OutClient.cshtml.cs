@@ -12,7 +12,8 @@ namespace SMARTLY.Pages
         private readonly Database Db;
 
 
-
+        [BindProperty]
+        public int type { get; set; }
         [BindProperty]
         public DataTable dt { get; set; }
 
@@ -23,6 +24,7 @@ namespace SMARTLY.Pages
         }
         public void OnGet()
         {
+            type = Db.returnType(UserName);
 
             dt = Db.ReadBundle();
         }

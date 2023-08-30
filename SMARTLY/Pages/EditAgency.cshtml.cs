@@ -21,6 +21,9 @@ namespace SMARTLY.Pages
         public string Email { get; set; }
 
         [BindProperty]
+        public int type { get; set; }    
+        [BindProperty]
+
 
         public string username {  get; set; }
        
@@ -30,7 +33,7 @@ namespace SMARTLY.Pages
         }
         public void OnGet(string email)
         {
-          
+          type= db.returnType(UserName);
             username = db.returnUsername(email);
 
             dt =(DataTable) db.return_info(username);

@@ -15,6 +15,9 @@ namespace SMARTLY.Pages
         public Agency agency { get; set; }
 
         [BindProperty]
+        public int type { get; set; }
+
+        [BindProperty]
         public string Email { get; set; }
 
         [BindProperty]
@@ -27,7 +30,7 @@ namespace SMARTLY.Pages
         }
         public void OnGet(string email)
         {
-
+            type = db.returnType(UserName);
             username = db.returnUsername(email);
 
         }

@@ -1,4 +1,331 @@
 ﻿@page
 @model SMARTLY.Pages.Edit_ProductModel
 @{
+	Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
 }
+
+<section id="hero2" class="d-flex align-items-center">
+	<div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+
+		<h1>Edit this Product</h1>
+
+	</div>
+</section>
+
+<div class="container">
+<div class="row">
+	<br />
+	<br />
+	<br />
+
+	<div class="col-md-8">
+		<div class="section-title">
+			<br />
+			<br />
+
+			<h3 class="title" >Product's Information</h3>
+		</div>
+		<form method="post" class="signin-form" enctype="multipart/form-data">
+
+			<div class="form-group">
+				<input class="form-control" type="hidden" class="form-control" placeholder="Product ID" asp-for="@Model.Product.PId">
+
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" class="form-control" placeholder="Product Name" asp-for="@Model.Product.PName">
+
+			</div>
+			<div class="form-group">
+					<input class="form-control" type="text" class="form-control" placeholder="Product Price" asp-for="@Model.Product.price">
+
+			</div>
+				<div class="form-group">
+					<input class="form-control" type="text" class="form-control" placeholder="Price In Bundle" asp-for="@Model.Product.price_in_bundle">
+
+				</div>
+
+			<div class="form-group">
+				<input class="form-control" type="text" class="form-control" placeholder="Product Quantity" asp-for="@Model.Product.Quantity">
+
+			</div>
+			<div class="form-group">
+					<input class="form-control" type="text" class="form-control" placeholder="Product color" asp-for="@Model.Product.color">
+
+			</div>
+			<div class="form-group">
+					<input class="form-control" type="text" class="form-control" placeholder="Product salePercentage" asp-for="@Model.Product.salePercentage">
+
+			</div>
+
+			<div class="form-group">
+				<select id="category" onchange="Category(value)">
+					@for (int i = 0; i < Model.dtt.Rows.Count; i++)
+					{
+							<option value="@Model.dtt.Rows[i][0]" >@Model.dtt.Rows[i][1]</option>
+					}
+				</select>
+			</div>
+			<input type="hidden" name="category" id="categoryInput" />
+
+			
+
+		
+
+	
+
+
+			<div class="order-notes">
+					<textarea class="form-control" class="form-control" placeholder="Product Notes" asp-for="@Model.Product.AdditionalNotes"></textarea>
+			</div>
+
+				@if (Model.tableimg.Rows.Count==1)
+				{
+					<div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+						@if (string.IsNullOrEmpty(Convert.ToString(Model.tableimg.Rows[0][1])))
+						{
+							<img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+						}
+						else
+						{
+							byte[] bytes = (byte[])Model.tableimg.Rows[0][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+							<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+							<!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+						}
+					</div>
+					<div class="form-group">
+						<label>Change This <span style="color:#FFC733">Main</span> Image</label><br>
+						<input asp-for="@Model.Image123" class="form-control" type="file" id="files">
+
+					</div>
+				}
+				else if (Model.tableimg.Rows.Count == 2)
+				{
+					<div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+						@if (string.IsNullOrEmpty(Convert.ToString(Model.tableimg.Rows[0][1])))
+						{
+							<img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+						}
+						else
+						{
+							byte[] bytes = (byte[])Model.tableimg.Rows[0][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+							<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+							<!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+						}
+					</div>
+					<div class="form-group">
+						<label>Change This <span style="color:#FFC733">Main</span> Image</label><br>
+						<input asp-for="@Model.Image123" class="form-control" type="file" id="files">
+
+					</div>
+
+
+					<div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+						@if (string.IsNullOrEmpty(Convert.ToString(Model.tableimg.Rows[1][1])))
+						{
+							<img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+						}
+						else
+						{
+							byte[] bytes = (byte[])Model.tableimg.Rows[1][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+							<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+							<!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+						}
+					</div>
+					<div class="form-group">
+						<label>Change This <span style="color:#FFC733">Image</span></label><br>
+						<input asp-for="@Model.Image111" class="form-control" type="file" id="files">
+
+					</div>
+				}else if (Model.tableimg.Rows.Count == 3)
+				{
+					<div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+						@if (string.IsNullOrEmpty(Convert.ToString(Model.tableimg.Rows[0][1])))
+						{
+							<img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+						}
+						else
+						{
+							byte[] bytes = (byte[])Model.tableimg.Rows[0][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+							<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+							<!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+						}
+					</div>
+					<div class="form-group">
+						<label>Change This <span style="color:#FFC733">Main</span> Image</label><br>
+						<input asp-for="@Model.Image123" class="form-control" type="file" id="files">
+
+					</div>
+
+
+					<div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+						@if (string.IsNullOrEmpty(Convert.ToString(Model.tableimg.Rows[1][1])))
+						{
+							<img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+						}
+						else
+						{
+							byte[] bytes = (byte[])Model.tableimg.Rows[1][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+							<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+							<!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+						}
+					</div>
+					<div class="form-group">
+						<label>Change This <span style="color:#FFC733">Image</span></label><br>
+						<input asp-for="@Model.Image111" class="form-control" type="file" id="files">
+
+					</div>
+
+
+					<div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+						@if (string.IsNullOrEmpty(Convert.ToString(Model.tableimg.Rows[2][1])))
+						{
+							<img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+						}
+						else
+						{
+							byte[] bytes = (byte[])Model.tableimg.Rows[2][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+							<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+							<!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+						}
+					</div>
+					<div class="form-group">
+						<label>Change This <span style="color:#FFC733">Image</span></label><br>
+						<input asp-for="@Model.Image222" class="form-control" type="file" id="files">
+
+					</div>
+				}
+				else if (Model.tableimg.Rows.Count == 4)
+				{
+					<div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+						@if (string.IsNullOrEmpty(Convert.ToString(Model.tableimg.Rows[0][1])))
+						{
+							<img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+						}
+						else
+						{
+							byte[] bytes = (byte[])Model.tableimg.Rows[0][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+							<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+							<!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+						}
+					</div>
+					<div class="form-group">
+						<label>Change This <span style="color:#FFC733">Main</span> Image</label><br>
+						<input asp-for="@Model.Image123" class="form-control" type="file" id="files">
+
+					</div>
+
+
+					<div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+						@if (string.IsNullOrEmpty(Convert.ToString(Model.tableimg.Rows[1][1])))
+						{
+							<img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+						}
+						else
+						{
+							byte[] bytes = (byte[])Model.tableimg.Rows[1][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+							<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+							<!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+						}
+					</div>
+					<div class="form-group">
+						<label>Change This <span style="color:#FFC733">Image</span></label><br>
+						<input asp-for="@Model.Image111" class="form-control" type="file" id="files">
+
+					</div>
+
+
+					<div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+						@if (string.IsNullOrEmpty(Convert.ToString(Model.tableimg.Rows[2][1])))
+						{
+							<img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+						}
+						else
+						{
+							byte[] bytes = (byte[])Model.tableimg.Rows[2][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+							<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+							<!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+						}
+					</div>
+					<div class="form-group">
+						<label>Change This <span style="color:#FFC733">Image</span></label><br>
+						<input asp-for="@Model.Image222" class="form-control" type="file" id="files">
+
+					</div>
+
+
+					<div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+						@if (string.IsNullOrEmpty(Convert.ToString(Model.tableimg.Rows[3][1])))
+						{
+							<img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+						}
+						else
+						{
+							byte[] bytes = (byte[])Model.tableimg.Rows[3][1];
+							var base64 = Convert.ToBase64String(bytes);
+							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+							<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+							<!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+						}
+					</div>
+					<div class="form-group">
+						<label>Change This <span style="color:#FFC733">Image</span></label><br>
+						<input asp-for="@Model.Image333" class="form-control" type="file" id="files">
+
+					</div>
+				}
+				
+
+			<br />
+			<br />
+			<br />
+
+
+				<button asp-page-handler="Edit" type="submit" class="form-control btn primary-btn1">
+
+				Edit
+
+			</button>
+
+
+
+	</form>
+	<br />
+	<br />
+	<br />
+	</div>
+</div>
+</div>
+<script>
+	function Category(value) {
+		localStorage.setItem("shippin", value);
+		var urlParams = new URLSearchParams(window.location.search);
+		urlParams.set("shippin", value);
+		document.getElementById("categoryInput").value = value;
+	}
+
+	$(document).ready(function () {
+		var urlParams = new URLSearchParams(window.location.search);
+		var selectedShipping = urlParams.get("shippin");
+		if (selectedShipping) {
+			document.getElementById("categoryInput").value = selectedShipping;
+		}
+	});
+</script>

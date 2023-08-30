@@ -11,6 +11,7 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="icon" type="image/png" href="assets/img/Smartly (4) (1)-fotor-bg-remover-2023083017466-fotor-20230830174753-fotor-20230830175452.png">
 
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
@@ -40,7 +41,10 @@
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="~/assests/css/style.css" />
     <link type="text/css" rel="stylesheet" href="~/assets/scss/main.scss" />
-
+    <link rel="stylesheet" href="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/css/fawrypay-payments.css">
+    <!-- Import FawryPay Staging JavaScript Library-->
+    <script type="text/javascript" src="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/js/fawrypay-payments.js"></script>
+    <!-- Bootstrap -->
     <!-- jQuery Plugins -->
     <script src="~/assets/js/bootstrap.min.js"></script>
     <script src="~/assets/js/bootstrap.min.js"></script>
@@ -64,7 +68,7 @@
 
 
                 <ul>
-                    <li><a class="nav-link scrollto active" href="/IndexClient">Home</a></li>
+                    <li><a class="nav-link scrollto" href="/IndexClient">Home</a></li>
                     <li><a class="nav-link scrollto" asp-page="/Product_MainClient">Product</a></li>
                     <li class="dropdown">
                         <a asp-page="/Bundle_OutClient"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
@@ -81,12 +85,15 @@
                     </li>
                    @* <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>*@
                      <li class="dropdown">
-                       <a href="#"><span>settings</span> <i class="bi bi-chevron-down"></i></a>
+                        <a href="#">
+                        <img src="~/assets/img/noImage.png" alt="Account" class="account-icon">
+                      
+                        <i class="bi bi-chevron-down"></i>
+                        </a>
                         <ul>
-                            <li><a href="/ProfileClient">Profile</a></li>
-                          @*  <li><a href="/My_Orders">My orders</a></li>
-                            <li><a href="/WishListClient">Wish List</a></li>*@
-                            <li><a href="/LogIn">Log Out</a></li>
+                        <li><a href="/ProfileClient">Profile</a></li>
+                     
+                        <li><a href="/LogIn">Log Out</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -118,8 +125,8 @@
                             <p>
                                 <a href="#">SMARTLY</a> <br><br>
                                 <strong>Egypt</strong>  <br>
-                                <strong>Phone:</strong> +20 0158 9554 885 <br>
-                                <strong>Email:</strong><a href="mailto:Smartly@gmail.com"> Smartly@gmail.com<br></a>
+                                <strong>Phone:</strong><a href="tel:+201096694498">+20 1096694498</a> <br>
+                                <strong>Email:</strong><a href="mailto:info@smartlyegy.com">info@smartlyegy.com<br></a>
                             </p>
 
                         </div>
@@ -141,12 +148,10 @@
                     <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                         <a href="/All_Comments">Follow Us</a> <br /><br />
                         <div class="social-links ">
-                            <!--<h4>Follow Us</h4>-->
 
-                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a> <br /> <br />
+                            <a href="https://www.facebook.com/SmartlyEgy" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="https://instagram.com/smartly.egy?igshid=MzRlODBiNWFlZA==" class="instagram"><i class="bx bxl-instagram"></i></a> <br /> <br />
 
-                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 footer-newsletter">
@@ -179,6 +184,23 @@
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
 
+    <script>
+  function setActiveLink(link) {
+   
+    $("#navbar a").removeClass("active");
+
+  
+    $(link).addClass("active");
+  }
+
+  $(document).ready(function() {
+  
+    const currentPageLink = $(`#navbar a[href="${window.location.pathname}"]`);
+
+ 
+    setActiveLink(currentPageLink);
+  });
+</script>
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 

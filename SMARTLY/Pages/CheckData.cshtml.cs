@@ -37,7 +37,7 @@ namespace SMARTLY.Pages
                 if (!db.CheckPassword(password,UserName))
                 {
                     message = "Wrong password";
-                     return RedirectToPage("/changepassword", new { UserName = this.UserName });
+                    return RedirectToPage("/CheckData",new  { UserName= this.UserName, message= this.message});
                 }
                 else
                 {
@@ -46,7 +46,7 @@ namespace SMARTLY.Pages
                   return RedirectToPage("/changepassword");
 
 
-                 }
+            }
                   
 
 

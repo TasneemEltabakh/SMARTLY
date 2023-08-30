@@ -29,215 +29,336 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<div >
+				<div class="product-filters">
 					<ul>
-						<li data-filter="*" class="active">All</li>
-						@for(int i = 0; i< Model.CategoriesTable.Rows.Count; i++)
+						<li data-filter=".*" class="active" onclick="filterProducts('*')">All</li>
+						@for (int i = 0; i < Model.CategoriesTable.Rows.Count; i++)
 						{
-							<li data-filter=".berry">@Model.CategoriesTable.Rows[i][1]</li>
+							<li data-filter=".@Model.CategoriesTable.Rows[i]["title"]" onclick="filterProducts('.@Model.CategoriesTable.Rows[i]["title"]')">@Model.CategoriesTable.Rows[i]["title"]</li>
 						}
 					</ul>
+			
 				</div>
 			</div>
 		</div>
 
 
 
-
-		@if (Model.issearched)
+		@if (Model.ThisState == 0)
 		{
-			if (Model.msg == "free")
+			@if (Model.issearched)
 			{
-				<div class="section">
-					<!-- container -->
-					<div class="container" data-aos="fade-up">
+				if (Model.msg == "free")
+				{
+					<div class="section">
+						<!-- container -->
+						<div class="container" data-aos="fade-up">
 
-						<!-- store products -->
-						<div class="row">
-							<!-- product -->
-							@for (int i = 0; i < Model.SearchTable.Rows.Count; i++)
-							{
-								<div class="col-md-4 col-xs-6">
-									<div class="product">
-										<div class="product-img">
-											<img class="circle" src="@Model.SearchTable.Rows[i][8]" alt="Basic Bundle" width="200" Hight=" 200">
+							<!-- store products -->
+							<div class="row">
+								<!-- product -->
+						@if(Model.ProductsTable.Rows.Count==0) 
+						{
+						<p>Nothing to show here</p>
+						}
+								@for (int i = 0; i < Model.SearchTable.Rows.Count; i++)
+								{
+									<div class="col-md-4 col-xs-6">
+										<div class="product">
+											<div class="product-img">
+												@{
+													byte[] bytes = (byte[])Model.ProductsTable.Rows[i][8];
+													var base64 = Convert.ToBase64String(bytes);
+													var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+												}
+												<img src="@imgsrc" style="width: 416px; height: 300px; object-fit: fill;" />
+												<div class="product-label">
 
-											<div class="product-label">
+													@if (Model.returnSale((double)Model.SearchTable.Rows[i][5]) != 0)
+													{
+														<span class="sale">@Model.SearchTable.Rows[i][5] %</span>
+													}
+
+												</div>
+											</div>
+											<div class="product-body">
+												<p class="product-category">@Model.returnCategory((int)Model.SearchTable.Rows[i][6])</p>
+												<h3 class="product-name"><a asp-page="/Product_internal" asp-route-id="@Model.SearchTable.Rows[i][0]">@Model.SearchTable.Rows[i][1]</a></h3>
+
 
 												@if (Model.returnSale((double)Model.SearchTable.Rows[i][5]) != 0)
 												{
-													<span class="sale">@Model.SearchTable.Rows[i][5] %</span>
+													<h4 class="product-price">
+														EGB @Model.price_after_sale((double)Model.SearchTable.Rows[i][2], (double)Model.SearchTable.Rows[i][5])
+														<del class="product-old-price"> EGB @Model.SearchTable.Rows[i][2]  </del>
+													</h4>
+												}
+												@if (Model.returnSale((double)Model.SearchTable.Rows[i][5]) == 0)
+												{
+													<h4 class="product-price">
+														EGB @Model.SearchTable.Rows[i][2]
+													</h4>
 												}
 
-											</div>
-										</div>
-										<div class="product-body">
-											<p class="product-category">@Model.returnCategory((int)Model.SearchTable.Rows[i][6])</p>
-											<h3 class="product-name"><a asp-page="/Product_internal" asp-route-id="@Model.SearchTable.Rows[i][0]">@Model.SearchTable.Rows[i][1]</a></h3>
+
+												<div class="product-rating">
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+												</div>
+
+												<div class="product-btns">
 
 
-											@if (Model.returnSale((double)Model.SearchTable.Rows[i][5]) != 0)
-											{
-												<h4 class="product-price">
-													EGB @Model.price_after_sale((double)Model.SearchTable.Rows[i][2], (double)Model.SearchTable.Rows[i][5])
-													<del class="product-old-price"> EGB @Model.SearchTable.Rows[i][2]  </del>
-												</h4>
-											}
-											@if (Model.returnSale((double)Model.SearchTable.Rows[i][5]) == 0)
-											{
-												<h4 class="product-price">
-													EGB @Model.SearchTable.Rows[i][2]
-												</h4>
-											}
+													<a asp-page="/Products_internal" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-eye"></i><span class="tooltipp"></span></a>
 
+												</div>
 
-											<div class="product-rating">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-											</div>
-
-											<div class="product-btns">
-
-
-												<a asp-page="/Products_internal" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-eye"></i><span class="tooltipp"></span></a>
 
 											</div>
 
+											<div class="add-to-cart">
+												<a asp-page="/Cart" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a>
+
+											</div>
 
 										</div>
-
-										<div class="add-to-cart">
-											<a asp-page="/Cart" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a>
-
-										</div>
+										<br />
+										<br />
+										<br />
 
 									</div>
-									<br />
-									<br />
-									<br />
+								}
+								<!-- /product -->
 
-								</div>
-							}
+
+								<br />
+								<br />
+
+
+							</div>
 							<!-- /product -->
 
-
-							<br />
-							<br />
-
-
 						</div>
-						<!-- /product -->
-
+						<!-- /STORE -->
 					</div>
-					<!-- /STORE -->
-				</div>
-		}
-			else
-			{
-				<h2>@Model.msg</h2>
+				}
+				else
+				{
+					<h2>@Model.msg</h2>
+				}
+
 			}
-			
-		}
 
 
 
-		@*section products*@
+			@*section products*@
 
-		<div class="section">
-			<!-- container -->
-			<div class="container" data-aos="fade-up">
-		
+			<div class="section">
+				<!-- container -->
+				<div class="container" data-aos="fade-up">
+
 					<!-- store products -->
 					<div class="row">
 						<!-- product -->
-						@for(int i = 0; i< Model.ProductsTable.Rows.Count; i++)
+						@for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
 						{
-						<div class="col-md-4 col-xs-6">
-							<div class="product">
-								<div class="product-img">
-									<img class="circle" src="@Model.ProductsTable.Rows[i][8]"  alt="Basic Bundle" width="200" Hight=" 200">
-									
-									<div class="product-label">
+							<div class="col-md-4 col-xs-6">
+								<div class="product">
+									<div class="product-img">
+										<img class="circle" src="@Model.ProductsTable.Rows[i][8]"  alt="Basic Bundle" width="200" Hight=" 200">
 
-										@if(Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0 )
-										{
-								          <span class="sale">@Model.ProductsTable.Rows[i][5] %</span>
-										}
-									
+										<div class="product-label">
+
+											@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
+											{
+												<span class="sale">@Model.ProductsTable.Rows[i][5] %</span>
+											}
+
+										</div>
 									</div>
-								</div>
-								<div class="product-body">
-									<p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
-									<h3 class="product-name"><a asp-page="/Product_internal" asp-route-id="@Model.ProductsTable.Rows[i][0]">@Model.ProductsTable.Rows[i][1]</a></h3>
-									
+									<div class="product-body">
+										<p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
+										<h3 class="product-name"><a asp-page="/Product_internal" asp-route-id="@Model.ProductsTable.Rows[i][0]">@Model.ProductsTable.Rows[i][1]</a></h3>
+
 
 										@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
 										{
-										    <h4 class="product-price">
-											EGB @Model.price_after_sale((double)Model.ProductsTable.Rows[i][2], (double)Model.ProductsTable.Rows[i][5])
-											<del class="product-old-price"> EGB @Model.ProductsTable.Rows[i][2]  </del>
-										   </h4>
+											<h4 class="product-price">
+												EGB @Model.price_after_sale((double)Model.ProductsTable.Rows[i][2], (double)Model.ProductsTable.Rows[i][5])
+												<del class="product-old-price"> EGB @Model.ProductsTable.Rows[i][2]  </del>
+											</h4>
 										}
-									    @if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
+										@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
 										{
-										<h4 class="product-price">
-											EGB @Model.ProductsTable.Rows[i][2]
-										</h4>
+											<h4 class="product-price">
+												EGB @Model.ProductsTable.Rows[i][2]
+											</h4>
 										}
-										
-										
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									
-								  	<div class="product-btns">
-									
-											
+
+
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div>
+
+										<div class="product-btns">
+
+
 											<a asp-page="/Products_internal" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-eye"></i><span class="tooltipp"></span></a>
-											
+
+										</div>
+
+
 									</div>
-								
-							
-								</div>
-								
-								<div class="add-to-cart">
+
+									<div class="add-to-cart">
 										<a asp-page="/Cart" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a> 
-									 
+
+									</div>
+
 								</div>
-							
+								<br />
+								<br />
+								<br />
+
 							</div>
-							<br />
-							<br />
-							<br />
-							
-						</div>
 						}
-						<!-- /product -->
 
-						
-							<br />
-					        <br />
-					
+						<br />
+						<br />
+
 
 					</div>
-						<!-- /product -->
 					
-					</div>
-					<!-- /STORE -->
+
 				</div>
-				<!-- /row -->
+				
 			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
-	<br />
-	<br />
-	<br />
-	<br />
+		}
+		else
+		{
+			<div class="section">
+				<!-- container -->
+				<div class="container" data-aos="fade-up">
+
+					<!-- store products -->
+					<div class="row">
+						<!-- product -->
+						@for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
+						{
+							<div class="col-md-4 col-xs-6">
+								<div class="product" style="width: 408px; height: 443px; object-fit: fill;">
+									<div class="product-img">
+										<img class="circle" src="@Model.ProductsTable.Rows[i][8]" alt="Basic Bundle" width="200" Hight="200" object-fit="contain">
+
+										<div class="product-label">
+											@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
+											{
+												<span class="sale">@Model.ProductsTable.Rows[i][5] %</span>
+											}
+										</div>
+									</div>
+									<div class="product-body">
+										<p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
+										<h3 class="product-name">
+											<a asp-page="/Product_internal" asp-route-id="@Model.ProductsTable.Rows[i][0]"><br>@Model.ProductsTable.Rows[i][1]</a>
+
+										</h3>
+
+										@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
+										{
+											<h4 class="product-price">
+												EGB @Model.ProductsTable.Rows[i][2]
+											</h4>
+										}
+										else
+										{
+											<h4 class="product-price">
+												EGB @Model.ProductsTable.Rows[i][9]
+											</h4>
+										}
+
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div>
+
+										<div class="product-btns">
+											<a asp-page="/Product_internal" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]">
+												<i class="fa fa-eye"></i><span class="tooltipp"></span>
+											</a>
+										</div>
+
+									</div>
+									<div class="add-to-cart">
+										<a asp-page="/Product_internal" asp-route-id="@Model.ProductsTable.Rows[i][0]">View</a><br>
+									</div>
+
+								</div>
+
+							</div>
+
+
+							<!-- /product -->
+						}
+						<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+					</div>
+				</div>
+			</div>
+				}
+
+					
+   
+					
+	</div>
+
+</div>
+<br />
+<br />
+<br />
+<br />
+<script>
+	function filterProducts(category) {
+		// remove any dots before the category name
+		category = category.replace(/^\./, '');
+
+		// add the 'active' class to the clicked filter button
+		$(".product-filters ul li").removeClass("active");
+		$(`.product-filters ul li[data-filter='${category}']`).addClass("active");
+
+		// set the selected category in localStorage
+		localStorage.setItem("selectedCategory", category);
+
+		// set the URL parameter to the selected category
+		var urlParams = new URLSearchParams(window.location.search);
+		urlParams.set("selectedCategory", category);
+		var newUrl = window.location.pathname + "?" + urlParams.toString();
+
+		// reload the page with the new URL
+		window.location.href = newUrl;
+	}
+	$(document).ready(function () {
+		// get the selected category from the URL parameter
+		var urlParams = new URLSearchParams(window.location.search);
+		var selectedCategory = urlParams.get("selectedCategory");
+
+		// set the active filter button based on the selected category
+		if (selectedCategory) {
+			$(".product-filters ul li").removeClass("active");
+			$(`.product-filters ul li[data-filter='.${selectedCategory}']`).addClass("active");
+		} else {
+			// if no category is selected, set "All" as the default
+			$(".product-filters ul li").removeClass("active");
+			$(".product-filters ul li[data-filter='.*']").addClass("active");
+		}
+	});
+</script>

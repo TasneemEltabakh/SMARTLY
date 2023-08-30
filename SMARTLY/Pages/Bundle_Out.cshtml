@@ -1,97 +1,8 @@
 ﻿@page
 @model SMARTLY.Pages.Bundle_OutModel
 @{
- 
+    Layout = "/Pages/Shared/_Layout.cshtml";
 }
-
-
-@*<section id="hero2" class="d-flex align-items-center">
-    <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
-        <h1>OUR BUNDLES</h1>
-        
-        </div>
-</section>
-
-<section id="pricing" class="pricing">
-    <div class="container">
-
-        <div class="section-title">
-            
-            <br />
-            <br />
-
-            
-
-        <div class="row">
-
-            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="150">
-                <div class="box">
-                    <h3>Basic</h3>
-                       
-                        <img class="circle" src="assets\img\Basic_Gray.png" alt="Basic Bundle" width="100" Hight=" 100"> 
-                        <br/>
-                         <br/>
-
-                    <h4><sup>$</sup>100<span> / month</span></h4>
-                    <ul>
-                       
-                       <li>To Control: </li>
-                            <strong>
-                            <li></li></strong>
-             
-                    </ul>
-                    <div class="btn-wrap">
-                            <a href="/Bundle_Item" class="btn-buy">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mt-4 mt-md-0" data-aos="zoom-in">
-                <div class="box featured">
-                    <h3>Intermediate</h3>
-                        <img class="circle" src="assets\img\2nd_bundle.png" alt="Basic Bundle" width="100" Hight=" 100">
-                        <br />
-                        <br />
-                        
-                    <h4><sup>$</sup>500<span> / month</span></h4>
-                    <ul>
-                           
-                            <li>Help you</li>
-                            <strong>
-                            <li>Control both Lightining and Tempreture</li> </strong>
-                    </ul>
-                    <div class="btn-wrap">
-                        <a href="/Bundle_Item" class="btn-buy">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="150">
-                <div class="box">
-                    <h3>Premium</h3>
-                        <img class="circle" src="assets\img\3rd_bundle_gray.png" alt="Basic Bundle" width="200" Hight="200">
-                        <br />
-                        <br />
-                    <h4><sup>$</sup>1000<span> / month</span></h4>
-                    <ul>
-                            <li>Help you</li>
-                            <strong>
-                            <li>Control your entire life</li> </strong>
-                    </ul>
-                    <div class="btn-wrap">
-                         <a href ="/Bundle_Item" class="btn-buy">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</section><!-- End Pricing Section -->
-<br />
-<br />
-<br />*@
-
 
 <section id="hero2" class="d-flex align-items-center">
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
@@ -116,17 +27,29 @@
             {
             <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="150">
                 <div class="box" >
-                    <h3>@Model.dt.Rows[i][4]</h3>
-                       
-                        <img class="circle" src="@Model.dt.Rows[i][5]" alt="Basic Bundle" width="200" Hight=" 200">
-                      
-                         <h4><sup>EGB</sup>@Model.dt.Rows[i][1]</h4>
+                    <h3><a asp-page="/Bundle_Item" asp-route-id="@Model.dt.Rows[i][0]">@Model.dt.Rows[i][4]</a></h3>
+
+                    <img src="@Model.dt.Rows[i][5]" alt="Basic Bundle" width="200" Hight=" 200">
+
+                    <h4><sup>EGB</sup><a asp-page="/Bundle_Item" asp-route-id="@Model.dt.Rows[i][0]">@Model.dt.Rows[i][1]</a></h4>
+
                     <ul>
      
                     </ul>
-                    <div class="btn-wrap">
-                                <a asp-page="/Bundle_Item" class="btn-buy" asp-route-id="@Model.dt.Rows[i][0]"> Buy Now </a>
-                    </div>
+                            @if (Model.ThisState == 0)
+                            {
+
+
+                                <div class="btn-wrap">
+                                    <a asp-page="/Bundle_Item" class="btn-buy" asp-route-id="@Model.dt.Rows[i][0]" asp-route-type="2"> Buy Now </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="btn-wrap">
+                                    <a asp-page="/Bundle_Item" asp-route-id="@Model.dt.Rows[i][0]">View</a>
+                                </div>
+                            }
                 </div>
             </div>
             }

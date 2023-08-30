@@ -1,385 +1,274 @@
 ﻿@page
 @model SMARTLY.Pages.Products_internalClientModel
 @{
-   Layout = "/Pages/Shared/_LayoutClient.cshtml";
+  if(Model.type==3)
+    Layout = "/Pages/Shared/_LayoutClient.cshtml";
+	else
+	Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
-<section id="hero2" class="d-flex align-items-center">
-	<div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
-		<h1>OUR PRODUCTS</h1>
-		<div class="header-search">
-			@*<form>
-				<input class="input-select" placeholder="   Search for Products "></input>
-				<button  class="search-btn">Search</button>
-			</form>*@
-			@*<form method="post" id="SearchForm">
-				<input class="input-select" id="SearchQuery" name="searchQuery" placeholder="   Search for Products "></input>
-				<button  class="search-btn">Search</button>
-			</form>*@
-		</div>
-</section>
+<style>
+	header {
+		background-image: url('assets/img/homeView.jpg');
+	}
+</style>
+<br>
+<br>
+<br>
+<br>
+<main id="main">
 
-<br />
+	<!-- ======= Breadcrumbs ======= -->
+	<section id="breadcrumbs" class="breadcrumbs">
+		<div class="container">
 
-<br/>
-<br/>
-<br />
-<br/>
-<div id="breadcrumb1" class="section">
-	<!-- container -->
-	<div class="container">
-		<!-- row -->
-		<div class="row">
-			<div class="col-md-12">
-				<ul class="breadcrumb-tree">
-					<li><a href="/Index">Home</a></li>
-					<li><a href="/Products_Main_Admin">All Categories</a></li>
-					<li><a href="/Products_Main_Admin">@Model.Categorietype</a></li>
-					<li class="active">@Model.dt.Rows[0][1]</li>
-				</ul>
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>Product Details</h2>
+				<ol>
+					<li><a asp-page="/IndexClient">Home</a></li>
+					<li>Product Details</li>
+				</ol>
 			</div>
+
 		</div>
-		<!-- /row -->
-	</div>
-	<!-- /container -->
-</div>
-<br/>
-<div class="section">
-	<!-- container -->
-	<div class="container">
-		<!-- row -->
-		<div class="row">
-			
-			<!-- /Product thumb imgs -->
-			<div class="col-md-4 col-md-push-2" data-aos="fade-up" data-aos-delay="500">
-			<section id="testimonials1" class="testimonials1">
-				<div class="container" data-aos="zoom-in">
+	</section><!-- End Breadcrumbs -->
+	<!-- ======= Portfolio Details Section ======= -->
+	<section id="portfolio-details" class="portfolio-details">
+		<div class="container">
 
-					<div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-						<div class="swiper-wrapper">
-							@for (int i = 0; i < Model.ImgsTable.Rows.Count;i++)
-							{
-								<div class="swiper-slide">
-									<div class="testimonial-item">
-										<div id="product-main-img" class="slick-initialized slick-slider">
+			<div class="row gy-4">
 
-											<div class="product-preview">
-													<img src="@Model.ImgsTable.Rows[i][1]" alt="" width="500" Hight="500">
-											</div>
-										</div>
-									</div>
-								</div>
-							}
-						</div>
-					</div>
-				</div>
-			</section>
-			</div>
-			<!-- End Testimonials Section -->
-		
-			<!-- Product details -->
-			<div class="col-md-1"></div>
-			<div class="col-md-6">
-				<div class="product-details" data-aos="fade-up" data-aos-delay="500">
-					<br/>
-					<h2 class="product-name">@Model.dt.Rows[0][1]</h2>
-					<div>
-						<div class="product-rating">
-							@for (int i = 0; i < Model.rating; i++)
-							{
-								<i class="fa fa-star"></i>
-							}
-							@for (int i = 0; i < (5 - Model.rating); i++)
-							{
-								<i class="fa fa-star-o"></i>
-							}
-						</div>
-						<a class="review-link" href="#">@Model.CountFeedBack Review(s)</a>
-					</div>
-					<div>
-						<h3 class="product-price">$ @Model.dt.Rows[0][9] <del class="product-old-price">$ @Model.dt.Rows[0][2]</del></h3>
-						@if ((int)@Model.dt.Rows[0][3]!=0)
+				<div class="col-lg-8">
+					<div class="portfolio-details-slider swiper">
+						@if (Model.ImgsTable.Rows.Count == 1)
 						{
-							<span class="product-available">In Stock</span>
+							<div class=" align-items-center" style="padding-left: 170px;">
+								@for (int i = 0; i < Model.ImgsTable.Rows.Count; i++)
+								{
+									<div class="swiper-slide">
+										@{
+											byte[] bytes = (byte[])Model.ImgsTable.Rows[i][1];
+											var base64 = Convert.ToBase64String(bytes);
+											var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+										}
+										<img src="@imgsrc" alt="" style="width: 500px; height: 500px; object-fit: fill;" />
+									</div>
+								}
 
+							</div>
+						}
+						else
+						{
+							<div class="swiper-wrapper align-items-center" style="padding-left: 170px;">
+								@for (int i = 0; i < Model.ImgsTable.Rows.Count; i++)
+								{
+									<div class="swiper-slide">
+										@{
+											byte[] bytes = (byte[])Model.ImgsTable.Rows[i][1];
+											var base64 = Convert.ToBase64String(bytes);
+											var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+										}
+										<img src="@imgsrc" alt="" style="width: 500px; height: 500px; object-fit: fill;" />
+									</div>
+								}
+
+							</div>
+							<div class="swiper-pagination"></div>
 						}
 					</div>
-					
-
-					<div font-size="500px">
-					<ul >
-						<li>Category: <a href="#">@Model.Categorietype</a></li>
+				</div>
+			
+				<div class="col-lg-4">
+					<div class="portfolio-info">
+						<h3>Product Information</h3>
+						<h2 class="product-name" style="color:#FFC733">@Model.dt.Rows[0][1]</h2>
+						<div>
+							<div class="product-rating">
+								@for (int i = 0; i < Model.rating; i++)
+								{
+									<i class="fa fa-star"></i>
+								}
+								@for (int i = 0; i < (5 - Model.rating); i++)
+								{
+									<i class="fa fa-star-o"></i>
+								}
+								<a class="review-link" href="#">@Model.CountFeedBack Review(s)</a>
+							</div>
+						</div>
+						<div>
+							<h3 class="product-price">$ @Model.dt.Rows[0][9] <del class="product-old-price" style="color:#FFC733">$ @Model.dt.Rows[0][2]</del></h3>
+						</div>
+						<ul>
+							<li><strong>Category</strong>: @Model.Categorietype</li>
+							<li><strong>Colour</strong>: @Model.dt.Rows[0][4]</li>
+							<li><strong>Quantity</strong>: @Model.dt.Rows[0][3]</li>
+							@if (Convert.ToInt32(Model.dt.Rows[0][5])!=0)
+							{
+								<li><strong>Price before Sale</strong>: @Model.dt.Rows[0][2]</li>
+								<li><strong>Price After Sale</strong>: @Model.dt.Rows[0][9]</li>
+							}
+							else
+							{
+								<li><strong>Price</strong>: @Model.dt.Rows[0][9]</li>
+							}
 						
-					</ul>
-					<ul>
-
-						<li>Colour: @Model.dt.Rows[0][4] </li> <br />
-						<li>Quantity: @Model.dt.Rows[0][3] </li> <br />
-						<li>Category: @Model.Categorietype </li> <br />
-						<li>Discription: @Model.dt.Rows[0][7] </li> <br />
-						<li>Price After Sale: @Model.dt.Rows[0][9] </li> <br />
-						
-					</ul>
-					</div>
-					<div class="add-to-cart">
-						<ul class="product-btns">
-							<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]" >Add to cart</a>
 						</ul>
+						@if (Model.ThisState == 0)
+						{
+							<div class="add-to-cart">
+								<ul class="product-btns">
+									@if(Model.type==3){
+										<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]" asp-route-type="1">Add to cart</a>
+									}
+									else
+									{
+											<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.dt.Rows[0][0]" asp-route-type="1">Add to cart</a>
+									}
+								</ul>
+							</div>
+						}
+					</div>
+					<div class="portfolio-description">
+						<p>
+							@Model.dt.Rows[0][7]
+						</p>
+					</div>
+					<br />
+					<div>
+						<h5>Rate this product !</h5>
+						
+						<form class="review-form" method="post">
+							<div class="input-rating">
+								<div class="stars">
+									<input type="hidden" name="id" value="@Model.id" />
+									<input id="star5" name="userrating" value="5" type="radio"><label for="star5"></label>
+									<input id="star4" name="userrating" value="4" type="radio"><label for="star4"></label>
+									<input id="star3" name="userrating" value="3" type="radio"><label for="star3"></label>
+									<input id="star2" name="userrating" value="2" type="radio"><label for="star2"></label>
+									<input id="star1" name="userrating" value="1" type="radio"><label for="star1"></label>
+								</div>
+							</div>
+							<button type="submit" asp-page-handler="FeedBack" class="primary-btn1">Submit</button>
+						</form>
+					
 					</div>
 
 				</div>
 
 			</div>
-			<div class="col-md-12">
-				<div id="product-tab">
-					<!-- product tab nav -->
-					<ul class="tab-nav">
-						<li><a data-toggle="tab" href="#tab3">Reviews @Model.RateTable.Rows.Count</a></li>
-					</ul>
-					
-							<div class="row" data-aos="fade-up">
-								<!-- Rating -->
-								<div class="col-md-3">
-									<div id="rating">
-										<div class="rating-avg">
-											<span>@Model.rating</span>
-											<div class="rating-stars">
-												@for(int i=0;i<Model.rating;i++){
+
+		</div>
+
+
+		<div class="col-md-12" style="margin: 0;width: 100%; padding: 50px;">
+			<div id="product-tab">
+				<!-- product tab nav -->
+				<ul class="tab-nav">
+					<li><a data-toggle="tab" href="#tab3">Reviews @Model.RateTable.Rows.Count</a></li>
+				</ul>
+
+				<div class="row" data-aos="fade-up">
+					<!-- Rating -->
+					<div class="col-md-3">
+						<div id="rating">
+							<div class="rating-avg">
+								<span>@Model.rating</span>
+								<div class="rating-stars">
+									@for (int i = 0; i < Model.rating; i++)
+									{
+										<i class="fa fa-star"></i>
+									}
+									@for (int i = 0; i < 5 - Model.rating; i++)
+									{
+										<i class="fa fa-star-o"></i>
+									}
+								</div>
+							</div>
+							<ul class="rating">
+								@for (int i = 0; i < Model.RateTable.Rows.Count; i++)
+								{
+									<li>
+										<div class="rating-stars">
+											@for (int j = 0; j < (int)Model.RateTable.Rows[i][2]; j++)
+											{
+												<i class="fa fa-star"></i>
+											}
+											@for (int j = 0; j < 5 - (int)Model.RateTable.Rows[i][2]; j++)
+											{
+												<i class="fa fa-star-o"></i>
+											}
+										</div>
+										<div class="rating-progress">
+											<div style="width: @Model.rating%;"></div>
+										</div>
+									</li>
+								}
+
+							</ul>
+						</div>
+
+					</div>
+					<!-- /Rating -->
+					<!-- Reviews -->
+					<div class="col-md-4">
+						<div id="reviews">
+							<ul class="reviews">
+								@for (int i = 0; i < Model.RateTable.Rows.Count; i++)
+								{
+									<li>
+										<div class="review-heading">
+											<h5 class="name">@Model.RateTable.Rows[i][0]</h5>
+											<div class="review-rating">
+												@for (int j = 0; j < (int)Model.RateTable.Rows[i][2]; j++)
+												{
 													<i class="fa fa-star"></i>
 												}
-												@for(int i=0;i<5-Model.rating;i++){
-													<i class="fa fa-star-o"></i>
+												@for (int j = 0; j < 5 - (int)Model.RateTable.Rows[i][2]; j++)
+												{
+													<i class="fa fa-star-o empty"></i>
 												}
 											</div>
+
 										</div>
-										<ul class="rating">
-											@for (int i = 0; i < Model.RateTable.Rows.Count; i++)
+										<div class="review-body">
+											@if ((int)Model.RateTable.Rows[i][2] == 0 || (int)Model.RateTable.Rows[i][2] == 1)
 											{
-													<li>
-														<div class="rating-stars">
-															@for(int j=0;j<(int)Model.RateTable.Rows[i][2];j++){
-																<i class="fa fa-star"></i>
-															}
-															@for(int j=0;j<5-(int)Model.RateTable.Rows[i][2];j++){
-																<i class="fa fa-star-o"></i>
-															}
-														</div>
-														<div class="rating-progress">
-															<div style="width: @Model.rating%;"></div>
-														</div>
-													</li>
+												<p>Good!</p>
 											}
-											
-										</ul>
-									</div>
-								</div>
-								<!-- /Rating -->
-								<!-- Reviews -->
-								<div class="col-md-6">
-									<div id="reviews">
-										<ul class="reviews">
-											@for (int i = 0; i < Model.RateTable.Rows.Count;i++)
+											else if ((int)Model.RateTable.Rows[i][2] == 2 || (int)Model.RateTable.Rows[i][2] == 3)
 											{
-												<li>
-													<div class="review-heading">
-														<h5 class="name">@Model.RateTable.Rows[i][0]</h5>
-														<div class="review-rating">
-																@for (int j = 0; j < (int)Model.RateTable.Rows[i][2]; j++)
-																{
-																	<i class="fa fa-star"></i>
-																}
-																@for (int j = 0; j < 5 - (int)Model.RateTable.Rows[i][2]; j++)
-																{
-																<i class="fa fa-star-o empty"></i>
-																}
-														</div>
-												
-													</div>
-													<div class="review-body">
-														@if((int)Model.RateTable.Rows[i][2]==0 ||(int)Model.RateTable.Rows[i][2]==1){
-															<p>Good!</p>
-														}else if((int)Model.RateTable.Rows[i][2]==2 ||(int)Model.RateTable.Rows[i][2]==3){
-															<p>Nice!</p>
-														}else if((int)Model.RateTable.Rows[i][2]==4 ){
-															<p>Great!</p>
-														}else if((int)Model.RateTable.Rows[i][2]==5 ){
-															<p>Amazing!</p>
-														}
-														
-													</div>
-												</li>
+												<p>Nice!</p>
 											}
-										</ul>
-										<br/>
-								<br />
-										
-									</div>
-								</div>
-								<!-- /Reviews -->
-								<!-- Review Form -->
-								<div class="col-md-3">
-									<h5>Submit your review</h5>
-									<br/>
-										<form class="review-form">
-											<input class="input" type="text" placeholder="Your Name">
-											<input class="input" type="email" placeholder="Your Email">
-											<textarea class="input" placeholder="Your Review"></textarea>
-											<div class="input-rating">
-												<span>Your Rating: </span>
-												<div class="stars">
-													<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-													<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-													<input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-													<input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-													<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
-												</div>
-											</div>
-											<button class="primary-btn1">Submit</button>
-										</form>
-									</div>
-								
-								<!-- /Review Form -->
-							</div>
-						
+											else if ((int)Model.RateTable.Rows[i][2] == 4)
+											{
+												<p>Great!</p>
+											}
+											else if ((int)Model.RateTable.Rows[i][2] == 5)
+											{
+												<p>Amazing!</p>
+											}
+
+										</div>
+									</li>
+								}
+							</ul>
+							<br />
+							<br />
+
+						</div>
+					</div>
+					<!-- /Reviews -->
+					<!-- Review Form -->
+				
+					<!-- /Review Form -->
 				</div>
+
 			</div>
-			<!-- /product tab -->
-			<!-- /Product details -->
-	
-					
 		</div>
-		<!-- /row -->
-	</div>
-	<!-- /container -->
-</div>
-<!--***************************************-->
-<!-- Section -->
-<br />
-<br />
-<div class="section">
-	<!-- container -->
-	<div class="container">
-		<!-- row -->
-		<div class="row">
+		<!-- /product tab -->
+		<!-- /Product details -->
+	</section><!-- End Portfolio Details Section -->
 
-			<div class="col-md-12">
-				<div class="section-title text-center">
-					<h3 class="title">Related Products</h3>
-				</div>
-			</div>
+</main><!-- End #main -->
 
-			<!-- product -->
-			<div class="col-md-3 col-xs-6">
-				<div class="product">
-					<div class="product-img">
-						<img src="/assets/img/Alexa.jpg" alt="">
-						<div class="product-label">
-							<span class="sale">-30%</span>
-						</div>
-					</div>
-					<div class="product-body">
-						<p class="product-category">Alexa Hub</p>
-						<h3 class="product-name"><a href="#">Alexa</a></h3>
-						<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-						<div class="product-rating">
-						</div>
-						<div class="product-btns">
-							<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-							<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-						</div>
-					</div>
-					<div class="add-to-cart">
-						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-					</div>
-				</div>
-			</div>
-			<!-- /product -->
-			<!-- product -->
-			<div class="col-md-3 col-xs-6">
-				<div class="product">
-					<div class="product-img">
-						<img src="/assets/img/Alexa.jpg" alt="">
-						<div class="product-label">
-							<span class="sale">-30%</span>
-						</div>
-					</div>
-					<div class="product-body">
-						<p class="product-category">Alexa Hub</p>
-						<h3 class="product-name"><a href="#">Alexa</a></h3>
-						<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-						<div class="product-rating">
-						</div>
-						<div class="product-btns">
-							<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-							<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-						</div>
-					</div>
-					<div class="add-to-cart">
-						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-					</div>
-				</div>
-			</div>
-			<!-- /product -->
-			<!-- product -->
-			<div class="col-md-3 col-xs-6">
-				<div class="product">
-					<div class="product-img">
-						<img src="/assets/img/Alexa.jpg" alt="">
-						<div class="product-label">
-							<span class="sale">-30%</span>
-						</div>
-					</div>
-					<div class="product-body">
-						<p class="product-category">Alexa Hub</p>
-						<h3 class="product-name"><a href="#">Alexa</a></h3>
-						<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-						<div class="product-rating">
-						</div>
-						<div class="product-btns">
-							<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-							<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-						</div>
-					</div>
-					<div class="add-to-cart">
-						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-					</div>
-				</div>
-			</div>
-			<!-- /product -->
-			<!-- product -->
-			<div class="col-md-3 col-xs-6">
-				<div class="product">
-					<div class="product-img">
-						<img src="/assets/img/Alexa.jpg" alt="">
-						<div class="product-label">
-							<span class="sale">-30%</span>
-						</div>
-					</div>
-					<div class="product-body">
-						<p class="product-category">Alexa Hub</p>
-						<h3 class="product-name"><a href="#">Alexa</a></h3>
-						<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-						<div class="product-rating">
-						</div>
-						<div class="product-btns">
-							<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-							<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-						</div>
-					</div>
-					<div class="add-to-cart">
-						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-					</div>
-				</div>
-			</div>
-			<!-- /product -->
-
-		</div>
-		<!-- /row -->
-	</div>
-	<!-- /container -->
-</div>
-<!-- /Section -->
-<br />
-<br />
-<br />
 <br />

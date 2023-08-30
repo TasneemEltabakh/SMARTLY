@@ -22,14 +22,12 @@ namespace SMARTLY.Pages
         }
         public void OnPost()
         {
-
-            // insert in table contact 
+ 
             if (ModelState.IsValid)
             {
 
                 db.Insert_Contact(contactcs);
                 msg = "Recived sucessfully ";
-                // is there the eror ? 
 
             }
             else

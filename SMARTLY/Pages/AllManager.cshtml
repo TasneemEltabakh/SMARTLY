@@ -1,0 +1,65 @@
+﻿@page
+@model SMARTLY.Pages.AllManagersModel
+@{
+
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<section id="hero2" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+        <h1>All Managers</h1>
+
+    </div>
+</section>
+</br>
+</br>
+</br>
+<div class="Container">
+
+    <table class="table table-striped center_Table" style="max-width: 20%; margin: 0 auto;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">UserName</th>
+              
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (int i = 0; i < Model.dt.Rows.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@(i + 1)</th>
+                   
+                        <td>@Model.dt.Rows[i][0]</td>
+
+                  
+                    <td>
+
+                        <a asp-page="/DeleteManager" asp-route-username="@Model.dt.Rows[i][0]" /> Delete
+
+                    </td>
+                </tr>
+
+            }
+
+
+
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <button formmethod="post" type="button" class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;"
+            data-mdb-ripple-color="dark">
+        <a href="/Add_Manager">
+          Add New Manager
+        </a>
+    </button>
+
+</div>
+</br>
+</br>
+</br>

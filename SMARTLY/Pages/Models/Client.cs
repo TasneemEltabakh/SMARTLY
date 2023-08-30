@@ -14,5 +14,13 @@ namespace SMARTLY.Pages.Models
        
         
         public string phonenumber { get; set; }
+
+        [Required(ErrorMessage = "this field is required")]
+     
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "this field is required")]
+ 
+        public string LastName { get; set; }
     }
 }

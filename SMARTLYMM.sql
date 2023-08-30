@@ -414,6 +414,81 @@ update _User  set img = 'assets/img/202101031.jpeg' where username = 'Tasneem'
 update _User  set img = 'assets/img/admin.jpg' where username = 'smartly'
 
 select * from _User
+
+insert into _User values('agency','nn',2,'assets/img/noImage.png' )
+
+insert into Agency values('agency','Agency@gmail','FirstAgency','Dokki' )
+select * from Categories
+
+select * from AnOrder
+
+--> In Summer R
+DROP TABLE Product_Photoes;
+
+Create table Product_Photoes (
+product_Id varchar(15) foreign key references Product,
+p_Img VARBINARY(Max)
+)
+
+DELETE FROM Product_Photoes;
+DELETE FROM Bundle_Product;
+DELETE FROM Cart;
+DELETE FROM Contain;
+DELETE FROM FeedBack;
+DELETE FROM OrderFor;
+DELETE FROM Product;
+
+Alter table Product
+alter column Pimage int 
+
+Alter table Product
+alter column Pimage VARBINARY(Max) 
+--->After img works 
+-->Important
+DELETE FROM Client;
+DELETE FROM AnOrder;
+DELETE FROM Agency;
+DELETE FROM _User;
+
+ALTER TABLE _User DROP CONSTRAINT DF___User__img__07C12930;
+ALTER TABLE _User ALTER COLUMN img int;
+
+Alter table _User
+alter column img int 
+
+Alter table _User
+alter column img VARBINARY(Max) 
+
+-->Tasneem for nada
+Alter table Cart 
+add Shipping varchar(10) null;
+-->
+UPDATE Bundle
+SET img = 'assets\img\basics.png'
+WHERE BundleId=1;
+UPDATE Bundle
+SET img = 'assets\img\image_6487327_prev_ui.png'
+WHERE BundleId=2;
+UPDATE Bundle
+SET img = 'assets\img\home.png'
+WHERE BundleId=3;
+
+-->For Update Imgs in product
+Delete from Product_Photoes
+
+DROP TABLE Product_Photoes;
+
+Create table Product_Photoes (
+product_Id varchar(15) foreign key references Product,
+p_Img VARBINARY(Max),
+Img_Num int
+)
+-->to add bundle to cart
+Alter table Product 
+Add  price_in_bundle float null
+update _User  set img = 'assets/img/admin.jpg' where username = 'smartly'
+
+select * from _User
 select * from Product
 
 delete from Product where PId =6

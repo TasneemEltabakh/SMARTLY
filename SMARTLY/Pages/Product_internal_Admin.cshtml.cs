@@ -13,7 +13,8 @@ namespace SMARTLY.Pages
         public string Categorietype { get; set; }
         public int CountFeedBack { get; set; }
         public int rating { get; set; }
-
+        [BindProperty]
+        public int type { get; set; }
         public DataTable RateTable { get; set; }
         public DataTable ImgsTable { get; set; }
         public Product_internal_AdminModel(Database db)
@@ -22,8 +23,9 @@ namespace SMARTLY.Pages
         }
         public void OnGet(int id)
         {
+            type = data.returnType(UserName);
             dt = data.ReadProductRow(id);
-            Categorietype = data.ReturnCategoryForProduct(id);
+            Categorietype = data.ReturnCategoryForProduct((int)dt.Rows[0][6]);
             CountFeedBack = data.CountFeedBackProduct(id);
             rating = data.AVGRATING(id);
             RateTable = data.ReturnRatesForProduct(id);

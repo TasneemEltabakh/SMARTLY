@@ -10,11 +10,14 @@
     <title>SMARTLY</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="icon" type="image/png" href="assets/img/Smartly (4) (1)-fotor-bg-remover-2023083017466-fotor-20230830174753-fotor-20230830175452.png">
 
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -38,7 +41,10 @@
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="~/assests/css/style.css" />
     <link type="text/css" rel="stylesheet" href="~/assets/scss/main.scss" />
-
+    <link rel="stylesheet" href="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/css/fawrypay-payments.css">
+    <!-- Import FawryPay Staging JavaScript Library-->
+    <script type="text/javascript" src="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/js/fawrypay-payments.js"></script>
+    <!-- Bootstrap -->
     <!-- jQuery Plugins -->
     <script src="~/assets/js/bootstrap.min.js"></script>
     <script src="~/assets/js/bootstrap.min.js"></script>
@@ -63,7 +69,7 @@
 
 
                     <ul>
-                        <li><a class="nav-link scrollto active" href="/IndexAdmin">Home</a></li>
+                        <li><a class="nav-link scrollto " href="/IndexAdmin">Home</a></li>
                         <li><a class="nav-link scrollto" asp-page="/Products_Main_Admin">Products</a></li>
                         <li class="dropdown">
                             <a asp-page="/Bundle_Out_Admin"><span>Bundles</span> <i class="bi bi-chevron-down"></i></a>
@@ -75,9 +81,17 @@
                         </li>
                     
                     <li><a class="nav-link scrollto" asp-page="/All_Agencies">Agencies</a></li>
+                    <li><a class="nav-link scrollto" asp-page="/AllManager"> Managers </a></li>
                     <li><a class="nav-link scrollto" asp-page="/All_Orders">Orders</a></li>
-                    <li><a class="nav-link scrollto" asp-page="/All_Comments">Comments</a></li>
-                    <li><a class="nav-link scrollto" asp-page="/ChartBundleModel">Statistics</a></li>
+                    
+                    @*<li><a class="nav-link scrollto" asp-page="/Bundle_Graph">Statistics</a></li>*@
+                   @* <li class="dropdown">
+                        <a asp-page="/ChartBundleModel"><span>Statistics</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a asp-page="/Bundle_Graph" asp-route-id="1">Quantity_P</a></li>
+                            <li><a asp-page="/ChartBundleModel" asp-route-id="2">Best_Orded</a></li>
+                        </ul>
+                    </li>*@
                     <li><a class="nav-link scrollto" href="/Contact_Us_Admin">Contacts</a></li>
 
                     @* <li> <a class="mobile-hide search-bar-icon" href="#"><i class="fa fa-search"></i></a></li>*@
@@ -129,7 +143,23 @@
     <script type="module" src="~/lib/chartjs/chart.umd.js"></script>
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script>
+        function Activate(link) {
 
+            $("#navbar a").removeClass("active");
+
+
+            $(link).addClass("active");
+        }
+
+        $(document).ready(function () {
+
+            const currentPageLink = $(`#navbar a[href="${window.location.pathname}"]`);
+
+
+            Activate(currentPageLink);
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

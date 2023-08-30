@@ -36,15 +36,54 @@
         <div class="row d-flex align-items-center justify-content-center">
       <div class="col-lg-5">
         <div class="card mb-6">
-          <div class="card-body text-center">
-
-                        <img src="@Model.userData.Rows[0][3]" alt="avatar" class="rounded-circle img-fluid" style="width: 200px;">
-
+                    <div class="card-body text-center">
+                        <div class="d-flex justify-content-center align-items-center mx-auto" style="width: 200px; height: 200px;">
+                            @if (string.IsNullOrEmpty(Convert.ToString(Model.userData.Rows[0][3])))
+                            {
+                                <img href="#" src="assets\img\noImage.png" alt="avatar" class="rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" />
+                            }
+                            else
+                            {
+                                byte[] bytes = (byte[])Model.userData.Rows[0][3];
+                                var base64 = Convert.ToBase64String(bytes);
+                                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                                <img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+                                <!--<a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#editProfilePhotoModal"><i class="bi bi-pencil-square"></i></a>-->
+                            }
+                        </div>
+                        <form method="post" class="signin-form" enctype="multipart/form-data">
+                            <label for="files">
+                                <span class="btn2">Change image</span>
+                                <input asp-for="@Model.Image123" type="file" id="files" style="display: none;" />
+                            </label>
+                            <button class="btn2" asp-page-handler="Add" type="submit"><i class="fa fa-edit"></i></button>
+                        </form>
+                        <br />
+                        
             <h5 class="my-3">Muhammed Abusharaf</h5>
-            <p class="text-muted mb-1">The Admin Of the website</p>
+            <p class="text-muted mb-1"> Admin </p>
+             <br />
+                           
             <div class="d-flex justify-content-center mb-2">
                 <br/>
-              <button type="button" class="btn btn-primary">Turn To portfolio </button>
+               
+                            <br />
+                          
+                 <form method="post" asp-page="/Profile">
+                               
+                    @if (Model.isedit == 0) {
+                                    <button type="submit" class="btn2">
+                        Turn to portfolio
+                    </button>
+                    }
+                  else 
+                    {
+                                    <button type="submit" class="btn2">
+                        Turn to store
+                    </button>
+                    }
+                              
+                  </form>
             </div>
           </div>
         </div>

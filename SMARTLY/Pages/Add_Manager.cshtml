@@ -1,0 +1,44 @@
+﻿@page
+@model SMARTLY.Pages.Add_ManagerModel
+@{
+    Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<section id="hero2" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
+
+        <h1>Add new Manager</h1>
+
+    </div>
+</section>
+<section>
+    </br>
+    </br>
+    <div class="container">
+      
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <form method="post" class="signin-form">
+                  
+
+                    <div class="form-group">
+                        <input asp-for="@Model.user.UserName" class="form-control" type="text" placeholder="Username">
+                        <span asp-validation-for="@Model.user.UserName"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="@Model.user.password" class="form-control" type="text" placeholder="Password">
+                        <span asp-validation-for="@Model.user.password"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="form-control btn primary-btn1">Add new Agency</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br /><br /><br /><br /><br />
+</section>

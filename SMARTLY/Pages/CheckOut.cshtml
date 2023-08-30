@@ -1,7 +1,10 @@
 ﻿@page
 @model SMARTLY.Pages.CheckOutModel
 @{
-	
+	 if(Model.type==3)
+    Layout = "/Pages/Shared/_LayoutClient.cshtml";
+    else
+    Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
 <style>
@@ -26,130 +29,98 @@
 <br />
 <br />
 <div class="section">
-	<!-- container -->
+	
 	<div class="container">
 		<div id="breadcrumb1" class="section">
-			<!-- container -->
+			
 			<div class="container">
-				<!-- row -->
+			
 				<div class="row">
 					<div class="col-md-12">
 						<h3 class="breadcrumb-header">Checkout</h3>
 						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
+							<li><a href="/IndexClient">Home</a></li>
 							<li class="active">Checkout</li>
 						</ul>
 					</div>
 				</div>
-				<!-- /row -->
+				
 			</div>
-			<!-- /container -->
+			
 		</div>
-		<!-- /BREADCRUMB -->
+		
 
-		<!-- SECTION -->
+	
 		<div class="section">
-			<!-- container -->
+			
 			<div class="container">
-				<!-- row -->
+				
 				<div class="row">
 
 					<div class="col-md-7">
-						<!-- Billing Details -->
+						
 						<div class="billing-details">
 							<div class="section-title">
-								<h3 class="title">Billing address</h3>
+								<h3 class="title">Order's Information</h3>
+							</div>
+							<form method="post" id="myyform">
+							<div class="form-group">
+								<input  class="form-control" type="text"  placeholder="street" asp-for="@Model.Adress.Street" >
+							
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="text" name="first-name" placeholder="First Name">
+								<input class="form-control" type="text" placeholder="Building number" asp-for="@Model.Adress.Buildingno">
+								
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="text" name="last-name" placeholder="Last Name">
+								<input class="form-control" type="text" placeholder="Floor number" asp-for="@Model.Adress.Floor">
+								
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="email" name="email" placeholder="Email">
+								<input class="form-control" type="text" placeholder="Flat Number" asp-for="@Model.Adress.Flat">
+								
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="text" name="address" placeholder="Address">
+								<input class="form-control" type="text" placeholder="City" asp-for="@Model.Adress.City">
+								
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="text" name="city" placeholder="City">
+								<input class="form-control" type="text" placeholder="Governorate" asp-for="@Model.Adress.Gov">
+								
 							</div>
 							<div class="form-group">
-								<input  class="form-control" type="text" name="country" placeholder="Country">
+								<input class="form-control" type="text" placeholder="ZIP Code" asp-for="@Model.Adress.Zipcode">
+								
 							</div>
-							<div class="form-group">
-								<input  class="form-control" type="text" name="zip-code" placeholder="ZIP Code">
-							</div>
-							<div class="form-group">
-								<input  class="form-control" type="tel" name="tel" placeholder="Telephone">
-							</div>
+
+								
+							</form>
+					
+						</div>
+			
+					
+						<div class="order-notes">
+							<textarea class="form-control" placeholder="Order Notes" asp-for="@Model.Adress.Notes" form="myyform"></textarea>
+						</div>
+						@if (Model.type != 3)
+						{
+						<br/>
 							<div class="form-group">
 								<div class="input-checkbox">
-								
-									<label for="create-account"> <a href="/SignUp">
-										<span></span>
-										Don't Have Account?
+									<h7 class="instructions">As a guest user, your personal information and shipping address will not be stored for future transactions.</h7>
+									
+										<a href="/SignUp">
+										Would you like to create an account?
 										</a>
-									</label>
-									<div class="caption">
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-										<input class="input" type="password" name="password" placeholder="Enter Your Password">
-									</div>
+								
+
 								</div>
 							</div>
-						</div>
-						<!-- /Billing Details -->
+						}
 
-						<!-- Shiping Details -->
-						<div class="shiping-details">
-							<div class="section-title">
-								<h3 class="title">Shiping address</h3>
-							</div>
-							<div class="input-checkbox">
-								<input type="checkbox" id="shiping-address">
-								<label for="shiping-address">
-									<span></span>
-									Ship to a diffrent address?
-								</label>
-								<div class="caption">
-									<div class="form-group">
-										<input  class="form-control"  type="text" name="first-name" placeholder="First Name">
-									</div>
-									<div class="form-group">
-										<input  class="form-control" type="text" name="last-name" placeholder="Last Name">
-									</div>
-									<div class="form-group">
-										<input  class="form-control" type="email" name="email" placeholder="Email">
-									</div>
-									<div class="form-group">
-										<input t class="form-control" type="text" name="address" placeholder="Address">
-									</div>
-									<div class="form-group">
-										<input  class="form-control" type="text" name="city" placeholder="City">
-									</div>
-									<div class="form-group">
-										<input  class="form-control" type="text" name="country" placeholder="Country">
-									</div>
-									<div class="form-group">
-										<input  class="form-control" type="text" name="zip-code" placeholder="ZIP Code">
-									</div>
-									<div class="form-group">
-										<input  class="form-control" type="tel" name="tel" placeholder="Telephone">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- /Shiping Details -->
-
-						<!-- Order notes -->
-						<div class="order-notes">
-							<textarea class="form-control" placeholder="Order Notes"></textarea>
-						</div>
-						<!-- /Order notes -->
 					</div>
 
-					<!-- Order Details -->
+				
 					<div class="col-md-5 order-details">
 						<div class="section-title text-center">
 							<h3 class="title">Your Order</h3>
@@ -160,77 +131,102 @@
 								<div><strong>TOTAL</strong></div>
 							</div>
 							<div class="order-products">
-								<div class="order-col">
-									<div>1x Alexa blue</div>
-									<div>$980.00</div>
-								</div>
-								<div class="order-col">
-									<div>2x Alexa Gold</div>
-									<div>$980.00</div>
-								</div>
+								@{
+									for (int i = 0; i < Model.carttable.Rows.Count; i++)
+									{
+										var productName = Model.returnName(Convert.ToInt32(Model.carttable.Rows[i][1]));
+										var productPrice = Model.returnPrice(Convert.ToInt32(Model.carttable.Rows[i][1])) * Convert.ToInt32(Model.carttable.Rows[i][2]);
+
+										<div class="order-col">
+											<div>@Model.carttable.Rows[i][2] X @productName</div>
+											<div>EGB @productPrice</div>
+										</div>
+									}
+								}
 							</div>
 							<div class="order-col">
 								<div>Shiping</div>
-								<div><strong>FREE</strong></div>
+								<div><strong>EGB @Model.shippingFees</strong></div>
 							</div>
 							<div class="order-col">
-								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">$2940.00</strong></div>
+								<div><strong>Sub Total</strong></div>
+								<div><strong class="order-total">EGB @(Model.calcTotal())</strong></div>
+							</div>
+							<div class="order-col">
+								<div><strong>Total</strong></div>
+								<div><strong class="order-total">EGB @Model.overall</strong></div>
 							</div>
 						</div>
-						<div class="payment-method">
-
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-2">
-								<label for="payment-2">
-									<span></span>
-									Credit / Debit Card
-								</label>
-
-							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-1">
-								<label for="payment-1">
-									<span></span>
-									Vodafone Cash
-								</label>
-							
-							</div>
 						
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-3">
-								<label for="payment-3">
-									<span></span>
-									Fawry
-								</label>
-								
-							</div>
-						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="terms">
-							<label for="terms">
-								<span></span>
-								I've read and accept the <a href="/About">terms & conditions</a>
-							</label>
-						</div>
 						<br>
-						<button type="button" class="btn btn-dark btn-block btn-lg" style="display:block; margin: 0 auto;">
-							<a href="/PlacedOrder">
-								Place Order
-							</a>
-						</button>
 
+
+
+						<div style="text-align: center;">
+							<input type="image" onclick="checkout();" src="https://www.atfawry.com/assets/img/FawryPayLogo.jpg" alt="pay-using-fawry" id="fawry-payment-btn" />
+						</div>
+
+							
+						
+						
 					</div>
-					<!-- /Order Details -->
+				
 				</div>
-				<!-- /row -->
+			
 			</div>
-			<!-- /container -->
+		
 		</div>
-		<!-- /SECTION -->
+	
     </div>
 </div>
-
+<script>
+	function checkout() {
+		const configuration = {
+			locale: "en",  //default en
+			mode: DISPLAY_MODE.POPUP,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE , SEPARATED]
+		};
+		FawryPay.checkout(buildChargeRequest(), configuration);
+	}
+	function buildChargeRequest() {
+		const chargeRequest = {
+			merchantCode: '1tSa6uxz2nRbgY+b+cZGyA==',
+			merchantRefNum: '2312465464',
+			customerMobile: '01xxxxxxxxx',
+			customerEmail: 'email@domain.com',
+			customerName: 'Customer Name',
+			customerProfileId: '1212',
+			paymentExpiry: '1631138400000',
+			chargeItems: [
+				{
+					itemId: '6b5fdea340e31b3b0339d4d4ae5',
+					description: 'Product Description',
+					price: 50.00,
+					quantity: 2,
+					imageUrl: 'https://developer.fawrystaging.com/photos/45566.jpg',
+				},
+				{
+					itemId: '97092dd9e9c07888c7eef36',
+					description: 'Product Description',
+					price: 75.25,
+					quantity: 3,
+					imageUrl: 'https://developer.fawrystaging.com/photos/639855.jpg',
+				},
+			],
+			selectedShippingAddress: {
+				governorate: 'GIZA', //Governorate code at Fawry
+				city: 'MOHANDESSIN', //City code at Fawry
+				area: 'GAMETDEWAL', //Area code at Fawry
+				address: '9th 90 Street, apartment number 8, 4th floor',
+				receiverName: 'Receiver Name'
+			
+			},
+			returnUrl: '/IndexClient',
+			authCaptureModePayment: false,
+			signature: "2ca4c078ab0d4c50ba90e31b3b0339d4d4ae5b32f97092dd9e9c07888c7eef36"
+		};
+		return chargeRequest;
+	}
+	</script>
 <br />
 
 <br />
