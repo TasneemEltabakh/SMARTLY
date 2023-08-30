@@ -165,6 +165,7 @@ transition-delay: 0 !important;
 #header {
 transition: all 0.5s;
 z-index: 997;
+
 padding: 15px 0;
 }
 
@@ -2743,7 +2744,6 @@ font-size: 12px;
 color: #8D99AE;
 }
 
-/*-- Reviews --*/
 
 .reviews li {
 position: relative;
