@@ -3283,13 +3283,13 @@ textarea.input {
     }
 
         .product .product-img .product-label > span {
-            border: 2px solid;
+            border: 3px solid;
             padding: 2px 10px;
-            font-size: 12px;
+            font-size: 15px;
         }
 
             .product .product-img .product-label > span.sale {
-                background-color: #FFF;
+                background-color: black;
                 border-color: #ffc451;
                 color: #ffc451;
             }
