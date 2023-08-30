@@ -404,11 +404,93 @@ update Product
 set SailedNum =0
 
 insert into Product
-values(2,'Smart Door',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp',6)
+values(5,'Smart Door',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp',6)
 insert into Product
-values(3,'Door Lock outdoor',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp',10)
+values(6,'Door Lock outdoor',30000,10,'Black',30,2,'Its for Door','assets\img\TTLock.jpg_Q90.jpg_.webp',10)
 ALTER TABLE _User
-ADD img VARCHAR(50) DEFAULT 'assets/img/noImage.png';
-update _User  set userPassword = 'assets/img/noImage.jpeg' 
+alter column img VARCHAR(200)
+update _User  set img = 'assets/img/noImage.png' 
 update _User  set img = 'assets/img/202101031.jpeg' where username = 'Tasneem'
-update _User  set img = 'assets/img/admin.jpeg' where username = 'smartly'
+update _User  set img = 'assets/img/admin.jpg' where username = 'smartly'
+
+select * from _User
+select * from Product
+
+delete from Product where PId =6
+
+--> In Summer R
+DROP TABLE Product_Photoes;
+
+Create table Product_Photoes (
+product_Id varchar(15) foreign key references Product,
+p_Img VARBINARY(Max)
+)
+
+DELETE FROM Product_Photoes;
+DELETE FROM Bundle_Product;
+DELETE FROM Cart;
+DELETE FROM Contain;
+DELETE FROM FeedBack;
+DELETE FROM OrderFor;
+DELETE FROM Product;
+DELETE FROM AnOrder;
+DELETE FROM Cart;
+DELETE FROM Contain;
+DELETE FROM Product;
+DELETE FROM Categories;
+DELETE FROM _User;
+
+Alter table Product
+alter column Pimage int 
+
+Alter table Product
+alter column Pimage VARBINARY(Max)
+
+Alter table Client
+add  Fname varchar(20) 
+
+Alter table Client
+add  Lname varchar(20) 
+
+Alter table Cart Add Shipping varchar(10)  default  '5'
+
+update cart set quantity = '2' , Shipping='5' where productid ='2'
+
+Update Bundle set img = 'assets\img\image_6487327_prev_ui.png' where level =2
+Update Bundle set img = 'assets\img\basics.png' where level =1
+Update Bundle set img = 'assets\img\home.png' where level =3
+
+
+Create Table CartGuest
+(
+ID int not null ,
+PRODUCTID varchar(15) not null,
+quantity int default 1,
+shipping varchar(10) default 5,
+primary key (ID, PRODUCTID),
+FOREIGN KEY (ID) REFERENCES GUEST,
+FOREIGN KEY (PRODUCTID) REFERENCES PRODUCT,
+);
+ALTER TABLE Guest ADD InsertionTime DATETIME NOT NULL DEFAULT GETDATE();
+
+-->For Update Imgs in product
+Delete from Product_Photoes
+
+DROP TABLE Product_Photoes;
+
+Create table Product_Photoes (
+product_Id varchar(15) foreign key references Product,
+p_Img VARBINARY(Max),
+Img_Num int
+)
+
+-->to add bundle to cart
+Alter table Product 
+Add  price_in_bundle float null
+
+delete from Product
+
+
+select * from _User
+
+DELETE FROM Contain WHERE PId = @PId; DELETE FROM Cart WHERE productid = @PId;DELETE FROM CartGuest WHERE productid = @PId;DELETE FROM Product_Photoes WHERE product_id = @PId;DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId;
