@@ -352,6 +352,26 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public void DeletedContact(string username, string message)
+        {
+            string Query = "delete from Contact  where _Message= @message and Email= @username";
+            SqlCommand cmd = new SqlCommand(Query, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+			cmd.Parameters.AddWithValue("@message", message);
+			try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
 
         public void DeletedrecordManager(string username)
         {
