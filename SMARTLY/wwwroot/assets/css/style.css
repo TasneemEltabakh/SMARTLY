@@ -518,6 +518,14 @@ background-size: cover;
 position: relative;
 }
 
+#herob {
+    width: 100%;
+    height: 30vh;
+   background-color: black;
+    background-size: cover;
+    position: relative;
+}
+
 #hero:before {
 content: "";
 background: rgba(0, 0, 0, 0.6);
@@ -4024,10 +4032,12 @@ textarea.input {
     .card-registration .product-container {
         max-height: 70vh;
         overflow-y: auto;
+        overflow-x: hidden;
     }
     .card-registration .card-body {
         flex-grow: 1;
         overflow-y: auto;
+      
     }
 
 .bg-grey {
