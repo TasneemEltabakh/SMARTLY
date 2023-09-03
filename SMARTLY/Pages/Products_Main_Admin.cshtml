@@ -9,10 +9,10 @@
 
 <section id="hero2" class="d-flex align-items-center">
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
-        <h1>OUR PRODUCTS</h1>
+      
         <div class="header-search">
             <form method="post" id="SearchForm">
-                <input class="input-select" asp-for="@Model.search" placeholder="   Search for Products "></input>
+                <input class="input-select" asp-for="@Model.search" placeholder="   Search for Products "/>
                 <button asp-page-handler="search" class="search-btn"><i class="fa fa-search"></i> </button>
             </form>
         </div>
@@ -37,7 +37,7 @@
 
                         }
                         <form method="post">
-                            <input class="AddPro" asp-for="@Model.AddedOne" placeholder="  Add new Category "></input>
+                            <input class="AddPro" asp-for="@Model.AddedOne" placeholder="  Add new Category "/>
                             <button asp-page-handler="AddCategory" type="submit" class="btn2">
                                 <i class="fa fa-plus"></i> 
                             </button>
@@ -62,21 +62,26 @@
                     @for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
                     {
                     <div class="col-md-4 col-xs-6">
-                        <div class="product" style="width: 408px; height: 443px; object-fit: fill;">
+                        <div class="product" style="width: 410px; height: 443px; object-fit: fill; border: 1px solid black">
                             <div class="product-img">
                                 @{
                                     byte[] bytes = (byte[])Model.ProductsTable.Rows[i][8];
                                     var base64 = Convert.ToBase64String(bytes);
                                     var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
                                 }
-                                <img src="@imgsrc" style="width: 408px; height: 300px; object-fit: fill;" />
+
+                                   <a asp-page="/Products_internal_Admin"  asp-route-id="@Model.ProductsTable.Rows[i][0]">
+
+                                    <img src="@imgsrc" style="width: 408px; height: 300px; object-fit: fill;" />
+
+                                    </a>
                                     <div class="product-label">
                                         @if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
                                         {
                                             <span class="sale">@Model.ProductsTable.Rows[i][5] %</span>
                                         }
                                     </div>
-                                </div>
+                            </div>
                             <div class="product-body" style="background: #333">
                                     <p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
                                     <h3 class="product-name"><a asp-page="/Product_internal_Admin" asp-route-id="@Model.ProductsTable.Rows[i][0]">@Model.ProductsTable.Rows[i][1]</a></h3>
@@ -84,19 +89,19 @@
                                    @if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
                                         {
                                             <h4 class="product-price">
-                                                EGB @Model.ProductsTable.Rows[i][2]
+                                                EGP @Model.ProductsTable.Rows[i][2]
                                             </h4>
                                         }else{
                                             <h4 class="product-price">
-                                                EGB @Model.ProductsTable.Rows[i][9]
+                                                EGP @Model.ProductsTable.Rows[i][9]
                                             </h4>
                                         }
 
                         
 
                         <div class="product-btns">
-                            <a asp-page="/Products_internal_Admin" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]">
-                                <i class="fa fa-eye"></i><span class="tooltipp"></span>
+                            <a asp-page="/Products_internal_Admin"  asp-route-id="@Model.ProductsTable.Rows[i][0]">
+                                <i class="fa fa-view"></i><span class="tooltipp"></span>
                             </a>
                         </div>
 

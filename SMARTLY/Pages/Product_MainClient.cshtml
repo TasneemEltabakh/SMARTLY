@@ -9,13 +9,13 @@
 
 <section id="hero2" class="d-flex align-items-center">
 	<div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
-		<h1>OUR PRODUCTS</h1>
 		<div class="header-search">
 			<form method="post" id="SearchForm">
 				<input class="input-select"  asp-for="@Model.search" placeholder="   Search for Products "></input>
 				  <button asp-page-handler="search" class="search-btn"><i class="fa fa-search"></i> </button>
 			</form>
 		</div>
+	</div>
 </section>
 <br />
 
@@ -53,19 +53,22 @@
 					{
 
 							<div class="col-md-4 col-xs-6">
-								<div class="product" style="width: 408px; height: 443px; object-fit: fill;">
+								<div class="product" style="width: 410px; height: 443px; object-fit: fill; border: 1px solid black ">
 									
 									@if (Model.returnCategory((int)Model.ProductsTable.Rows[i][6]) != ViewBag.Category)
 									{
 
-										
-										<div class="product-img">
+
+										<div class="product-img" style="width: 400px" >
 											@{
 												byte[] bytes = (byte[])Model.ProductsTable.Rows[i][8];
 												var base64 = Convert.ToBase64String(bytes);
 												var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
 											}
-											<img src="@imgsrc" style="width: 408px; height: 300px; object-fit: fill;" />
+											<a asp-page="/Products_internalClient" asp-route-id="@Model.ProductsTable.Rows[i][0]">
+												
+												<img src="@imgsrc" style="width: 408px; height: 300px; object-fit: fill;" />
+											</a>
 											<div class="product-label">
 
 												@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
@@ -83,23 +86,23 @@
 											@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
 											{
 												<h4 class="product-price">
-													EGB @Model.price_after_sale((double)Model.ProductsTable.Rows[i][2], (double)Model.ProductsTable.Rows[i][5])
-													<del class="product-old-price"> EGB @Model.ProductsTable.Rows[i][2]  </del>
+													EGP @Model.price_after_sale((double)Model.ProductsTable.Rows[i][2], (double)Model.ProductsTable.Rows[i][5])
+													<del class="product-old-price"> EGP @Model.ProductsTable.Rows[i][2]  </del>
 												</h4>
 											}
 											@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
 											{
 												<h4 class="product-price">
-													EGB @Model.ProductsTable.Rows[i][2]
+													EGP @Model.ProductsTable.Rows[i][2]
 												</h4>
 											}
 
 
-											
+
 											<div class="product-btns">
 
 												
-												<a asp-page="/Products_internalClient" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-eye"></i><span class="tooltipp"></span></a>
+												<a asp-page="/Products_internalClient" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-view"></i><span class="tooltipp"></span></a>
 
 											</div>
 
@@ -173,13 +176,13 @@
 									@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
 									{
 										<h4 class="product-price">
-											EGB @Model.ProductsTable.Rows[i][2]
+											EGP @Model.ProductsTable.Rows[i][2]
 										</h4>
 									}
 									else
 									{
 										<h4 class="product-price">
-											EGB @Model.ProductsTable.Rows[i][9]
+											EGP @Model.ProductsTable.Rows[i][9]
 										</h4>
 									}
 

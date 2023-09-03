@@ -42,7 +42,7 @@ namespace SMARTLY.Pages
         [BindProperty]
         public int Deleted { get; set; }
         [BindProperty]
-        public int totalPrice { get; set; } = 0;
+        public long totalPrice { get; set; } = 0;
 
 
         [BindProperty]
@@ -319,24 +319,21 @@ namespace SMARTLY.Pages
             string name = Convert.ToString(t.Rows[0][2]);
             return name;
         }
-      
-        public int calcTotal()
-        {
-            int x = 0; 
-            for (int i = 0; i < carttable.Rows.Count; i++)
-            {
-             
-                DataTable t = data.ReadProductRow(Convert.ToInt32(carttable.Rows[i][1]));
-                x = (Convert.ToInt32(t.Rows[0][9]) * Convert.ToInt32(carttable.Rows[i][2])) + x;
 
-            }
-           totalPrice = x + Convert.ToInt32(Shipp);
-          return totalPrice;
-            
-         
+		public long calcTotal()
+		{
+			long x = 0; // Use Int64 (long) data type
 
-        }
-        public IActionResult OnPostProceed()
+			for (int i = 0; i < carttable.Rows.Count; i++)
+			{
+				DataTable t = data.ReadProductRow(Convert.ToInt32(carttable.Rows[i][1]));
+				x = (Convert.ToInt64(t.Rows[0][9]) * Convert.ToInt64(carttable.Rows[i][2])) + x;
+			}
+
+			totalPrice = x + Convert.ToInt64(Shipp);
+			return totalPrice;
+		}
+		public IActionResult OnPostProceed()
         {
             totalPrice= calcTotal();
      

@@ -22,6 +22,7 @@ namespace SMARTLY.Pages
         public bool state { get; set; }
         public int val { get; set; }
         public string msg { get; set; }
+
         public SignUpModel(Database db, IHttpContextAccessor httpContextAccessor)
         {
             this.database = db;
@@ -30,9 +31,16 @@ namespace SMARTLY.Pages
         public void OnGet()
         {
             msg = "free";
-           
+			int guestID = database.maxGuestID();
+			UserName = Convert.ToString(guestID);
+			database.AddGuest(guestID);
 
-        }
+			database.DeleteoldGuest();
+
+			HttpContext.Session.SetString("UserName", UserName);
+			HttpContext.Session.SetString("getUserType", "0");
+
+		}
         public IActionResult OnPost()
         {
 

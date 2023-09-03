@@ -48,7 +48,8 @@ namespace SMARTLY.Pages
 
             if (string.IsNullOrEmpty(Request.Form["category"]))
             {
-                product.category = 1;
+              
+                product.category =Convert.ToInt32(data.ReadCategoryForAddProduct().Rows[0][0]);
             }
             else
             {

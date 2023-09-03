@@ -25,11 +25,16 @@ namespace SMARTLY.Pages.Models
         public string getUsername { get; set; }
 
         public Object table { get; set; }
+      
         public Database()
-        {           
-            Connection = new SqlConnection("Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
-            //Connection = new SqlConnection("Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True");
+        {
+            
+            string connectionString = "Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
+        //    string connectionString = "Data Source=db970214840.hosting-data.io; Initial Catalog =db970214840; User Id =dbo970214840; Password =smart12345; TrustServerCertificate=true";
+            Connection = new SqlConnection(connectionString);
+
         }
+        
         public void SignUpNewMember(User U, Client C)
         {
             string query = "insert into _User values (@USERNAME,@PASSWORD,@TYPE, null);";
@@ -347,6 +352,26 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public void DeletedContact(string username, string message)
+        {
+            string Query = "delete from Contact  where _Message= @message and Email= @username";
+            SqlCommand cmd = new SqlCommand(Query, Connection);
+            cmd.Parameters.AddWithValue("@username", username);
+			cmd.Parameters.AddWithValue("@message", message);
+			try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
 
         public void DeletedrecordManager(string username)
         {
@@ -474,16 +499,17 @@ namespace SMARTLY.Pages.Models
                 Connection.Open();
                 SqlCommand cmd = new SqlCommand(Q, Connection);
                 dt.Load(cmd.ExecuteReader());
+                return dt;
             }
             catch (SqlException ex)
             {
-
+                return dt;
             }
             finally
             {
                 Connection.Close();
             }
-            return dt;
+           
         }
         public DataTable ReadCategories()   //***
         {

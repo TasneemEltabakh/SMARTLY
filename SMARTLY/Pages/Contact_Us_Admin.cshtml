@@ -42,14 +42,29 @@
                     }
                     <td>
                        
-                        @*<a asp-page="/Conatct via Email " /> Contact *@
+                    
                         <div class="footer-info">
 
                             <p>
                                 
-                                @*<strong>Email:</strong><a href="mailto:@Model.dt.Rows[i][0]"> @Model.dt.Rows[i][0]@gmail.com<br></a>*@
-                                @*<strong> contact:</strong> <a href="mailto:@(Model.dt.Rows[i][1])">@Model.dt.Rows[i][1]</a><br>*@
-                                @*<strong> contact:</strong>*@ <a href="mailto:@(Model.dt.Rows[i][1])">Contact</a><br>
+                               
+                              <a href="mailto:@(Model.dt.Rows[i][1])">Contact</a><br>
+
+                            </p>
+
+                        </div>
+
+                    </td>
+                    <td>
+
+
+                        <div class="footer-info">
+
+                            <p>
+
+
+                                <a asp-page="/DeleteContact" asp-route-email="@Model.dt.Rows[i][1]" asp-route-message="@Model.dt.Rows[i][3]">Delete</a><br>
+
                             </p>
 
                         </div>

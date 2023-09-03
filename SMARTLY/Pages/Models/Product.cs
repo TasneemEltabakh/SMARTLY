@@ -15,8 +15,6 @@ namespace SMARTLY.Pages.Models
         [Required(ErrorMessage = "this field is required")]
         public float price { get; set; }
 
-
-
 		public float price_in_bundle { get; set; }  //Okay for null
 		public int Quantity { get; set; }   //Okay for null
         public string color { get; set; }   //Okay for null
