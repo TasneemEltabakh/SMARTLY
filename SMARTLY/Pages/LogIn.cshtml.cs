@@ -72,8 +72,6 @@ namespace SMARTLY.Pages
                             return RedirectToPage("/Index");
                     
 
-
-
                 }
             }
 

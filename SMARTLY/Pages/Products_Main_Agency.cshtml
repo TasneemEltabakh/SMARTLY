@@ -68,7 +68,7 @@
 											}
 										</div>
 									</div>
-									<div class="product-body">
+								<div class="product-body" style="background: #333">
 										<p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
 										<h3 class="product-name">
 											<a asp-page="/Products_Internal_Agency" asp-route-id="@Model.ProductsTable.Rows[i][0]"><br>@Model.ProductsTable.Rows[i][1]</a>
@@ -88,13 +88,7 @@
 											</h4>
 										}
 
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
+									
 
 										<div class="product-btns">
 											<a asp-page="/Products_Internal_Agency" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]">
@@ -104,6 +98,7 @@
 
 									</div>
 									<div class="add-to-cart">
+										<br>
 										<a asp-page="/Products_Internal_Agency" asp-route-id="@Model.ProductsTable.Rows[i][0]">View</a><br>
 									</div>
 
