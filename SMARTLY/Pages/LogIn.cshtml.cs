@@ -29,7 +29,15 @@ namespace SMARTLY.Pages
         {
             message = "free";
             Type = 0;
-        }
+			int guestID = database.maxGuestID();
+			UserName = Convert.ToString(guestID);
+			database.AddGuest(guestID);
+
+			database.DeleteoldGuest();
+
+			HttpContext.Session.SetString("UserName", UserName);
+			HttpContext.Session.SetString("getUserType", "0");
+		}
         public IActionResult OnPost()
         {
             if (!database.checkemail(user.UserName))
