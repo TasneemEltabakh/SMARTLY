@@ -140,20 +140,6 @@
 
 </main><!-- End #main -->
 
-
-<form method="post">
-<select class="form-select" aria-label="Default select example" width="2">
-      <option >Choose Your Product</option>
-    @for (int i=0;i<Model.dt22.Rows.Count;i++)
-    {
-        <option value="@Model.dt22.Rows[i][1]">@Model.dt22.Rows[i][0]</option>
-    }
-</select>
-        <div class="text-center">
-      <a type="submit" class="Admin_Button" asp-page="/page" >Add Here</a>
-        </div>
-</form>
-
     <br />
     <br />
 

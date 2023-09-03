@@ -921,8 +921,50 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+		public DataTable ProductsNotInThisBundle(int BundleId)   //** for checkbox Edit Bundle
+		{
+			string Q = "SELECT pro.PName, pro.PId, pro.Pimage FROM product as pro WHERE pro.PId NOT in (SELECT Bun.product_id FROM Bundle_Product as Bun WHERE Bun.Bundle_ID= " + BundleId + ");";
+			DataTable dt = new DataTable();
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
 
-        public void DeleteProduct(string PId)
+				dt.Load(cmd.ExecuteReader());
+				return dt;
+			}
+			catch (SqlException ex)
+			{
+				return dt;
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+		public DataTable ProductsInThisBundle(int BundleId)   //** for checkbox Edit Bundle
+		{
+			string Q = "SELECT pro.PName, pro.PId, pro.Pimage FROM product as pro WHERE pro.PId in (SELECT Bun.product_id FROM Bundle_Product as Bun WHERE Bun.Bundle_ID= " + BundleId + ");";
+			DataTable dt = new DataTable();
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+
+				dt.Load(cmd.ExecuteReader());
+				return dt;
+			}
+			catch (SqlException ex)
+			{
+				return dt;
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+
+		public void DeleteProduct(string PId)
         {
             string q = "DELETE FROM Contain WHERE PId = @PId; DELETE FROM Cart WHERE productid = @PId;DELETE FROM Cart WHERE productid = @PId;DELETE FROM Product_Photoes WHERE product_id = @PId;DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId;";
 
@@ -1024,7 +1066,28 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        public DataTable Deletefromcart(int id, string username)
+		public void DeleteProductsFromBundle(int idProduct, int idbundle)   //I added when I worked on checkbox
+		{
+			string Q = "DELETE FROM Bundle_Product WHERE product_id = @product_id and Bundle_ID = @Bundle_ID;";
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				cmd.Parameters.AddWithValue("@product_id", idProduct);
+				cmd.Parameters.AddWithValue("@Bundle_ID", idbundle);
+
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+		public DataTable Deletefromcart(int id, string username)
         {
             DataTable dt = new DataTable();
             string Q = "delete from cart where Productid = @id and username= @username";

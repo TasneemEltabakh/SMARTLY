@@ -49,10 +49,58 @@
 			</div>
 
 			<br />
-			<br />
 
 
-				<button asp-page-handler="Edit" type="submit" class="form-control btn primary-btn1">
+				<h3><span style="color: #FFC133">Add</span> new products for this Bundle:</h3>
+				<div class="container" data-aos="fade-up">
+					<div class="row">                     
+						@for (int i = 0; i < Model.dt22.Rows.Count; i++)
+						{
+							<div class="col-md-4 col-xs-6">
+								<div style="width: 150px; height: 150px; object-fit: fill;">
+									@{byte[] bytes = (byte[])Model.dt22.Rows[i][2];
+									var base64 = Convert.ToBase64String(bytes);
+									var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+									<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+									}<br>
+									<center>
+										<input type="checkbox" id="@Model.dt22.Rows[i][1]" name="SelectedCheckboxes" value="@Model.dt22.Rows[i][1]" />
+										<label for="@Model.dt22.Rows[i][1]">@Model.dt22.Rows[i][0]</label>
+									</center>
+									<br />
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+				<br /><br />
+
+
+				<h3><span style="color: #FFC133">Delete</span> products from this Bundle:</h3>
+				<div class="container" data-aos="fade-up">
+					<div class="row">
+						@for (int i = 0; i < Model.dt33.Rows.Count; i++)
+						{
+							<div class="col-md-4 col-xs-6">
+								<div style="width: 150px; height: 150px; object-fit: fill;">
+									@{byte[] bytes = (byte[])Model.dt33.Rows[i][2];
+									var base64 = Convert.ToBase64String(bytes);
+									var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+									<img href="#" src="@imgsrc" alt="avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+									}<br>
+									<center>
+										<input type="checkbox" id="@Model.dt33.Rows[i][1]" name="SelectedCheckboxes22" value="@Model.dt33.Rows[i][1]" />
+										<label for="@Model.dt33.Rows[i][1]">@Model.dt33.Rows[i][0]</label>
+									</center>
+									<br />
+								</div>
+								<br /><br />
+							</div>
+						}
+					</div>
+				</div>
+				<br /><br />
+			<button asp-page-handler="Edit" type="submit" class="form-control btn primary-btn1">
 
 				Edit
 
