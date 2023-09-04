@@ -716,16 +716,17 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        public void AddProductToCart(string username, string id, int Qu, string sh)   //***
+        public void AddProductToCart(string username, string id, int Qu, string sh, int t)   //***
         {
-            string Q = "insert into cart values(@username, @id,@q,@sh)";
+            string Q = "insert into cart values(@username, @id,@q,@sh,@t)";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@q", Qu);
             cmd.Parameters.AddWithValue("@sh", sh);
+			cmd.Parameters.AddWithValue("@t", t);
 
-            try
+			try
             {
                 Connection.Open();
 
@@ -742,6 +743,7 @@ namespace SMARTLY.Pages.Models
             }
 
         }
+
         public void AddProductToCartGuest(string username, string id, int Qu, string sh)   //***
         {
             string Q = "insert into CartGuest values(@username, @id,@q,@sh)";
@@ -881,7 +883,7 @@ namespace SMARTLY.Pages.Models
         }
         public DataTable ProductsOfBundleCart(int Id)   //***
         {
-            string Q = "select * from Bundle_Product BP, Product p where BP.product_id=p.PId and BP.Bundle_ID= @id";
+            string Q = "select price, _Name, img from Bundle  where BundleId= @id";
             DataTable dt = new DataTable();
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@id", Id);
