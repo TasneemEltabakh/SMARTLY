@@ -52,7 +52,7 @@
 												else
 												{
 													<div class="col-md-2 col-lg-2 col-xl-2">
-														<img src="@Model.dt.Rows[0][2]" alt="" ; object-fit: fill;">
+														<img src="@Model.dt.Rows[0][2]" alt="" ; style="height: 150px ; width:  150px ; object-fit: fill;">
 													</div>
 												}
 													
@@ -81,7 +81,7 @@
 												}
 												}
 												}
-												<button class="btn btn-link px-2" onclick="decreaseQuantity(this,(@Convert.ToInt32(Model.carttable.Rows[i][1])))">
+													<button class="btn btn-link px-2" onclick="decreaseQuantity(this,(@Convert.ToInt32(Model.carttable.Rows[i][1])),@Convert.ToInt32(Model.carttable.Rows[i][4]))">
 													<i class="fa fa-minus"></i>
 												</button>
 
@@ -97,7 +97,7 @@
 
 												<input asp-for="@Model.quantity" id="form2" hidden />
 											
-												<button class="btn btn-link px-2" onclick="increaseQuantity(this,(@Convert.ToInt32(Model.carttable.Rows[i][1])))">
+													<button class="btn btn-link px-2" onclick="increaseQuantity(this,(@Convert.ToInt32(Model.carttable.Rows[i][1])),@Convert.ToInt32(Model.carttable.Rows[i][4]))">
 													<i class="fa fa-plus"></i>
 												</button>
 											</div>
@@ -126,7 +126,7 @@
 													<div class="add-to-cart">
 
 
-														<button onclick="DeleteProducts(@Convert.ToUInt32(Model.carttable.Rows[i][1]))" style="border: none;"><i class="fa fa-times"></i></button>
+															<button onclick="DeleteProducts(@Convert.ToUInt32(Model.carttable.Rows[i][1]),@Convert.ToInt32(Model.carttable.Rows[i][4]))" style="border: none;"><i class="fa fa-times"></i></button>
 
 													</div>
 
@@ -192,10 +192,10 @@
 										<h5 class="text-uppercase">Total price</h5>
 
 										<h5>
-											EGP <input hidden id="shippingCosts" asp-for="shipping"> <span id="summaryTotal">
+											EGP <input hidden id="shippingCosts" asp-for="shipping"> <span id="summaryTotal"/>
 													@Model.calcTotal()
-											</span>
-											</input>
+										
+										
 										</h5>
 									</div>
 									<form method="post" >
@@ -255,27 +255,29 @@
 
 
 
-		function decreaseQuantity(button,id) {
+		function decreaseQuantity(button,id,ptype) {
 			var input = button.parentNode.querySelector('input[type=number]');
 			if (input.value > 1) {
 				input.value = parseInt(input.value) - 1;
 				
 			}
-			Summerry(id, input.value);
+			Summerry(id, input.value, ptype);
 
 		}
 
-		function increaseQuantity(button,id) {
+		function increaseQuantity(button,id, ptype) {
 			var input = button.parentNode.querySelector('input[type=number]');
 			input.value = parseInt(input.value) + 1;
-			Summerry(id, input.value);
+			Summerry(id, input.value, ptype);
 
 		}
 		
-		function DeleteProducts(id) {
+		function DeleteProducts(id, ptype) {
 			localStorage.setItem("Deleted", id);
+			localStorage.setItem("TYPE", ptype);
 			var urlParams = new URLSearchParams(window.location.search);
 			urlParams.set("Deleted", id);
+			urlParams.set("TYPE", ptype);
 			var newUrl = window.location.pathname + "?" + urlParams.toString();
 			window.location.href = newUrl;
 		}
@@ -283,16 +285,19 @@
 
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedCategory = urlParams.get("Deleted");
+			var selectedCategory = urlParams.get("TYPE");
 
 
 
 		});
-		function Summerry(id,quantity) {
+		function Summerry(id, quantity, ptype) {
 			localStorage.setItem("quantity", quantity);
 			localStorage.setItem("id", id);
+			localStorage.setItem("TYPE", ptype);
 			var urlParams = new URLSearchParams(window.location.search);
 			urlParams.set("quantity", quantity);
 			urlParams.set("id", id);
+			urlParams.set("TYPE", ptype);
 			var newUrl = window.location.pathname + "?" + urlParams.toString();
 			window.location.href = newUrl;
 		}
@@ -301,8 +306,7 @@
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedCategory = urlParams.get("quantity");
 			var selectedCategory = urlParams.get("id");
-
-
+			var selectedCategory = urlParams.get("TYPE");
 
 		});
 		function Shipping(value) {

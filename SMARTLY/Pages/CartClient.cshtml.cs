@@ -65,14 +65,15 @@ namespace SMARTLY.Pages
         {
             string deleted = Request.Query["Deleted"];
             string id= Request.Query["id"];
-            summary = Request.Query["quantity"];
+			string type = Request.Query["TYPE"];
+			summary = Request.Query["quantity"];
             itemsCount = data.TotalItem(UserName);
             Shipp= Request.Query["shippin"];
 
 
-            if (!string.IsNullOrEmpty(deleted))
+            if (!string.IsNullOrEmpty(deleted) && !string.IsNullOrEmpty(type))
                 {
-                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName);
+                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName, Convert.ToInt32(type));
                 ProductsCart = new List<ProductsCart>();
                 itemsCount = data.TotalItem(UserName);
 
@@ -156,12 +157,13 @@ namespace SMARTLY.Pages
             string idd = Request.Query["id"];
             summary = Request.Query["quantity"];
             Shipp = Request.Query["shippin"];
-            itemsCount = data.TotalItem(UserName);
+			string typer = Request.Query["TYPE"];
+			itemsCount = data.TotalItem(UserName);
            
 
-            if (!string.IsNullOrEmpty(deleted))
+            if (!string.IsNullOrEmpty(deleted) && !string.IsNullOrEmpty(typer))
             {
-                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName); // delete with type
+                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName, Convert.ToInt32(typer)); // delete with type
                 calcTotal();
                 itemsCount = data.TotalItem(UserName);
 

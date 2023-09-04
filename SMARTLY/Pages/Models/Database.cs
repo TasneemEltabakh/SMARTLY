@@ -30,8 +30,8 @@ namespace SMARTLY.Pages.Models
         {
 
 
-            string connectionString = "Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
-			//string connectionString = "Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
+            //string connectionString = "Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
+			string connectionString = "Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
         //    string connectionString = "Data Source=db970214840.hosting-data.io; Initial Catalog =db970214840; User Id =dbo970214840; Password =smart12345; TrustServerCertificate=true";
             Connection = new SqlConnection(connectionString);
 
@@ -1160,16 +1160,17 @@ namespace SMARTLY.Pages.Models
 			}
 		}
 
-		public DataTable Deletefromcart(int id, string username)
+		public DataTable Deletefromcart(int id, string username, int t)
         {
             DataTable dt = new DataTable();
-            string Q = "delete from cart where Productid = @id and username= @username";
+            string Q = "delete from cart where Productid = @id and username= @username and _type=@t";
             string Q2 = "select * from Cart where username= @username";
 
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@username", username);
-            SqlCommand cmd2 = new SqlCommand(Q2, Connection);
+			cmd.Parameters.AddWithValue("@t", t);
+			SqlCommand cmd2 = new SqlCommand(Q2, Connection);
             cmd2.Parameters.AddWithValue("@username", username);
             try
             {
