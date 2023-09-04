@@ -994,7 +994,7 @@ namespace SMARTLY.Pages.Models
 
 		public void DeleteProduct(string PId)
         {
-            string q = "DELETE FROM Contain WHERE PId = @PId; DELETE FROM Cart WHERE productid = @PId;DELETE FROM Cart WHERE productid = @PId;DELETE FROM Product_Photoes WHERE product_id = @PId;DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId;";
+            string q = " UPDATE Bundle SET price = price - ( SELECT price_in_bundle FROM Product WHERE PId = @PId ) WHERE BundleID IN ( SELECT bundle_id FROM Bundle_Product WHERE product_id = @PId );                    DELETE FROM Contain WHERE PId = @PId; DELETE FROM Cart WHERE productid = @PId;DELETE FROM Cart WHERE productid = @PId;DELETE FROM Product_Photoes WHERE product_id = @PId;DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId;";
 
             //SqlCommand cmd = new SqlCommand(q, Connection);
             //cmd.Parameters.AddWithValue("@PId", PId);
