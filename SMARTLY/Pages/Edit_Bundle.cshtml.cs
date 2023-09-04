@@ -65,11 +65,12 @@ namespace SMARTLY.Pages
 				{
 					//if (SelectedCheckboxes.Contains(dt22.Rows[i][1]))
 					//{
-						db.AddProductToBundle(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId));
-						// Checkbox 1 is selected
-						// Perform corresponding actions
+					db.AddProductToBundle(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId));
+					db.UpdateBundlePriceWhenAddNewProduct(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId));
+					// Checkbox 1 is selected
+					// Perform corresponding actions
 					//}
-					
+
 				}
 			}
 
@@ -79,6 +80,7 @@ namespace SMARTLY.Pages
 				{
 					//if (SelectedCheckboxes.Contains(dt22.Rows[i][1]))
 					//{
+					db.UpdateBundlePriceWhenDeleteProduct(Convert.ToInt32(SelectedCheckboxes22[i]), Convert.ToInt32(Bundle.BundleId));
 					db.DeleteProductsFromBundle(Convert.ToInt32(SelectedCheckboxes22[i]), Convert.ToInt32(Bundle.BundleId));
 					// Checkbox 1 is selected
 					// Perform corresponding actions
@@ -88,7 +90,7 @@ namespace SMARTLY.Pages
 			}
 
 			// Redirect to a different page or perform any other necessary actions
-			db.Edit_Bundle(Bundle.Name, Bundle.Description, Bundle.price, Bundle.BundleId);
+			db.Edit_Bundle(Bundle.Name, Bundle.Description, Bundle.BundleId);
 			return RedirectToPage("/Bundle_Out_Admin");
 		}
 	}
