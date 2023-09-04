@@ -28,8 +28,10 @@ namespace SMARTLY.Pages.Models
       
         public Database()
         {
-            
-            string connectionString = "Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
+
+
+            string connectionString = "Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
+			//string connectionString = "Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
         //    string connectionString = "Data Source=db970214840.hosting-data.io; Initial Catalog =db970214840; User Id =dbo970214840; Password =smart12345; TrustServerCertificate=true";
             Connection = new SqlConnection(connectionString);
 
@@ -951,7 +953,7 @@ namespace SMARTLY.Pages.Models
         }
 		public DataTable ProductsNotInThisBundle(int BundleId)   //** for checkbox Edit Bundle
 		{
-			string Q = "SELECT pro.PName, pro.PId, pro.Pimage FROM product as pro WHERE pro.PId NOT in (SELECT Bun.product_id FROM Bundle_Product as Bun WHERE Bun.Bundle_ID= " + BundleId + ");";
+			string Q = "SELECT pro.PName, pro.PId, pro.Pimage, pro.price_in_bundle FROM product as pro WHERE pro.PId NOT in (SELECT Bun.product_id FROM Bundle_Product as Bun WHERE Bun.Bundle_ID= " + BundleId + ");";
 			DataTable dt = new DataTable();
 			try
 			{
@@ -994,7 +996,7 @@ namespace SMARTLY.Pages.Models
 
 		public void DeleteProduct(string PId)
         {
-            string q = "DELETE FROM Contain WHERE PId = @PId; DELETE FROM Cart WHERE productid = @PId;DELETE FROM Cart WHERE productid = @PId;DELETE FROM Product_Photoes WHERE product_id = @PId;DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId;";
+            string q = " UPDATE Bundle SET price = price - ( SELECT price_in_bundle FROM Product WHERE PId = @PId ) WHERE BundleID IN ( SELECT bundle_id FROM Bundle_Product WHERE product_id = @PId );                    DELETE FROM Contain WHERE PId = @PId; DELETE FROM Cart WHERE productid = @PId;DELETE FROM Cart WHERE productid = @PId;DELETE FROM Product_Photoes WHERE product_id = @PId;DELETE FROM Bundle_Product WHERE product_id = @PId ; DELETE FROM FeedBack WHERE PId= @PId ; DELETE FROM OrderFor WHERE PId= @PId ; DELETE FROM Product WHERE PId = @PId;";
 
             //SqlCommand cmd = new SqlCommand(q, Connection);
             //cmd.Parameters.AddWithValue("@PId", PId);
@@ -1115,6 +1117,49 @@ namespace SMARTLY.Pages.Models
 				Connection.Close();
 			}
 		}
+		public void UpdateBundlePriceWhenAddNewProduct(int idProduct, int idbundle)  //Bundle price
+		{
+			string Q = "UPDATE Bundle SET price = price + ( SELECT price_in_bundle FROM Bundle_Product JOIN Product ON Bundle_Product.product_id = Product.PId WHERE Bundle_Product.bundle_id = @Bundle_ID AND Bundle_Product.product_id = @product_id ) WHERE BundleID = @Bundle_ID ;";
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				cmd.Parameters.AddWithValue("@product_id", idProduct);
+				cmd.Parameters.AddWithValue("@Bundle_ID", idbundle);
+
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+		public void UpdateBundlePriceWhenDeleteProduct(int idProduct, int idbundle)  //Bundle price
+		{
+			string Q = "UPDATE Bundle SET price = price - ( SELECT price_in_bundle FROM Bundle_Product JOIN Product ON Bundle_Product.product_id = Product.PId WHERE Bundle_Product.bundle_id = @Bundle_ID AND Bundle_Product.product_id = @product_id ) WHERE BundleID = @Bundle_ID ;";
+			try
+			{
+				Connection.Open();
+				SqlCommand cmd = new SqlCommand(Q, Connection);
+				cmd.Parameters.AddWithValue("@product_id", idProduct);
+				cmd.Parameters.AddWithValue("@Bundle_ID", idbundle);
+
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+
 		public DataTable Deletefromcart(int id, string username)
         {
             DataTable dt = new DataTable();
@@ -1492,12 +1537,11 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-		public void Edit_Bundle(string _Name, string BundleDescription, string price,string BundleId)
+		public void Edit_Bundle(string _Name, string BundleDescription,string BundleId)
 		{
 
-			string query = "UPDATE Bundle SET price=@price,BundleDescription=@BundleDescription,_Name=@_Name WHERE BundleId=@BundleId;";
+			string query = "UPDATE Bundle SET BundleDescription=@BundleDescription,_Name=@_Name WHERE BundleId=@BundleId;";
 			SqlCommand cmd = new SqlCommand(query, Connection);
-			cmd.Parameters.AddWithValue("@price", price);
 			cmd.Parameters.AddWithValue("@BundleDescription", BundleDescription);
 			cmd.Parameters.AddWithValue("@_Name", _Name);
 			cmd.Parameters.AddWithValue("@BundleId", BundleId);

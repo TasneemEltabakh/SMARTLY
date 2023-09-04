@@ -77,6 +77,7 @@
 												}
 
 											</div>
+											
 										</div>
 										<div class="product-body" style="background: #333">
 											<p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
@@ -109,16 +110,26 @@
 
 										</div>
 									}
-									<div class="add-to-cart">
-									@if(Model.type==3){
-											<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
-									}
-									else
+									@if (Convert.ToInt32(Model.ProductsTable.Rows[i][3]) != 0)
 									{
-											<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
-									}
+										<div class="add-to-cart">
+											@if (Model.type == 3)
+											{
+												<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
+											}
+											else
+											{
+												<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
+											}
 										</div>
-
+									}
+									
+									@if (Convert.ToInt32(Model.ProductsTable.Rows[i][3])==0)
+									{
+										<div class="sold-out-overlay">
+											<span class="sold-out-text">Sold Out</span>
+										</div>
+										}
 										</div>
 										<br />
 										<br />
