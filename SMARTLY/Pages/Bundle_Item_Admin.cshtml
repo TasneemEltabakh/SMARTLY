@@ -121,9 +121,9 @@
 						<img src="@imgsrc" class="img-fluid" alt="" />
 						<div class="portfolio-info">
 							<h4>@Model.products.Rows[i][0]</h4>
-							<a asp-page="/Products_internalClient" class="quick-view" asp-route-id="@Model.products.Rows[i][2]" class="boxed-btn mt-4">Details</a>
+							<a asp-page="/Product_internal_Admin" class="quick-view" asp-route-id="@Model.products.Rows[i][2]" class="boxed-btn mt-4">Details</a>
 							<a src="@imgsrc" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="@Model.products.Rows[i][0]"><i class="bx bx-plus"></i></a>
-							<a asp-page="/Products_internalClient" asp-route-id="@Model.products.Rows[i][2]" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+							<a asp-page="/Product_internal_Admin" asp-route-id="@Model.products.Rows[i][2]" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
 						</div>
 					</div>
 				}

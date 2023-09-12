@@ -195,9 +195,7 @@
 												<i class="fa fa-star-o"></i>
 											}
 										</div>
-										<div class="rating-progress">
-											<div style="width: @Model.rating%;"></div>
-										</div>
+										
 									</li>
 								}
 
@@ -227,25 +225,7 @@
 											</div>
 
 										</div>
-										<div class="review-body">
-											@if ((int)Model.RateTable.Rows[i][2] == 0 || (int)Model.RateTable.Rows[i][2] == 1)
-											{
-												<p>Good!</p>
-											}
-											else if ((int)Model.RateTable.Rows[i][2] == 2 || (int)Model.RateTable.Rows[i][2] == 3)
-											{
-												<p>Nice!</p>
-											}
-											else if ((int)Model.RateTable.Rows[i][2] == 4)
-											{
-												<p>Great!</p>
-											}
-											else if ((int)Model.RateTable.Rows[i][2] == 5)
-											{
-												<p>Amazing!</p>
-											}
-
-										</div>
+										
 									</li>
 								}
 							</ul>
