@@ -61,13 +61,16 @@
 													@if (Convert.ToInt32(Model.carttable.Rows[i][4]) == 1)
 													{
 														<h6 class="text-muted"> @Model.returnCategory((int)Model.dt.Rows[0][6])</h6>
+														<h6 class="text-black mb-0"> <a asp-page="/Products_internalClient" asp-route-id="@Model.carttable.Rows[i][1]">@Model.dt.Rows[0][1]</a></h6>
 													}
 													else
 													{
 														<h6 class="text-muted">Bundle</h6>
+														<h6 class="text-black mb-0"> <a asp-page="/Bundle_ItemClient" asp-route-id="@Model.carttable.Rows[i][1]">@Model.dt.Rows[0][1]</a></h6>
 													}
 
-												<h6 class="text-black mb-0">@Model.dt.Rows[0][1]</h6>
+
+											
 											</div>
 											<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
 												@{
