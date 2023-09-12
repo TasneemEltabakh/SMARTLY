@@ -122,11 +122,11 @@
 												<div class="col-md-1 col-lg-1 col-xl-1 text-end">
 
 												<input type="hidden" value="@Model.carttable.Rows[i][1]" />
+												<input type="hidden" value="@Model.carttable.Rows[i][4]" />
 												<div class="col-md-1 col-lg-1 col-xl-1 text-end">
 													<div class="add-to-cart">
 
-
-															<button onclick="DeleteProducts(@Convert.ToUInt32(Model.carttable.Rows[i][1]),@Convert.ToInt32(Model.carttable.Rows[i][4]))" style="border: none;"><i class="fa fa-times"></i></button>
+															<button onclick="DeleteProducts(@Convert.ToUInt32(Model.carttable.Rows[i][1]),@Convert.ToUInt32(Model.carttable.Rows[i][4]))" style="border: none;"><i class="fa fa-times"></i></button>
 
 													</div>
 
@@ -272,12 +272,12 @@
 
 		}
 		
-		function DeleteProducts(id, ptype) {
+		function DeleteProducts(id, type) {
 			localStorage.setItem("Deleted", id);
-			localStorage.setItem("TYPE", ptype);
+			localStorage.setItem("type", type);
 			var urlParams = new URLSearchParams(window.location.search);
 			urlParams.set("Deleted", id);
-			urlParams.set("TYPE", ptype);
+			urlParams.set("type",type);
 			var newUrl = window.location.pathname + "?" + urlParams.toString();
 			window.location.href = newUrl;
 		}
@@ -285,7 +285,7 @@
 
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedCategory = urlParams.get("Deleted");
-			var selectedCategory = urlParams.get("TYPE");
+			var selectedCategory = urlParams.get("type");
 
 
 
