@@ -58,9 +58,7 @@ namespace SMARTLY.Pages
             this.data = database;
             quantity = 1;
             shipping = "5";
-
         }
-
         public void OnGet()
         {
             string deleted = Request.Query["Deleted"];
@@ -69,8 +67,6 @@ namespace SMARTLY.Pages
 			summary = Request.Query["quantity"];
             itemsCount = data.TotalItem(UserName);
             Shipp= Request.Query["shippin"];
-
-
             if (!string.IsNullOrEmpty(deleted) && !string.IsNullOrEmpty(type))
                 {
                 carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName, Convert.ToInt32(type));
@@ -100,7 +96,6 @@ namespace SMARTLY.Pages
                 carttable = data.ReadCart(UserName);
                 ProductsCart = new List<ProductsCart>();
                 itemsCount = data.TotalItem(UserName);
-
                 for (int i = 0; i < carttable.Rows.Count; i++)
                 {
 
@@ -154,13 +149,11 @@ namespace SMARTLY.Pages
         public void OnGetAdd(string id,string type)
         {
             string deleted = Request.Query["Deleted"];
+            string typer = Request.Query["TYPE"];
             string idd = Request.Query["id"];
             summary = Request.Query["quantity"];
             Shipp = Request.Query["shippin"];
-			string typer = Request.Query["TYPE"];
 			itemsCount = data.TotalItem(UserName);
-           
-
             if (!string.IsNullOrEmpty(deleted) && !string.IsNullOrEmpty(typer))
             {
                 carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName, Convert.ToInt32(typer)); 
@@ -170,7 +163,6 @@ namespace SMARTLY.Pages
                 ProductsCart = new List<ProductsCart>();
                 for (int i = 0; i < carttable.Rows.Count; i++)
                 {
-
                     int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
                     if (Quantity > 0)
                     {
@@ -262,8 +254,7 @@ namespace SMARTLY.Pages
                         }
                     
 
-                }
-                
+                }   
             }
             if (!string.IsNullOrEmpty(idd) && !string.IsNullOrEmpty(summary))
             {
@@ -293,12 +284,7 @@ namespace SMARTLY.Pages
                     }
                 }
             }
-
-          
-
-
         }
-
         public DataTable returnrecordofproduct(int id, int type)
         {
             if(type == 1)
@@ -312,8 +298,6 @@ namespace SMARTLY.Pages
 
 			return dt;
         }
-		
-
 		public string returnCategory(int id)
         {
             string title = data.getTitleCategory(id);
@@ -347,9 +331,7 @@ namespace SMARTLY.Pages
 					DataTable t = data.ProductsOfBundleCart(Convert.ToInt32(carttable.Rows[i][1]));
 					x = (Convert.ToInt64(t.Rows[0][0]) * Convert.ToInt64(carttable.Rows[i][2])) + x;
 				}
-				
 			}
-
 			totalPrice = x + Convert.ToInt64(Shipp);
 			return totalPrice;
 		}
