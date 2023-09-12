@@ -163,7 +163,7 @@ namespace SMARTLY.Pages
 
             if (!string.IsNullOrEmpty(deleted) && !string.IsNullOrEmpty(typer))
             {
-                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName, Convert.ToInt32(typer)); // delete with type
+                carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName, Convert.ToInt32(typer)); 
                 calcTotal();
                 itemsCount = data.TotalItem(UserName);
 
