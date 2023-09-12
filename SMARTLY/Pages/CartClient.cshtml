@@ -35,19 +35,38 @@
 									<div class="product-container">
 										@for(int i =0 ; i < Model.carttable.Rows.Count; i++)
 										{
-										Model.dt = Model.returnrecordofproduct(Convert.ToInt32(Model.carttable.Rows[i][1]));
+											Model.dt = Model.returnrecordofproduct(Convert.ToInt32(Model.carttable.Rows[i][1]), Convert.ToInt32(Model.carttable.Rows[i][4]));
 										<hr class="my-4">
 										<div class="row mb-4 d-flex justify-content-between align-items-center">
-											<div class="col-md-2 col-lg-2 col-xl-2">
-												@{
-										        byte[] bytes = (byte[])Model.dt.Rows[0][8];
-										        var base64 = Convert.ToBase64String(bytes);
-										        var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-									            }
-									            <img src="@imgsrc" class="img-fluid rounded-3" alt="Product" />
-											</div>
+												@if (Convert.ToInt32(Model.carttable.Rows[i][4])==1)
+												{
+													<div class="col-md-2 col-lg-2 col-xl-2">
+														@{
+															byte[] bytes = (byte[])Model.dt.Rows[0][8];
+															var base64 = Convert.ToBase64String(bytes);
+															var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+														}
+														<img src="@imgsrc" class="img-fluid rounded-3" alt="Product" />
+													</div>
+												}
+												else
+												{
+													<div class="col-md-2 col-lg-2 col-xl-2">
+														<img src="@Model.dt.Rows[0][2]" alt="" ; style="height: 150px ; width:  150px ; object-fit: fill;">
+													</div>
+												}
+													
+
 											<div class="col-md-3 col-lg-3 col-xl-3">
-												<h6 class="text-muted"> @Model.returnCategory((int)Model.dt.Rows[0][6])</h6>
+													@if (Convert.ToInt32(Model.carttable.Rows[i][4]) == 1)
+													{
+														<h6 class="text-muted"> @Model.returnCategory((int)Model.dt.Rows[0][6])</h6>
+													}
+													else
+													{
+														<h6 class="text-muted">Bundle</h6>
+													}
+
 												<h6 class="text-black mb-0">@Model.dt.Rows[0][1]</h6>
 											</div>
 											<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
@@ -62,33 +81,52 @@
 												}
 												}
 												}
-												<button class="btn btn-link px-2" onclick="decreaseQuantity(this,(@Convert.ToInt32(Model.carttable.Rows[i][1])))">
+													<button class="btn btn-link px-2" onclick="decreaseQuantity(this,(@Convert.ToInt32(Model.carttable.Rows[i][1])),@Convert.ToInt32(Model.carttable.Rows[i][4]))">
 													<i class="fa fa-minus"></i>
 												</button>
-												
 
-												<input data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="@Model.p.quantity" type="number" class="form-control form-control-sm" oninput="update(this)" />
+												@if (Convert.ToInt32(Model.carttable.Rows[i][4]) == 1)
+													{
+														<input data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="@Model.p.quantity" type="number" class="form-control form-control-sm" oninput="update(this)" />
+													}
+													else
+													{
+														<input data-price="@(Convert.ToDouble(Model.dt.Rows[0][0]))" id="form1" min="1" name="quantity" value="@Model.p.quantity" type="number" class="form-control form-control-sm" oninput="update(this)" />
+													}
+
 
 												<input asp-for="@Model.quantity" id="form2" hidden />
 											
-												<button class="btn btn-link px-2" onclick="increaseQuantity(this,(@Convert.ToInt32(Model.carttable.Rows[i][1])))">
+													<button class="btn btn-link px-2" onclick="increaseQuantity(this,(@Convert.ToInt32(Model.carttable.Rows[i][1])),@Convert.ToInt32(Model.carttable.Rows[i][4]))">
 													<i class="fa fa-plus"></i>
 												</button>
 											</div>
-											<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-												<h6 class="mb-0">EGP @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity)</h6>
-												@{
-												Model.summary=Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity);
+												@if (Convert.ToInt32(Model.carttable.Rows[i][4]) == 1)
+												{
+													<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+														<h6 class="mb-0">EGP @(Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity)</h6>
+														@{
+															Model.summary = Model.summary + (Convert.ToDouble(Model.dt.Rows[0][9]) * Model.quantity);
+														}
+													</div>
 												}
-											</div>
-											<div class="col-md-1 col-lg-1 col-xl-1 text-end">
+												else
+												{
+													<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+														<h6 class="mb-0">EGP @(Convert.ToDouble(Model.dt.Rows[0][0]) * Model.quantity)</h6>
+														@{
+															Model.summary = Model.summary + (Convert.ToDouble(Model.dt.Rows[0][0]) * Model.quantity);
+														}
+													</div>
+												}
+												<div class="col-md-1 col-lg-1 col-xl-1 text-end">
 
 												<input type="hidden" value="@Model.carttable.Rows[i][1]" />
 												<div class="col-md-1 col-lg-1 col-xl-1 text-end">
 													<div class="add-to-cart">
 
 
-														<button onclick="DeleteProducts(@Convert.ToUInt32(Model.carttable.Rows[i][1]))" style="border: none;"><i class="fa fa-times"></i></button>
+															<button onclick="DeleteProducts(@Convert.ToUInt32(Model.carttable.Rows[i][1]),@Convert.ToInt32(Model.carttable.Rows[i][4]))" style="border: none;"><i class="fa fa-times"></i></button>
 
 													</div>
 
@@ -154,10 +192,10 @@
 										<h5 class="text-uppercase">Total price</h5>
 
 										<h5>
-											EGP <input hidden id="shippingCosts" asp-for="shipping"> <span id="summaryTotal">
+											EGP <input hidden id="shippingCosts" asp-for="shipping"> <span id="summaryTotal"/>
 													@Model.calcTotal()
-											</span>
-											</input>
+										
+										
 										</h5>
 									</div>
 									<form method="post" >
@@ -217,27 +255,29 @@
 
 
 
-		function decreaseQuantity(button,id) {
+		function decreaseQuantity(button,id,ptype) {
 			var input = button.parentNode.querySelector('input[type=number]');
 			if (input.value > 1) {
 				input.value = parseInt(input.value) - 1;
 				
 			}
-			Summerry(id, input.value);
+			Summerry(id, input.value, ptype);
 
 		}
 
-		function increaseQuantity(button,id) {
+		function increaseQuantity(button,id, ptype) {
 			var input = button.parentNode.querySelector('input[type=number]');
 			input.value = parseInt(input.value) + 1;
-			Summerry(id, input.value);
+			Summerry(id, input.value, ptype);
 
 		}
 		
-		function DeleteProducts(id) {
+		function DeleteProducts(id, ptype) {
 			localStorage.setItem("Deleted", id);
+			localStorage.setItem("TYPE", ptype);
 			var urlParams = new URLSearchParams(window.location.search);
 			urlParams.set("Deleted", id);
+			urlParams.set("TYPE", ptype);
 			var newUrl = window.location.pathname + "?" + urlParams.toString();
 			window.location.href = newUrl;
 		}
@@ -245,16 +285,19 @@
 
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedCategory = urlParams.get("Deleted");
+			var selectedCategory = urlParams.get("TYPE");
 
 
 
 		});
-		function Summerry(id,quantity) {
+		function Summerry(id, quantity, ptype) {
 			localStorage.setItem("quantity", quantity);
 			localStorage.setItem("id", id);
+			localStorage.setItem("TYPE", ptype);
 			var urlParams = new URLSearchParams(window.location.search);
 			urlParams.set("quantity", quantity);
 			urlParams.set("id", id);
+			urlParams.set("TYPE", ptype);
 			var newUrl = window.location.pathname + "?" + urlParams.toString();
 			window.location.href = newUrl;
 		}
@@ -263,8 +306,7 @@
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedCategory = urlParams.get("quantity");
 			var selectedCategory = urlParams.get("id");
-
-
+			var selectedCategory = urlParams.get("TYPE");
 
 		});
 		function Shipping(value) {

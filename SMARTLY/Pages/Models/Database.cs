@@ -30,8 +30,8 @@ namespace SMARTLY.Pages.Models
         {
 
 
-            string connectionString = "Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
-			//string connectionString = "Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
+            //string connectionString = "Data Source=DESKTOP-A0CE1LT\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
+			string connectionString = "Data Source=DESKTOP-1BNDCN7\\SQLEXPRESS;Initial Catalog=SMARTLY;Integrated Security=True";
         //    string connectionString = "Data Source=db970214840.hosting-data.io; Initial Catalog =db970214840; User Id =dbo970214840; Password =smart12345; TrustServerCertificate=true";
             Connection = new SqlConnection(connectionString);
 
@@ -718,16 +718,17 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        public void AddProductToCart(string username, string id, int Qu, string sh)   //***
+        public void AddProductToCart(string username, string id, int Qu, string sh, int t)   //***
         {
-            string Q = "insert into cart values(@username, @id,@q,@sh)";
+            string Q = "insert into cart values(@username, @id,@q,@sh,@t)";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@q", Qu);
             cmd.Parameters.AddWithValue("@sh", sh);
+			cmd.Parameters.AddWithValue("@t", t);
 
-            try
+			try
             {
                 Connection.Open();
 
@@ -744,6 +745,7 @@ namespace SMARTLY.Pages.Models
             }
 
         }
+
         public void AddProductToCartGuest(string username, string id, int Qu, string sh)   //***
         {
             string Q = "insert into CartGuest values(@username, @id,@q,@sh)";
@@ -883,7 +885,7 @@ namespace SMARTLY.Pages.Models
         }
         public DataTable ProductsOfBundleCart(int Id)   //***
         {
-            string Q = "select * from Bundle_Product BP, Product p where BP.product_id=p.PId and BP.Bundle_ID= @id";
+            string Q = "select price, _Name, img from Bundle  where BundleId= @id";
             DataTable dt = new DataTable();
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@id", Id);
@@ -1158,16 +1160,17 @@ namespace SMARTLY.Pages.Models
 			}
 		}
 
-		public DataTable Deletefromcart(int id, string username)
+		public DataTable Deletefromcart(int id, string username, int t)
         {
             DataTable dt = new DataTable();
-            string Q = "delete from cart where Productid = @id and username= @username";
+            string Q = "delete from cart where Productid = @id and username= @username and _type=@t";
             string Q2 = "select * from Cart where username= @username";
 
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@username", username);
-            SqlCommand cmd2 = new SqlCommand(Q2, Connection);
+			cmd.Parameters.AddWithValue("@t", t);
+			SqlCommand cmd2 = new SqlCommand(Q2, Connection);
             cmd2.Parameters.AddWithValue("@username", username);
             try
             {
