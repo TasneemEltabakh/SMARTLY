@@ -11,12 +11,13 @@
 	<div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
 		<div class="header-search">
 			<form method="post" id="SearchForm">
-				<input class="input-select"  asp-for="@Model.search" placeholder="   Search for Products "></input>
-				  <button asp-page-handler="search" class="search-btn"><i class="fa fa-search"></i> </button>
+				<input class="input-select" asp-for="@Model.search" placeholder="Search for Products"></input>
+				<button asp-page-handler="search" class="search-btn"><i class="fa fa-search"></i></button>
 			</form>
 		</div>
 	</div>
 </section>
+<br />
 <br />
 
 
@@ -43,12 +44,13 @@
 		<div class="section">
 		
 			<div class="container" data-aos="fade-up">
-
+					
 				<div class="row">
 					@if(Model.ProductsTable.Rows.Count==0) 
 						{
 						<p>Nothing to show here</p>
 						}
+					<div class="product-cards-container">
 					@for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
 					{
 
@@ -137,7 +139,7 @@
 									
 								</div>
 					}
-				
+				</div>
 
 
 					<br />
@@ -157,7 +159,7 @@
 			
 			<div class="container" data-aos="fade-up">
 				<div class="row">
-		
+						<div class="product-cards-container">
 					@for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
 					{
 						<div class="col-md-4 col-xs-6">
@@ -223,6 +225,7 @@
 
 						
 					}
+					</div>
 
 					<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 				</div>

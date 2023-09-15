@@ -58,7 +58,9 @@
                              	@if(Model.ProductsTable.Rows.Count==0) 
 						{
 						<p>Nothing to show here</p>
-						}           <!-- product -->
+						}
+                <div class="product-cards-container">
+                     <!-- product -->
                     @for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
                     {
                     <div class="col-md-4 col-xs-6">
@@ -125,10 +127,11 @@
                         <br />
                         <br />
                  </div>
-                 
+             
                  
                         <!-- /product -->
                      }
+                </div>
          </div>
         <div class="text-center">
                 <br /><br /><br /><br /><br /><br />
