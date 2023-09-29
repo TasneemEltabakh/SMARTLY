@@ -1,0 +1,44 @@
+﻿@page
+@model SMARTLY.Pages.PromoCodeModel
+@{
+	Layout = "/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<section id="hero" class="d-flex align-items-center ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center mb-5">
+				<h2>Promo Code</h2>
+			</div>
+		</div>
+
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-lg-4">
+				<div class="login-wrap p-0">
+
+					<form method="post" class="signin-form">
+						<div class="form-group">
+							<input asp-for="@Model.Code" type="text" class="form-control" placeholder="Promo code" required>
+							
+						</div>
+						<div class="form-group">
+							<input asp-for="@Model.Percentage" type="text" class="form-control" placeholder="Percentage of sale" required>
+							
+						</div>
+						
+						<form method="post">
+						<div class="form-group">
+							<button type="submit" class="form-control btn primary-btn1">Add</button>
+						</div>
+						</form>
+						<div class="form-group d-md-flex">
+							<div class="w-50">
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

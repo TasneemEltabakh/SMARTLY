@@ -58,7 +58,12 @@ namespace SMARTLY.Pages
             HttpContext.Session.SetInt32("State", this.isedit);
             return RedirectToPage("/IndexAdmin", new { UserName = this.UserName, ThisState = this.isedit });
         }
-        public async Task<IActionResult> OnPostAdd()
+        public IActionResult OnPostPromo()
+        {
+           
+            return RedirectToPage("/PromoCode");
+        }
+		public async Task<IActionResult> OnPostAdd()
         {
             
             foreach (var item in Image123)

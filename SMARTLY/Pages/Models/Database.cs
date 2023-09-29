@@ -720,7 +720,7 @@ namespace SMARTLY.Pages.Models
         }
         public void AddProductToCart(string username, string id, int Qu, string sh, int t)   //***
         {
-            string Q = "insert into cart values(@username, @id,@q,@sh,@t)";
+            string Q = "insert into cart values(@username, @id,@q,@sh,@t,null)";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@id", id);
@@ -2133,7 +2133,29 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
-        
-    }
+		public void addpromocode(string c, int title)
+		{
+			string query = "INSERT INTO promocode  VALUES (@id, @title);";
+			SqlCommand cmd = new SqlCommand(query, Connection);
+			cmd.Parameters.AddWithValue("@id", c);
+			cmd.Parameters.AddWithValue("@title", title);
+
+
+			try
+			{
+				Connection.Open();
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+
+	}
 
 }

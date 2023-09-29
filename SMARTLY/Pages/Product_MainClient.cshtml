@@ -50,7 +50,7 @@
 						{
 						<p>Nothing to show here</p>
 						}
-					<div class="product-cards-container">
+					<div class="product-cards-container" style="color: black">
 					@for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
 					{
 
@@ -102,10 +102,10 @@
 
 
 
-											<div class="product-btns">
+											<div class="product-btns" style="color: black">
 
 												
-												<a asp-page="/Products_internalClient" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-view"></i><span class="tooltipp"></span></a>
+												<a asp-page="/Products_internalClient" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-view" style=" color: black"></i><span class="tooltipp"></span></a>
 
 											</div>
 
@@ -117,11 +117,11 @@
 										<div class="add-to-cart">
 											@if (Model.type == 3)
 											{
-												<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
+													<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" style="color: black" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
 											}
 											else
 											{
-												<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
+												<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" style="color: black" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
 											}
 										</div>
 									}
@@ -155,83 +155,105 @@
 		}
 		else
 		{
-		<div class="section">
-			
-			<div class="container" data-aos="fade-up">
-				<div class="row">
-						<div class="product-cards-container">
-					@for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
-					{
-						<div class="col-md-4 col-xs-6">
-								<div class="product" data-category="@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])">
-								<div class="product-img">
-										@{
-												byte[] bytes = (byte[])Model.ProductsTable.Rows[i][8];
-												var base64 = Convert.ToBase64String(bytes);
-												var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-											}
-											<img src="@imgsrc" style="width: 416px; height: 300px; object-fit: fill;" />
+			<div class="section">
 
-									<div class="product-label">
-										@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
+				<div class="container" data-aos="fade-up">
+
+					<div class="row">
+						@if (Model.ProductsTable.Rows.Count == 0)
+						{
+							<p>Nothing to show here</p>
+						}
+						<div class="product-cards-container">
+							@for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
+							{
+
+								<div class="col-md-4 col-xs-6">
+									<div class="product" style="width: 410px; height: 443px; object-fit: fill; border: 1px solid black ">
+
+										@if (Model.returnCategory((int)Model.ProductsTable.Rows[i][6]) != ViewBag.Category)
 										{
-											<span class="sale">@Model.ProductsTable.Rows[i][5] %</span>
+
+
+											<div class="product-img" style="width: 400px">
+												@{
+													byte[] bytes = (byte[])Model.ProductsTable.Rows[i][8];
+													var base64 = Convert.ToBase64String(bytes);
+													var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+												}
+												<a asp-page="/Products_internalClient" asp-route-id="@Model.ProductsTable.Rows[i][0]">
+
+													<img src="@imgsrc" style="width: 408px; height: 300px; object-fit: fill;" />
+												</a>
+												<div class="product-label">
+
+													@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
+													{
+														<span class="sale">@Model.ProductsTable.Rows[i][5] %</span>
+													}
+
+												</div>
+
+											</div>
+											<div class="product-body" style="background: #333">
+												<p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
+												<h3 class="product-name"><a asp-page="/Products_internalClient" asp-route-id="@Model.ProductsTable.Rows[i][0]">@Model.ProductsTable.Rows[i][1]</a></h3>
+
+
+												@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) != 0)
+												{
+													<h4 class="product-price">
+														EGP @Model.price_after_sale((double)Model.ProductsTable.Rows[i][2], (double)Model.ProductsTable.Rows[i][5])
+														<del class="product-old-price"> EGP @Model.ProductsTable.Rows[i][2]  </del>
+													</h4>
+												}
+												@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
+												{
+													<h4 class="product-price">
+														EGP @Model.ProductsTable.Rows[i][2]
+													</h4>
+												}
+
+
+
+												<div class="product-btns">
+
+
+													<a asp-page="/Products_internalClient" asp-route-id="@Model.ProductsTable.Rows[i][0]"><i class="fa fa-view"></i><span class="tooltipp"></span></a>
+
+												</div>
+
+
+											</div>
+										}
+										
+
+										@if (Convert.ToInt32(Model.ProductsTable.Rows[i][3]) == 0)
+										{
+											<div class="sold-out-overlay">
+												<span class="sold-out-text">Sold Out</span>
+											</div>
 										}
 									</div>
-								</div>
-								<div class="product-body">
-									<p class="product-category">@Model.returnCategory((int)Model.ProductsTable.Rows[i][6])</p>
-									<h3 class="product-name">
-											<a asp-page="/Products_internalClient" asp-route-id="@Model.ProductsTable.Rows[i][0]"><br>@Model.ProductsTable.Rows[i][1]</a>
-
-									</h3>
-
-									@if (Model.returnSale((double)Model.ProductsTable.Rows[i][5]) == 0)
-									{
-										<h4 class="product-price">
-											EGP @Model.ProductsTable.Rows[i][2]
-										</h4>
-									}
-									else
-									{
-										<h4 class="product-price">
-											EGP @Model.ProductsTable.Rows[i][9]
-										</h4>
-									}
-
-									<div class="product-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-
-									<div class="product-btns">
-											<a asp-page="/Products_internalClient" class="quick-view" asp-route-id="@Model.ProductsTable.Rows[i][0]">
-											<i class="fa fa-eye"></i><span class="tooltipp"></span>
-										</a>
-									</div>
+									<br />
+									<br />
+									<br />
 
 								</div>
-								<div class="add-to-cart">
-										<a asp-page="/Products_internalClient" asp-route-id="@Model.ProductsTable.Rows[i][0]">View</a><br>
-								</div>
-
-							</div>
-
+							}
 						</div>
 
 
-						
-					}
+						<br />
+						<br />
+
+
 					</div>
 
-					<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-				</div>
-			</div>
-		</div>
 
+				</div>
+
+			</div>
 		}
 
 	
