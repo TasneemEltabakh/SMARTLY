@@ -55,13 +55,13 @@
 					{
 
 							<div class="col-md-4 col-xs-6">
-								<div class="product" style="width: 410px; height: 443px; object-fit: fill; border: 1px solid black ">
+								<div class="product" style="width: 100%; height: 443px; object-fit: fill; border: 1px solid black ">
 									
 									@if (Model.returnCategory((int)Model.ProductsTable.Rows[i][6]) != ViewBag.Category)
 									{
 
 
-										<div class="product-img" style="width: 400px" >
+										<div class="product-img" style="width: 100%" >
 											@{
 												byte[] bytes = (byte[])Model.ProductsTable.Rows[i][8];
 												var base64 = Convert.ToBase64String(bytes);
@@ -69,7 +69,7 @@
 											}
 											<a asp-page="/Products_internalClient" asp-route-id="@Model.ProductsTable.Rows[i][0]">
 												
-												<img src="@imgsrc" style="width: 408px; height: 300px; object-fit: fill;" />
+												<img src="@imgsrc" style="width: 100%; height: 300px; object-fit: fill;" />
 											</a>
 											<div class="product-label">
 

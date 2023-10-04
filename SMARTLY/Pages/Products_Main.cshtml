@@ -71,7 +71,7 @@
 													var base64 = Convert.ToBase64String(bytes);
 													var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
 												}
-												<img src="@imgsrc" style="width: 416px; height: 300px; object-fit: fill;" />
+												<img src="@imgsrc" />
 												<div class="product-label">
 
 													@if (Model.returnSale((double)Model.SearchTable.Rows[i][5]) != 0)
