@@ -64,7 +64,7 @@
                     @for (int i = 0; i < Model.ProductsTable.Rows.Count; i++)
                     {
                     <div class="col-md-4 col-xs-6">
-                        <div class="product" style="width: 410px; height: 443px; object-fit: fill; border: 1px solid black">
+                        <div class="product" style="width: 100%; height: 443px; object-fit: fill; border: 1px solid black">
                             <div class="product-img">
                                 @{
                                     byte[] bytes = (byte[])Model.ProductsTable.Rows[i][8];
@@ -74,7 +74,7 @@
 
                                    <a asp-page="/Products_internal_Admin"  asp-route-id="@Model.ProductsTable.Rows[i][0]">
 
-                                    <img src="@imgsrc" style="width: 408px; height: 300px; object-fit: fill;" />
+                                    <img src="@imgsrc" style="width: 100%; height: 300px; object-fit: fill;" />
 
                                     </a>
                                     <div class="product-label">
@@ -134,7 +134,7 @@
          </div>
         <div class="text-center">
                 <br /><br /><br /><br /><br /><br />
-                <a asp-page="/Add_New_Product" class="form-control btn primary-btn1" style=" width:500px;">Add</a>
+                <a asp-page="/Add_New_Product" class="form-control btn primary-btn1" style=" width:80%">Add</a>
 
                 <br /><br /><br /><br />
         </div>

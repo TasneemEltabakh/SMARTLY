@@ -4,6 +4,7 @@
 body {
     font-family: "Open Sans", sans-serif;
     color: #444444;
+    width: 100%
 }
 
 a {
@@ -27,15 +28,15 @@ h6 {
 
 @media screen and (max-width: 768px) {
     h1 {
-        font-size: 24px;
+        font-size: 30px;
     }
 
     h2 {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     h3 {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     h4 {
@@ -56,7 +57,7 @@ h6 {
     }
 
     .logo-carousel-section {
-        padding: 5% 0; /* Adjust the padding using percentages */
+        padding: 5% 0; 
     }
 }
 
@@ -554,7 +555,6 @@ h6 {
     background-size: cover;
     position: relative;
 }
-
     #hero:before {
         content: "";
         background: rgba(0, 0, 0, 0.6);
@@ -575,7 +575,7 @@ h6 {
 
     #hero h1 {
         margin: 0;
-        font-size: 4.5vw; /* Responsive font size */
+        font-size: 6vw; /* Responsive font size */
         font-weight: 700;
         line-height: 1.2;
         color: #fff;
@@ -589,7 +589,7 @@ h6 {
     #hero h2 {
         color: rgba(255, 255, 255, 0.9);
         margin: 10px 0 0 0;
-        font-size: 2vw; /* Responsive font size */
+        font-size: 4vw; /* Responsive font size */
     }
 
     #hero .icon-box {
@@ -4711,3 +4711,18 @@ svg {
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
+@media screen and (max-width: 800px) {
+    .table {
+        width: 90%;
+        font-size: 13px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    tr {
+        display: block;
+    }
+
+    
+}
+
