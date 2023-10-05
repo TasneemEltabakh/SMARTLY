@@ -180,7 +180,7 @@ h6 {
 #header {
     transition: all 0.5s;
     z-index: 997;
-    padding: 15px 0;
+    padding: 0 0 0 0;
 }
 
     #header.header-scrolled,
@@ -975,7 +975,6 @@ background-color: #ffc451;
             line-height: normal;
             font-weight: 300;
         }
-
 .highlight {
     color: #ffc451;
     font-weight: bold;
@@ -1461,7 +1460,7 @@ color: #fff;
 }
 
 .testimonials .testimonial-item .testimonial-img {
-width: 700px;
+width: 500px;
 border-radius: 100%;
 border: 700px solid rgba(255, 255, 255, 0.15);
 margin: 0 auto;
@@ -1525,6 +1524,7 @@ opacity: 1;
 @media (min-width: 1024px) {
 .testimonials {
 background-attachment: fixed;
+
 }
 }
 
@@ -2006,7 +2006,7 @@ width: 80%;
     }
 
         #footer .footer-top .footer-info {
-            margin-bottom: 30px;
+           
         }
 
             #footer .footer-top .footer-info h3 {
@@ -2576,6 +2576,12 @@ li {
         font-size: 20px;
     }
 }
+@media (min-width: 1200px) {
+    .col-xl-2 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
 
 @media (max-width: 576px) {
     #product-main-img .slick-prev,
@@ -2921,17 +2927,30 @@ border-radius: 40px 0px 0px 40px;
     width: 500px;
 }
 @media screen and (max-width: 768px) {
+    #SearchForm {
+       
+        margin-top: 10%;
+        
+    }
+
     .input-select {
         flex: 1;
         max-width: none;
         margin-right: 0;
+       
         margin-bottom: 10px;
+
     }
 
     .search-btn {
         flex: 0 0 auto;
-        margin-top: 0;
+        
         margin-left: 10px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1184px) {
+    .product {
+        width: 50%;
     }
 }
 /*-- Select input --*/
@@ -2962,6 +2981,14 @@ border-radius: 40px 0px 0px 40px;
     flex-wrap: wrap;
     justify-content: space-evenly;
     gap: 13px;
+}
+@media screen and (min-width : 768)and (max-width: 1999) {
+    .product-cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        gap: 5px;
+    }
 }
 @media screen and (max-width: 768px) {
     #hero2 {
@@ -3323,13 +3350,7 @@ textarea.input {
             width: 100%;
         }
 
-/* Product Cards Container */
-.product-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
-}
+
 
 /* Product Styles */
 .product {
@@ -3380,6 +3401,7 @@ textarea.input {
     .col-xs-6 {
         width: 100%; /* Set the column width to 100% */
     }
+    
 }
 
 /* Section Tab Navigation */
