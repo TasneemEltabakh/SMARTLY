@@ -44,7 +44,7 @@
 				<div class="col-lg-8">
 					<div class="portfolio-details-slider swiper">
 						@if(Model.ImgsTable.Rows.Count==1){
-							<div class=" align-items-center" style="padding-left: 170px;">
+							<div class=" align-items-center">
 								@for (int i = 0; i < Model.ImgsTable.Rows.Count; i++)
 								{
 									<div class="swiper-slide">
@@ -53,7 +53,7 @@
 											var base64 = Convert.ToBase64String(bytes);
 											var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
 										}
-										<img src="@imgsrc" alt="" style="width: 500px; height: 500px; object-fit: fill;" />
+										<img src="@imgsrc" alt="" style=" height: 500px; object-fit: fill;" />
 									</div>
 								}
 
@@ -61,7 +61,7 @@
 						}
 						else
 						{
-							<div class="swiper-wrapper align-items-center" style="padding-left: 170px;">
+							<div class="swiper-wrapper align-items-center">
 								@for (int i = 0; i < Model.ImgsTable.Rows.Count; i++)
 								{
 									<div class="swiper-slide">
@@ -70,7 +70,7 @@
 											var base64 = Convert.ToBase64String(bytes);
 											var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
 										}
-										<img src="@imgsrc" alt="" style="width: 500px; height: 500px; object-fit: fill;" />
+										<img src="@imgsrc" alt="" style=" height: 500px; object-fit: fill;" />
 									</div>
 								}
 
