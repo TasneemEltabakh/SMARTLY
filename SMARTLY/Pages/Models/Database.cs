@@ -468,6 +468,78 @@ namespace SMARTLY.Pages.Models
                 Connection.Close();
             }
         }
+        public int Isfound(int productid, int bundleid)
+        {
+            string query = "SELECT COUNT(*) FROM Bundle_Product WHERE bundle_id = @bundleId AND product_id = @productId";
+            SqlCommand cmd = new SqlCommand(query, Connection);
+
+            cmd.Parameters.AddWithValue("@bundleId", bundleid);
+            cmd.Parameters.AddWithValue("@productId", productid);
+
+            try
+            {
+                Connection.Open();
+                int result = (int)cmd.ExecuteScalar();
+                return result > 0 ? 1 : 0;
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+        }
+        public int whatisthequanity( int productid, int bundleid)
+        {
+            string q = "select quantity from Bundle_Product where Bundle_ID= @bundleid and product_id= @productid";
+            SqlCommand cmd = new SqlCommand(q, Connection);
+
+            cmd.Parameters.AddWithValue("@productid", productid);
+            cmd.Parameters.AddWithValue("@bundleid", bundleid);
+
+            try
+            {
+                Connection.Open();
+                int max = (int)cmd.ExecuteScalar();
+
+                return max;
+            }
+            catch
+            {
+                return 1;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+        public void Updatequantity(int productid, int bundleid, int newq)
+        {
+            string q = "update Bundle_Product set quantity = @newq  where Bundle_ID= @bundleid and product_id= @productid";
+
+            SqlCommand cmd = new SqlCommand(q, Connection);
+            cmd.Parameters.AddWithValue("@productid", productid);
+            cmd.Parameters.AddWithValue("@bundleid", bundleid);
+            cmd.Parameters.AddWithValue("@newq", newq);
+
+            try
+            {
+                Connection.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
         public DataTable LoadBundlesInfo()
         {
             string query = "select *  from  Bundle";
@@ -953,7 +1025,7 @@ namespace SMARTLY.Pages.Models
         }
 		public DataTable ProductsNotInThisBundle(int BundleId)   //** for checkbox Edit Bundle
 		{
-			string Q = "SELECT pro.PName, pro.PId, pro.Pimage, pro.price_in_bundle FROM product as pro WHERE pro.PId NOT in (SELECT Bun.product_id FROM Bundle_Product as Bun WHERE Bun.Bundle_ID= " + BundleId + ");";
+            string Q = "SELECT pro.PName, pro.PId, pro.Pimage, pro.price_in_bundle FROM product as pro";
 			DataTable dt = new DataTable();
 			try
 			{
@@ -974,14 +1046,14 @@ namespace SMARTLY.Pages.Models
 		}
 		public DataTable ProductsInThisBundle(int BundleId)   //** for checkbox Edit Bundle
 		{
-			string Q = "SELECT pro.PName, pro.PId, pro.Pimage FROM product as pro WHERE pro.PId in (SELECT Bun.product_id FROM Bundle_Product as Bun WHERE Bun.Bundle_ID= " + BundleId + ");";
+			string Q = "SELECT pro.PName, pro.PId, pro.Pimage, Bundle_Product.Quantity FROM product AS pro JOIN Bundle_Product ON pro.PId = Bundle_Product.product_id WHERE Bundle_Product.Bundle_ID = @BundleId";
 			DataTable dt = new DataTable();
 			try
 			{
 				Connection.Open();
 				SqlCommand cmd = new SqlCommand(Q, Connection);
-
-				dt.Load(cmd.ExecuteReader());
+                cmd.Parameters.AddWithValue("@BundleId", BundleId);
+                dt.Load(cmd.ExecuteReader());
 				return dt;
 			}
 			catch (SqlException ex)

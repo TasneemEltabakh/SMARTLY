@@ -58,18 +58,23 @@ namespace SMARTLY.Pages
 
 		public IActionResult OnPost()
 		{
-			// Handle the checkbox selections here
+			
 			if (SelectedCheckboxes != null)
 			{
 				for (int i = 0; i < SelectedCheckboxes.Count ; i++)
 				{
-					//if (SelectedCheckboxes.Contains(dt22.Rows[i][1]))
-					//{
-					db.AddProductToBundle(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId));
-					db.UpdateBundlePriceWhenAddNewProduct(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId));
-					// Checkbox 1 is selected
-					// Perform corresponding actions
-					//}
+					if(db.Isfound(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId)) ==1)
+					{
+						int x = db.whatisthequanity(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId)) + 1;
+						db.Updatequantity(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId), x);
+						db.UpdateBundlePriceWhenAddNewProduct(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId));
+					}
+					else
+					{
+                        db.AddProductToBundle(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId));
+                        db.UpdateBundlePriceWhenAddNewProduct(Convert.ToInt32(SelectedCheckboxes[i]), Convert.ToInt32(Bundle.BundleId));
+                    }
+					
 
 				}
 			}
@@ -78,14 +83,17 @@ namespace SMARTLY.Pages
 			{
 				for (int i = 0; i < SelectedCheckboxes22.Count; i++)
 				{
-					//if (SelectedCheckboxes.Contains(dt22.Rows[i][1]))
-					//{
-					db.UpdateBundlePriceWhenDeleteProduct(Convert.ToInt32(SelectedCheckboxes22[i]), Convert.ToInt32(Bundle.BundleId));
-					db.DeleteProductsFromBundle(Convert.ToInt32(SelectedCheckboxes22[i]), Convert.ToInt32(Bundle.BundleId));
-					// Checkbox 1 is selected
-					// Perform corresponding actions
-					//}
-
+					if (db.whatisthequanity(Convert.ToInt32(SelectedCheckboxes22[i]), Convert.ToInt32(Bundle.BundleId)) > 1)
+					{
+						int x = db.whatisthequanity(Convert.ToInt32(SelectedCheckboxes22[i]), Convert.ToInt32(Bundle.BundleId)) - 1;
+						db.Updatequantity(Convert.ToInt32(SelectedCheckboxes22[i]), Convert.ToInt32(Bundle.BundleId), x);
+						db.UpdateBundlePriceWhenDeleteProduct(Convert.ToInt32(SelectedCheckboxes22[i]), Convert.ToInt32(Bundle.BundleId));
+					}
+					else
+					{
+						db.UpdateBundlePriceWhenDeleteProduct(Convert.ToInt32(SelectedCheckboxes22[i]), Convert.ToInt32(Bundle.BundleId));
+						db.DeleteProductsFromBundle(Convert.ToInt32(SelectedCheckboxes22[i]), Convert.ToInt32(Bundle.BundleId));
+					}
 				}
 			}
 
