@@ -106,20 +106,29 @@
 			<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="150">
 				@for (int i = 0; i < Model.products.Rows.Count; i++)
 				{
+
+
 					<div class="col-lg-4 col-md-6 portfolio-item filter-app">
 						@{
 							byte[] bytes = (byte[])Model.products.Rows[i][1];
 							var base64 = Convert.ToBase64String(bytes);
 							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
 						}
+						<div class="labelbundle">
+							<span class="new">x @Model.products.Rows[i][3]</span> <!-- Add the rectangle with the number 1 and the desired CSS class -->
+						</div>
 						<img src="@imgsrc" class="img-fluid" alt="" />
+				
+						
+						
 						<div class="portfolio-info">
 							<h4>@Model.products.Rows[i][0]</h4>
 							<a asp-page="/Products_internal" class="quick-view" asp-route-id="@Model.products.Rows[i][2]" class="boxed-btn mt-4">Details</a>
 							<a src="@imgsrc" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="@Model.products.Rows[i][0]"><i class="bx bx-plus"></i></a>
-							<a asp-page="/Products_internal" asp-route-id="@Model.products.Rows[i][2]" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+							
 						</div>
 					</div>
+
 				}
 			</div>
 		</div>

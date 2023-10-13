@@ -937,7 +937,7 @@ namespace SMARTLY.Pages.Models
 
         public DataTable ProductsOfThisBundle(int Id)   //***
         {
-            string Q = "select p.PName,p.Pimage,p.PId from Bundle_Product BP, Product p where BP.product_id=p.PId and BP.Bundle_ID= " + @Id;
+            string Q = "SELECT pro.PName, pro.Pimage,pro.PId, Bundle_Product.Quantity FROM product AS pro JOIN Bundle_Product ON pro.PId = Bundle_Product.product_id WHERE Bundle_Product.Bundle_ID =  " + @Id;
             DataTable dt = new DataTable();
             try
             {

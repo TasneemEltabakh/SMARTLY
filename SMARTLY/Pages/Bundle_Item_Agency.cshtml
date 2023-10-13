@@ -107,6 +107,9 @@
 							var base64 = Convert.ToBase64String(bytes);
 							var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
 						}
+						<div class="labelbundle">
+							<span class="new">x @Model.products.Rows[i][3]</span> <!-- Add the rectangle with the number 1 and the desired CSS class -->
+						</div>
 						<img src="@imgsrc" class="img-fluid" alt="" />
 						<div class="portfolio-info">
 							<h4>@Model.products.Rows[i][0]</h4>
