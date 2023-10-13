@@ -70,7 +70,7 @@ namespace SMARTLY.Pages
 		{
 			if (string.IsNullOrEmpty(Request.Form["category"]))
 			{
-				Product.category = 1;
+				Product.category = 3;
 			}
 			else
 			{

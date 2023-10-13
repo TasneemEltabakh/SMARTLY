@@ -1638,7 +1638,7 @@ namespace SMARTLY.Pages.Models
 		public void Edit_Product(Product pro)
 		{
 
-			string query = "UPDATE Product SET Pimage=@Pimage, PName=@PName, price=@price,Quantity=@Quantity,color=@color, salePercentage=@salePercentage,category=@category,AdditionalNotes=@AdditionalNotes WHERE PId=@PId;";
+			string query = "UPDATE Product SET PName=@PName, price=@price,Quantity=@Quantity,color=@color, salePercentage=@salePercentage,category=@category,AdditionalNotes=@AdditionalNotes WHERE PId=@PId;";
 			SqlCommand cmd = new SqlCommand(query, Connection);
 			cmd.Parameters.AddWithValue("@PId", pro.PId);
 			cmd.Parameters.AddWithValue("@PName", pro.PName);
