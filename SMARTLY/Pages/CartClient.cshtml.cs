@@ -63,7 +63,8 @@ namespace SMARTLY.Pages
 		{
 			string deleted = Request.Query["Deleted"];
 			string id = Request.Query["id"];
-			string type = Request.Query["TYPE"];
+			string type = Request.Query["type"];
+			string typing = Request.Query["TYPES"];
 			summary = Request.Query["quantity"];
 			itemsCount = data.TotalItem(UserName);
 			Shipp = Request.Query["shippin"];
@@ -115,12 +116,13 @@ namespace SMARTLY.Pages
 				}
 
 			}
-			if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(summary) && !string.IsNullOrEmpty(type))
+			if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(summary) && !string.IsNullOrEmpty(typing))
 			{
 				for (int i = 0; i < carttable.Rows.Count; i++)
 				{
-					if (int.TryParse(id, out int productId) && int.TryParse(summary, out int newQuantity) && Convert.ToInt32(carttable.Rows[i][1]) == productId)
+					if (int.TryParse(id, out int productId) && int.TryParse(summary, out int newQuantity) && int.TryParse(typing, out int types)&& Convert.ToInt32(carttable.Rows[i][1]) == productId && Convert.ToInt32(carttable.Rows[i][4])==types)
 					{
+
 						foreach (var product in ProductsCart)
 						{
 							if (product.Id == productId)
@@ -130,11 +132,11 @@ namespace SMARTLY.Pages
 						}
 						if (string.IsNullOrEmpty(Shipp))
 						{
-							data.UpdateCart(id, newQuantity, UserName, shipping, type);
+							data.UpdateCart(id, newQuantity, UserName, shipping, types);
 						}
 						else
 						{
-							data.UpdateCart(id, newQuantity, UserName, Shipp, type);
+							data.UpdateCart(id, newQuantity, UserName, Shipp, types);
 						}
 
 						carttable = data.ReadCart(UserName);
@@ -150,6 +152,7 @@ namespace SMARTLY.Pages
 		{
 			string deleted = Request.Query["Deleted"];
 			string typer = Request.Query["type"];
+			string typing = Request.Query["TYPES"];
 			string idd = Request.Query["id"];
 			summary = Request.Query["quantity"];
 			Shipp = Request.Query["shippin"];
@@ -256,11 +259,12 @@ namespace SMARTLY.Pages
 
 				}
 			}
-			if (!string.IsNullOrEmpty(idd) && !string.IsNullOrEmpty(summary))
+			
+			if (!string.IsNullOrEmpty(idd) && !string.IsNullOrEmpty(summary) && !string.IsNullOrEmpty(typing))
 			{
 				for (int i = 0; i < carttable.Rows.Count; i++)
 				{
-					if (int.TryParse(idd, out int productId) && int.TryParse(summary, out int newQuantity) && Convert.ToInt32(carttable.Rows[i][1]) == productId)
+					if (int.TryParse(idd, out int productId) && int.TryParse(summary, out int newQuantity) && int.TryParse(typing, out int types) && Convert.ToInt32(carttable.Rows[i][1]) == productId && Convert.ToInt32(carttable.Rows[i][4]) == types)
 					{
 						foreach (var product in ProductsCart)
 						{
@@ -271,11 +275,11 @@ namespace SMARTLY.Pages
 						}
 						if (string.IsNullOrEmpty(Shipp))
 						{
-							data.UpdateCart(idd, newQuantity, UserName, shipping, type);
+							data.UpdateCart(idd, newQuantity, UserName, shipping, types);
 						}
 						else
 						{
-							data.UpdateCart(idd, newQuantity, UserName, Shipp, type);
+							data.UpdateCart(idd, newQuantity, UserName, Shipp, types);
 						}
 
 						carttable = data.ReadCart(UserName);

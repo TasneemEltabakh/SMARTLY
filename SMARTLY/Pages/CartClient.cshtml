@@ -274,7 +274,7 @@
 
 		function DeleteProducts(id, ptype) {
 			localStorage.setItem("Deleted", id);
-			localStorage.setItem("TYPE", ptype);
+			localStorage.setItem("type", ptype);
 			var urlParams = new URLSearchParams(window.location.search);
 			urlParams.set("Deleted", id);
 			urlParams.set("type", ptype);
@@ -285,7 +285,7 @@
 
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedCategory = urlParams.get("Deleted");
-			var selectedCategory = urlParams.get("TYPE");
+			var selectedCategory = urlParams.get("type");
 
 
 
@@ -293,11 +293,11 @@
 		function Summerry(id, quantity, ptype) {
 			localStorage.setItem("quantity", quantity);
 			localStorage.setItem("id", id);
-			localStorage.setItem("TYPE", ptype);
+			localStorage.setItem("TYPES", ptype);
 			var urlParams = new URLSearchParams(window.location.search);
 			urlParams.set("quantity", quantity);
 			urlParams.set("id", id);
-			urlParams.set("TYPE", ptype);
+			urlParams.set("TYPES", ptype);
 			var newUrl = window.location.pathname + "?" + urlParams.toString();
 			window.location.href = newUrl;
 		}
@@ -306,7 +306,7 @@
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedCategory = urlParams.get("quantity");
 			var selectedCategory = urlParams.get("id");
-			var selectedCategory = urlParams.get("TYPE");
+			var selectedCategory = urlParams.get("TYPES");
 
 		});
 		function Shipping(value) {

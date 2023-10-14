@@ -845,41 +845,39 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        public void UpdateCart(string id, int Qu, string username,string shipping, string type)   //***
-        {
-            string Q = "update cart set quantity = @q , Shipping=@sh where productid = @id and username=@username and _TYPE = @type; ";
-            string Q2 = "update cart set Shipping=@sh where username=@username; ";
-            SqlCommand cmd = new SqlCommand(Q, Connection);
-            SqlCommand cmd2 = new SqlCommand(Q2, Connection);
+		public void UpdateCart(string id, int Qu, string username, string shipping, int type)
+		{
+			string Q = "UPDATE cart SET quantity = @q, Shipping = @sh WHERE productid = @id AND username = @username AND _TYPE = @type;";
+			string Q2 = "UPDATE cart SET Shipping = @sh WHERE username = @username;";
+			SqlCommand cmd = new SqlCommand(Q, Connection);
+			SqlCommand cmd2 = new SqlCommand(Q2, Connection);
 
-            cmd.Parameters.AddWithValue("@q", Qu);
-            cmd.Parameters.AddWithValue("@id", id);
-            cmd.Parameters.AddWithValue("@username", username);
-            cmd.Parameters.AddWithValue("@sh", shipping);
-            cmd2.Parameters.AddWithValue("@username", username);
-            cmd2.Parameters.AddWithValue("@sh", shipping);
-			cmd2.Parameters.AddWithValue("@type", type);
+			cmd.Parameters.AddWithValue("@q", Qu);
+			cmd.Parameters.AddWithValue("@id", id);
+			cmd.Parameters.AddWithValue("@username", username);
+			cmd.Parameters.AddWithValue("@sh", shipping);
+			cmd.Parameters.AddWithValue("@type", type); // Add this line to declare the parameter
 
+			cmd2.Parameters.AddWithValue("@username", username);
+			cmd2.Parameters.AddWithValue("@sh", shipping);
 
 			try
-            {
-                Connection.Open();
+			{
+				Connection.Open();
 
-                cmd.ExecuteNonQuery();
-                cmd2.ExecuteNonQuery();
-
-            }
-            catch (SqlException ex)
-            {
-
-            }
-            finally
-            {
-                Connection.Close();
-            }
-
-        }
-        public void UpdateCartGuest(string pro, int Qu, string username, string shipping, int type)   //***
+				cmd.ExecuteNonQuery();
+				cmd2.ExecuteNonQuery();
+			}
+			catch (SqlException ex)
+			{
+				// Handle the exception
+			}
+			finally
+			{
+				Connection.Close();
+			}
+		}
+		public void UpdateCartGuest(string pro, int Qu, string username, string shipping, int type)   //***
         {
             string Q = "update CartGuest set quantity = @q , Shipping=@sh where productid = @pro and id=@username and _TYPE= @type";
             string Q2 = "update CartGuest set Shipping=@sh where id=@username ";
@@ -892,7 +890,7 @@ namespace SMARTLY.Pages.Models
             cmd.Parameters.AddWithValue("@sh", shipping);
             cmd2.Parameters.AddWithValue("@username", username);
             cmd2.Parameters.AddWithValue("@sh", shipping);
-			cmd2.Parameters.AddWithValue("@type", type);
+			cmd.Parameters.AddWithValue("@type", type);
 
 			try
             {
