@@ -121,7 +121,7 @@
 											@if (Convert.ToInt32(Model.ProductsTable.Rows[i][3]) != 0)
 											{
 												<div class="add-to-cart">
-													<a asp-page="/Cart" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a>
+													<a asp-page="/CartClient" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a>
 
 												</div>
 											}
@@ -226,7 +226,7 @@
 									</div>
 
 									<div class="add-to-cart">
-										<a asp-page="/Cart" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a> 
+										<a asp-page="/CartClient" class="add-to-cart-btn" asp-route-id="@Model.ProductsTable.Rows[i][0]">Add to cart</a> 
 
 									</div>
 

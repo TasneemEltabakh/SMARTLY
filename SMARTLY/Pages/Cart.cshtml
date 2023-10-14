@@ -223,27 +223,29 @@
 
 
 
-		function decreaseQuantity(button,id) {
+		function decreaseQuantity(button, id, ptype) {
 			var input = button.parentNode.querySelector('input[type=number]');
 			if (input.value > 1) {
 				input.value = parseInt(input.value) - 1;
-				
+
 			}
-			Summerry(id, input.value);
+			Summerry(id, input.value, ptype);
 
 		}
 
-		function increaseQuantity(button,id) {
+		function increaseQuantity(button, id, ptype) {
 			var input = button.parentNode.querySelector('input[type=number]');
 			input.value = parseInt(input.value) + 1;
-			Summerry(id, input.value);
+			Summerry(id, input.value, ptype);
 
 		}
-		
-		function DeleteProducts(id) {
+
+		function DeleteProducts(id, ptype) {
 			localStorage.setItem("Deleted", id);
+			localStorage.setItem("type", ptype);
 			var urlParams = new URLSearchParams(window.location.search);
 			urlParams.set("Deleted", id);
+			urlParams.set("type", ptype);
 			var newUrl = window.location.pathname + "?" + urlParams.toString();
 			window.location.href = newUrl;
 		}
@@ -251,16 +253,19 @@
 
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedCategory = urlParams.get("Deleted");
+			var selectedCategory = urlParams.get("type");
 
 
 
 		});
-		function Summerry(id,quantity) {
+		function Summerry(id, quantity, ptype) {
 			localStorage.setItem("quantity", quantity);
 			localStorage.setItem("id", id);
+			localStorage.setItem("TYPES", ptype);
 			var urlParams = new URLSearchParams(window.location.search);
 			urlParams.set("quantity", quantity);
 			urlParams.set("id", id);
+			urlParams.set("TYPES", ptype);
 			var newUrl = window.location.pathname + "?" + urlParams.toString();
 			window.location.href = newUrl;
 		}
@@ -269,8 +274,7 @@
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedCategory = urlParams.get("quantity");
 			var selectedCategory = urlParams.get("id");
-
-
+			var selectedCategory = urlParams.get("TYPES");
 
 		});
 		function Shipping(value) {
@@ -280,14 +284,15 @@
 			var newUrl = window.location.pathname + "?" + urlParams.toString();
 			window.location.href = newUrl;
 
-			
+
 		}
 
 		$(document).ready(function () {
 			var urlParams = new URLSearchParams(window.location.search);
 			var selectedShipping = urlParams.get("shippin");
-		p
+
 		});
+
 
 	</script>
 

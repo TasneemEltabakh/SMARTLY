@@ -119,9 +119,8 @@
 											{
 													<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" style="color: black" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
 											}
-											else
-											{
-												<a asp-page="/Cart" asp-page-handler="Add" class="add-to-cart-btn" style="color: black" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
+											else {
+												<a asp-page="/CartClient" asp-page-handler="Add" class="add-to-cart-btn" style="color: black" asp-route-id="@Model.ProductsTable.Rows[i][0]" asp-route-type="1">Add to cart</a>
 											}
 										</div>
 									}

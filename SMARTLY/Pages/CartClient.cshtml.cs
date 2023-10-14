@@ -45,6 +45,8 @@ namespace SMARTLY.Pages
 		public int Deleted { get; set; }
 		[BindProperty]
 		public long totalPrice { get; set; } = 0;
+		[BindProperty]
+		public int usertype { get; set; }
 
 
 		[BindProperty]
@@ -62,18 +64,37 @@ namespace SMARTLY.Pages
 		}
 		public void OnGet()
 		{
+			usertype = data.returnType(UserName);
 			string deleted = Request.Query["Deleted"];
 			string id = Request.Query["id"];
 			string type = Request.Query["type"];
 			string typing = Request.Query["TYPES"];
 			summary = Request.Query["quantity"];
-			itemsCount = data.TotalItem(UserName);
+			if (usertype == 3)
+			{
+				itemsCount = data.TotalItem(UserName);
+			}
+			else
+			{
+				itemsCount = data.TotalItemGuest(UserName);
+			}
+			
 			Shipp = Request.Query["shippin"];
 			if (!string.IsNullOrEmpty(deleted) && !string.IsNullOrEmpty(type))
 			{
-				carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName, Convert.ToInt32(type));
-				ProductsCart = new List<ProductsCart>();
-				itemsCount = data.TotalItem(UserName);
+				if (usertype==3)
+				{
+					carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName, Convert.ToInt32(type));
+					ProductsCart = new List<ProductsCart>();
+					itemsCount = data.TotalItem(UserName);
+				}
+				else
+				{
+					carttable = data.DeletefromcartGuest(Convert.ToInt32(deleted), UserName, Convert.ToInt32(type));
+					ProductsCart = new List<ProductsCart>();
+					itemsCount = data.TotalItemGuest(UserName);
+				}
+			
 
 				for (int i = 0; i < carttable.Rows.Count; i++)
 				{
@@ -95,9 +116,19 @@ namespace SMARTLY.Pages
 			}
 			else
 			{
-				carttable = data.ReadCart(UserName);
-				ProductsCart = new List<ProductsCart>();
-				itemsCount = data.TotalItem(UserName);
+				if (usertype == 3)
+				{
+					carttable = data.ReadCart(UserName);
+					ProductsCart = new List<ProductsCart>();
+					itemsCount = data.TotalItem(UserName);
+				}
+				else
+				{
+					carttable = data.ReadCartGuest(UserName);
+					ProductsCart = new List<ProductsCart>();
+					itemsCount = data.TotalItemGuest(UserName);
+				}
+				
 				for (int i = 0; i < carttable.Rows.Count; i++)
 				{
 
@@ -133,15 +164,40 @@ namespace SMARTLY.Pages
 						}
 						if (string.IsNullOrEmpty(Shipp))
 						{
-							data.UpdateCart(id, newQuantity, UserName, shipping, types);
+							if (usertype == 3)
+							{
+								data.UpdateCart(id, newQuantity, UserName, shipping, types);
+							}
+							else
+							{
+								data.UpdateCartGuest(id, newQuantity, UserName, shipping, types);
+							}
+
+							
 						}
 						else
 						{
-							data.UpdateCart(id, newQuantity, UserName, Shipp, types);
+							if (usertype == 3)
+							{
+								data.UpdateCart(id, newQuantity, UserName, Shipp, types);
+							}
+							else
+							{
+								data.UpdateCartGuest(id, newQuantity, UserName, Shipp, types);
+							}
+							
 						}
-
-						carttable = data.ReadCart(UserName);
-						itemsCount = data.TotalItem(UserName);
+						if (usertype == 3)
+						{
+							carttable = data.ReadCart(UserName);
+							itemsCount = data.TotalItem(UserName);
+						}
+						else
+						{
+							carttable = data.ReadCartGuest(UserName);
+							itemsCount = data.TotalItemGuest(UserName);
+						}
+						
 
 
 					}
@@ -151,18 +207,38 @@ namespace SMARTLY.Pages
 		}
 		public void OnGetAdd(string id, string type)
 		{
+			usertype = data.returnType(UserName);
 			string deleted = Request.Query["Deleted"];
 			string typer = Request.Query["type"];
 			string typing = Request.Query["TYPES"];
 			string idd = Request.Query["id"];
 			summary = Request.Query["quantity"];
 			Shipp = Request.Query["shippin"];
-			itemsCount = data.TotalItem(UserName);
+			if (usertype == 3)
+			{
+				itemsCount = data.TotalItem(UserName);
+			}
+			else
+			{
+				itemsCount = data.TotalItemGuest(UserName);
+			}
+
 			if (!string.IsNullOrEmpty(deleted) && !string.IsNullOrEmpty(typer))
 			{
-				carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName, Convert.ToInt32(typer));
-				calcTotal();
-				itemsCount = data.TotalItem(UserName);
+				if (usertype == 3)
+				{
+					carttable = data.Deletefromcart(Convert.ToInt32(deleted), UserName, Convert.ToInt32(typer));
+					calcTotal();
+					itemsCount = data.TotalItem(UserName);
+				}
+				else
+				{
+					carttable = data.DeletefromcartGuest(Convert.ToInt32(deleted), UserName, Convert.ToInt32(typer));
+					calcTotal();
+					itemsCount = data.TotalItemGuest(UserName);
+				}
+
+				
 
 				ProductsCart = new List<ProductsCart>();
 				for (int i = 0; i < carttable.Rows.Count; i++)
@@ -190,17 +266,46 @@ namespace SMARTLY.Pages
 				{
 					if (string.IsNullOrEmpty(Shipp))
 					{
-						data.AddProductToCart(UserName, id, quantity, shipping, 1);
+						if (usertype == 3)
+						{
+							data.AddProductToCart(UserName, id, quantity, shipping, 1);
+							itemsCount = data.TotalItem(UserName);
+
+							carttable = data.ReadCart(UserName);
+							calcTotal();
+						}
+						else
+						{
+							data.AddProductToCartGuest(UserName, id, quantity, shipping, 1);
+							itemsCount = data.TotalItemGuest(UserName);
+
+							carttable = data.ReadCartGuest(UserName);
+							calcTotal();
+						}
+						
 					}
 					else
 					{
-						data.AddProductToCart(UserName, id, quantity, Shipp, 1);
+						if (usertype == 3)
+						{
+							data.AddProductToCart(UserName, id, quantity, Shipp, 1);
+							itemsCount = data.TotalItem(UserName);
+
+							carttable = data.ReadCart(UserName);
+							calcTotal();
+						}
+						else
+						{
+							data.AddProductToCartGuest(UserName, id, quantity, Shipp, 1);
+							itemsCount = data.TotalItemGuest(UserName);
+
+							carttable = data.ReadCartGuest(UserName);
+							calcTotal();
+						}
+						
 					}
 
-					itemsCount = data.TotalItem(UserName);
-
-					carttable = data.ReadCart(UserName);
-					calcTotal();
+					
 
 					ProductsCart = new List<ProductsCart>();
 					for (int i = 0; i < carttable.Rows.Count; i++)
@@ -226,17 +331,46 @@ namespace SMARTLY.Pages
 
 					if (string.IsNullOrEmpty(Shipp))
 					{
-						data.AddProductToCart(UserName, id, quantity, shipping, 2);
+						if (usertype == 3)
+						{
+							data.AddProductToCart(UserName, id, quantity, shipping, 2);
+							itemsCount = data.TotalItem(UserName);
+
+							carttable = data.ReadCart(UserName);
+							calcTotal();
+						}
+						else
+						{
+							data.AddProductToCartGuest(UserName, id, quantity, shipping, 2);
+							itemsCount = data.TotalItemGuest(UserName);
+
+							carttable = data.ReadCartGuest(UserName);
+							calcTotal();
+						}
+						
 					}
 					else
 					{
-						data.AddProductToCart(UserName, id, quantity, Shipp, 2);
+						if (usertype == 3)
+						{
+							data.AddProductToCart(UserName, id, quantity, Shipp, 2);
+							itemsCount = data.TotalItem(UserName);
+
+							carttable = data.ReadCart(UserName);
+							calcTotal();
+						}
+						else
+						{
+							data.AddProductToCartGuest(UserName, id, quantity, Shipp, 2);
+							itemsCount = data.TotalItemGuest(UserName);
+
+							carttable = data.ReadCartGuest(UserName);
+							calcTotal();
+						}
+
 					}
 
-					itemsCount = data.TotalItem(UserName);
-
-					carttable = data.ReadCart(UserName);
-					calcTotal();
+					
 
 					ProductsCart = new List<ProductsCart>();
 					for (int j = 0; j < carttable.Rows.Count; j++)
@@ -276,15 +410,47 @@ namespace SMARTLY.Pages
 						}
 						if (string.IsNullOrEmpty(Shipp))
 						{
-							data.UpdateCart(idd, newQuantity, UserName, shipping, types);
+							if (usertype == 3)
+							{
+								data.UpdateCart(idd, newQuantity, UserName, shipping, types);
+								itemsCount = data.TotalItem(UserName);
+
+								carttable = data.ReadCart(UserName);
+								calcTotal();
+							}
+							else
+							{
+								data.UpdateCartGuest(idd, newQuantity, UserName, shipping, types);
+								itemsCount = data.TotalItemGuest(UserName);
+
+								carttable = data.ReadCartGuest(UserName);
+								calcTotal();
+							}
+							
 						}
 						else
 						{
-							data.UpdateCart(idd, newQuantity, UserName, Shipp, types);
+
+							if (usertype == 3)
+							{
+								data.UpdateCart(idd, newQuantity, UserName, Shipp, types);
+								itemsCount = data.TotalItem(UserName);
+
+								carttable = data.ReadCart(UserName);
+								calcTotal();
+							}
+							else
+							{
+								data.UpdateCartGuest(idd, newQuantity, UserName, Shipp, types);
+								itemsCount = data.TotalItemGuest(UserName);
+
+								carttable = data.ReadCartGuest(UserName);
+								calcTotal();
+							}
+							
 						}
 
-						carttable = data.ReadCart(UserName);
-						itemsCount = data.TotalItem(UserName);
+						
 
 					}
 				}

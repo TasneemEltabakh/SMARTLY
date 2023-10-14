@@ -71,7 +71,7 @@ namespace SMARTLY.Pages
 
             if (!string.IsNullOrEmpty(deleted))
             {
-                carttable = data.DeletefromcartGuest(Convert.ToInt32(deleted), UserName);
+               // carttable = data.DeletefromcartGuest(Convert.ToInt32(deleted), UserName);
                 ProductsCart = new List<ProductsCart>();
                 itemsCount = data.TotalItemGuest(UserName);
 
@@ -161,7 +161,7 @@ namespace SMARTLY.Pages
 
             if (!string.IsNullOrEmpty(deleted))
             {
-                carttable = data.DeletefromcartGuest(Convert.ToInt32(deleted), UserName);
+                //carttable = data.DeletefromcartGuest(Convert.ToInt32(deleted), UserName);
                 calcTotal();
                 itemsCount = data.TotalItemGuest(UserName);
 

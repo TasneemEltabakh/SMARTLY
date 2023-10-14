@@ -1,7 +1,11 @@
 ﻿@page
 @model SMARTLY.Pages.CartClientModel
 @{
-	Layout = "/Pages/Shared/_LayoutClient.cshtml";
+
+	if (Model.usertype == 3)
+		Layout = "/Pages/Shared/_LayoutClient.cshtml";
+	else
+		Layout = "/Pages/Shared/_Layout.cshtml";
 }
 <section id="hero" class="d-flex align-items-center ftco-section">
 	@* <link rel="_Cart_Layout" href="/_Cart_Layout.html">*@
@@ -143,10 +147,19 @@
 
 									<div class="pt-5">
 										<h6 class="mb-0">
+
 											<a href="/Product_MainClient" class="text-body">
 												<i class="fa fa-arrow-left"> </i>  Back to shop
 											</a>
 										</h6>
+										@if (Model.usertype != 3)
+										{
+											<h6 class="instructions">
+											<a>
+											Kindly be advised that, as you have not yet registered an account, your shopping cart will not be saved beyond the current session.
+											</a>
+										   </h6>
+										}
 									</div>
 								</div>
 							</div>
