@@ -133,11 +133,11 @@ namespace SMARTLY.Pages
                         }
                         if (string.IsNullOrEmpty(Shipp))
                         {
-                            data.UpdateCartGuest(id, newQuantity, UserName, shipping);
+                            data.UpdateCartGuest(id, newQuantity, UserName, shipping, 1);
                         }
                         else
                         {
-                            data.UpdateCartGuest(id, newQuantity, UserName, Shipp);
+                            data.UpdateCartGuest(id, newQuantity, UserName, Shipp, 1);
                         }
 
                         carttable = data.ReadCartGuest(UserName);
@@ -149,10 +149,11 @@ namespace SMARTLY.Pages
             }
 
         }
-        public void OnGetAdd(string id)
+        public void OnGetAdd(string id, string type)
         {
             string deleted = Request.Query["Deleted"];
-            string idd = Request.Query["id"];
+			string typer = Request.Query["TYPE"];
+			string idd = Request.Query["id"];
             summary = Request.Query["quantity"];
             Shipp = Request.Query["shippin"];
             itemsCount = data.TotalItemGuest(UserName);
@@ -188,11 +189,11 @@ namespace SMARTLY.Pages
                 this.id = id;
                 if (string.IsNullOrEmpty(Shipp))
                 {
-                    data.AddProductToCartGuest(UserName, id, quantity, shipping);
+                    data.AddProductToCartGuest(UserName, id, quantity, shipping,1);
                 }
                 else
                 {
-                    data.AddProductToCartGuest(UserName, id, quantity, Shipp);
+                    data.AddProductToCartGuest(UserName, id, quantity, Shipp,1);
                 }
 
                 itemsCount = data.TotalItemGuest(UserName);
@@ -235,11 +236,11 @@ namespace SMARTLY.Pages
                         }
                         if (string.IsNullOrEmpty(Shipp))
                         {
-                            data.UpdateCartGuest(idd, newQuantity, UserName, shipping);
+                            data.UpdateCartGuest(idd, newQuantity, UserName, shipping, 1);
                         }
                         else
                         {
-                            data.UpdateCartGuest(idd, newQuantity, UserName, Shipp);
+                            data.UpdateCartGuest(idd, newQuantity, UserName, Shipp, 1);
                         }
 
                         carttable = data.ReadCartGuest(UserName);

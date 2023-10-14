@@ -115,7 +115,7 @@ namespace SMARTLY.Pages
 				}
 
 			}
-			if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(summary))
+			if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(summary) && !string.IsNullOrEmpty(type))
 			{
 				for (int i = 0; i < carttable.Rows.Count; i++)
 				{
@@ -130,11 +130,11 @@ namespace SMARTLY.Pages
 						}
 						if (string.IsNullOrEmpty(Shipp))
 						{
-							data.UpdateCart(id, newQuantity, UserName, shipping);
+							data.UpdateCart(id, newQuantity, UserName, shipping, type);
 						}
 						else
 						{
-							data.UpdateCart(id, newQuantity, UserName, Shipp);
+							data.UpdateCart(id, newQuantity, UserName, Shipp, type);
 						}
 
 						carttable = data.ReadCart(UserName);
@@ -271,11 +271,11 @@ namespace SMARTLY.Pages
 						}
 						if (string.IsNullOrEmpty(Shipp))
 						{
-							data.UpdateCart(idd, newQuantity, UserName, shipping);
+							data.UpdateCart(idd, newQuantity, UserName, shipping, type);
 						}
 						else
 						{
-							data.UpdateCart(idd, newQuantity, UserName, Shipp);
+							data.UpdateCart(idd, newQuantity, UserName, Shipp, type);
 						}
 
 						carttable = data.ReadCart(UserName);

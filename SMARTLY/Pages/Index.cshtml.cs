@@ -24,10 +24,8 @@ namespace SMARTLY.Pages
         {
             int guestID = db.maxGuestID();
             UserName = Convert.ToString(guestID);
-            db.AddGuest(guestID);
-          
-             db.DeleteoldGuest();
-            
+            db.AddGuest(guestID+1);
+            db.DeleteoldGuest();
             HttpContext.Session.SetString("UserName", UserName);
             HttpContext.Session.SetString("getUserType", "0");
         }

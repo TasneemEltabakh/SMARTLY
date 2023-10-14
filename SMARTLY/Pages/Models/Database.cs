@@ -818,16 +818,17 @@ namespace SMARTLY.Pages.Models
 
         }
 
-        public void AddProductToCartGuest(string username, string id, int Qu, string sh)   //***
+        public void AddProductToCartGuest(string username, string id, int Qu, string sh, int type)   //***
         {
-            string Q = "insert into CartGuest values(@username, @id,@q,@sh)";
+            string Q = "insert into CartGuest values(@username, @id,@q,@sh,@type)";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@q", Qu);
             cmd.Parameters.AddWithValue("@sh", sh);
+			cmd.Parameters.AddWithValue("@type", type);
 
-            try
+			try
             {
                 Connection.Open();
 
@@ -844,10 +845,10 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        public void UpdateCart(string id, int Qu, string username,string shipping)   //***
+        public void UpdateCart(string id, int Qu, string username,string shipping, string type)   //***
         {
-            string Q = "update cart set quantity = @q , Shipping=@sh where productid = @id and username=@username ";
-            string Q2 = "update cart set Shipping=@sh where username=@username ";
+            string Q = "update cart set quantity = @q , Shipping=@sh where productid = @id and username=@username and _TYPE = @type; ";
+            string Q2 = "update cart set Shipping=@sh where username=@username; ";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             SqlCommand cmd2 = new SqlCommand(Q2, Connection);
 
@@ -857,9 +858,10 @@ namespace SMARTLY.Pages.Models
             cmd.Parameters.AddWithValue("@sh", shipping);
             cmd2.Parameters.AddWithValue("@username", username);
             cmd2.Parameters.AddWithValue("@sh", shipping);
+			cmd2.Parameters.AddWithValue("@type", type);
 
 
-            try
+			try
             {
                 Connection.Open();
 
@@ -877,9 +879,9 @@ namespace SMARTLY.Pages.Models
             }
 
         }
-        public void UpdateCartGuest(string pro, int Qu, string username, string shipping)   //***
+        public void UpdateCartGuest(string pro, int Qu, string username, string shipping, int type)   //***
         {
-            string Q = "update CartGuest set quantity = @q , Shipping=@sh where productid = @pro and id=@username";
+            string Q = "update CartGuest set quantity = @q , Shipping=@sh where productid = @pro and id=@username and _TYPE= @type";
             string Q2 = "update CartGuest set Shipping=@sh where id=@username ";
             SqlCommand cmd = new SqlCommand(Q, Connection);
             SqlCommand cmd2 = new SqlCommand(Q2, Connection);
@@ -890,9 +892,9 @@ namespace SMARTLY.Pages.Models
             cmd.Parameters.AddWithValue("@sh", shipping);
             cmd2.Parameters.AddWithValue("@username", username);
             cmd2.Parameters.AddWithValue("@sh", shipping);
+			cmd2.Parameters.AddWithValue("@type", type);
 
-
-            try
+			try
             {
                 Connection.Open();
 
@@ -1565,11 +1567,12 @@ namespace SMARTLY.Pages.Models
 		public void EditImgNewProduct(int idd, byte[] imgg, int Img_Num)
 		{
 
-			string query = "UPDATE Product_Photoes SET p_Img=@p_Img WHERE product_Id=@product_Id and Img_Num=@Img_Num;";
+			string query = "UPDATE Product_Photoes SET p_Img=@p_Img WHERE product_Id=@product_Id and Img_Num=@Img_Num; UPDATE Product SET Pimage=@Pimage WHERE PId=@product_Id;";
 			SqlCommand cmd = new SqlCommand(query, Connection);
 			cmd.Parameters.AddWithValue("@product_Id", idd);
 			cmd.Parameters.AddWithValue("@p_Img", imgg);
 			cmd.Parameters.AddWithValue("@Img_Num", Img_Num);
+			cmd.Parameters.AddWithValue("@Pimage", imgg);
 
 			try
 			{
@@ -1638,7 +1641,7 @@ namespace SMARTLY.Pages.Models
 		public void Edit_Product(Product pro)
 		{
 
-			string query = "UPDATE Product SET PName=@PName, price=@price,Quantity=@Quantity,color=@color, salePercentage=@salePercentage,category=@category,AdditionalNotes=@AdditionalNotes WHERE PId=@PId;";
+			string query = "UPDATE Product SET PName=@PName,price=@price,Quantity=@Quantity,color=@color, salePercentage=@salePercentage,category=@category,AdditionalNotes=@AdditionalNotes WHERE PId=@PId;";
 			SqlCommand cmd = new SqlCommand(query, Connection);
 			cmd.Parameters.AddWithValue("@PId", pro.PId);
 			cmd.Parameters.AddWithValue("@PName", pro.PName);
@@ -1648,7 +1651,7 @@ namespace SMARTLY.Pages.Models
 			cmd.Parameters.AddWithValue("@salePercentage", pro.salePercentage);
 			cmd.Parameters.AddWithValue("@category", pro.category);
 			cmd.Parameters.AddWithValue("@AdditionalNotes", pro.AdditionalNotes);
-			cmd.Parameters.AddWithValue("@Pimage", pro.Pimage);
+
 
 			try
 			{
