@@ -149,7 +149,7 @@ namespace SMARTLY.Pages
 		public void OnGetAdd(string id, string type)
 		{
 			string deleted = Request.Query["Deleted"];
-			string typer = Request.Query["TYPE"];
+			string typer = Request.Query["type"];
 			string idd = Request.Query["id"];
 			summary = Request.Query["quantity"];
 			Shipp = Request.Query["shippin"];
