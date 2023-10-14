@@ -245,13 +245,13 @@ namespace SMARTLY.Pages
 						int Quantity = Convert.ToInt32(carttable.Rows[j][2]);
 						if (Quantity > 0)
 						{
-							ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[j][1]) };
+							ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[j][1]), TYPE = Convert.ToInt32(carttable.Rows[j][4]) };
 							ProductsCart.Add(product);
 
 						}
 						else
 						{
-							ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[j][1]) };
+							ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[j][1]), TYPE = Convert.ToInt32(carttable.Rows[j][4]) };
 							ProductsCart.Add(product);
 						}
 

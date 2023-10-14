@@ -77,6 +77,7 @@
 															if (product.Id == Convert.ToInt32(Model.carttable.Rows[i][1]) && product.TYPE == Convert.ToInt32(Model.carttable.Rows[i][4]))
 															{
 																Model.p = product;
+																Model.p.TYPE = product.TYPE;
 
 															}
 														}
@@ -87,11 +88,11 @@
 
 													@if (Convert.ToInt32(Model.carttable.Rows[i][4]) == 1)
 													{
-														<input data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="@Model.p.quantity" type="number" class="form-control form-control-sm" oninput="update(this)" />
+														<input data-price="@(Convert.ToDouble(Model.dt.Rows[0][9]))" id="form1" min="1" name="quantity" value="@Convert.ToInt32(Model.carttable.Rows[i][2])" type="number" class="form-control form-control-sm" oninput="update(this)" />
 													}
 													else
 													{
-														<input data-price="@(Convert.ToDouble(Model.dt.Rows[0][0]))" id="form1" min="1" name="quantity" value="@Model.p.quantity" type="number" class="form-control form-control-sm" oninput="update(this)" />
+														<input data-price="@(Convert.ToDouble(Model.dt.Rows[0][0]))" id="form1" min="1" name="quantity" value="@Convert.ToInt32(Model.carttable.Rows[i][2])" type="number" class="form-control form-control-sm" oninput="update(this)" />
 													}
 
 
