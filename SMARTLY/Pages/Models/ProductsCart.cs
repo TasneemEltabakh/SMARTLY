@@ -6,6 +6,7 @@
         public string UserName { get; set; }
 
         public int quantity { get; set; }
+        public int TYPE { get; set; }
 
     }
 }

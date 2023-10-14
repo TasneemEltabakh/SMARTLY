@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SMARTLY.Pages.Models;
+using System;
 using System.Data;
 
 namespace SMARTLY.Pages
@@ -79,13 +80,13 @@ namespace SMARTLY.Pages
 					int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
 					if (Quantity > 0)
 					{
-						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) , TYPE= Convert.ToInt32(carttable.Rows[i][4]) };
 						ProductsCart.Add(product);
 
 					}
 					else
 					{
-						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) ,TYPE = Convert.ToInt32(carttable.Rows[i][4]) };
 						ProductsCart.Add(product);
 					}
 
@@ -103,13 +104,13 @@ namespace SMARTLY.Pages
 					int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
 					if (Quantity > 0)
 					{
-						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]), TYPE = Convert.ToInt32(carttable.Rows[i][4]) };
 						ProductsCart.Add(product);
 
 					}
 					else
 					{
-						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) , TYPE = Convert.ToInt32(carttable.Rows[i][4]) };
 						ProductsCart.Add(product);
 					}
 
@@ -169,13 +170,13 @@ namespace SMARTLY.Pages
 					int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
 					if (Quantity > 0)
 					{
-						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) , TYPE = Convert.ToInt32(carttable.Rows[i][4]) };
 						ProductsCart.Add(product);
 
 					}
 					else
 					{
-						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+						ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) , TYPE = Convert.ToInt32(carttable.Rows[i][4]) };
 						ProductsCart.Add(product);
 					}
 
@@ -208,13 +209,13 @@ namespace SMARTLY.Pages
 						int Quantity = Convert.ToInt32(carttable.Rows[i][2]);
 						if (Quantity > 0)
 						{
-							ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+							ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = Quantity, Id = Convert.ToInt32(carttable.Rows[i][1]) , TYPE = Convert.ToInt32(carttable.Rows[i][4]) };
 							ProductsCart.Add(product);
 
 						}
 						else
 						{
-							ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) };
+							ProductsCart product = new ProductsCart { UserName = this.UserName, quantity = 1, Id = Convert.ToInt32(carttable.Rows[i][1]) , TYPE = Convert.ToInt32(carttable.Rows[i][4]) };
 							ProductsCart.Add(product);
 						}
 

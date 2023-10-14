@@ -74,7 +74,7 @@
 
 														foreach (var product in Model.ProductsCart)
 														{
-															if (product.Id == Convert.ToInt32(Model.carttable.Rows[i][1]))
+															if (product.Id == Convert.ToInt32(Model.carttable.Rows[i][1]) && product.TYPE == Convert.ToInt32(Model.carttable.Rows[i][4]))
 															{
 																Model.p = product;
 
